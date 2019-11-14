@@ -24,15 +24,23 @@
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+{{--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />--}}
         <!-- CSS Files -->
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
+
+{{--        <link href="./node_modules/@fortawesome/fontawesome-free/css/fontawesome.css" rel="stylesheet">--}}
+{{--        <link href="./node_modules/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet">--}}
+{{--        <link href="./node_modules/@fortawesome/fontawesome-free/regular.css" rel="stylesheet">--}}
+{{--        <link href="./node_modules/@fortawesome/fontawesome-free/solid.css" rel="stylesheet">--}}
+
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     </head>
 
     <body>
+    <div id="app"></div>
         <div class="wrapper @if (!auth()->check() || request()->route()->getName() == "") wrapper-full-page @endif">
 
             @if (auth()->check() && request()->route()->getName() != "")
@@ -60,7 +68,7 @@
     <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
     <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-switch.js') }}"></script>
     <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+{{--    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>--}}
     <!--  Chartist Plugin  -->
     <script src="{{ asset('light-bootstrap/js/plugins/chartist.min.js') }}"></script>
     <!--  Notifications Plugin    -->
@@ -69,59 +77,12 @@
     <script src="{{ asset('light-bootstrap/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
     <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
     <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
+{{--    <script src="{{ asset('js/app.js') }}"></script>--}}
     @stack('js')
     <script>
       $(document).ready(function () {
         
-        $('#facebook').sharrre({
-          share: {
-            facebook: true
-          },
-          enableHover: false,
-          enableTracking: false,
-          enableCounter: false,
-          click: function(api, options) {
-            api.simulateClick();
-            api.openPopup('facebook');
-          },
-          template: '<i class="fab fa-facebook-f"></i> Facebook',
-          url: 'https://light-bootstrap-dashboard-laravel.creative-tim.com/login'
-        });
 
-        $('#google').sharrre({
-          share: {
-            googlePlus: true
-          },
-          enableCounter: false,
-          enableHover: false,
-          enableTracking: true,
-          click: function(api, options) {
-            api.simulateClick();
-            api.openPopup('googlePlus');
-          },
-          template: '<i class="fab fa-google-plus"></i> Google',
-          url: 'https://light-bootstrap-dashboard-laravel.creative-tim.com/login'
-        });
-
-        $('#twitter').sharrre({
-          share: {
-            twitter: true
-          },
-          enableHover: false,
-          enableTracking: false,
-          enableCounter: false,
-          buttons: {
-            twitter: {
-              via: 'CreativeTim'
-            }
-          },
-          click: function(api, options) {
-            api.simulateClick();
-            api.openPopup('twitter');
-          },
-          template: '<i class="fab fa-twitter"></i> Twitter',
-          url: 'https://light-bootstrap-dashboard-laravel.creative-tim.com/login'
-        });
       });
     </script>
 </html>

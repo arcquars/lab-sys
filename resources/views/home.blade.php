@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'dashboard', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION', 'navName' => 'Dashboard', 'activeButton' => 'laravel'])
+@extends('layouts.dash', ['activePage' => 'dashboard', 'title' => 'Tablero', 'navName' => 'Tablero', 'activeButton' => 'laravel'])
 
 @section('content')
 <div class="container">

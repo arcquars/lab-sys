@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nc-icon nc-chart-pie-35"></i> {{ __('Dashboard') }}
                     </a>
                 </li>

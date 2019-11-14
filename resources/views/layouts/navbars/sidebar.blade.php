@@ -7,33 +7,28 @@ Tip 2: you can also add an image using data-image tag
     <div class="sidebar-wrapper">
         <div class="logo">
             <a href="http://www.creative-tim.com" class="simple-text">
-                {{ __("Creative Tim") }}
+                {{ config('app.name', 'Laravel') }}
             </a>
         </div>
         <ul class="nav">
             <li class="nav-item @if($activePage == 'dashboard') active @endif">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('home')}}">
                     <i class="nc-icon nc-chart-pie-35"></i>
-                    <p>{{ __("Dashboard") }}</p>
+                    <p>Tablero</p>
                 </a>
             </li>
-           
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#laravelExamples" @if($activeButton =='laravel') aria-expanded="true" @endif>
-                    <i>
-                        <img src="{{ asset('light-bootstrap/img/laravel.svg') }}" style="width:25px">
-                    </i>
-                    <p>
-                        {{ __('Laravel example') }}
-                        <b class="caret"></b>
-                    </p>
+            @can('manage-users')
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin" @if($activeButton =='adminactiveButton') aria-expanded="true" @endif aria-controls="c_admin" role="button">
+                    <i class="fas fa-toolbox"></i>
+                    <p>Administracion</p>
                 </a>
-                <div class="collapse @if($activeButton =='laravel') show @endif" id="laravelExamples">
+                <div class="collapse @if($activeButton =='adminactiveButton') show @endif" id="c_admin">
                     <ul class="nav">
-                        <li class="nav-item @if($activePage == 'user') active @endif">
-                            <a class="nav-link" href="#">
-                                <i class="nc-icon nc-single-02"></i>
-                                <p>{{ __("User Profile") }}</p>
+                        <li class="nav-item @if($activePage == 'admin_users') active @endif">
+                            <a class="nav-link" href="{{route('admin.users.index')}}">
+                                <i class="fas fa-users-cog"></i>
+                                <p>Gestionar Usuarios</p>
                             </a>
                         </li>
                         <li class="nav-item @if($activePage == 'user-management') active @endif">
@@ -45,7 +40,7 @@ Tip 2: you can also add an image using data-image tag
                     </ul>
                 </div>
             </li>
-
+            @endcan
             <li class="nav-item @if($activePage == 'table') active @endif">
                 <a class="nav-link" href="#">
                     <i class="nc-icon nc-notes"></i>

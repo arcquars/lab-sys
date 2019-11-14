@@ -3,10 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserPost;
+use App\Role;
+use App\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -24,18 +36,36 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        if(Gate::denies('edit-users')){
+            return redirect(route('admin.users.index'));
+        }
+
+        $user = null;
+        $roles = Role::all();
+
+        return view('admin.users.edit')->with([
+            'user' => $user,
+            'roles' => $roles
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUserPost  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserPost $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+//        dd($user);
+        $user->save();
+        $user->roles()->sync($request->roles);
+        $user->save();
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -57,19 +87,41 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Gate::denies('edit-users')){
+            return redirect(route('admin.users.index'));
+        }
+
+        $user = User::find($id);
+        $roles = Role::all();
+
+        return view('admin.users.edit')->with([
+            'user' => $user,
+            'roles' => $roles
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreUserPost  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserPost $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->roles()->sync($request->roles);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if(isset($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+//        dd($user);
+        $user->save();
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -80,6 +132,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Gate::denies('delete-users')){
+            return redirect(route('admin.users.index'));
+        }
+        $user = User::find($id);
+        $user->roles()->detach();
+        $user->delete();
+
+        return redirect()->route('admin.users.index');
     }
 }
