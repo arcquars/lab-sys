@@ -2,18 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PersonsDataTable;
+use App\Http\Requests\StorePersonPost;
+use App\Institucion;
+use App\Person;
+use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
+use DataTables;
+use Illuminate\Support\Facades\Config;
+use Validator;
 
 class ClientController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $procedencias = Institucion::all();
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        return view('clients.home', compact('procedencias', 'tipoAnalisis'));
     }
 
     /**
@@ -23,6 +40,7 @@ class ClientController extends Controller
      */
     public function create()
     {
+        dd("xxxx");
         //
     }
 
@@ -80,5 +98,103 @@ class ClientController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+
+
+
+    /**
+     * return data of the simple datatables.
+     *
+     * @return Json
+     */
+    public function getSimpleDatatablesData()
+    {
+        return Laratables::recordsOf(Person::class);
+    }
+    /**
+     * return data of the Custom columns datatables.
+     *
+     * @return Json
+     */
+    public function getCustomColumnDatatablesData()
+    {
+
+        return Laratables::recordsOf(Person::class);
+    }
+    /**
+     * return data of the relation columns datatables.
+     *
+     * @return Json
+     */
+    public function getRelationshipColumnDatatablesData()
+    {
+        return Laratables::recordsOf(Product::class);
+    }
+    /**
+     * return data of the Extra data datatables attribute data.
+     *
+     * @return Json
+     */
+    public function getExtraDataDatatablesAttributesData()
+    {
+        return Laratables::recordsOf(Person::class);
+    }
+
+
+    /**
+     * Display a listing of the ajaxCreatePerson.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxCreatePerson(StorePersonPost $request){
+        $personId = $request->get('id');
+        $valid = true;
+        if(isset($personId)){
+            $valid = $this->updatePerson($request);
+        } else {
+            $valid = $this->createPerson($request);
+        }
+        if($valid) {
+            return response()->json(['success'=>true]);
+        } else {
+            return response()->json(['success'=> false, 'errors' => 'Existe un error por favor contactese con el administrador.']);
+        }
+    }
+
+    public function ajaxGetPerson(Request $request){
+        return response()
+            ->json(['success'=> true, 'person' => Person::find($request->get('personId'))]);
+    }
+
+    private function createPerson($request){
+        $person = new Person();
+        $person->ci = $request->get('ci');
+        $person->nombres = $request->get('nombres');
+        $person->apellidos = $request->get('apellidos');
+        $person->apellido_materno = $request->get('apellido_materno');
+        $person->f_nacimiento = $request->get('f_nacimiento');
+        $person->sexo = $request->get('sexo');
+
+        if($person->save()) {
+            return true;
+        }
+        return false;
+    }
+
+    private function updatePerson($request){
+        $person = Person::find($request->get('id'));
+        $person->ci = $request->get('ci');
+        $person->nombres = $request->get('nombres');
+        $person->apellidos = $request->get('apellidos');
+        $person->apellido_materno = $request->get('apellido_materno');
+        $person->f_nacimiento = $request->get('f_nacimiento');
+        $person->sexo = $request->get('sexo');
+
+        if($person->update()) {
+            return true;
+        }
+        return false;
     }
 }

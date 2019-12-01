@@ -15,10 +15,10 @@ class CreatePersonsTable extends Migration
     {
         Schema::create('persons', function (Blueprint $table) {
             $table->bigIncrements('id');
-
+            $table->string('ci', 15)->nullable();
             $table->string('nombres', 255);
             $table->string('apellidos', 255);
-            $table->date('f_nacimiento');
+            $table->date('f_nacimiento')->nullable();
 
             $table->timestamps();
         });

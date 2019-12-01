@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -25,3 +25,15 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 //    Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
     Route::resource('/users', 'UsersController');
 });
+
+Route::resource('clients', 'ClientController');
+Route::post('/clients/ajaxcreateperson','ClientController@ajaxCreatePerson')->name('client.createPerson');
+Route::post('/clients/ajaxgetperson','ClientController@ajaxGetPerson')->name('client.getPerson');
+
+Route::get('/get-simple-datatables-data', 'ClientController@getSimpleDatatablesData')->name('simple_datatables_persons_data');
+Route::get('/get-custom-column-datatables-data', 'ClientController@getCustomColumnDatatablesData')->name('custom_column_datatables_persons_data');
+Route::get('/get-relationship-column-datatables-data', 'ClientController@getRelationshipColumnDatatablesData')->name('relationship_column_datatables_persons_data');
+Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getExtraDataDatatablesAttributesData')->name('get_extra_data_datatables_attributes_data');
+
+Route::resource('analisis', 'AnalisisController');
+Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');

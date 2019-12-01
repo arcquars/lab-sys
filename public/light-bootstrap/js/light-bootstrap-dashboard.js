@@ -38,7 +38,7 @@ $(document).ready(function() {
     }
 
     //  Activate the tooltips
-    $('[rel="tooltip"]').tooltip();
+    // $('[rel="tooltip"]').tooltip();
 
     //      Activate regular switches
     if ($("[data-toggle='switch']").length != 0) {

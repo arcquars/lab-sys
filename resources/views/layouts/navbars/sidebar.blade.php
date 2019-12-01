@@ -41,10 +41,10 @@ Tip 2: you can also add an image using data-image tag
                 </div>
             </li>
             @endcan
-            <li class="nav-item @if($activePage == 'table') active @endif">
-                <a class="nav-link" href="#">
+            <li class="nav-item @if($activePage == 'clients') active @endif">
+                <a class="nav-link" href="{{route('clients.index')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>{{ __("Table List") }}</p>
+                    <p>Clientes</p>
                 </a>
             </li>
             <li class="nav-item @if($activePage == 'typography') active @endif">
