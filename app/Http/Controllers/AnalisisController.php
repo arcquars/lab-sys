@@ -6,6 +6,7 @@ use App\Analisis;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Institucion;
 use App\Person;
+use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -24,7 +25,9 @@ class AnalisisController extends Controller
      */
     public function index()
     {
-        //
+        $procedencias = Institucion::all();
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        return view('analisis.home', compact('procedencias', 'tipoAnalisis'));
     }
 
     /**
@@ -123,5 +126,15 @@ class AnalisisController extends Controller
         $procedencias = Institucion::all();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         return view('analisis.crear', compact('procedencias', 'tipoAnalisis', 'persona'));
+    }
+
+    /**
+     * return data of the simple datatables.
+     *
+     * @return Json
+     */
+    public function getDatatablesData()
+    {
+        return Laratables::recordsOf(Analisis::class);
     }
 }

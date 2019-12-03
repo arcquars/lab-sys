@@ -37,3 +37,4 @@ Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getEx
 
 Route::resource('analisis', 'AnalisisController');
 Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');
+Route::get('/get-datatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
