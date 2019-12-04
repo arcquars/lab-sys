@@ -137,4 +137,27 @@ class AnalisisController extends Controller
     {
         return Laratables::recordsOf(Analisis::class);
     }
+
+    /**
+     * return data of the simple datatables.
+     *
+     * @return Json
+     */
+    public function getDatatablesDataByPersonId($personId)
+    {
+        return Laratables::recordsOf(Analisis::class, function($query) use ($personId){
+            return $query->where('person_id', $personId);
+        });
+    }
+
+    public function listByPerson($personId){
+        $person = Person::find($personId);
+        return view('analisis.listByPerson', compact('person'));
+    }
+
+    public function analisisExtendido($analisisId){
+//        dd('www: '.$analisisId);
+        return view('analisis.aextendido');
+    }
+
 }

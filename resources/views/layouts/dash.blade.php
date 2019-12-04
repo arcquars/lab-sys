@@ -40,6 +40,7 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/clinica.css') }}" rel="stylesheet" />
     </head>
 
     <body>
