@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Http\Requests\StoreAnalisisPost;
+use App\Http\Requests\StoreResultadosPost;
 use App\Institucion;
 use App\Person;
+use App\Resultado;
+use App\Seccion;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -156,8 +159,54 @@ class AnalisisController extends Controller
     }
 
     public function analisisExtendido($analisisId){
-//        dd('www: '.$analisisId);
-        return view('analisis.aextendido');
+        return view('analisis.aextendido', compact('analisisId'));
     }
 
+    public function resultados(StoreResultadosPost $request)
+    {
+        $resultado = new Resultado();
+        $resultado->papanicolaou_clase1 = $request->input('papanicolaou_clase1');
+        $resultado->papanicolaou_clase2 = $request->input('papanicolaou_clase2');
+        $resultado->observaciones1 = $request->input('observaciones1');
+        $resultado->observaciones2 = $request->input('observaciones2');
+        $resultado->analisis_id = $request->input('analisis_id');
+        $resultado->user_id = auth()->id();
+
+        $resultado->save();
+
+        $omsArray = $request->input('oms');
+
+        foreach ($omsArray as $key => $value){
+            $seccion = new Seccion();
+            $seccion->seccion = 'OMS';
+            $seccion->key = $key;
+            $seccion->value = $value;
+            $seccion->resultado_id = $resultado->id;
+            $seccion->save();
+        }
+
+        $hichartArray = $request->input('hichart');
+
+        foreach($hichartArray as $key => $value){
+            $seccion = new Seccion();
+            $seccion->seccion = 'hichart';
+            $seccion->key = $key;
+            $seccion->value = $value;
+            $seccion->resultado_id = $resultado->id;
+            $seccion->save();
+        }
+
+        $bethesdaArray = $request->input('bethesda');
+
+        foreach ($bethesdaArray as $key => $value){
+            $seccion = new Seccion();
+            $seccion->seccion = 'bethesda';
+            $seccion->key = $key;
+            $seccion->value = $value;
+            $seccion->resultado_id = $resultado->id;
+            $seccion->save();
+        }
+
+        dd($request->input('ExtComp'));
+    }
 }

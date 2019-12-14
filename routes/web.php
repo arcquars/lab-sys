@@ -41,3 +41,4 @@ Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson
 Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@analisisExtendido')->name('analisis.analisisextendido');
 Route::get('/get-datatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
 Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@getDatatablesDataByPersonId')->name('datatableAnalisisPerson');
+Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');

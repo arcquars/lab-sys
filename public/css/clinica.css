@@ -3,3 +3,8 @@
     font-weight: 700;
     font-size: 1rem;
 }
+
+.btn-link-clinica {
+    padding: 2px;
+    color: #f6993f !important;
+}

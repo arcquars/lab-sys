@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'clients', 'title' => 'Administrar Clientes', 'navName' => 'Clientes', 'activeButton' => 'clientActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Resultado Analisis', 'navName' => 'Resultado Analisis', 'activeButton' => 'analisisActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -11,96 +11,55 @@
     </nav>
     <div class="card">
         <div class="card-body">
-            <form method="post" action="/analisis">
+            <form method="post" action="/analisis/resultados">
                 {{ csrf_field() }}
+                <input type="hidden" name="analisis_id" value="{{$analisisId}}">
                 <div class="modal-body">
+                    <p class="text-muted" style="margin-bottom: 2px;">Clasificacion del Papanicolau Clase</p>
                     <div class="form-group row">
-                        <label for="inputPassword" class="col-sm-5 col-form-label" style="text-align: right">Clasificacion del Papanicolau Clase</label>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control">
+                        <div class="col-sm-4">
+                            <input type="text" name="papanicolaou_clase1" class="form-control @error('papanicolaou_clase1') is-invalid @enderror">
+                            @error('papanicolaou_clase1')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <h3 class="ana-ext-title text-muted">Extendido Compatible con los Diagnosticos</h3>
-                    <div class="row">
-                        <div class="col-md-1">
-                        </div>
-                        <div class="col-md-2">
-                            <div class="checkbox">
-                                <input type="checkbox" name="epi">
-                                <label for="epi">EPITELIO NORMAL</label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" name="colpitis">
-                                <label for="colpitis">COLPITIS</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="checkbox">
-                                <input type="checkbox" name="ectopia">
-                                <label for="ectopia">ECTOPIA</label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" name="cervicitis">
-                                <label for="cervicitis">CERVICITIS</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="checkbox">
-                                <input type="checkbox" name="endocervicitis">
-                                <label for="endocervicitis">ENDOCERVICITIS</label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" name="queratosis">
-                                <label for="queratosis">QUERATOSIS</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="checkbox">
-                                <input type="checkbox" name="metaplasia-escamosa">
-                                <label for="metaplasia-escamosa">METAPLASIA ESCAMOSA</label>
-                            </div>
-                            <div class="checkbox">
-                                <input type="checkbox" name="carcinoma-e-i">
-                                <label for="carcinoma-e-i">CARCINOMA ESC. INV.</label>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="checkbox">
-                                <input type="checkbox" name="adenocarcinoma">
-                                <label for="adenocarcinoma">ADENOCARCINOMA</label>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
+                        <div class="col-sm-8">
+                            <input type="text" name="papanicolaou_clase2" class="form-control @error('papanicolaou_clase2') is-invalid @enderror">
+                            @error('papanicolaou_clase2')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-4">
                             <h3 class="ana-ext-title text-muted">OMS</h3>
                             <div class="form-group row">
                                 <label for="displasia-leve" class="col-md-6 col-form-label text-right">DISPLASIA LEVE</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="displasia-leve">
+                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-leve]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="displasia-moderada" class="col-md-6 col-form-label text-right">DISPLASIA MODERADA</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="displasia-moderada">
+                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-moderada]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="displasia-severa" class="col-md-6 col-form-label text-right">DISPLASIA SEVERA</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="displasia-severa">
+                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-severa]">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="displasia-in" class="col-md-6 col-form-label text-right">DISPLASIA "IN SITU"</label>
+                                <label for="displasia-in" class="col-md-6 col-form-label text-right">DISPLASIA IN SITU</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="displasia-in">
+                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-in]">
                                 </div>
                             </div>
                         </div>
@@ -109,25 +68,25 @@
                             <div class="form-group row">
                                 <label for="nic-i" class="col-md-6 col-form-label text-right">NIC I</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="nic-i">
+                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-i]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-ii" class="col-md-6 col-form-label text-right">NIC II</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="nic-ii">
+                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-ii]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-iii" class="col-md-6 col-form-label text-right">NIC III</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="nic-iii">
+                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-iii]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-iv" class="col-md-6 col-form-label text-right">NIC IV</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="nic-iv">
+                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-iv]">
                                 </div>
                             </div>
                         </div>
@@ -136,119 +95,97 @@
                             <div class="form-group row">
                                 <label for="lis-bajo" class="col-md-6 col-form-label text-right">LIS DE BAJO GRADO</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="lis-bajo">
+                                    <input type="text" class="form-control form-control-sm" name="bethesda[lis-bajo]">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="lis-alto" class="col-md-6 col-form-label text-right">LIS DE ALTO GRADO</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="lis-alto">
+                                    <input type="text" class="form-control form-control-sm" name="bethesda[lis-alto]">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="ana-ext-title text-muted">REACCION INFLAMATORIA</h3>
+                    <hr>
+                    <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS
+                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#ecdModal">
+                            <i class="far fa-plus-square fa-lg"></i>
+                        </a>
+                    </p>
+                    <div id="ecdList" class="row">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-ausente">
-                                    <label for="reac-ausente">AUSENTE</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-ausente-text" class="form-control form-control-sm">
-                            </div>
+                    <hr>
+                    <p class="text-muted">REACCION INFLAMATORIA
+                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#reacInflaModal">
+                            <i class="far fa-plus-square fa-lg"></i>
+                        </a>
+                    </p>
+                    <div id="reacInflamatoriaList" class="row"></div>
+                    <hr>
+                    <p class="text-muted">ESTUDIO MICROBIOLOGICO
+                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#estMicroModal">
+                            <i class="far fa-plus-square fa-lg"></i>
+                        </a>
+                    </p>
+                    <div id="estMicroList" class="row"></div>
+                    <hr>
+                    <p class="text-muted">ESTUDIO CITO - HORMONAL</p>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="estCito[PARABASALES]">PARABASALES</label>
+                            <input type="text" class="form-control" name="estCito[PARABASALES]">
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-leve">
-                                    <label for="reac-leve">LEVE</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-leve-text" class="form-control form-control-sm">
-                            </div>
+                        <div class="col-md-4 form-group">
+                            <label for="estCito[INTERMEDIAS]">INTERMEDIAS</label>
+                            <input type="text" class="form-control" name="estCito[INTERMEDIAS]">
                         </div>
-
-                    </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-moderada">
-                                    <label for="reac-moderada">MODERADA</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-moderada-text" class="form-control form-control-sm">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-acentuada">
-                                    <label for="reac-acentuada">ACENTUADA</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-acentuada-text" class="form-control form-control-sm">
-                            </div>
+                        <div class="col-md-4 form-group">
+                            <label for="estCito[SUPERFICIALES]">SUPERFICIALES</label>
+                            <input type="text" class="form-control" name="estCito[SUPERFICIALES]">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-vagina">
-                                    <label for="reac-vagina">VAGINA</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-vagina-text" class="form-control form-control-sm">
-                            </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3 form-group">
+                            <label for="tipo[ESTROGENICO]">TIPO ESTROGENICO</label>
+                            <input type="text" class="form-control" name="tipo[ESTROGENICO]">
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-cervi">
-                                    <label for="reac-cervi">CERVI</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-cervi-text" class="form-control form-control-sm">
-                            </div>
+                        <div class="col-md-3 form-group">
+                            <label for="tipo[INTERMEDIO]">TIPO INTERMEDIO</label>
+                            <input type="text" class="form-control" name="tipo[INTERMEDIO]">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="tipo[PARABASAL]">TIPO PARABASAL</label>
+                            <input type="text" class="form-control" name="tipo[PARABASAL]">
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="tipo[ATROFICO]">TIPO ATROFICO</label>
+                            <input type="text" class="form-control" name="tipo[ATROFICO]">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-endocermix">
-                                    <label for="reac-endocermix">ENDOCERMIX</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-endocermix-text" class="form-control form-control-sm">
-                            </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="desviacion[DESVIACION A LA IZQUIERDA]">DESVIACION A LA IZQUIERDA</label>
+                            <input type="text" class="form-control" name="desviacion[DESVIACION A LA IZQUIERDA]">
                         </div>
-                        <div class="row">
-                            <div class="col-md-8 text-right">
-                                <div class="checkbox">
-                                    <input type="checkbox" name="reac-otros">
-                                    <label for="reac-otros">OTROS</label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="reac-otros-text" class="form-control form-control-sm">
-                            </div>
+                        <div class="col-md-4 form-group">
+                            <label for="desviacion[DESVIACION AL CENTRO]">DESVIACION AL CENTRO</label>
+                            <input type="text" class="form-control" name="desviacion[DESVIACION AL CENTRO]">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="desviacion[DESVIACION A LA DERECHA]">DESVIACION A LA DERECHA</label>
+                            <input type="text" class="form-control" name="desviacion[DESVIACION A LA DERECHA]">
+                        </div>
+                    </div>
+                    <hr>
+                    <p class="text-muted">OBSERVACIONES</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
@@ -259,15 +196,213 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal Extendido compatible-->
+    <div class="modal fade" id="ecdModal" tabindex="-1" role="dialog" aria-labelledby="ecdModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ecdModalLabel">Aniadir Extendido Compatible</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <select class="form-control" id="s_extendido_compatible">
+                            @foreach(Config::get('clinica.extendido_compatible') as $extComp)
+                                <option>{{$extComp}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="addExtendidoCompatible();">Aniadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reaccion inflamatoria -->
+    <div class="modal fade" id="reacInflaModal" tabindex="-1" role="dialog" aria-labelledby="reacModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="reacInflaForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reacModalLabel">Aniadir reaccion inflamatoria</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" name="tipo" required>
+                                <option value="">Seleccione ...</option>
+                                @foreach(Config::get('clinica.reac_inflamatoria') as $reacInfla)
+                                    <option>{{$reacInfla}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="descripcion" class="form-control" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Aniadir</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estudio Microbiologico-->
+    <div class="modal fade" id="estMicroModal" tabindex="-1" role="dialog" aria-labelledby="estMicroModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="estMicroForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="estMicroModalLabel">Aniadir Estudio Microbiologico</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="form-control" name="tipo" required>
+                                    <option value="">Seleccione ...</option>
+                                    @foreach(Config::get('clinica.estudio_microbiologico') as $estMicro)
+                                        <option>{{$estMicro}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="descripcion" class="form-control" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Aniadir</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
     <script>
         $(document).ready(function () {
+            $("#reacInflaForm").submit(function (event) {
+                event.preventDefault();
+                var riKey = $("#reacInflaForm").find("select[name=tipo]").val();
+                var riValue = $("#reacInflaForm").find("input[name=descripcion]").val();
 
+                //alert(riKey+" || "+riValue);
+                var numItemReacInfla = $("#reacInflamatoriaList").find("input[type=text]").length;
+                if(numItemReacInfla < 10){
+                    tplItemReacInfla(riKey, riValue);
+                    $("#reacInflaForm")[0].reset();
+                    $("#reacInflaModal").modal("hide");
+                } else {
+                    alert("No puede aumentar mas items.");
+                }
+
+
+            });
+            $("#estMicroForm").submit(function (event) {
+                event.preventDefault();
+                var riName = $("#estMicroForm").find("select[name=tipo]").find('option:selected').text();
+                var riKey = $("#estMicroForm").find("select[name=tipo]").val();
+                var riValue = $("#estMicroForm").find("input[name=descripcion]").val();
+
+                // alert(riName+" || "+riKey+" || "+riValue);
+                var numItemEstMicro = $("#estMicroList").find("input[type=text]").length;
+                if(numItemEstMicro < 10){
+                    tplItemEstMicro(riName,riKey, riValue);
+                    $("#estMicroForm")[0].reset();
+                    $("#estMicroModal").modal("hide");
+                } else {
+                    alert("No puede aumentar mas items.");
+                }
+
+
+            });
 
         });
 
+        function addExtendidoCompatible(){
+            var numItemExtComp = $("#ecdList").find("input[type=checkbox]").length;
+            if(numItemExtComp < 10){
+                tplItemExtendido($("#s_extendido_compatible").val());
+            } else {
+                alert("No puede aniadir mas items.");
+            }
 
+            $("#ecdModal").modal('hide');
+        }
+
+        function tplItemExtendido(nombre){
+            var html = "";
+            html += "<div class='col-md-3'>";
+            html += "<p style='color: #000; font-size: .8rem; margin-bottom: 2px;'>";
+            html += "<a href='#' class='btn btn-link' style='padding: 2px;' onclick='removeItemExtendido(this); return false;'>";
+            html += "<i class='far fa-trash-alt'></i></a> "+nombre;
+            html += "</p>";
+            html += "<input type='checkbox' style='visibility: hidden;' name='ExtComp[]' checked value='"+nombre+"'>";
+            html += "</div>";
+
+            $("#ecdList").append(html);
+        }
+
+        function removeItemExtendido(link){
+            $(link).parent().parent().remove();
+        }
+
+        function tplItemReacInfla(key, value){
+            var html = "";
+            html += "<div class='col-md-4 row'>";
+            html += "<div class='col-md-6'>";
+            html += "<p style='color: #000; font-size: .8rem; margin-bottom: 2px; text-align: right;'>";
+            html += "<a href='#' class='btn btn-link' style='padding: 2px;' onclick='removeItemReacInfla(this); return false;'>";
+            html += "<i class='far fa-trash-alt'></i></a> "+key;
+            html += "</p>";
+            html += "</div>";
+            html += "<div class='col-md-6'>";
+            html += "<input type='text' class='form-control' name='reacInfla["+key+"]' value='"+value+"' readonly>";
+            html += "</div>";
+            html += "</div>";
+
+            $("#reacInflamatoriaList").append(html);
+        }
+
+        function tplItemEstMicro(name, key, value){
+            var html = "";
+            html += "<div class='col-md-4 row'>";
+            html += "<div class='col-md-6'>";
+            html += "<p style='color: #000; font-size: .8rem; margin-bottom: 2px; text-align: right;'>";
+            html += "<a href='#' class='btn btn-link' style='padding: 2px;' onclick='removeItemReacInfla(this); return false;'>";
+            html += "<i class='far fa-trash-alt'></i></a> "+name;
+            html += "</p>";
+            html += "</div>";
+            html += "<div class='col-md-6'>";
+            html += "<input type='text' class='form-control' name='reacInfla["+key+"]' value='"+value+"' readonly>";
+            html += "</div>";
+            html += "</div>";
+
+            $("#estMicroList").append(html);
+        }
+
+
+        function removeItemReacInfla(link){
+            $(link).parent().parent().parent().remove();
+        }
     </script>
 @endpush
