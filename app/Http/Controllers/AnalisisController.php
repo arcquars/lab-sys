@@ -164,6 +164,7 @@ class AnalisisController extends Controller
 
     public function resultados(StoreResultadosPost $request)
     {
+        die('Exito!!!');
         $resultado = new Resultado();
         $resultado->papanicolaou_clase1 = $request->input('papanicolaou_clase1');
         $resultado->papanicolaou_clase2 = $request->input('papanicolaou_clase2');
@@ -172,22 +173,21 @@ class AnalisisController extends Controller
         $resultado->analisis_id = $request->input('analisis_id');
         $resultado->user_id = auth()->id();
 
-        $resultado->save();
-
-        $omsArray = $request->input('oms');
-
-        foreach ($omsArray as $key => $value){
-            $seccion = new Seccion();
-            $seccion->seccion = 'OMS';
-            $seccion->key = $key;
-            $seccion->value = $value;
-            $seccion->resultado_id = $resultado->id;
-            $seccion->save();
-        }
+//        $resultado->save();
+//        $omsArray = $request->input('oms');
+//        foreach ($omsArray as $key => $value){
+//            $seccion = new Seccion();
+//            $seccion->seccion = 'OMS';
+//            $seccion->key = $key;
+//            $seccion->value = $value;
+//            $seccion->resultado_id = $resultado->id;
+//            $seccion->save();
+//        }
 
         $hichartArray = $request->input('hichart');
-
+//        dd($hichartArray);
         foreach($hichartArray as $key => $value){
+            dd($key.' || '.$value);
             $seccion = new Seccion();
             $seccion->seccion = 'hichart';
             $seccion->key = $key;
@@ -195,6 +195,7 @@ class AnalisisController extends Controller
             $seccion->resultado_id = $resultado->id;
             $seccion->save();
         }
+        die();
 
         $bethesdaArray = $request->input('bethesda');
 
