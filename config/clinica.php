@@ -11,12 +11,9 @@ return [
         'BISA'
     ],
     'tipo_analisis' => [
-        'ANALISIS 1',
-        'ANALISIS 2',
-        'ANALISIS 3',
-        'ANALISIS 4',
-        'ANALISIS 5',
-        'ANALISIS 6',
+        'CITOLOGIA',
+        'BIOPSIA',
+        'INMUNOHISTOQUIMICA',
 
     ],
     'extendido_compatible' => [
@@ -53,5 +50,8 @@ return [
         'TRICOMONAS',
         'VIRUS',
         'OTROS',
-    ]
+    ],
+//    'convenios_id' => '10, 20, 23'
+    'convenios_id' => '10'
+
 ];

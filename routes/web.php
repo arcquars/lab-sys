@@ -38,7 +38,11 @@ Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getEx
 Route::resource('analisis', 'AnalisisController');
 Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
-Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@analisisExtendido')->name('analisis.analisisextendido');
-Route::get('/get-datatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
+Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crearTipoAnalisis')->name('analisis.analisisextendido');
+Route::get('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
 Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@getDatatablesDataByPersonId')->name('datatableAnalisisPerson');
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
+
+Route::get('/citologia/crear/{analisisId}', 'CitologiaController@create')->name('citologia.crear');
+Route::post('/citologia/resultados', 'CitologiaController@resultados')->name('citologia.resultados');
+Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Convenio;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Institucion;
@@ -11,6 +12,7 @@ use App\Resultado;
 use App\Seccion;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Config;
 
 class AnalisisController extends Controller
@@ -67,6 +69,31 @@ class AnalisisController extends Controller
         $analisis->user_id = auth()->id();
 
         if($analisis->save()) {
+            $convenios = explode(',', Config::get('clinica.convenios_id'));
+            if(count($convenios) == 0){
+                $convenios = [Config::get('clinica.convenios_id')];
+            }
+            for ($i=0; $i<count($convenios); $i++){
+                $convenio = new Convenio();
+                $convenio->bancaMatricula = $request->get('bancaMatricula');
+                $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
+                $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
+                $convenio->bancaActivoExt = $request->get('bancaActivoExt');
+                $convenio->bancaActivoResto = $request->get('bancaActivoResto');
+                $convenio->bancaPasivoAsegurado = $request->get('bancaPasivoAsegurado');
+                $convenio->bancaPasivoExt = $request->get('bancaPasivoExt');
+                $convenio->bancaPasivoResto = $request->get('bancaPasivoResto');
+                $convenio->bancaSecAsegurado = $request->get('bancaSecAsegurado');
+                $convenio->bancaSecExt = $request->get('bancaSecExt');
+                $convenio->bancaSecResto = $request->get('bancaSecResto');
+                $convenio->bancaEspecialidad = $request->get('bancaEspecialidad');
+                $convenio->bancaAmbulatorio = $request->get('bancaAmbulatorio');
+                $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
+                $convenio->analisis_id = $analisis->id;
+
+                $convenio->save();
+            }
+
             return redirect('/clients');
         } else {
             dd('El analisis tiene errores!!!');
@@ -138,7 +165,7 @@ class AnalisisController extends Controller
      */
     public function getDatatablesData()
     {
-        return Laratables::recordsOf(Analisis::class);
+        return Laratables::recordsOf(   Analisis::class);
     }
 
     /**
@@ -159,7 +186,18 @@ class AnalisisController extends Controller
     }
 
     public function analisisExtendido($analisisId){
-        return view('analisis.aextendido', compact('analisisId'));
+        $analisis = Analisis::find($analisisId);
+        switch ($analisis->tipo_analisis){
+            case Analisis::CITOLOGIA:
+                return view('analisis.aextendido', compact('analisisId'));
+            case Analisis::BIOPSIA:
+                dd(Analisis::BIOPSIA);
+                break;
+            default:
+                dd("ssss");
+                break;
+
+        }
     }
 
     public function resultados(StoreResultadosPost $request)
@@ -209,5 +247,22 @@ class AnalisisController extends Controller
         }
 
         dd($request->input('ExtComp'));
+    }
+
+    public function crearTipoAnalisis($analisisId){
+        $analisis = Analisis::find($analisisId);
+        switch ($analisis->tipo_analisis){
+            case Analisis::BIOPSIA:
+                break;
+            case Analisis::INMUNOHISTOQUIMICA:
+
+                break;
+            case Analisis::CITOLOGIA:
+                return redirect()->action(
+                    'CitologiaController@create',
+                    ['analisisId' => $analisisId]);
+
+        }
+//        dd("xxx: ".$analisis->tipo_analisis);
     }
 }

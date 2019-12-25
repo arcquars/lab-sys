@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'clients', 'title' => 'Administrar Clientes', 'navName' => 'Clientes', 'activeButton' => 'clientActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -6,19 +6,9 @@
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
             <li class="breadcrumb-item">Crear Analisis</li>
-
         </ol>
     </nav>
     <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4><b>Crear Analisis:</b> <span>{{$persona->nombres.' '.$persona->apellidos}}</span></h4>
-                </div>
-                <div class="col-md-6 text-right"><a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar
-                        Cliente</a></div>
-            </div>
-        </div>
         <div class="card-body">
             <form method="post" action="/analisis">
                 {{ csrf_field() }}
@@ -73,7 +63,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="procedencia">Procedencia</label>
-                            <select name="procedencia" class="form-control @error('procedencia') is-invalid @enderror">
+                            <select id="s_procedencia" name="procedencia" onchange="fntBanca(this);" class="form-control @error('procedencia') is-invalid @enderror">
                                 <option value="0">SIN PROCEDENCIA</option>
                                 @if(old('procedencia'))
                                     @foreach($procedencias as $procedencia)
@@ -90,6 +80,124 @@
                                 @endif
                             </select>
                             @error('procedencia')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row banca_seccion">
+                        <div class="col-md-6 form-group">
+                            <label for="bancaMatricula">Matricula del paciente</label>
+                            <input type="text" name="bancaMatricula" class="form-control @error('bancaMatricula') is-invalid @enderror"
+                                   value="{{old('bancaMatricula')}}">
+                            @error('bancaMatricula')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="bancaPreAfiliacion">Pre afiliacion</label>
+                            <input type="text" name="bancaPreAfiliacion" class="form-control @error('bancaPreAfiliacion') is-invalid @enderror"
+                                   value="{{old('bancaPreAfiliacion')}}">
+                            @error('bancaPreAfiliacion')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row banca_seccion">
+                        <div class="col-md-4">
+                            <h6 class="titleBancaIngreso">Activo</h6>
+                            <div class="form-group">
+                                <input type="text" name="bancaActivoAsegurado" class="form-control @error('bancaActivoAsegurado') is-invalid @enderror"
+                                       value="{{old('bancaActivoAsegurado')}}" placeholder="Asegurado">
+                                @error('bancaActivoAsegurado')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaActivoExt" class="form-control @error('bancaActivoExt') is-invalid @enderror"
+                                       value="{{old('bancaActivoExt')}}" placeholder="Ext. 19-25">
+                                @error('bancaActivoExt')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaActivoResto" class="form-control @error('bancaActivoResto') is-invalid @enderror"
+                                       value="{{old('bancaActivoResto')}}" placeholder="Rest Benef.">
+                                @error('bancaActivoResto')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="titleBancaIngreso">Pasivo</h6>
+                            <div class="form-group">
+                                <input type="text" name="bancaPasivoAsegurado" class="form-control @error('bancaPasivoAsegurado') is-invalid @enderror"
+                                       value="{{old('bancaPasivoAsegurado')}}" placeholder="Asegurado">
+                                @error('bancaPasivoAsegurado')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaPasivoExt" class="form-control @error('bancaPasivoExt') is-invalid @enderror"
+                                       value="{{old('bancaPasivoExt')}}" placeholder="Ext. 19-25">
+                                @error('bancaPasivoExt')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaPasivoResto" class="form-control @error('bancaPasivoResto') is-invalid @enderror"
+                                       value="{{old('bancaPasivoResto')}}" placeholder="Rest Benef.">
+                                @error('bancaPasivoResto')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="titleBancaIngreso">Sec. Vol.</h6>
+                            <div class="form-group">
+                                <input type="text" name="bancaSecAsegurado" class="form-control @error('bancaSecAsegurado') is-invalid @enderror"
+                                       value="{{old('bancaSecAsegurado')}}" placeholder="Asegurado">
+                                @error('bancaSecAsegurado')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaSecExt" class="form-control @error('bancaSecExt') is-invalid @enderror"
+                                       value="{{old('bancaSecExt')}}" placeholder="Ext. 19-25">
+                                @error('bancaSecExt')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="bancaSecResto" class="form-control @error('bancaSecResto') is-invalid @enderror"
+                                       value="{{old('bancaSecResto')}}" placeholder="Rest Benef.">
+                                @error('bancaSecResto')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row banca_seccion">
+                        <div class="col-md-4 form-group">
+                            <label for="bancaEspecialidad">Especialidad</label>
+                            <input type="text" name="bancaEspecialidad" class="form-control @error('bancaEspecialidad') is-invalid @enderror"
+                                   value="{{old('bancaEspecialidad')}}">
+                            @error('bancaEspecialidad')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="bancaAmbulatorio">Ambulatorio</label>
+                            <input type="text" name="bancaAmbulatorio" class="form-control @error('bancaAmbulatorio') is-invalid @enderror"
+                                   value="{{old('bancaAmbulatorio')}}">
+                            @error('bancaAmbulatorio')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="bancaHospitalizado">Hospitalizado</label>
+                            <input type="text" name="bancaHospitalizado" class="form-control @error('bancaHospitalizado') is-invalid @enderror"
+                                   value="{{old('bancaHospitalizado')}}">
+                            @error('bancaHospitalizado')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -151,10 +259,21 @@
 @push('js')
     <script>
         $(document).ready(function () {
-
+            fntBanca($('#s_procedencia'));
 
         });
 
+    function fntBanca(select){
+        var convenios = [{{ config('clinica.convenios_id', '10, 15') }}];
+        for(var i=0; i<convenios.length; i++){
+            if($(select).val() == convenios[i]){
+                $('.banca_seccion').css('display', 'flex');
+                break;
+            } else {
+                $('.banca_seccion').css('display', 'none');
+            }
+        }
 
+    }
     </script>
 @endpush

@@ -26,6 +26,7 @@
                     <th>Cliente</th>
                     <th>fecha</th>
                     <th>Doctor</th>
+                    <th>Tipo</th>
                     <th>Procedencia</th>
                     <th>Acciones</th>
                 </tr>
@@ -48,6 +49,7 @@
                     {name: 'person.nombres', orderable: true},
                     {name: 'fecha'},
                     {name: 'doctor'},
+                    {name: 'tipo_analisis'},
                     {name: 'procedencia'},
                     {name: 'action', orderable: false, searchable: false}
                 ],

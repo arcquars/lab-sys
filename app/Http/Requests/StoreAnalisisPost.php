@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Config;
 
 class StoreAnalisisPost extends FormRequest
 {
@@ -23,7 +24,14 @@ class StoreAnalisisPost extends FormRequest
      */
     public function rules()
     {
-        return [
+        $procedencia = $this->input('procedencia');
+
+        $convenios = explode(',', Config::get('clinica.convenios_id'));
+        if(count($convenios) == 0){
+            $convenios = [Config::get('clinica.convenios_id')];
+        }
+
+        $rulesR = [
             'doctor' => 'required|min:5|max:200',
             'procedencia' => 'required',
             'tipo_analisis' => 'required',
@@ -32,5 +40,22 @@ class StoreAnalisisPost extends FormRequest
             'precio' => 'required|numeric|min:1',
             'acuenta' => 'lt:precio|nullable',
         ];
+
+        for ($i=0; $i<count($convenios); $i++){
+            if($procedencia == $convenios[$i]){
+                $rulesR = [
+                    'doctor' => 'required|min:5|max:200',
+                    'procedencia' => 'required',
+                    'tipo_analisis' => 'required',
+                    'fecha' => 'required',
+                    'region' => 'required|max:200',
+                    'precio' => 'required|numeric|min:1',
+                    'acuenta' => 'lt:precio|nullable',
+                    'bancaMatricula' => 'required',
+                ];
+                break;
+            }
+        }
+        return $rulesR;
     }
 }
