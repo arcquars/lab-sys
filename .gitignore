@@ -4,6 +4,9 @@
 /storage/*.key
 /vendor
 .idea/*
+.idea/Clinica.iml
+.idea/php.xml
+.idea/workspace.xml
 .env
 .env.backup
 .phpunit.result.cache
