@@ -46,3 +46,4 @@ Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('anal
 Route::get('/citologia/crear/{analisisId}', 'CitologiaController@create')->name('citologia.crear');
 Route::post('/citologia/resultados', 'CitologiaController@resultados')->name('citologia.resultados');
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');
+Route::get('/citologia/reporte/{analisisId}', 'CitologiaController@reporte')->name('citologia.reporte');

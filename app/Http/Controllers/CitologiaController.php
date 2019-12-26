@@ -7,6 +7,7 @@ use App\Http\Requests\StoreResultadosPost;
 use App\Resultado;
 use App\Seccion;
 use Illuminate\Http\Request;
+use PDF;
 
 class CitologiaController extends Controller
 {
@@ -122,7 +123,7 @@ class CitologiaController extends Controller
         $estudioMicroArray = is_array($request->input('estudioMicro'))? $request->input('estudioMicro') : array();
         Seccion::saveSeccionValue($estudioMicroArray, Seccion::ESTUDIO_MICROBIOLOGICO, $resultado->id);
 
-        dd($request->input('estudioMicro'));
+        return redirect()->route('citologia.viewResultado', ['analisisId' => $resultado->analisis_id]);
     }
 
     public function viewResultado($analisisId){
@@ -142,4 +143,24 @@ class CitologiaController extends Controller
             'seccionRichart'));
     }
 
+    function reporte($analisisId) {
+        $analisis = Analisis::find($analisisId);
+        $resultados = Resultado::where('analisis_id', $analisisId)->first();
+        $seccionOMG = Seccion::getArraySeccionesByOMS($resultados->secciones);
+        $seccionRichart = Seccion::getArraySeccionesByRichart($resultados->secciones);
+        $seccionBeth = Seccion::getArraySeccionesByBethesda($resultados->secciones);
+        $seccionExtendidoCompatible = Seccion::getArraySeccionesByExtendidoCompatible($resultados->secciones);
+        $seccionReacInflamatoria = Seccion::getArraySeccionesByReacInflamatorio($resultados->secciones);
+        $seccionEstudioMicro = Seccion::getArraySeccionesByEstudioMicro($resultados->secciones);
+
+        $pdf = PDF::loadView('citologia.reporte', compact(
+            'analisis', 'resultados', 'seccionOMG',
+            'seccionBeth', 'seccionRichart', 'seccionReacInflamatoria',
+            'seccionEstudioMicro',
+            'seccionExtendidoCompatible'));
+
+        $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->WriteHTML($stylesheet,1);
+        return $pdf->stream('document.pdf');
+    }
 }

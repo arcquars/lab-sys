@@ -174,7 +174,7 @@ class ClientController extends Controller
         $person->nombres = $request->get('nombres');
         $person->apellidos = $request->get('apellidos');
         $person->apellido_materno = $request->get('apellido_materno');
-        $person->f_nacimiento = $request->get('f_nacimiento');
+        $person->edad = $request->get('edad');
         $person->sexo = $request->get('sexo');
 
         if($person->save()) {
@@ -189,7 +189,7 @@ class ClientController extends Controller
         $person->nombres = $request->get('nombres');
         $person->apellidos = $request->get('apellidos');
         $person->apellido_materno = $request->get('apellido_materno');
-        $person->f_nacimiento = $request->get('f_nacimiento');
+        $person->edad = $request->get('edad');
         $person->sexo = $request->get('sexo');
 
         if($person->update()) {

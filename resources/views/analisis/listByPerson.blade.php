@@ -11,13 +11,6 @@
     </nav>
     <div class="card">
         <div class="card-header">
-{{--            <div class="row">--}}
-{{--                <div class="col-md-6">--}}
-{{--                    <h4>Clientes</h4>--}}
-{{--                </div>--}}
-{{--                <div class="col-md-6 text-right"><a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar--}}
-{{--                        Cliente</a></div>--}}
-{{--            </div>--}}
         </div>
         <div class="card-body">
             <table id="tAnalisis" class="table table-bordered">
@@ -26,6 +19,7 @@
                     <th>ID</th>
                     <th>Cliente</th>
                     <th>fecha</th>
+                    <th>Tipo</th>
                     <th>Doctor</th>
                     <th>Procedencia</th>
                     <th>Acciones</th>
@@ -48,8 +42,9 @@
                     {name: 'id'},
                     {name: 'person.nombres', orderable: true},
                     {name: 'fecha'},
+                    {name: 'tipo_analisis'},
                     {name: 'doctor'},
-                    {name: 'procedencia'},
+                    {name: 'institucion.nombre'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 language: {

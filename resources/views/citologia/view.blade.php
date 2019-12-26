@@ -22,7 +22,7 @@
                 <dt class="col-md-3">Procedencia</dt>
                 <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
                 <dt class="col-md-3">Edad</dt>
-                <dd class="col-md-3">(Falta implementar)</dd>
+                <dd class="col-md-3">{{$analisis->person->edad}}</dd>
             </dl>
             <dl class="row row-citologia">
                 <dt class="col-md-3">CODIGO</dt>
@@ -51,7 +51,7 @@
                         @endif
                     @endforeach
                     <div class="col-md-4">
-                        {{ $item.$extComp}}
+                        <p class="p-cito-resultado">{{ $item.$extComp}}</p>
                     </div>
                 @endforeach
             </div>
@@ -108,7 +108,7 @@
                         @endif
                     @endforeach
                     <div class="col-md-4">
-                        {{ $item.$extComp}}
+                        <p class="p-cito-resultado">{{ $item.$extComp}}</p>
                     </div>
                 @endforeach
             </div>
@@ -127,15 +127,15 @@
                         @endif
                     @endforeach
                     <div class="col-md-4">
-                        {{ $item.$extComp}}
+                        <p class="p-cito-resultado">{{ $item.$extComp}}</p>
                     </div>
                 @endforeach
             </div>
             <div style="height: 8px;"></div>
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
-                    <button type="button" class="btn btn-warning">Imprimir</button>
-                    <button type="button" class="btn btn-dark">Atras</button>
+                    <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
+                    <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
                 </div>
             </div>
         </div>

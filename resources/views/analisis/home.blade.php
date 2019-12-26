@@ -24,9 +24,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Cliente</th>
-                    <th>fecha</th>
-                    <th>Doctor</th>
+                    <th>Edad</th>
                     <th>Tipo</th>
+                    <th>Doctor</th>
                     <th>Procedencia</th>
                     <th>Acciones</th>
                 </tr>
@@ -47,10 +47,10 @@
                 columns: [
                     {name: 'id'},
                     {name: 'person.nombres', orderable: true},
-                    {name: 'fecha'},
-                    {name: 'doctor'},
+                    {name: 'person.edad'},
                     {name: 'tipo_analisis'},
-                    {name: 'procedencia'},
+                    {name: 'doctor'},
+                    {name: 'institucion.nombre'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 language: {

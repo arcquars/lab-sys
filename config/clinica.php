@@ -51,7 +51,7 @@ return [
         'VIRUS',
         'OTROS',
     ],
-//    'convenios_id' => '10, 20, 23'
-    'convenios_id' => '10'
+    'convenios_id' => '10,13,23'
+//    'convenios_id' => '10'
 
 ];

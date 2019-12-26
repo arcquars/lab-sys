@@ -26,6 +26,7 @@
                     <th>CI</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
+                    <th>Edad</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -83,9 +84,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="f_nacimiento">F. Nacimiento</label>
-                                    <input type="date" name="f_nacimiento" class="form-control datepicker">
-                                    <div class="fcp_error_f_nacimiento" style="display: none;"></div>
+                                    <label for="edad">Edad</label>
+                                    <input type="number" name="edad" class="form-control">
+                                    <div class="fcp_error_edad" style="display: none;"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -218,6 +219,7 @@
                     {name: 'ci'},
                     {name: 'nombres'},
                     {name: 'apellidos'},
+                    {name: 'edad'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 language: {
@@ -259,7 +261,7 @@
                 var nombres = $(this).find("input[name='nombres']").val();
                 var apellidos = $(this).find("input[name='apellidos']").val();
                 var apellido_materno = $(this).find("input[name='apellido_materno']").val();
-                var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
+                var edad = $(this).find("input[name='edad']").val();
                 var sexo = $(this).find("input[name='sexo']:checked").val();
 
                 $.ajax({
@@ -272,7 +274,7 @@
                         nombres: nombres,
                         apellidos: apellidos,
                         apellido_materno: apellido_materno,
-                        f_nacimiento: f_nacimiento,
+                        edad: edad,
                         sexo: sexo,
 
                     },
@@ -354,7 +356,7 @@
             $("#fcrearpersona").find("input[name='nombres']").val(person.nombres);
             $("#fcrearpersona").find("input[name='apellidos']").val(person.apellidos);
             $("#fcrearpersona").find("input[name='apellido_materno']").val(person.apellido_materno);
-            $("#fcrearpersona").find("input[name='f_nacimiento']").val(person.f_nacimiento);
+            $("#fcrearpersona").find("input[name='edad']").val(person.edad);
             $("#fcrearpersona").find("input[name='sexo'][value="+person.sexo+"]").attr('checked', 'checked');
         }
     </script>

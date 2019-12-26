@@ -71,27 +71,29 @@ class AnalisisController extends Controller
         if($analisis->save()) {
             $convenios = explode(',', Config::get('clinica.convenios_id'));
             if(count($convenios) == 0){
-                $convenios = [Config::get('clinica.convenios_id')];
+                $convenios = array([Config::get('clinica.convenios_id')]);
             }
             for ($i=0; $i<count($convenios); $i++){
-                $convenio = new Convenio();
-                $convenio->bancaMatricula = $request->get('bancaMatricula');
-                $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
-                $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
-                $convenio->bancaActivoExt = $request->get('bancaActivoExt');
-                $convenio->bancaActivoResto = $request->get('bancaActivoResto');
-                $convenio->bancaPasivoAsegurado = $request->get('bancaPasivoAsegurado');
-                $convenio->bancaPasivoExt = $request->get('bancaPasivoExt');
-                $convenio->bancaPasivoResto = $request->get('bancaPasivoResto');
-                $convenio->bancaSecAsegurado = $request->get('bancaSecAsegurado');
-                $convenio->bancaSecExt = $request->get('bancaSecExt');
-                $convenio->bancaSecResto = $request->get('bancaSecResto');
-                $convenio->bancaEspecialidad = $request->get('bancaEspecialidad');
-                $convenio->bancaAmbulatorio = $request->get('bancaAmbulatorio');
-                $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
-                $convenio->analisis_id = $analisis->id;
+                if($convenios[$i] == $analisis->procedencia){
+                    $convenio = new Convenio();
+                    $convenio->bancaMatricula = $request->get('bancaMatricula');
+                    $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
+                    $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
+                    $convenio->bancaActivoExt = $request->get('bancaActivoExt');
+                    $convenio->bancaActivoResto = $request->get('bancaActivoResto');
+                    $convenio->bancaPasivoAsegurado = $request->get('bancaPasivoAsegurado');
+                    $convenio->bancaPasivoExt = $request->get('bancaPasivoExt');
+                    $convenio->bancaPasivoResto = $request->get('bancaPasivoResto');
+                    $convenio->bancaSecAsegurado = $request->get('bancaSecAsegurado');
+                    $convenio->bancaSecExt = $request->get('bancaSecExt');
+                    $convenio->bancaSecResto = $request->get('bancaSecResto');
+                    $convenio->bancaEspecialidad = $request->get('bancaEspecialidad');
+                    $convenio->bancaAmbulatorio = $request->get('bancaAmbulatorio');
+                    $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
+                    $convenio->analisis_id = $analisis->id;
 
-                $convenio->save();
+                    $convenio->save();
+                }
             }
 
             return redirect('/clients');

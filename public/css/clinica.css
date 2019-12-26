@@ -22,16 +22,26 @@
     margin-bottom: 2px;
 }
 
+.row-citologia dt, dd{
+    font-size: .70rem;
+}
+
+.p-cito-resultado{
+    font-size: .70rem;
+    padding: 2px 4px;
+    margin: 0;
+}
+
 .h5-cito-titulo{
     text-align: center;
     font-weight: 700;
-    color: #012035;
+    color: #FF9500;
 }
 
 .h6-cito-titulo{
     text-align: center;
     font-weight: 700;
-    color: #012035;
+    color: #FF9500;
 }
 
 .table-cito thead tr th{
