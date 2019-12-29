@@ -42,8 +42,21 @@ Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crear
 Route::get('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
 Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@getDatatablesDataByPersonId')->name('datatableAnalisisPerson');
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
+Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
+Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPago')->name('analisis.aGetAnalisisPago');
+Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 
 Route::get('/citologia/crear/{analisisId}', 'CitologiaController@create')->name('citologia.crear');
 Route::post('/citologia/resultados', 'CitologiaController@resultados')->name('citologia.resultados');
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');
 Route::get('/citologia/reporte/{analisisId}', 'CitologiaController@reporte')->name('citologia.reporte');
+
+Route::get('/biopsia/crear/{analisisId}', 'BiopsiaController@create')->name('biopsia.crear');
+Route::post('/biopsia/save', 'BiopsiaController@store')->name('biopsia.save');
+Route::get('/biopsia/view/{analisisId}', 'BiopsiaController@viewResultado')->name('biopsia.viewResultado');
+Route::get('/biopsia/reporte/{analisisId}', 'BiopsiaController@reporte')->name('biopsia.reporte');
+
+Route::get('/histo/crear/{analisisId}', 'InmunohistoquimicaController@create')->name('histo.crear');
+Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.save');
+Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');
+Route::get('/histo/reporte/{analisisId}', 'InmunohistoquimicaController@reporte')->name('histo.reporte');

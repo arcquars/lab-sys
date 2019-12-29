@@ -14,22 +14,7 @@
             <h5 class="h5-cito-titulo">INFORME CITOLOGICO</h5>
         </div>
         <div class="card-body">
-            <dl class="row row-citologia">
-                <dt class="col-md-3">Nombres y Apellidos:</dt>
-                <dd class="col-md-9">{{$analisis->person->apellidos.', '.$analisis->person->nombres}}</dd>
-            </dl>
-            <dl class="row row-citologia">
-                <dt class="col-md-3">Procedencia</dt>
-                <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
-                <dt class="col-md-3">Edad</dt>
-                <dd class="col-md-3">{{$analisis->person->edad}}</dd>
-            </dl>
-            <dl class="row row-citologia">
-                <dt class="col-md-3">CODIGO</dt>
-                <dd class="col-md-3">(Falta implementar)</dd>
-                <dt class="col-md-3">Enviado por (Doctor):</dt>
-                <dd class="col-md-3">{{$analisis->doctor}}</dd>
-            </dl>
+            @include('citologia.partial.cliente-head', ['analisis' => $analisis])
             <h6 class="h6-cito-titulo">RESULTADO</h6>
             <hr>
             <dl class="row row-citologia">

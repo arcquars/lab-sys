@@ -21,7 +21,9 @@ class Analisis extends Model
         'acuenta',
         'observaciones',
         'procedencia',
-        'person_id'
+        'person_id',
+        'pago_efectuado',
+        'movimiento'
     ];
 
     public function person(){
@@ -30,6 +32,10 @@ class Analisis extends Model
 
     public function institucion(){
         return $this->belongsTo('App\Institucion', 'procedencia', 'id');
+    }
+
+    public function movimiento(){
+        return 'ccc:: ';
     }
 
     /**
@@ -50,13 +56,34 @@ class Analisis extends Model
                 }
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
+                $routeView = 'histo.viewResultado';
+                if(Histoquimica::where('analisis_id', $analisis->id)->count() > 0){
+                    $isHasResult = true;
+                }
                 break;
             case Analisis::BIOPSIA:
+                if(Biopsia::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'biopsia.viewResultado';
+                    $isHasResult = true;
+                }
                 break;
         }
         return view('analisis.includes.action')->with(array(
             'id' => $analisis->id,
             'isHasResult' => $isHasResult,
-            'routeView' => $routeView))->render();
+            'routeView' => $routeView,
+            'acuenta' => $analisis->acuenta,
+            'precio' => $analisis->precio,
+            'pago_efectuado' => $analisis->pago_efectuado
+            ))->render();
+    }
+
+    public static function laratablesCustomPrecio1($analisis)
+    {
+        return view('analisis.includes.precio')->with(array(
+            'acuenta' => $analisis->acuenta,
+            'precio' => $analisis->precio,
+            'pago_efectuado' => $analisis->pago_efectuado
+            ))->render();
     }
 }

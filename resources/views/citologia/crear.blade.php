@@ -10,6 +10,9 @@
         </ol>
     </nav>
     <div class="card">
+        <div class="card-header">
+            @include('citologia.partial.cliente-head', ['analisis' => $analisis])
+        </div>
         <div class="card-body">
             <form method="post" action="/citologia/resultados">
                 {{ csrf_field() }}

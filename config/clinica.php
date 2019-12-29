@@ -51,7 +51,20 @@ return [
         'VIRUS',
         'OTROS',
     ],
-    'convenios_id' => '10,13,23'
+    'convenios_id' => '10,13,23',
 //    'convenios_id' => '10'
-
+    'meses' => [
+        'enero',
+        'febrero',
+        'marzo',
+        'abril',
+        'mayo',
+        'junio',
+        'julio',
+        'agosto',
+        'septiembre',
+        'octubre',
+        'noviembre',
+        'diciembre'
+    ]
 ];

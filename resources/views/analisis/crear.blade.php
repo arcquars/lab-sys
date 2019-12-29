@@ -27,20 +27,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="fecha">Fecha</label>
-                                <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
-                                       value="{{old('fecha')}}">
-                                @error('fecha')
+                                <label for="region">Region de analisis</label>
+                                <input type="text" name="region" class="form-control @error('region') is-invalid @enderror"
+                                       value="{{@old('region')}}">
+                                @error('region')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label for="tipo_analisis">Tipo Analisis</label>
-                                <select name="tipo_analisis" class="form-control @error('tipo_analisis') is-invalid @enderror">
+                                <label for="tipo_analisis">Tipo de Analisis</label>
+                                <select name="tipo_analisis" id="s_tipoanalisis" onchange="getCodigo();" class="form-control @error('tipo_analisis') is-invalid @enderror">
                                     <option value="">Elija un Analisis</option>
                                     @if(old('tipo_analisis'))
                                         @foreach($tipoAnalisis as $analisis)
@@ -61,10 +61,18 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="tipo_analisis">Codigo</label>
+                                <input type="text" name="codigo" id="i_codigo" class="form-control i-codigo" readonly>
+                                @error('codigo')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <label for="procedencia">Procedencia</label>
-                            <select id="s_procedencia" name="procedencia" onchange="fntBanca(this);" class="form-control @error('procedencia') is-invalid @enderror">
-                                <option value="0">SIN PROCEDENCIA</option>
+                            <select id="s_procedencia" name="procedencia" onchange="fntBanca();" class="form-control @error('procedencia') is-invalid @enderror">
                                 @if(old('procedencia'))
                                     @foreach($procedencias as $procedencia)
                                         @if(old('procedencia') == $procedencia->id)
@@ -203,23 +211,42 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="region">Region</label>
-                                <input type="text" name="region" class="form-control @error('region') is-invalid @enderror"
-                                value="{{@old('region')}}">
-                                @error('region')
+                                <label for="fecha">Fecha de Ingreso</label>
+                                <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
+                                       value="{{old('fecha', date('Y-m-d'))}}"
+                                       min="{{date('Y-m-d', strtotime("-10 days"))}}"
+                                       max="{{date('Y-m-d', strtotime("5 days"))}}"
+                                >
+{{--                                       value="2019-12-30">--}}
+                                @error('fecha')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fecha">Fecha de Entrega</label>
+                                <input type="date" name="fecha_entrega" class="form-control @error('fecha_entrega') is-invalid @enderror"
+                                       value="{{old('fecha_entrega', date('Y-m-d'))}}"
+                                       min="{{date('Y-m-d', strtotime("-5 days"))}}"
+                                       max="{{date('Y-m-d', strtotime("10 days"))}}">
+                                @error('fecha_entrega')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="precio">Precio</label>
-                                <input type="text" name="precio" class="form-control @error('precio') is-invalid @enderror"
-                                       value="{{@old('precio')}}">
+                                <input type="number" name="precio" class="form-control @error('precio') is-invalid @enderror"
+                                       value="{{@old('precio')}}"
+                                       min="0" max="10000"
+                                >
                                 @error('precio')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -227,8 +254,10 @@
                         </div>
                         <div class="col-md-6">
                             <label for="acuenta">Acuenta</label>
-                            <input type="text" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
-                                   value="{{@old('acuenta')}}">
+                            <input type="number" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
+                                   value="{{@old('acuenta')}}"
+                                   min="0" max="10000"
+                            >
                             @error('acuenta')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -259,7 +288,13 @@
 @push('js')
     <script>
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             fntBanca($('#s_procedencia'));
+            getCodigo();
 
         });
 
@@ -275,5 +310,23 @@
         }
 
     }
+
+    function getCodigo(){
+        tipo = $('#s_tipoanalisis').val();
+        if(tipo != ''){
+            $.ajax({
+                url: "{{ route('analisis.agetcode') }}",
+                type: 'POST',
+                data: {'tipo-analisis': tipo},
+                success: function (data) {
+                    $('#i_codigo').val(data.success);
+                }
+            });
+        } else {
+            $('#i_codigo').val('');
+        }
+
+    }
+
     </script>
 @endpush

@@ -36,9 +36,10 @@ class StoreAnalisisPost extends FormRequest
             'procedencia' => 'required',
             'tipo_analisis' => 'required',
             'fecha' => 'required',
+            'fecha_entrega' => 'required',
             'region' => 'required|max:200',
-            'precio' => 'required|numeric|min:1',
-            'acuenta' => 'lt:precio|nullable',
+            'precio' => 'required|numeric|min:0|max:10000',
+            'acuenta' => 'lte:precio|nullable',
         ];
 
         for ($i=0; $i<count($convenios); $i++){

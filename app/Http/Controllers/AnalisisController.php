@@ -14,6 +14,7 @@ use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Config;
+use Carbon\Carbon;
 
 class AnalisisController extends Controller
 {
@@ -61,9 +62,17 @@ class AnalisisController extends Controller
         $analisis->procedencia = $request->get('procedencia');
         $analisis->region = $request->get('region');
         $analisis->precio = $request->get('precio');
-        if($request->get('acuenta'))
-            $analisis->acuenta = $request->get('acuenta');
-        else
+        $analisis->codigo = $request->get('codigo');
+        if($request->get('acuenta')) {
+            if($request->get('acuenta') == $request->get('precio')){
+                $analisis->pago_efectuado = $request->get('acuenta');
+                $analisis->acuenta = 0;
+                $analisis->fecha_pago_efectuado = Carbon::now();
+                $analisis->pago_efectuado_user = auth()->id();
+            } else {
+                $analisis->acuenta = $request->get('acuenta');
+            }
+        }else
             $analisis->acuenta = 0;
         $analisis->observaciones = $request->get('observaciones');
         $analisis->user_id = auth()->id();
@@ -255,16 +264,60 @@ class AnalisisController extends Controller
         $analisis = Analisis::find($analisisId);
         switch ($analisis->tipo_analisis){
             case Analisis::BIOPSIA:
-                break;
+                return redirect()->action(
+                    'BiopsiaController@create',
+                    ['analisisId' => $analisisId]);
             case Analisis::INMUNOHISTOQUIMICA:
-
-                break;
+                return redirect()->action(
+                    'InmunohistoquimicaController@create',
+                    ['analisisId' => $analisisId]);
             case Analisis::CITOLOGIA:
                 return redirect()->action(
                     'CitologiaController@create',
                     ['analisisId' => $analisisId]);
-
         }
-//        dd("xxx: ".$analisis->tipo_analisis);
+    }
+
+    public function ajaxGetCode(Request $request){
+        $tipoAnalisis = $request->get('tipo-analisis');
+        $codigo = '';
+        $numeroFecha = '-'.substr(date('Y'), 1).'-'.date('m').date('d');
+        $analisisIdNext = Analisis::max('id')+1;
+        switch ($tipoAnalisis){
+            case Analisis::CITOLOGIA:
+                $codigo = 'C'.$numeroFecha.$analisisIdNext;
+                break;
+            case Analisis::BIOPSIA:
+                $codigo = 'B'.$numeroFecha.$analisisIdNext;
+                break;
+            case Analisis::INMUNOHISTOQUIMICA:
+                $codigo = 'I'.$numeroFecha.$analisisIdNext;
+                break;
+        }
+        return response()->json(['success' => $codigo]);
+    }
+
+    public function ajaxRealizarPago(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $analisis->pago_efectuado = $analisis->precio - $analisis->acuenta;
+        $analisis->fecha_pago_efectuado = Carbon::now();
+        $analisis->pago_efectuado_user = auth()->id();
+
+        if($analisis->update())
+            return response()->json(['success' => '1']);
+        return response()->json(['success' => '0']);
+    }
+
+    public function ajaxGetAnalisisPago(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $resultado = array(
+            'cliente' => $analisis->person->nombres.' '.$analisis->person->apellidos,
+            'doctor' => $analisis->doctor,
+            'precio' => $analisis->precio,
+            'acuenta' => $analisis->acuenta
+        );
+        return response()->json(['success' => $resultado]);
     }
 }

@@ -165,3 +165,5 @@
         </tr>
     @endforeach
 </table>
+<div style="height: 10px;"></div>
+@include('citologia.partial.reporte-fecha', compact('analisis'))

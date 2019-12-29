@@ -56,3 +56,51 @@
 .table-cito tbody tr td dl dd {
     text-align: right;
 }
+
+.i-codigo {
+    color: #FF9500 !important;
+    font-weight: bold;
+    border: solid 1px #FF9500;
+    text-align: center;
+}
+
+.btn-clinica{
+    padding: 2px 2px !important;
+}
+
+.table-clinica tr td{
+    padding: 2px 5px !important;
+    color: #012035;
+    font-size: .7rem;
+}
+
+.p-estado-red{
+    padding: 2px 5px !important;
+    color: red;
+    font-size: .7rem;
+}
+
+.m-pago-p div div p{
+    padding: 2px 5px !important;
+    margin-bottom: 2px !important;
+    color: #012035;
+    font-size: .8rem;
+}
+
+.ul-clinica-errors li{
+    font-size: .78rem;
+    color: red;
+}
+
+.row-biopsia div label{
+    color: #012035;
+    font-size: .9rem;
+    font-weight: bold;
+}
+
+.row-biopsia div div{
+    border: solid 1px #888888;
+    padding: 10px;
+    text-align: justify;
+    text-justify: inter-word;
+}

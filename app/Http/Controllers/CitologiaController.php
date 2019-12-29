@@ -34,8 +34,8 @@ class CitologiaController extends Controller
      */
     public function create($analisisId)
     {
-//        dd('crear');
-        return view('citologia.crear', compact('analisisId'));
+        $analisis = Analisis::find($analisisId);
+        return view('citologia.crear', compact('analisisId', 'analisis'));
     }
 
     /**
@@ -161,6 +161,7 @@ class CitologiaController extends Controller
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);
-        return $pdf->stream('document.pdf');
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
     }
 }

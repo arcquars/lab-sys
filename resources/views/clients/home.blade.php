@@ -281,6 +281,7 @@
                     success: function (data) {
                         if (data.success) {
                             $("#mpersona").modal("hide");
+                            $('#simple-datatable-example').DataTable().ajax.reload();
                         } else {
                             alert(data.errors);
                         }

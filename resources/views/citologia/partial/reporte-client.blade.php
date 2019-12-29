@@ -16,7 +16,7 @@
         <td><p class="p-dato">{{$analisis->doctor}}</p></td>
         <td colspan="2" style="text-align: right;">
             <div style="border: 2px double #f6993f; width: 100%; text-align: right;">
-                <p class="p-dato"><b>&nbsp;&nbsp;Codigo: 019-25186&nbsp;&nbsp;</b></p>
+                <p class="p-dato"><b>&nbsp;&nbsp;Codigo: {{$analisis->codigo}}&nbsp;&nbsp;</b></p>
             </div>
         </td>
     </tr>

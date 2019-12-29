@@ -1,0 +1,78 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Analisis;
+use App\Histoquimica;
+use App\Http\Requests\StoreHistoPost;
+use PDF;
+
+class InmunohistoquimicaController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($analisisId)
+    {
+        $analisis = Analisis::find($analisisId);
+        $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+        return view('histo.crear', compact('analisis', 'histo'));
+    }
+
+    public function store(StoreHistoPost $request){
+        if (empty($request->post('histo_id'))){
+            $histo = new Histoquimica();
+            $histo->analisis_id = $request->post('analisis_id');
+            $histo->interpretacion = $request->post('interpretacion');
+            $histo->tecnica = $request->post('tecnica');
+            $histo->bibliografia = $request->post('bibliografia');
+            $histo->user_id = auth()->id();
+            if($histo->save()){
+                return redirect('/analisis');
+            } else {
+                dd('Algo Salio mal al crear la Inmunohistoquimica, contactese con el administrador');
+            }
+        } else {
+            $histo = Histoquimica::find($request->post('histo_id'));
+            $histo->interpretacion = $request->post('interpretacion');
+            $histo->tecnica = $request->post('tecnica');
+            $histo->bibliografia = $request->post('bibliografia');
+            $histo->user_id = auth()->id();
+
+            if($histo->update()){
+                return redirect('/analisis');
+            } else {
+                dd('Algo Salio mal al actualizar la Inmunohistoquimica, contactese con el administrador');
+            }
+
+        }
+    }
+
+    public function viewResultado($analisisId){
+        $analisis = Analisis::find($analisisId);
+        $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+
+        return view('histo.view', compact(
+            'analisis', 'histo'));
+    }
+
+    function reporte($analisisId) {
+        $analisis = Analisis::find($analisisId);
+        $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+
+        $pdf = PDF::loadView('histo.reporte', compact(
+            'analisis', 'histo'));
+
+        $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
+    }
+}
