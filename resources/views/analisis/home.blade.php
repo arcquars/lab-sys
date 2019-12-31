@@ -104,11 +104,11 @@
                     {name: 'doctor', orderable: false},
                     {name: 'institucion.nombre'},
                         @can('manage-users')
-                    {name: 'precio'},
-                    {name: 'acuenta'},
+                    {name: 'precio', searchable: false},
+                    {name: 'acuenta', searchable: false},
                         @endcan
-                    {name: 'pago_efectuado'},
-                    {name: 'precio1', orderable: false},
+                    {name: 'pago_efectuado', searchable: false},
+                    {name: 'precio1', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 aoColumnDefs: [

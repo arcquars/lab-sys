@@ -24,14 +24,14 @@
                             $rolesStr .= $role->name.', ';
                         }
                         @endphp
-                        {{auth()->user()->name}} <span style="font-size: .75rem">({{strtoupper(substr($rolesStr, 0, -2))}})</span>
+                        {{auth()->user()->name}} <span style="font-size: .75rem">({{strtoupper(substr($rolesStr, 0, -2))}}) |</span>
                     </span>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href=" ">
-                        <span class="no-icon">Cuenta</span>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href=" ">--}}
+{{--                        <span class="no-icon">Cuenta</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="nav-item">
                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf

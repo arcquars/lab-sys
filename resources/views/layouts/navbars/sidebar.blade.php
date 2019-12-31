@@ -53,6 +53,24 @@ Tip 2: you can also add an image using data-image tag
                     <p>Analisis</p>
                 </a>
             </li>
+            @can('manage-admin')
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin1" @if($activeButton =='reportactiveButton') aria-expanded="true" @endif aria-controls="c_admin1" role="button">
+                        <i class="fas fa-poll"></i>
+                        <p>Reportes</p>
+                    </a>
+                    <div class="collapse @if($activeButton =='reporteactiveButton') show @endif" id="c_admin1">
+                        <ul class="nav">
+                            <li class="nav-item @if($activePage == 'admin_reporte') active @endif">
+                                <a class="nav-link" href="{{route('admin.users.index')}}">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>Reporte 1</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
 
         </ul>
     </div>
