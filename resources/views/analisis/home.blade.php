@@ -10,25 +10,21 @@
     </nav>
     <div class="card">
         <div class="card-header">
-{{--            <div class="row">--}}
-{{--                <div class="col-md-6">--}}
-{{--                    <h4>Clientes</h4>--}}
-{{--                </div>--}}
-{{--                <div class="col-md-6 text-right"><a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar--}}
-{{--                        Cliente</a></div>--}}
-{{--            </div>--}}
         </div>
         <div class="card-body">
             <table id="tAnalisis" class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
+                    <th>Codigo</th>
                     <th>Cliente</th>
-                    <th>Edad</th>
+                    <th>Fecha Entrega</th>
                     <th>Tipo</th>
                     <th>Doctor</th>
+                    @can('manage-users')
                     <th>Procedencia</th>
                     <th>Precio</th>
+                    @endcan
                     <th>A cuenta</th>
                     <th>Pago</th>
                     <th>Estado</th>
@@ -101,15 +97,18 @@
                 ajax: "{{ route('simple_datatables_analisis_data') }}",
                 columns: [
                     {name: 'id'},
+                    {name: 'codigo'},
                     {name: 'person.nombres', orderable: true},
-                    {name: 'person.edad'},
+                    {name: 'fecha', orderable: false},
                     {name: 'tipo_analisis'},
-                    {name: 'doctor'},
+                    {name: 'doctor', orderable: false},
                     {name: 'institucion.nombre'},
+                        @can('manage-users')
                     {name: 'precio'},
                     {name: 'acuenta'},
+                        @endcan
                     {name: 'pago_efectuado'},
-                    {name: 'precio1'},
+                    {name: 'precio1', orderable: false},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 aoColumnDefs: [
@@ -119,6 +118,7 @@
                         "searchable": false
                     }
                 ],
+                "order": [[ 3, "desc" ]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

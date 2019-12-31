@@ -23,6 +23,7 @@ class Analisis extends Model
         'procedencia',
         'person_id',
         'pago_efectuado',
+        'doctor',
         'movimiento'
     ];
 
@@ -85,5 +86,14 @@ class Analisis extends Model
             'precio' => $analisis->precio,
             'pago_efectuado' => $analisis->pago_efectuado
             ))->render();
+    }
+
+    /**
+     * doctor column should be used for sorting when name column is selected in Datatables.
+     *
+     * @return string
+     */
+    public static function laratablesOrderFecha(){
+        return 'fecha';
     }
 }

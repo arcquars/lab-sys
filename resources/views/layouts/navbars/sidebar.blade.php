@@ -17,7 +17,7 @@ Tip 2: you can also add an image using data-image tag
                     <p>Tablero</p>
                 </a>
             </li>
-            @can('manage-users')
+            @can('manage-admin')
             <li class="nav-item dropdown">
                 <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin" @if($activeButton =='adminactiveButton') aria-expanded="true" @endif aria-controls="c_admin" role="button">
                     <i class="fas fa-toolbox"></i>
