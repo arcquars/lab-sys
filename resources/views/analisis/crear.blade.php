@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="procedencia">Procedencia</label>
-                            <select id="s_procedencia" name="procedencia" onchange="fntBanca();" class="form-control @error('procedencia') is-invalid @enderror">
+                            <select id="s_procedencia" name="procedencia" onchange="fntBanca(this);" class="form-control @error('procedencia') is-invalid @enderror">
                                 @if(old('procedencia'))
                                     @foreach($procedencias as $procedencia)
                                         @if(old('procedencia') == $procedencia->id)
