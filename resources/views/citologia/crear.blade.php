@@ -21,7 +21,10 @@
                     <p class="text-muted" style="margin-bottom: 2px;">Clasificacion del Papanicolau Clase</p>
                     <div class="form-group row">
                         <div class="col-sm-4">
-                            <input type="text" name="papanicolaou_clase1" class="form-control @error('papanicolaou_clase1') is-invalid @enderror">
+                            <input type="text" name="papanicolaou_clase1"
+                                   class="form-control @error('papanicolaou_clase1') is-invalid @enderror"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                             @error('papanicolaou_clase1')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -29,7 +32,10 @@
                             @enderror
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" name="papanicolaou_clase2" class="form-control @error('papanicolaou_clase2') is-invalid @enderror">
+                            <input type="text" name="papanicolaou_clase2"
+                                   class="form-control @error('papanicolaou_clase2') is-invalid @enderror"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                             @error('papanicolaou_clase2')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -44,25 +50,37 @@
                             <div class="form-group row">
                                 <label for="displasia-leve" class="col-md-6 col-form-label text-right">DISPLASIA LEVE</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-leve]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="oms[displasia-leve]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="displasia-moderada" class="col-md-6 col-form-label text-right">DISPLASIA MODERADA</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-moderada]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="oms[displasia-moderada]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="displasia-severa" class="col-md-6 col-form-label text-right">DISPLASIA SEVERA</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-severa]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="oms[displasia-severa]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="displasia-in" class="col-md-6 col-form-label text-right">DISPLASIA IN SITU</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="oms[displasia-in]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="oms[displasia-in]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -71,25 +89,37 @@
                             <div class="form-group row">
                                 <label for="nic-i" class="col-md-6 col-form-label text-right">NIC I</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-i]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="hichart[nic-i]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-ii" class="col-md-6 col-form-label text-right">NIC II</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-ii]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="hichart[nic-ii]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-iii" class="col-md-6 col-form-label text-right">NIC III</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-iii]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="hichart[nic-iii]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="nic-iv" class="col-md-6 col-form-label text-right">NIC IV</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="hichart[nic-iv]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="hichart[nic-iv]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -98,13 +128,19 @@
                             <div class="form-group row">
                                 <label for="lis-bajo" class="col-md-6 col-form-label text-right">LIS DE BAJO GRADO</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="bethesda[lis-bajo]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="bethesda[lis-bajo]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="lis-alto" class="col-md-6 col-form-label text-right">LIS DE ALTO GRADO</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm" name="bethesda[lis-alto]">
+                                    <input type="text" class="form-control form-control-sm"
+                                           name="bethesda[lis-alto]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -136,49 +172,79 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="estCito[PARABASALES]">PARABASALES</label>
-                            <input type="text" class="form-control" name="estCito[PARABASALES]">
+                            <input type="text" class="form-control"
+                                   name="estCito[PARABASALES]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="estCito[INTERMEDIAS]">INTERMEDIAS</label>
-                            <input type="text" class="form-control" name="estCito[INTERMEDIAS]">
+                            <input type="text" class="form-control"
+                                   name="estCito[INTERMEDIAS]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="estCito[SUPERFICIALES]">SUPERFICIALES</label>
-                            <input type="text" class="form-control" name="estCito[SUPERFICIALES]">
+                            <input type="text" class="form-control"
+                                   name="estCito[SUPERFICIALES]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-3 form-group">
                             <label for="tipo[ESTROGENICO]">TIPO ESTROGENICO</label>
-                            <input type="text" class="form-control" name="tipo[ESTROGENICO]">
+                            <input type="text" class="form-control"
+                                   name="tipo[ESTROGENICO]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="tipo[INTERMEDIO]">TIPO INTERMEDIO</label>
-                            <input type="text" class="form-control" name="tipo[INTERMEDIO]">
+                            <input type="text" class="form-control"
+                                   name="tipo[INTERMEDIO]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="tipo[PARABASAL]">TIPO PARABASAL</label>
-                            <input type="text" class="form-control" name="tipo[PARABASAL]">
+                            <input type="text" class="form-control"
+                                   name="tipo[PARABASAL]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-3 form-group">
                             <label for="tipo[ATROFICO]">TIPO ATROFICO</label>
-                            <input type="text" class="form-control" name="tipo[ATROFICO]">
+                            <input type="text" class="form-control"
+                                   name="tipo[ATROFICO]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA IZQUIERDA]">DESVIACION A LA IZQUIERDA</label>
-                            <input type="text" class="form-control" name="desviacion[DESVIACION A LA IZQUIERDA]">
+                            <input type="text" class="form-control"
+                                   name="desviacion[DESVIACION A LA IZQUIERDA]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION AL CENTRO]">DESVIACION AL CENTRO</label>
-                            <input type="text" class="form-control" name="desviacion[DESVIACION AL CENTRO]">
+                            <input type="text" class="form-control"
+                                   name="desviacion[DESVIACION AL CENTRO]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA DERECHA]">DESVIACION A LA DERECHA</label>
-                            <input type="text" class="form-control" name="desviacion[DESVIACION A LA DERECHA]">
+                            <input type="text" class="form-control"
+                                   name="desviacion[DESVIACION A LA DERECHA]"
+                                   onkeyup="uppercaseInput(this);"
+                            >
                         </div>
                     </div>
                     <hr>
@@ -249,7 +315,9 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" name="descripcion" class="form-control" required>
+                            <input type="text" name="descripcion" class="form-control"
+                                   onkeyup="uppercaseInput(this);"
+                                   required>
                         </div>
                     </div>
 
@@ -285,7 +353,9 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="descripcion" class="form-control" required>
+                                <input type="text" name="descripcion" class="form-control"
+                                       onkeyup="uppercaseInput(this);"
+                                       required>
                             </div>
                         </div>
 

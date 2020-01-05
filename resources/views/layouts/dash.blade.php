@@ -97,6 +97,9 @@
 
         });
 
+        function uppercaseInput(input){
+            $(input).val($(input).val().toUpperCase());
+        }
     </script>
 
     </body>

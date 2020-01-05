@@ -40,6 +40,12 @@ Tip 2: you can also add an image using data-image tag
                     </ul>
                 </div>
             </li>
+                <li class="nav-item @if($activePage == 'instituciones') active @endif">
+                    <a class="nav-link" href="{{route('institucion.home')}}">
+                        <i class="fas fa-book-medical"></i>
+                        <p>Instituciones</p>
+                    </a>
+                </li>
             @endcan
             <li class="nav-item @if($activePage == 'clients') active @endif">
                 <a class="nav-link" href="{{route('clients.index')}}">
@@ -55,16 +61,16 @@ Tip 2: you can also add an image using data-image tag
             </li>
             @can('manage-admin')
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin1" @if($activeButton =='reportactiveButton') aria-expanded="true" @endif aria-controls="c_admin1" role="button">
+                    <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin1" @if($activeButton =='reporteActiveButton') aria-expanded="true" @endif aria-controls="c_admin1" role="button">
                         <i class="fas fa-poll"></i>
                         <p>Reportes</p>
                     </a>
-                    <div class="collapse @if($activeButton =='reporteactiveButton') show @endif" id="c_admin1">
+                    <div class="collapse @if($activeButton =='reporteActiveButton') show @endif" id="c_admin1">
                         <ul class="nav">
                             <li class="nav-item @if($activePage == 'admin_reporte') active @endif">
-                                <a class="nav-link" href="{{route('admin.users.index')}}">
+                                <a class="nav-link" href="{{route('reporte.reporte1')}}">
                                     <i class="fas fa-receipt"></i>
-                                    <p>Reporte 1</p>
+                                    <p>Reporte Diario</p>
                                 </a>
                             </li>
                         </ul>

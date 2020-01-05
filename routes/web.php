@@ -60,3 +60,11 @@ Route::get('/histo/crear/{analisisId}', 'InmunohistoquimicaController@create')->
 Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.save');
 Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');
 Route::get('/histo/reporte/{analisisId}', 'InmunohistoquimicaController@reporte')->name('histo.reporte');
+
+Route::get('/reportes/reporte1', 'ReporteController@reporte1')->name('reporte.reporte1');
+Route::post('/reportes/reporte1', 'ReporteController@reportePost')->name('reporte.reportepost');
+
+Route::get('/institucion/index', 'InstitucionController@index')->name('institucion.home');
+Route::get('/institucion/datatable', 'InstitucionController@getDatatablesData')->name('institucion.datatablesInstitucionData');
+Route::post('/institucion/ajaxCrearInstitucion','InstitucionController@ajaxCreateInstitucion')->name('institucion.createInstitucion');
+Route::post('/institucion/ajaxgetinstitucion','InstitucionController@ajaxGetInstitucion')->name('institucion.getInstitucion');

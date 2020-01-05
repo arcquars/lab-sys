@@ -1,3 +1,4 @@
+<img src="{{public_path('img/image-c.png')}}" width="600">
 <h1 class="h1-cito">CENTRO DE DIAGNOSTICO CITOPATOLOGICO</h1>
 <table style="width: 100%;">
     <tr>

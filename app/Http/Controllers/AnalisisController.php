@@ -58,6 +58,7 @@ class AnalisisController extends Controller
         $analisis->person_id = $request->get('person_id');
         $analisis->doctor = $request->get('doctor');
         $analisis->fecha = $request->get('fecha');
+        $analisis->fecha_entrega = $request->get('fecha_entrega');
         $analisis->tipo_analisis = $request->get('tipo_analisis');
         $analisis->procedencia = $request->get('procedencia');
         $analisis->region = $request->get('region');

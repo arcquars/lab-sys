@@ -58,7 +58,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombres</label>
-                                    <input type="text" name="nombres" class="form-control" placeholder="Nombres">
+                                    <input type="text" name="nombres"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" placeholder="Nombres">
                                     <div class="fcp_error_nombres" style="display: none;"></div>
                                 </div>
                             </div>
@@ -67,7 +69,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="apellidos">Apellido Paterno</label>
-                                    <input type="text" name="apellidos" class="form-control"
+                                    <input type="text" name="apellidos"
+                                           class="form-control"
+                                           onkeyup="uppercaseInput(this);"
                                            placeholder="Apellido Paterno">
                                     <div class="fcp_error_apellidos" style="display: none;"></div>
                                 </div>
@@ -75,7 +79,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="apellido_materno">Apellido Materno</label>
-                                    <input type="text" name="apellido_materno" class="form-control"
+                                    <input type="text" name="apellido_materno"
+                                           class="form-control"
+                                           onkeyup="uppercaseInput(this);"
                                            placeholder="Apellido Materno">
                                     <div class="fcp_error_apellido_materno" style="display: none;"></div>
                                 </div>
@@ -280,8 +286,13 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            $("#mpersona").modal("hide");
-                            $('#simple-datatable-example').DataTable().ajax.reload();
+                            if(id != ''){
+                                $("#mpersona").modal("hide");
+                                $('#simple-datatable-example').DataTable().ajax.reload();
+                            } else {
+                                window.location.href = data.url;
+                            }
+
                         } else {
                             alert(data.errors);
                         }

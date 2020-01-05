@@ -9,6 +9,18 @@
         </ol>
     </nav>
     <div class="card">
+        <div class="card-header">
+            <dl class="row row-citologia">
+                <dt class="col-md-3">Nombres y Apellidos:</dt>
+                <dd class="col-md-3">{{$persona->apellidos.', '.$persona->nombres}}</dd>
+                <dt class="col-md-3">Edad:</dt>
+                <dd class="col-md-3">{{$persona->edad}}</dd>
+            </dl>
+            <dl class="row row-citologia">
+                <dt class="col-md-3">Sexo:</dt>
+                <dd class="col-md-3">{{$persona->sexo}}</dd>
+            </dl>
+        </div>
         <div class="card-body">
             <form method="post" action="/analisis">
                 {{ csrf_field() }}
@@ -18,7 +30,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="doctor">Doctor</label>
-                                <input type="text" name="doctor" class="form-control @error('doctor') is-invalid @enderror"
+                                <input type="text" name="doctor"
+                                       class="form-control @error('doctor') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
                                 value="{{old('doctor')}}">
                                 @error('doctor')
                                 <div class="text-danger">{{ $message }}</div>
@@ -28,7 +42,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="region">Region de analisis</label>
-                                <input type="text" name="region" class="form-control @error('region') is-invalid @enderror"
+                                <input type="text" name="region"
+                                       class="form-control @error('region') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
                                        value="{{@old('region')}}">
                                 @error('region')
                                 <div class="text-danger">{{ $message }}</div>

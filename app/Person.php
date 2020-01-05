@@ -30,6 +30,7 @@ class Person extends Model
     {
         return view('clients.includes.action')->with(array('id' => $person->id))->render();
     }
+
     /**
      * Returns the name column value for datatables.
      *

@@ -113,6 +113,7 @@ class ClientController extends Controller
     {
         return Laratables::recordsOf(Person::class);
     }
+
     /**
      * return data of the Custom columns datatables.
      *
@@ -157,7 +158,7 @@ class ClientController extends Controller
             $valid = $this->createPerson($request);
         }
         if($valid) {
-            return response()->json(['success'=>true]);
+            return response()->json(['success'=>true, 'url' => route('analisis.crearanalisis', ['personId' => $valid])]);
         } else {
             return response()->json(['success'=> false, 'errors' => 'Existe un error por favor contactese con el administrador.']);
         }
@@ -178,7 +179,7 @@ class ClientController extends Controller
         $person->sexo = $request->get('sexo');
 
         if($person->save()) {
-            return true;
+            return $person->id;
         }
         return false;
     }

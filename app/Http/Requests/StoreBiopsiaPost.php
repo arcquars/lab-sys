@@ -24,10 +24,10 @@ class StoreBiopsiaPost extends FormRequest
     public function rules()
     {
         return [
-            'organo_tejido' => 'nullable|string|max:1000',
-            'macroscopia' => 'nullable|string|max:1000',
-            'microscopia' => 'nullable|string|max:1000',
-            'diagnostico' => 'nullable|string|max:1000',
+            'organo_tejido' => 'nullable|string|max:10000',
+            'macroscopia' => 'nullable|string|max:10000',
+            'microscopia' => 'nullable|string|max:10000',
+            'diagnostico' => 'nullable|string|max:10000',
 //            '' => '',
 //            '' => '',
 //            '' => '',
