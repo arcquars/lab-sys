@@ -75,7 +75,6 @@
 @include('citologia.partial.reporte-head')
 <h3 class="h2-cito">INFORME HISTOPATOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
-<h3 class="h2-cito">RESULTADO</h3>
 <br>
 <h4 class="h4-cito">Organo o Tejido</h4>
 <div class="div-campo">

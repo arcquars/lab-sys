@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="doctor">Doctor</label>
+                                <label for="doctor">Doctor que envia</label>
                                 <input type="text" name="doctor"
                                        class="form-control @error('doctor') is-invalid @enderror"
                                        onkeyup="uppercaseInput(this);"
@@ -130,22 +130,22 @@
                         <div class="col-md-4">
                             <h6 class="titleBancaIngreso">Activo</h6>
                             <div class="form-group">
-                                <input type="text" name="bancaActivoAsegurado" class="form-control @error('bancaActivoAsegurado') is-invalid @enderror"
-                                       value="{{old('bancaActivoAsegurado')}}" placeholder="Asegurado">
+                                <input type="checkbox" name="bancaActivoAsegurado"
+                                       value="1"> Asegurado
                                 @error('bancaActivoAsegurado')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaActivoExt" class="form-control @error('bancaActivoExt') is-invalid @enderror"
-                                       value="{{old('bancaActivoExt')}}" placeholder="Ext. 19-25">
+                                <input type="checkbox" name="bancaActivoExt"
+                                       value="1"> Ext. 19-25
                                 @error('bancaActivoExt')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaActivoResto" class="form-control @error('bancaActivoResto') is-invalid @enderror"
-                                       value="{{old('bancaActivoResto')}}" placeholder="Rest Benef.">
+                                <input type="checkbox" name="bancaActivoResto"
+                                       value="1"> Rest Benef.
                                 @error('bancaActivoResto')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -154,22 +154,22 @@
                         <div class="col-md-4">
                             <h6 class="titleBancaIngreso">Pasivo</h6>
                             <div class="form-group">
-                                <input type="text" name="bancaPasivoAsegurado" class="form-control @error('bancaPasivoAsegurado') is-invalid @enderror"
-                                       value="{{old('bancaPasivoAsegurado')}}" placeholder="Asegurado">
+                                <input type="checkbox" name="bancaPasivoAsegurado"
+                                       value="1" > Asegurado
                                 @error('bancaPasivoAsegurado')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaPasivoExt" class="form-control @error('bancaPasivoExt') is-invalid @enderror"
-                                       value="{{old('bancaPasivoExt')}}" placeholder="Ext. 19-25">
+                                <input type="checkbox" name="bancaPasivoExt"
+                                       value="1" > Ext. 19-25
                                 @error('bancaPasivoExt')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaPasivoResto" class="form-control @error('bancaPasivoResto') is-invalid @enderror"
-                                       value="{{old('bancaPasivoResto')}}" placeholder="Rest Benef.">
+                                <input type="checkbox" name="bancaPasivoResto"
+                                       value="1" > Rest Benef.
                                 @error('bancaPasivoResto')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -178,22 +178,22 @@
                         <div class="col-md-4">
                             <h6 class="titleBancaIngreso">Sec. Vol.</h6>
                             <div class="form-group">
-                                <input type="text" name="bancaSecAsegurado" class="form-control @error('bancaSecAsegurado') is-invalid @enderror"
-                                       value="{{old('bancaSecAsegurado')}}" placeholder="Asegurado">
+                                <input type="checkbox" name="bancaSecAsegurado"
+                                       value="1"> Asegurado
                                 @error('bancaSecAsegurado')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaSecExt" class="form-control @error('bancaSecExt') is-invalid @enderror"
-                                       value="{{old('bancaSecExt')}}" placeholder="Ext. 19-25">
+                                <input type="checkbox" name="bancaSecExt"
+                                       value="1"> Ext. 19-25
                                 @error('bancaSecExt')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" name="bancaSecResto" class="form-control @error('bancaSecResto') is-invalid @enderror"
-                                       value="{{old('bancaSecResto')}}" placeholder="Rest Benef.">
+                                <input type="checkbox" name="bancaSecResto"
+                                       value="1"> Rest Benef.
                                 @error('bancaSecResto')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -227,28 +227,50 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fecha">Fecha de Ingreso</label>
-                                <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
-                                       value="{{old('fecha', date('Y-m-d'))}}"
-                                       min="{{date('Y-m-d', strtotime("-10 days"))}}"
-                                       max="{{date('Y-m-d', strtotime("5 days"))}}"
-                                >
-{{--                                       value="2019-12-30">--}}
-                                @error('fecha')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="col-md-3">
+                            <label for="telefono_referencia">Telefono Referencia</label>
+                            <input type="text" name="telefono_referencia" class="form-control @error('telefono_referencia') is-invalid @enderror"
+                                   value="{{old('telefono_referencia')}}">
+                            @error('telefono_referencia')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label for="fecha">Fecha de Ingreso</label>
+                            <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
+                                   value="{{old('fecha', date('Y-m-d'))}}"
+                                   min="{{date('Y-m-d', strtotime("-10 days"))}}"
+                                   max="{{date('Y-m-d', strtotime("5 days"))}}"
+                            >
+                            {{--                                       value="2019-12-30">--}}
+                            @error('fecha')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="fecha">Fecha de Entrega</label>
-                                <input type="date" name="fecha_entrega" class="form-control @error('fecha_entrega') is-invalid @enderror"
-                                       value="{{old('fecha_entrega', date('Y-m-d'))}}"
-                                       min="{{date('Y-m-d', strtotime("-5 days"))}}"
-                                       max="{{date('Y-m-d', strtotime("10 days"))}}">
-                                @error('fecha_entrega')
+                                <label for="doctor_asignado">Asignar Doctor</label>
+                                <select name="doctor_asignado" class="form-control @error('fecha_entrega') is-invalid @enderror">
+                                    <option value="" selected>Elija un doctor</option>
+                                    @if(old('doctor_asignado'))
+                                        @foreach($doctores as $doctor)
+                                            @if(old('doctor_asignado') == $doctor->id)
+                                                <option value="{{$doctor->id}}" selected>{{$doctor->nombres}} {{$doctor->apellidos}}</option>
+                                            @else
+                                                <option value="{{$doctor->id}}">{{$doctor->nombres}} {{$doctor->apellidos}}</option>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        @foreach($doctores as $doctor)
+                                            <option value="{{$doctor->id}}">{{$doctor->nombres}} {{$doctor->apellidos}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+{{--                                <input type="date" name="fecha_entrega" class="form-control @error('fecha_entrega') is-invalid @enderror"--}}
+{{--                                       value="{{old('fecha_entrega', date('Y-m-d'))}}"--}}
+{{--                                       min="{{date('Y-m-d', strtotime("-5 days"))}}"--}}
+{{--                                       max="{{date('Y-m-d', strtotime("10 days"))}}">--}}
+                                @error('doctor_asignado')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Convenio;
+use App\Doctor;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Institucion;
@@ -58,10 +59,11 @@ class AnalisisController extends Controller
         $analisis->person_id = $request->get('person_id');
         $analisis->doctor = $request->get('doctor');
         $analisis->fecha = $request->get('fecha');
-        $analisis->fecha_entrega = $request->get('fecha_entrega');
+        $analisis->doctor_asignado = $request->get('doctor_asignado');
         $analisis->tipo_analisis = $request->get('tipo_analisis');
         $analisis->procedencia = $request->get('procedencia');
         $analisis->region = $request->get('region');
+        $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
         $analisis->codigo = $request->get('codigo');
         if($request->get('acuenta')) {
@@ -166,8 +168,13 @@ class AnalisisController extends Controller
     public function crearAnalisisForPersona($personId){
         $persona = Person::find($personId);
         $procedencias = Institucion::all();
+        $doctores = Doctor::all();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
-        return view('analisis.crear', compact('procedencias', 'tipoAnalisis', 'persona'));
+        return view('analisis.crear', compact(
+            'procedencias',
+            'doctores',
+            'tipoAnalisis',
+            'persona'));
     }
 
     /**
@@ -320,5 +327,39 @@ class AnalisisController extends Controller
             'acuenta' => $analisis->acuenta
         );
         return response()->json(['success' => $resultado]);
+    }
+
+    public function ajaxRegistrarFechaEntrega(Request $request){
+        $validatedFechaEntrega = $request->validate([
+            'analisis_id' => 'required',
+            'persona_entrega' => 'required|min:10|max:180',
+            'fecha_entrega' => 'required',
+        ]);
+
+        $analisis_id = $request->post('analisis_id');
+        $persona_entrega = $request->post('persona_entrega');
+        $fecha_entrega = $request->post('fecha_entrega');
+        if($validatedFechaEntrega){
+            if(Analisis::updatePersonaFechaEntrega($analisis_id, $persona_entrega, $fecha_entrega)){
+                return response()->json(['success' => '1']);
+            }
+            return response()->json(['success' => '0']);
+        }
+    }
+
+    public function ajaxRegistrarFechaCierre(Request $request){
+        $validatedFechaCierre = $request->validate([
+            'analisis_id' => 'required',
+            'fecha_cierre' => 'required',
+        ]);
+
+        $analisis_id = $request->post('analisis_id');
+        $fecha_cierre = $request->post('fecha_cierre');
+        if($validatedFechaCierre){
+            if(Analisis::updateFechaCierre($analisis_id, $fecha_cierre)){
+                return response()->json(['success' => '1']);
+            }
+            return response()->json(['success' => '0']);
+        }
     }
 }

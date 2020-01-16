@@ -16,6 +16,7 @@ class Person extends Model
         'ci',
         'nombres',
         'apellidos',
+        'apellido_materno',
         'edad'
     ];
 

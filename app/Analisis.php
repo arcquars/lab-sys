@@ -24,7 +24,9 @@ class Analisis extends Model
         'person_id',
         'pago_efectuado',
         'doctor',
-        'movimiento'
+        'movimiento',
+        'persona_entrega',
+        'fecha_cierre'
     ];
 
     public function person(){
@@ -35,8 +37,8 @@ class Analisis extends Model
         return $this->belongsTo('App\Institucion', 'procedencia', 'id');
     }
 
-    public function movimiento(){
-        return 'ccc:: ';
+    public function doctorasig(){
+        return $this->belongsTo('App\Doctor', 'doctor_asignado', 'id');
     }
 
     /**
@@ -47,6 +49,11 @@ class Analisis extends Model
      */
     public static function laratablesCustomAction($analisis)
     {
+        // Verificando que se entrego el analisis al cliente
+        $entregado = false;
+        if(isset($analisis->persona_entrega)){
+            $entregado = true;
+        }
         $isHasResult = false;
         $routeView = '';
         switch ($analisis->tipo_analisis){
@@ -75,7 +82,10 @@ class Analisis extends Model
             'routeView' => $routeView,
             'acuenta' => $analisis->acuenta,
             'precio' => $analisis->precio,
-            'pago_efectuado' => $analisis->pago_efectuado
+            'pago_efectuado' => $analisis->pago_efectuado,
+//            'entregado' => $analisis->persona_entrega
+            'entregado' => $entregado,
+            'fechaCierre' => $analisis->fecha_cierre
             ))->render();
     }
 
@@ -95,5 +105,46 @@ class Analisis extends Model
      */
     public static function laratablesOrderFecha(){
         return 'fecha';
+    }
+
+    /**
+     * Returns the name column value for datatables.
+     *
+     * @param \App\Analisis
+     * @return string
+     */
+    public static function laratablesPersonNombres($analisis)
+    {
+        return $analisis->person->nombres . ' ' . $analisis->person->apellidos.' '.$analisis->person->apellido_materno;
+    }
+
+    /**
+     * Returns the name column value for datatables.
+     *
+     * @param \App\Analisis
+     * @return string
+     */
+    public static function laratablesDoctorasigNombres($analisis)
+    {
+        return $analisis->doctorasig->nombres . ' ' . $analisis->doctorasig->apellidos.' '.$analisis->doctorasig->apellido_materno;
+    }
+
+    public static function updatePersonaFechaEntrega($analisisId, $personaEntrega, $fechaEntrega){
+        $analisis = Analisis::find($analisisId);
+        $analisis->persona_entrega = $personaEntrega;
+        $analisis->fecha_entrega = $fechaEntrega;
+        if($analisis->update()){
+            return true;
+        }
+        return false;
+    }
+
+    public static function updateFechaCierre($analisisId, $fechaCierre){
+        $analisis = Analisis::find($analisisId);
+        $analisis->fecha_cierre = $fechaCierre;
+        if($analisis->update()){
+            return true;
+        }
+        return false;
     }
 }

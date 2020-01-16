@@ -39,11 +39,12 @@
 {{--        <link href="./node_modules/@fortawesome/fontawesome-free/regular.css" rel="stylesheet">--}}
 {{--        <link href="./node_modules/@fortawesome/fontawesome-free/solid.css" rel="stylesheet">--}}
 
-        <link href="{{ asset('datatables/css/dataTables.bootstrap4.css') }}" rel="stylesheet" />
+
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/jdtpaginate.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/clinica.css') }}" rel="stylesheet" />
     </head>
 
@@ -64,12 +65,9 @@
 
         </div>
 
+    <script src="{{ asset('js/app.js') }}"></script>
     <!--   Core JS Files   -->
-    <script src="{{ asset('light-bootstrap/js/core/jquery-3.3.1.slim.js') }}" type="text/javascript"></script>
     <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
-
-    <script src="{{ asset('/datatables/datatables.js') }}"></script>
-    <script src="{{ asset('/datatables/js/dataTables.bootstrap4.js') }}"></script>
 
     <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
 
@@ -88,7 +86,7 @@
     <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
 
     <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-    {{--    <script src="{{ asset('js/app.js') }}"></script>--}}
+
 
     @stack('js')
     <script>

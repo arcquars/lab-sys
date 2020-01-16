@@ -1,7 +1,14 @@
 @can('manage-users')
-{{--<a href="#" onclick="editAnalisisAjax({{$id}}); return false;" class="btn btn-link float-right btn-clinica" title="Editar Analisis">--}}
-{{--    <i class="far fa-edit fa-lg"></i>--}}
-{{--</a>--}}
+    @if(!$entregado)
+<a href="#" onclick="openModalFechaEntrega(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica" title="Fecha Entrega">
+    <i class="far fa-calendar-times "></i>
+</a>
+    @endif
+    @if(!isset($fechaCierre))
+<a href="#" onclick="openModalCerrarAnalisis(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica" title="Cerrar Analisis">
+    <i class="fas fa-hourglass-end "></i>
+</a>
+    @endif
 @endcan
 @if (!$isHasResult)
 {{--    @can('manage-users')--}}

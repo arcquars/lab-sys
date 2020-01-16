@@ -9,7 +9,9 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
+    window.dt = require( 'datatables.net' )( window, $ );
 
+    window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
     require('bootstrap');
 } catch (e) {}
 

@@ -14,9 +14,9 @@
                 <div class="col-md-6">
                     <h4>Clientes</h4>
                 </div>
-                {{--                <div class="col-md-6 text-right"><a href="{{route('clients.create')}}" class="btn btn-success">Registrar Cliente</a></div>--}}
-                <div class="col-md-6 text-right"><a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar
-                        Cliente</a></div>
+                <div class="col-md-6 text-right">
+                    <a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar Cliente</a>
+                </div>
             </div>
         </div>
         <div class="card-body">

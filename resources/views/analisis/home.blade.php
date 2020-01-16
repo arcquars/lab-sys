@@ -11,31 +11,37 @@
     <div class="card">
         <div class="card-header">
         </div>
-        <div class="card-body">
-            <table id="tAnalisis" class="table table-bordered table-clinica">
-                <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Codigo</th>
-                    <th>Cliente</th>
-                    <th>Fecha Entrega</th>
-                    <th>Tipo</th>
-                    <th>Doctor</th>
-                    @can('manage-users')
-                    <th>Procedencia</th>
-                    <th>Precio</th>
-                    @endcan
-                    <th>A cuenta</th>
-                    <th>Pago</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-            </table>
+        <div class="card-body ">
+            <div class="table-responsive">
+                <table id="tAnalisis" class="table table-bordered table-clinica">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Codigo</th>
+                        <th>Cliente</th>
+                        <th>Ap</th>
+                        <th>Ap Ma</th>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Doctor Refiere</th>
+                        <th>Doctor Asignado</th>
+                        @can('manage-users')
+                            <th>Procedencia</th>
+                            <th>Precio</th>
+                        @endcan
+                        <th>A cuenta</th>
+                        <th>Pago</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                        <th>Persona Entrega</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Pago -->
     <div class="modal fade" id="pagoModal" tabindex="-1" role="dialog" aria-labelledby="pagoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -79,6 +85,78 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Fecha de Entrega -->
+    <div class="modal fade" id="fechaEntregaModal" tabindex="-1" role="dialog" aria-labelledby="fechaentregaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_fechaentrega">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fechaentregaModalLabel">Fecha de Entrega de analisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-pago-p">
+                        <input type="hidden" name="analisis_id">
+                        <div class="form-group">
+                            <label for="persona_entrega">Persona a quien entrega</label>
+                            <input type="text" name="persona_entrega"
+                                   class="form-control"
+                                   placeholder="Nombres"
+                                   onkeyup="uppercaseInput(this);"
+                            >
+                            <div class="fcp_error_persona_entrega" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha_entrega">Fecha de entrega</label>
+                            <input type="date" name="fecha_entrega" class="form-control"
+                                   min="{{date('Y-m-d', strtotime("-5 days"))}}"
+                                   max="{{date('Y-m-d', strtotime("5 days"))}}"
+                            >
+                            <div class="fcp_error_fecha_entrega" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onclick="saveFechaEntrega();" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cerrar Analisis -->
+    <div class="modal fade" id="cerrarAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="cerrarAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_cerraranalisis">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Cerrar Analisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-pago-p">
+                        <input type="hidden" name="analisis_id">
+                        <div class="form-group">
+                            <label for="fecha_cierre">Fecha de cierre del Analisis</label>
+                            <input type="date" name="fecha_cierre" class="form-control"
+                                   min="{{date('Y-m-d', strtotime("-2 days"))}}"
+                                   max="{{date('Y-m-d', strtotime("2 days"))}}"
+                            >
+                            <div class="fcp_error_fecha_cierre" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onclick="saveCerrarAnalisis();" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('js')
@@ -96,12 +174,16 @@
                 responsive: true,
                 ajax: "{{ route('simple_datatables_analisis_data') }}",
                 columns: [
-                    {name: 'id'},
+                    {name: 'id', visible: false},
                     {name: 'codigo'},
-                    {name: 'person.nombres', orderable: true},
+                    // {name: 'nombres', orderable: true},
+                    {name: 'person.nombres', orderable: false},
+                    {name: 'person.apellidos', orderable: false, visible: false},
+                    {name: 'person.apellido_materno', orderable: false, visible: false},
                     {name: 'fecha', orderable: false},
                     {name: 'tipo_analisis'},
                     {name: 'doctor', orderable: false},
+                    {name: 'doctorasig.nombres', orderable: false},
                     {name: 'institucion.nombre'},
                         @can('manage-users')
                     {name: 'precio', searchable: false},
@@ -109,16 +191,19 @@
                         @endcan
                     {name: 'pago_efectuado', searchable: false},
                     {name: 'precio1', orderable: false, searchable: false},
-                    {name: 'action', orderable: false, searchable: false}
+                    {name: 'action', orderable: false, searchable: false},
+                    {name: 'persona_entrega', visible: false},
+                    {name: 'fecha_cierre', visible: false}
                 ],
                 aoColumnDefs: [
                     {
-                        "targets": [8],
+                        "targets": [10],
                         "visible": false,
                         "searchable": false
                     }
                 ],
-                "order": [[ 3, "desc" ]],
+                "pagingType": "full_numbers",
+                "order": [[ 5, "desc" ]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -140,7 +225,16 @@
                     }
                 },
             });
+
         });
+
+        function clearErrorMsg() {
+            $('.fcp_error_persona_entrega').empty();
+            $('.fcp_error_fecha_entrega').empty();
+
+            $("#f_fechaentrega").find("input[name='persona_entrega']").removeClass('is-invalid');
+            $("#f_fechaentrega").find("input[name='fecha_entrega']").removeClass('is-invalid');
+        }
 
         function openModalPago(link){
             analisisId = $(link).data('id');
@@ -156,7 +250,7 @@
                     $('#pago_pago').empty().append(data.success.precio-data.success.acuenta);
                     $('#i_analisis_id').val(analisisId);
                     $('#pagoModal').modal('show');
-                }
+                },
             });
         }
 
@@ -169,6 +263,80 @@
                 success: function (data) {
                     $('#pagoModal').modal('hide');
                     $('#tAnalisis').DataTable().ajax.reload();
+                }
+
+            });
+        }
+
+        function printErrorMsg(form, msg) {
+            $.each(msg.errors, function (key, value) {
+                $(form).find("input[name='" + key + "']").addClass('is-invalid');
+                var msgs = "<ul class='list-unstyled'>";
+                $.each(value, function (key1, value1) {
+                    msgs += "<li><span class='text-danger'>" + value1 + "</span></li>";
+                });
+                msgs += "</ul>";
+                $('.fcp_error_' + key).empty().append(msgs);
+                $('.fcp_error_' + key).show();
+            });
+        }
+
+        function openModalFechaEntrega(link) {
+            $('#fechaEntregaModal').modal('show');
+
+            clearErrorMsg();
+            $('#f_fechaentrega')[0].reset();
+            $('#f_fechaentrega input[name="analisis_id"]').val($(link).data('id'));
+        }
+
+        function openModalCerrarAnalisis(link) {
+            $('#cerrarAnalisisModal').modal('show');
+            $('#f_cerraranalisis')[0].reset();
+            $('#f_cerraranalisis input[name="analisis_id"]').val($(link).data('id'))
+        }
+
+        function saveFechaEntrega(){
+            var analisisId = $('#f_fechaentrega input[name="analisis_id"]').val();
+            var persona_entrega = $('#f_fechaentrega input[name="persona_entrega"]').val();
+            var fecha_entrega = $('#f_fechaentrega input[name="fecha_entrega"]').val();
+            $.ajax({
+                url: "{{ route('analisis.aSaveFechaEntrega') }}",
+                type: 'POST',
+                data: {analisis_id: analisisId,
+                    persona_entrega: persona_entrega,
+                    fecha_entrega: fecha_entrega},
+                success: function (data) {
+                    if(data.success == 1){
+                        $('#fechaEntregaModal').modal('hide');
+                        $('#tAnalisis').DataTable().ajax.reload();
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
+        }
+
+        function saveCerrarAnalisis(){
+            var analisisId = $('#f_cerraranalisis input[name="analisis_id"]').val();
+            var fecha_cierre = $('#f_cerraranalisis input[name="fecha_cierre"]').val();
+            $.ajax({
+                url: "{{ route('analisis.aSaveFechaCierre') }}",
+                type: 'POST',
+                data: {analisis_id: analisisId,
+                    fecha_cierre: fecha_cierre},
+                success: function (data) {
+                    if(data.success == 1){
+                        $('#cerrarAnalisisModal').modal('hide');
+                        $('#tAnalisis').DataTable().ajax.reload();
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    printErrorMsg($("#f_cerraranalisis"), JSON.parse(XMLHttpRequest.responseText));
                 }
             });
         }

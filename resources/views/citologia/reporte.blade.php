@@ -1,11 +1,4 @@
 <style>
-    .h1-cito{
-        text-align: center;
-        color: #012035;
-        font-size: 16px;
-        margin: 0;
-        padding: 0;
-    }
     .h2-cito{
         text-align: center;
         color: #012035;
@@ -38,7 +31,7 @@
 @include('citologia.partial.reporte-head')
 <h3 class="h2-cito">INFORME CITOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
-<h3 class="h2-cito">RESULTADO</h3>
+
 <p class="p-dato"><b>Clasificacion del Papanicolaou Clase: </b> {{'( '.$resultados->papanicolaou_clase1.' ) '.$resultados->papanicolaou_clase2}}</p>
 <h3 class="h2-cito" style="text-transform: uppercase;">Extendido Compatible con los Diagnosticos</h3>
 @php

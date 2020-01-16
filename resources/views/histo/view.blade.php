@@ -15,7 +15,6 @@
         </div>
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
-            <h6 class="h6-cito-titulo">RESULTADO</h6>
             <hr>
             <div class="row row-biopsia">
                 <div class="col-md-12 form-group">
@@ -44,7 +43,7 @@
             <div style="height: 8px;"></div>
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
-                    @can('manage-users')
+                    @can('manage-users-dr')
                     <a href="{{route('histo.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
                     <a href="{{route('histo.crear', ['analisisId' => $analisis->id])}}" class="btn btn-primary">Editar</a>

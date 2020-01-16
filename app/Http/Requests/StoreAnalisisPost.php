@@ -32,11 +32,12 @@ class StoreAnalisisPost extends FormRequest
         }
 
         $rulesR = [
-            'doctor' => 'required|min:5|max:200',
+            'doctor' => 'required|min:5|max:200|countWordRule',
             'procedencia' => 'required',
             'tipo_analisis' => 'required',
             'fecha' => 'required',
-            'fecha_entrega' => 'required',
+            'doctor_asignado' => 'required',
+            'telefono_referencia' => 'numeric',
             'region' => 'required|max:200',
             'precio' => 'required|numeric|min:0|max:10000',
             'acuenta' => 'lte:precio|nullable',
@@ -48,6 +49,7 @@ class StoreAnalisisPost extends FormRequest
                     'doctor' => 'required|min:5|max:200',
                     'procedencia' => 'required',
                     'tipo_analisis' => 'required',
+                    'doctor_asignado' => 'required',
                     'fecha' => 'required',
                     'region' => 'required|max:200',
                     'precio' => 'required|numeric|min:1',

@@ -46,6 +46,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Instituciones</p>
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'doctores') active @endif">
+                    <a class="nav-link" href="{{route('doctores.home')}}">
+                        <i class="fas fa-user-md"></i>
+                        <p>Doctores</p>
+                    </a>
+                </li>
             @endcan
             <li class="nav-item @if($activePage == 'clients') active @endif">
                 <a class="nav-link" href="{{route('clients.index')}}">

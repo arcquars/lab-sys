@@ -8,14 +8,24 @@
     <tr>
         <td><p class="p-dato"><b>Procedencia:</b></p></td>
         <td><p class="p-dato">{{$analisis->institucion->nombre}}</p></td>
-        <td style="text-align: right;"><p class="p-dato"><b>Sexo::</b></p></td>
+        <td style="text-align: right;"><p class="p-dato"><b>Sexo:</b></p></td>
         <td><p class="p-dato">{{$analisis->person->sexo}}</p></td>
     </tr>
     <tr>
         <td><p class="p-dato"><b>Enviado por Doctor(a): </b></p></td>
         <td><p class="p-dato">{{$analisis->doctor}}</p></td>
-        <td colspan="2" style="text-align: right;">
-            <div style="border: 2px double #f6993f; width: 100%; text-align: right;">
+        <td style="text-align: right;"><p class="p-dato"><b>Analisis Entregado A:</b></p></td>
+        <td><p class="p-dato">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</p></td>
+    </tr>
+    <tr>
+        <td><p class="p-dato"><b>Fecha de Entrega:</b></p></td>
+        <td><p class="p-dato">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</p></td>
+        <td style="text-align: right;"><p class="p-dato"><b>Fecha de Cierre:</b></p></td>
+        <td><p class="p-dato">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre: '--NO ENTREGADO--')}}</p></td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: right;">
+            <div style="border: 2px double #f6993f; width: 100%; text-align: right; margin-top: 10px;">
                 <p class="p-dato"><b>&nbsp;&nbsp;Codigo: {{$analisis->codigo}}&nbsp;&nbsp;</b></p>
             </div>
         </td>

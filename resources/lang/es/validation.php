@@ -148,4 +148,5 @@ return [
 
     'attributes' => [],
 
+    'count_word_rule' => ':attribute tiene que tener minimo 2 palabras',
 ];

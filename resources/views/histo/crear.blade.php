@@ -63,7 +63,7 @@
                         options: [ 'left', 'right' ]
                     },
                     toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
+                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'blockQuote', 'underline','undo', 'redo'
                     ],
                     language: {
                         // The UI will be English.
@@ -96,7 +96,7 @@
                     }
                 })
                 .then( editor => {
-                    console.log( editor );
+                    @cannot('manage-users-tecnico') editor.isReadOnly = true; @endcannot
                 } )
                 .catch( error => {
                     console.error( error );
@@ -118,7 +118,7 @@
                     }
                 })
                 .then( editor => {
-                    console.log( editor );
+                    @can('manage-users-tecnico') editor.isReadOnly = true; @endcan
                 } )
                 .catch( error => {
                     console.error( error );

@@ -148,4 +148,6 @@ return [
 
     'attributes' => [],
 
+    'countWordRule' => 'The :attribute 2 word',
+
 ];

@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
-            <h6 class="h6-cito-titulo">RESULTADO</h6>
+
             <hr>
             <dl class="row row-citologia">
                 <dt class="col-md-3">Clasificacion del Papanicolaou Clase</dt>
@@ -119,7 +119,7 @@
             <div style="height: 8px;"></div>
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
-                    @can('manage-users')
+                    @can('manage-users-dr')
                     <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
                     <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
