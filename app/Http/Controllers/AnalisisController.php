@@ -13,7 +13,8 @@ use App\Resultado;
 use App\Seccion;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Milon\Barcode\DNS2D;
+use PDF;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 
@@ -361,5 +362,18 @@ class AnalisisController extends Controller
             }
             return response()->json(['success' => '0']);
         }
+    }
+
+    function comprobante($analisisId) {
+        $analisis = Analisis::find($analisisId);
+
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath($analisis->codigo, "QRCODE");
+
+        $pdf = PDF::loadView('analisis.comprobante', compact(
+            'analisis', 'pathQr'));
+        $fileNombre = 'comprobante-'.$analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
     }
 }

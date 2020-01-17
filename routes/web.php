@@ -48,6 +48,8 @@ Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->na
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
 
+Route::get('/analisis/comprobante/{analisisId}', 'AnalisisController@comprobante')->name('analisis.comprobante');
+
 Route::get('/citologia/crear/{analisisId}', 'CitologiaController@create')->name('citologia.crear');
 Route::post('/citologia/resultados', 'CitologiaController@resultados')->name('citologia.resultados');
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');

@@ -177,7 +177,9 @@ return [
         Laraveles\Spanish\SpanishServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
 
-        App\Providers\ValidatorServiceProvider::class
+        App\Providers\ValidatorServiceProvider::class,
+
+        Milon\Barcode\BarcodeServiceProvider::class,
     ],
 
     /*
@@ -228,7 +230,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
     ],
 
