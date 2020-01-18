@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "282e0d129f53966c781dff740245eee9",
-    "content-hash": "a5cf0a3ab38099409a3437dde2435b60",
+    "hash": "d440a8fa0a2dc4511c06d7e693277a4c",
+    "content-hash": "4379882a240e177d3f5d07a4aa47c52c",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -875,6 +875,66 @@
                 "storage"
             ],
             "time": "2019-10-16 21:01:05"
+        },
+        {
+            "name": "milon/barcode",
+            "version": "6.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milon/barcode.git",
+                "reference": "71454ba6d4ec3c70103379afb0376f51d0bf17ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milon/barcode/zipball/71454ba6d4ec3c70103379afb0376f51d0bf17ce",
+                "reference": "71454ba6d4ec3c70103379afb0376f51d0bf17ce",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*|~6",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Milon\\Barcode\\BarcodeServiceProvider"
+                    ],
+                    "aliases": {
+                        "DNS1D": "Milon\\Barcode\\Facades\\DNS1DFacade",
+                        "DNS2D": "Milon\\Barcode\\Facades\\DNS2DFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Milon\\Barcode": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nuruzzaman Milon",
+                    "email": "contact@milon.im"
+                }
+            ],
+            "description": "Barcode generator like Qr Code , PDF417,C39, C39+,C39E,C39E+,C93,S25,S25+,I25,I25+,C128,C128A,C128B,C128C,2-Digits UPC-Based Extention,5-Digits UPC-Based Extention,EAN 8,EAN 13,UPC-A,UPC-E,MSI (Variation of Plessey code) ",
+            "keywords": [
+                "CODABAR",
+                "CODE 128",
+                "CODE 39",
+                "barcode",
+                "datamatrix",
+                "ean",
+                "laravel",
+                "pdf417",
+                "qr code",
+                "qrcode"
+            ],
+            "time": "2019-09-17 07:40:26"
         },
         {
             "name": "monolog/monolog",
