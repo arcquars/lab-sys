@@ -27,6 +27,7 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Edad</th>
+                    <th>Fecha Creacion</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -226,8 +227,10 @@
                     {name: 'nombres'},
                     {name: 'apellidos'},
                     {name: 'edad'},
+                    {name: 'created_at'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
+                "order": [[ 4, "desc" ]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

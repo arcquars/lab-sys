@@ -445,8 +445,8 @@ body>.navbar-collapse .nav li .nav-link:hover {
 .sidebar .nav li .nav-link p,
 body>.navbar-collapse .nav li .nav-link p {
     margin: 0;
-    line-height: 31px;
-    font-size: 12px;
+    line-height: 21px;
+    font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
     display: inline-flex;
@@ -454,8 +454,8 @@ body>.navbar-collapse .nav li .nav-link p {
 
 .sidebar .nav li .nav-link i,
 body>.navbar-collapse .nav li .nav-link i {
-    font-size: 28px;
-    margin-right: 15px;
+    font-size: 22px;
+    margin-right: 8px;
     width: 30px;
     text-align: center;
     vertical-align: middle;
@@ -518,8 +518,8 @@ body>.navbar-collapse .nav .nav-link {
     opacity: .86;
     border-radius: 4px;
     text-transform: uppercase;
-    line-height: 30px;
-    font-size: 12px;
+    line-height: 24px;
+    font-size: 10px;
     font-weight: 600;
 }
 
@@ -1868,14 +1868,14 @@ fieldset[disabled] .form-control {
 
 .form-check .form-check-sign::before,
 .form-check .form-check-sign::after {
-    font-family: 'FontAwesome';
-    content: "\f096";
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f0c8";
     display: inline-block;
     color: #1DC7EA;
     position: absolute;
     width: 19px;
     height: 19px;
-    margin-top: -12px;
+    margin-top: 0px;
     margin-left: -23px;
     font-size: 21px;
     cursor: pointer;
@@ -1887,8 +1887,8 @@ fieldset[disabled] .form-control {
 }
 
 .form-check .form-check-sign::after {
-    font-family: 'FontAwesome';
-    content: "\f046";
+    font-family: 'Font Awesome\ 5 Free';
+    content: "\f14a";
     text-align: center;
     opacity: 0;
     color: #1DC7EA;
@@ -1934,7 +1934,7 @@ fieldset[disabled] .form-control {
 }
 
 .form-check-radio .form-check-sign::before {
-    font-family: 'FontAwesome';
+    font-family: 'Font Awesome\ 5 Free';
     content: "\f10c";
     font-size: 22px;
     -webkit-font-smoothing: antialiased;
@@ -1959,7 +1959,7 @@ fieldset[disabled] .form-control {
 }
 
 .form-check-radio input[type="radio"]:checked+.form-check-sign::after {
-    font-family: 'FontAwesome';
+    font-family: 'Font Awesome\ 5 Free';
     content: "\f192";
     top: -5px;
     position: absolute;

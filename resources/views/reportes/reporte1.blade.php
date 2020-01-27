@@ -5,7 +5,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item">Reportes</li>
-            <li class="breadcrumb-item">Reporte 1</li>
+            <li class="breadcrumb-item">Cobros X Dia</li>
 
         </ol>
     </nav>
@@ -47,62 +47,61 @@
             </form>
             <br>
             <h4>A cuenta</h4>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Fecha</th>
-                        <th scope="col">Fecha de entrega</th>
+                        <th scope="col">Codigo</th>
                         <th scope="col">Paciente</th>
                         <th scope="col">Doctor que Pidio</th>
                         <th scope="col">Institucion</th>
                         <th scope="col">Precio</th>
                         <th scope="col">Acuenta</th>
-                        <th scope="col">Pago Efectuado</th>
+                        <th scope="col">Debe</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">Empresa</th>
                     </tr>
                 </thead>
                 <tbody>
                         @foreach($analisis as $analisi)
                             <tr>
-                                <th scope="row">{{$analisi->id}}</th>
                                 <td>{{$analisi->fecha}}</td>
-                                <td>{{$analisi->fecha_entrega}}</td>
-                                <td>{{$analisi->person->nombres}} {{$analisi->apellidos}}</td>
+                                <td>{{$analisi->codigo}}</td>
+                                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}}</td>
                                 <td>{{$analisi->doctor}}</td>
                                 <td>{{$analisi->institucion->nombre}}</td>
                                 <td>{{$analisi->precio}}</td>
                                 <td>{{$analisi->acuenta}}</td>
                                 <td>{{$analisi->pago_efectuado}}</td>
                                 <td>{{ ($analisi->acuenta + $analisi->pago_efectuado) == $analisi->precio? 'Cancelado' :  'Debe '.($analisi->precio-$analisi->acuenta) }}</td>
+                                <td>{{ $analisi->institucion->nombre }}</td>
                             </tr>
                         @endforeach
                 </tbody>
             </table>
             <h6 class="text-right">Total ingreso a cuenta: {{$totalAcuenta}}</h6>
 
-            <h4>Pago Efectuado</h4>
-            <table class="table table-bordered">
+            <h4>Pago de Saldos</h4>
+            <table class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Fecha de entrega</th>
+                    <th scope="col">Codigo</th>
                     <th scope="col">Paciente</th>
                     <th scope="col">Doctor que Pidio</th>
                     <th scope="col">Institucion</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Acuenta</th>
-                    <th scope="col">Pago Efectuado</th>
+                    <th scope="col">Debe</th>
                     <th scope="col">Estado</th>
+                    <th scope="col">Empresa</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($analisisEfec as $analisi)
                     <tr>
-                        <th scope="row">{{$analisi->id}}</th>
                         <td>{{$analisi->fecha}}</td>
-                        <td>{{$analisi->fecha_entrega}}</td>
+                        <td>{{$analisi->codigo}}</td>
                         <td>{{$analisi->person->nombres}} {{$analisi->apellidos}}</td>
                         <td>{{$analisi->doctor}}</td>
                         <td>{{$analisi->institucion->nombre}}</td>
@@ -110,6 +109,7 @@
                         <td>{{$analisi->acuenta}}</td>
                         <td>{{$analisi->pago_efectuado}}</td>
                         <td>{{ ($analisi->acuenta + $analisi->pago_efectuado) == $analisi->precio? 'Cancelado' :  'Debe '.($analisi->precio-$analisi->acuenta) }}</td>
+                        <td>{{ $analisi->institucion->nombre }}</td>
                     </tr>
                 @endforeach
                 </tbody>

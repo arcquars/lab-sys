@@ -40,6 +40,7 @@ Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnali
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
 Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crearTipoAnalisis')->name('analisis.analisisextendido');
 Route::get('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
+Route::get('/analisis/datatables/analisis/tecnico', 'AnalisisController@getDatatablesTecnico')->name('analisis.datatables.tecnico');
 Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@getDatatablesDataByPersonId')->name('datatableAnalisisPerson');
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
 Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
@@ -48,10 +49,13 @@ Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->na
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
 
+Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
+
 Route::get('/analisis/comprobante/{analisisId}', 'AnalisisController@comprobante')->name('analisis.comprobante');
 
 Route::get('/citologia/crear/{analisisId}', 'CitologiaController@create')->name('citologia.crear');
 Route::post('/citologia/resultados', 'CitologiaController@resultados')->name('citologia.resultados');
+Route::post('/citologia/resultadosedit', 'CitologiaController@resultadosEdit')->name('citologia.resultadosEdit');
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');
 Route::get('/citologia/reporte/{analisisId}', 'CitologiaController@reporte')->name('citologia.reporte');
 
@@ -67,6 +71,13 @@ Route::get('/histo/reporte/{analisisId}', 'InmunohistoquimicaController@reporte'
 
 Route::get('/reportes/reporte1', 'ReporteController@reporte1')->name('reporte.reporte1');
 Route::post('/reportes/reporte1', 'ReporteController@reportePost')->name('reporte.reportepost');
+Route::get('/reportes/reporte-diario', 'ReporteController@reporteDiario')->name('reporte.reporte.diario');
+Route::post('/reportes/reporte-diario', 'ReporteController@reporteDiarioPost')->name('reporte.reporte.diario.post');
+
+
+
+Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.reporte2');
+Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
 
 Route::get('/institucion/index', 'InstitucionController@index')->name('institucion.home');
 Route::get('/institucion/datatable', 'InstitucionController@getDatatablesData')->name('institucion.datatablesInstitucionData');

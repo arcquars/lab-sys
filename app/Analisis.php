@@ -147,4 +147,25 @@ class Analisis extends Model
         }
         return false;
     }
+
+    /**
+     * Returns the action column html for datatables.
+     *
+     * @param \App\Analisis
+     * @return string
+     */
+    public static function laratablesCustomActionTec($analisis)
+    {
+        $isHasResult = false;
+        $routeView = '';
+        if(Biopsia::where('analisis_id', $analisis->id)->count() > 0){
+            $routeView = 'biopsia.viewResultado';
+            $isHasResult = true;
+        }
+        return view('analisis.includes.actiontec')->with(array(
+            "id" => $analisis->id,
+            "isHasResult" => $isHasResult,
+            "routeView" => $routeView
+            ))->render();
+    }
 }

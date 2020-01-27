@@ -1,33 +1,4 @@
-<style>
-    .h2-cito{
-        text-align: center;
-        color: #012035;
-        font-size: 12px;
-        margin: 0;
-        padding: 0;
-    }
-    .td-p-datos{
-        font-size: 10px;
-        color: #053D62;
-    }
-
-    .p-dato {
-        font-size: 11px;
-        color: #012035;
-    }
-
-    .t-extcompatible tr td{
-        text-align: center;
-        border: 1px solid;
-    }
-
-    .t-column-title{
-        color: #012035;
-        font-size: 10px;
-        font-weight: bold;
-
-    }
-</style>
+@include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
 <h3 class="h2-cito">INFORME CITOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
@@ -60,7 +31,7 @@
 <table class="t-extcompatible" width="100%">
     <tr>
         <td width="33%"><p class="t-column-title">OMS</p></td>
-        <td width="34%"><p class="t-column-title">RICHART</p></td>
+        <td width="34%" style="visibility: hidden;"><p class="t-column-title">RICHART</p></td>
         <td width="33%"><p class="t-column-title">BETHESDA</p></td>
     </tr>
     <tr>
@@ -78,7 +49,7 @@
                 @endforeach
             </table>
         </td>
-        <td style="text-align: left; padding: 1px; vertical-align: top">
+        <td style="text-align: left; padding: 1px; vertical-align: top; visibility: hidden;">
             <table width="100%">
                 @foreach ($seccionRichart as $seccR)
                     <tr>
@@ -158,5 +129,51 @@
         </tr>
     @endforeach
 </table>
-<div style="height: 10px;"></div>
-@include('citologia.partial.reporte-fecha', compact('analisis'))
+<br>
+<table class="clinica-table" style="width: 100%;">
+    <tr>
+        <td width="50%" style="text-align: center;">
+            <h3 class="h2-cito">ESTUDIO CITO-HORMONAL</h3>
+        </td>
+        <td width="50%" style="text-align: center;">
+            <h3 class="h2-cito" style="text-align: center;">CITOLOGIA POSMENOPAUSIA</h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" style="padding: 5px;">
+            @foreach($seccionEstudioCitoHormonal as $seccionCito)
+                <p class="cito-estudio-p"><b>{{$seccionCito->key}}: </b>{{$seccionCito->value}}</p>
+            @endforeach
+                <hr>
+                @foreach($seccionDesviaciones as $seccionDesv)
+                    <p class="cito-estudio-p"><b>{{$seccionDesv->key}}: </b>{{$seccionDesv->value}}</p>
+                @endforeach
+        </td>
+        <td width="50%" style="padding: 5px;">
+            @foreach($seccionEstudioCitoPosmenopausia as $seccionCitoPos)
+                <p class="cito-estudio-p"><b>{{$seccionCitoPos->key}}: </b>{{$seccionCitoPos->value}}</p>
+            @endforeach
+        </td>
+    </tr>
+</table>
+<br>
+<table class="clinica-table" style="width: 100%;">
+    <tr>
+        <td width="50%" style="text-align: center;">
+            <h3 class="h2-cito">OBSERVACION 1</h3>
+        </td>
+        <td width="50%" style="text-align: center;">
+            <h3 class="h2-cito" style="text-align: center;">OBSERVACION 2</h3>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" style="padding: 5px;" class="cito-estudio-tr">
+            {{$resultados->observaciones1}}
+        </td>
+        <td width="50%" style="padding: 5px;" class="cito-estudio-tr">
+            {{$resultados->observaciones2}}
+        </td>
+    </tr>
+</table>
+<div style="height: 25px;"></div>
+@include('citologia.partial.reporte-footer', compact('analisis'))

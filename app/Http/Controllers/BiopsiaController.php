@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Biopsia;
 use App\Http\Requests\StoreBiopsiaPost;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class BiopsiaController extends Controller
@@ -43,7 +44,11 @@ class BiopsiaController extends Controller
             $biopsia->user_id = auth()->id();
 
             if($biopsia->save()){
-                return redirect('/analisis');
+                if(Auth::user()->hasRole('tecnico')){
+                    return redirect('/analisis/lista/tecnico');
+                } else{
+                    return redirect('/analisis');
+                }
             } else {
                 dd('Algo Salio mal al crear la biopsia, contactese con el administrador');
             }
@@ -57,7 +62,11 @@ class BiopsiaController extends Controller
             $biopsia->user_id = auth()->id();
 
             if($biopsia->update()){
-                return redirect('/analisis');
+                if(Auth::user()->hasRole('tecnico')){
+                    return redirect('/analisis/lista/tecnico');
+                } else{
+                    return redirect('/analisis');
+                }
             } else {
                 dd('Algo Salio mal al actualizar la biopsia, contactese con el administrador');
             }

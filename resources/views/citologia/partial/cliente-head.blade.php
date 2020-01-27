@@ -19,10 +19,8 @@
 <dl class="row row-citologia">
     <dt class="col-md-3">Analisis Entregado A:</dt>
     <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</dd>
-    <dt class="col-md-3">Fecha Entrega:</dt>
-    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</dd>
-</dl>
-<dl class="row row-citologia">
     <dt class="col-md-3">Fecha Cierre:</dt>
     <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre: '--NO CERRADO--')}}</dd>
+{{--    <dt class="col-md-3">Fecha Entrega:</dt>--}}
+{{--    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</dd>--}}
 </dl>

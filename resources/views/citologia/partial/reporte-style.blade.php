@@ -71,4 +71,20 @@
     .div-campo ol li{
         font-size: 11px;
     }
+
+    .clinica-table{
+        border-collapse: collapse;
+    }
+
+    .clinica-table, .clinica-table tr td{
+        border: 1px solid black;
+    }
+
+    .cito-estudio-p{
+        font-size: 9px;
+    }
+
+    .cito-estudio-tr{
+        font-size: 9px;
+    }
 </style>

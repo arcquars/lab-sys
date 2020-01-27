@@ -12,6 +12,9 @@ class Seccion extends Model
     const EXTENDIDO_COMPATIBLE = 'EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS';
     const REACCION_INFLAMATORIA = 'REACCION INFLAMATORIA';
     const ESTUDIO_MICROBIOLOGICO = 'ESTUDIO MICROBIOLOGICO';
+    const ESTUDIO_CITO_HORMONAL = 'ESTUDIO CITO HORMONAL';
+    const CITOLOGIA_POSMENOPAUSIA = 'CITOLOGIA POSMENOPAUSIA';
+    const DESVIACION = 'DESVIACION';
 
 
     protected $table = 'secciones';
@@ -97,6 +100,33 @@ class Seccion extends Model
         $seccs = array();
         foreach ($secciones as $seccion){
             if(strcmp($seccion->seccion, Seccion::ESTUDIO_MICROBIOLOGICO) == 0)
+                array_push($seccs, $seccion);
+        }
+        return $seccs;
+    }
+
+    public static function getArraySeccionesByCitoHormonal($secciones){
+        $seccs = array();
+        foreach ($secciones as $seccion){
+            if(strcmp($seccion->seccion, Seccion::ESTUDIO_CITO_HORMONAL) == 0)
+                array_push($seccs, $seccion);
+        }
+        return $seccs;
+    }
+
+    public static function getArraySeccionesByCitoPosmenopausia($secciones){
+        $seccs = array();
+        foreach ($secciones as $seccion){
+            if(strcmp($seccion->seccion, Seccion::CITOLOGIA_POSMENOPAUSIA) == 0)
+                array_push($seccs, $seccion);
+        }
+        return $seccs;
+    }
+
+    public static function getArraySeccionesByDesviaciones($secciones){
+        $seccs = array();
+        foreach ($secciones as $seccion){
+            if(strcmp($seccion->seccion, Seccion::DESVIACION) == 0)
                 array_push($seccs, $seccion);
         }
         return $seccs;

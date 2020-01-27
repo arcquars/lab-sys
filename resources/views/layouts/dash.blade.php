@@ -28,18 +28,15 @@
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-{{--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />--}}
         <!-- CSS Files -->
+        <link href="{{ asset('font-awesome/css/fontawesome.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/brands.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/regular.css') }}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/solid.css') }}" rel="stylesheet">
+
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.bk.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
-
-{{--        <link href="./node_modules/@fortawesome/fontawesome-free/css/fontawesome.css" rel="stylesheet">--}}
-{{--        <link href="./node_modules/@fortawesome/fontawesome-free/css/brands.css" rel="stylesheet">--}}
-{{--        <link href="./node_modules/@fortawesome/fontawesome-free/regular.css" rel="stylesheet">--}}
-{{--        <link href="./node_modules/@fortawesome/fontawesome-free/solid.css" rel="stylesheet">--}}
-
-
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
@@ -83,7 +80,7 @@
     <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
     <script src="{{ asset('light-bootstrap/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
     <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-    <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
+{{--    <script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>--}}
 
     <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 

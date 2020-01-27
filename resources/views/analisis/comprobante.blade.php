@@ -18,6 +18,12 @@
                     <td width="20%"><p class="p-dato">{{$analisis->person->edad}}</p></td>
                 </tr>
                 <tr>
+                    <td><p class="p-dato"><b>Tipo de analisis: </b></p></td>
+                    <td><p class="p-dato">{{$analisis->tipo_analisis}}</p></td>
+                    <td><p class="p-dato"><b>Region:</b></p></td>
+                    <td><p class="p-dato">{{$analisis->region}}</p></td>
+                </tr>
+                <tr>
                     <td><p class="p-dato"><b>Procedencia:</b></p></td>
                     <td><p class="p-dato">{{$analisis->institucion->nombre}}</p></td>
                     <td><p class="p-dato"><b>Sexo:</b></p></td>

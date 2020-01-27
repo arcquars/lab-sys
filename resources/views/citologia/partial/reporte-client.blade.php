@@ -14,14 +14,6 @@
     <tr>
         <td><p class="p-dato"><b>Enviado por Doctor(a): </b></p></td>
         <td><p class="p-dato">{{$analisis->doctor}}</p></td>
-        <td style="text-align: right;"><p class="p-dato"><b>Analisis Entregado A:</b></p></td>
-        <td><p class="p-dato">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</p></td>
-    </tr>
-    <tr>
-        <td><p class="p-dato"><b>Fecha de Entrega:</b></p></td>
-        <td><p class="p-dato">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</p></td>
-        <td style="text-align: right;"><p class="p-dato"><b>Fecha de Cierre:</b></p></td>
-        <td><p class="p-dato">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre: '--NO ENTREGADO--')}}</p></td>
     </tr>
     <tr>
         <td colspan="4" style="text-align: right;">

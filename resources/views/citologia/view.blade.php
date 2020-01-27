@@ -42,7 +42,7 @@
             </div>
             <div style="height: 8px;"></div>
             <table class="table table-bordered table-cito">
-                <thead class="thead-dark">
+                <thead class="thead-light">
                 <tr>
                     <th scope="col">OMS</th>
                     <th scope="col">RICHART</th>
@@ -116,11 +116,64 @@
                     </div>
                 @endforeach
             </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="h6-cito-titulo">ESTUDIO CITO-HORMONAL</h6>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="h6-cito-titulo">CITOLOGIA POSMENOPAUSIA</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach($seccionEstudioCitoHormonal as $seccEstudioCitoHormonal)
+                        <dl class="row row-citologia">
+                            <dt class="col-md-8">{{$seccEstudioCitoHormonal->key}}:</dt>
+                            <dd class="col-md-4">{{$seccEstudioCitoHormonal->value}}</dd>
+                        </dl>
+                    @endforeach
+                        <hr>
+                        @foreach($seccionDesviaciones as $seccDesviaciones)
+                            <dl class="row row-citologia">
+                                <dt class="col-md-8">{{$seccDesviaciones->key}}:</dt>
+                                <dd class="col-md-4">{{$seccDesviaciones->value}}</dd>
+                            </dl>
+                        @endforeach
+                </div>
+                <div class="col-md-6">
+                    @foreach($seccionEstudioCitoPosmenopausia as $seccCitoPos)
+                        <dl class="row row-citologia">
+                            <dt class="col-md-8">{{$seccCitoPos->key}}:</dt>
+                            <dd class="col-md-4">{{$seccCitoPos->value}}</dd>
+                        </dl>
+                    @endforeach
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6 class="h6-cito-titulo">OBSERVACIONES</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h7 class="h7-cito-titulo">Observacion 1:</h7>
+                    <br>
+                    {{$resultados->observaciones1}}
+                </div>
+                <div class="col-md-6">
+                    <h7 class="h7-cito-titulo">Observacion 2:</h7>
+                    <br>
+                    {{$resultados->observaciones2}}
+                </div>
+            </div>
+
             <div style="height: 8px;"></div>
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')
-                    <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
+                        <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
+                        <a href="{{route('citologia.crear', ['analisisId' => $analisis->id])}}" class="btn btn-success">Editar</a>
                     @endcan
                     <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
                 </div>

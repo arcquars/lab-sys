@@ -64,7 +64,7 @@
     <script src="{{ asset('ckeditor5/translations/es.js') }}"></script>
     <script>
         $(document).ready(function () {
-            var editor1 = ClassicEditor
+            ClassicEditor
                 .create( document.querySelector( '#ta-organo_tejido' ), {
                     alignment: {
                         options: [ 'left', 'right' ]
@@ -81,6 +81,7 @@
                     }
                 })
                 .then( editor => {
+                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
                 })
                 .catch( error => {
                     console.error( error );
@@ -109,7 +110,7 @@
                 } )
                 .catch( error => {
                     console.error( error );
-                } );
+                });
             ClassicEditor
                 .create( document.querySelector( '#ta-microscopia' ), {
                     alignment: {
@@ -127,7 +128,7 @@
                     }
                 })
                 .then( editor => {
-                    @cannot('manage-users-tecnico') editor.isReadOnly = true; @endcannot
+                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
                 } )
                 .catch( error => {
                     console.error( error );
@@ -149,7 +150,7 @@
                     }
                 })
                 .then( editor => {
-                    @can('manage-users-tecnico') editor.isReadOnly = true; @endcan
+                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
                 } )
                 .catch( error => {
                     console.error( error );

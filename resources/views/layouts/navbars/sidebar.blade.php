@@ -53,37 +53,60 @@ Tip 2: you can also add an image using data-image tag
                     </a>
                 </li>
             @endcan
-            <li class="nav-item @if($activePage == 'clients') active @endif">
-                <a class="nav-link" href="{{route('clients.index')}}">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>Clientes</p>
-                </a>
-            </li>
-            <li class="nav-item @if($activePage == 'analisis') active @endif">
-                <a class="nav-link" href="{{route('analisis.index')}}">
-                    <i class="fas fa-notes-medical fa-lg"></i>
-                    <p>Analisis</p>
-                </a>
-            </li>
-            @can('manage-admin')
+            @can('manage-users')
+                <li class="nav-item @if($activePage == 'clients') active @endif">
+                    <a class="nav-link" href="{{route('clients.index')}}">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>Clientes</p>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_admin1" @if($activeButton =='reporteActiveButton') aria-expanded="true" @endif aria-controls="c_admin1" role="button">
+                    <a class="nav-link nav-link-clinica dropdown-toggle" data-toggle="collapse" href="#c_reportes" @if($activeButton =='reporteActiveButton') aria-expanded="true" @endif aria-controls="c_reportes" role="button">
                         <i class="fas fa-poll"></i>
                         <p>Reportes</p>
                     </a>
-                    <div class="collapse @if($activeButton =='reporteActiveButton') show @endif" id="c_admin1">
+                    <div class="collapse @if($activeButton =='reporteActiveButton') show @endif" id="c_reportes">
                         <ul class="nav">
+                            <li class="nav-item @if($activePage == 'admin_reporte_diario') active @endif">
+                                <a class="nav-link" href="{{route('reporte.reporte.diario')}}">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>Informe Diario</p>
+                                </a>
+                            </li>
                             <li class="nav-item @if($activePage == 'admin_reporte') active @endif">
                                 <a class="nav-link" href="{{route('reporte.reporte1')}}">
                                     <i class="fas fa-receipt"></i>
-                                    <p>Reporte Diario</p>
+                                    <p>Cobros x Dia</p>
                                 </a>
                             </li>
+                            @can('edit-users')
+                                <li class="nav-item @if($activePage == 'admin_reporte2') active @endif">
+                                    <a class="nav-link" href="{{route('reporte.reporte2')}}">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>Reporte Administrador</p>
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>
             @endcan
-
+            @can('manage-users-dr')
+                <li class="nav-item @if($activePage == 'analisis') active @endif">
+                    <a class="nav-link" href="{{route('analisis.index')}}">
+                        <i class="fas fa-notes-medical fa-lg"></i>
+                        <p>Analisis</p>
+                    </a>
+                </li>
+            @endcan
+            @cannot('manage-users-no-tecnico')
+            <li class="nav-item @if($activePage == 'reportetecnico') active @endif">
+                <a class="nav-link" href="{{route('analisis.listatecnico')}}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>Analisis Tecnico</p>
+                </a>
+            </li>
+            @endcannot
         </ul>
     </div>
 </div>

@@ -376,4 +376,23 @@ class AnalisisController extends Controller
         $fileNombre = 'comprobante-'.$analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }
+
+    public function listaTec()
+    {
+        return view('analisis.listatecnico');
+    }
+
+    /**
+     * return data of the simple datatables.
+     *
+     * @return Json
+     */
+    public function getDatatablesTecnico()
+    {
+//        return Laratables::recordsOf(   Analisis::class);
+
+        return Laratables::recordsOf(Analisis::class, function($query){
+            return $query->where('tipo_analisis', Analisis::BIOPSIA)->orderBy('fecha', 'desc');
+        });
+    }
 }

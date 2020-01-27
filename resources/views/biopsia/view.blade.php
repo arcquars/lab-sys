@@ -56,7 +56,7 @@
                     <a href="{{route('biopsia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
                     <a href="{{route('biopsia.crear', ['analisisId' => $analisis->id])}}" class="btn btn-primary">Editar</a>
-                    <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
+                    <a href="{{url()->previous()}}" class="btn btn-dark">Atras</a>
                 </div>
             </div>
         </div>

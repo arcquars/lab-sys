@@ -14,7 +14,12 @@
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
         </div>
         <div class="card-body">
-            <form method="post" action="/citologia/resultados">
+            @if (isset($resultados))
+                <form method="post" action="/citologia/resultadosedit">
+            @else
+                <form method="post" action="/citologia/resultados">
+            @endif
+
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisisId}}">
                 <div class="modal-body">
@@ -24,6 +29,8 @@
                             <input type="text" name="papanicolaou_clase1"
                                    class="form-control @error('papanicolaou_clase1') is-invalid @enderror"
                                    onkeyup="uppercaseInput(this);"
+                                   value="{{old('papanicolaou_clase1', (isset($resultados)? $resultados->papanicolaou_clase1 : ''))}}"
+
                             >
                             @error('papanicolaou_clase1')
                             <span class="invalid-feedback" role="alert">
@@ -35,6 +42,8 @@
                             <input type="text" name="papanicolaou_clase2"
                                    class="form-control @error('papanicolaou_clase2') is-invalid @enderror"
                                    onkeyup="uppercaseInput(this);"
+{{--                                   value="{{isset($resultados)? $resultados->papanicolaou_clase2 : ''}}"--}}
+                                   value="{{old('papanicolaou_clase2', (isset($resultados)? $resultados->papanicolaou_clase2 : ''))}}"
                             >
                             @error('papanicolaou_clase2')
                             <span class="invalid-feedback" role="alert">
@@ -47,101 +56,267 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h3 class="ana-ext-title text-muted">OMS</h3>
-                            <div class="form-group row">
-                                <label for="displasia-leve" class="col-md-6 col-form-label text-right">DISPLASIA LEVE</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="oms[displasia-leve]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccOms as $secc)
+                                            @if (strcmp($secc->key, 'displasia-leve') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-leve]"
+                                                   checked >
+                                        @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-leve]"
+                                                   >
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-leve]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    DISPLASIA LEVE
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="displasia-moderada" class="col-md-6 col-form-label text-right">DISPLASIA MODERADA</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="oms[displasia-moderada]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccOms as $secc)
+                                            @if (strcmp($secc->key, 'displasia-moderada') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-moderada]" checked>
+                                        @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-moderada]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-moderada]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    DISPLASIA MODERADA
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="displasia-severa" class="col-md-6 col-form-label text-right">DISPLASIA SEVERA</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="oms[displasia-severa]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccOms as $secc)
+                                            @if (strcmp($secc->key, 'displasia-severa') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-severa]" checked>
+                                        @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-severa]" >
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-severa]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    DISPLASIA SEVERA
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="displasia-in" class="col-md-6 col-form-label text-right">DISPLASIA IN SITU</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="oms[displasia-in]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccOms as $secc)
+                                            @if (strcmp($secc->key, 'displasia-in') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-in]" checked>
+                                        @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-in]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="oms[displasia-in]">
+                                    @endif
+
+                                    <span class="form-check-sign"></span>
+                                    DISPLASIA IN SITU
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <h3 class="ana-ext-title text-muted">HICHART</h3>
-                            <div class="form-group row">
-                                <label for="nic-i" class="col-md-6 col-form-label text-right">NIC I</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="hichart[nic-i]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccHichart as $secc)
+                                            @if (strcmp($secc->key, 'nic-i') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-i]" checked>
+                                        @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-i]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-i]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    NIC I
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="nic-ii" class="col-md-6 col-form-label text-right">NIC II</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="hichart[nic-ii]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccHichart as $secc)
+                                            @if (strcmp($secc->key, 'nic-ii') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-ii]" checked>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-ii]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-ii]">
+                                    @endif
+
+                                    <span class="form-check-sign"></span>
+                                    NIC II
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="nic-iii" class="col-md-6 col-form-label text-right">NIC III</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="hichart[nic-iii]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccHichart as $secc)
+                                            @if (strcmp($secc->key, 'nic-iii') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii]" checked>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    NIC III
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="nic-iv" class="col-md-6 col-form-label text-right">NIC IV</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="hichart[nic-iv]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccHichart as $secc)
+                                            @if (strcmp($secc->key, 'nic-vi') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if(isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]" checked>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]">
+                                            @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]">
+                                    @endif
+
+                                    <span class="form-check-sign"></span>
+                                    NIC VI
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <h3 class="ana-ext-title text-muted">BETHESDA (N.C.I.)</h3>
-                            <div class="form-group row">
-                                <label for="lis-bajo" class="col-md-6 col-form-label text-right">LIS DE BAJO GRADO</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="bethesda[lis-bajo]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccBethesda as $secc)
+                                            @if (strcmp($secc->key, 'lis-bajo') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]" checked>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    LIS DE BAJO GRADO
+                                </label>
                             </div>
-                            <div class="form-group row">
-                                <label for="lis-alto" class="col-md-6 col-form-label text-right">LIS DE ALTO GRADO</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-sm"
-                                           name="bethesda[lis-alto]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+                                        @endphp
+                                        @foreach($seccBethesda as $secc)
+                                            @if (strcmp($secc->key, 'lis-alto') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]" checked>
+                                            @else
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]">
+                                        @endif
+                                    @else
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]">
+                                    @endif
+                                    <span class="form-check-sign"></span>
+                                    LIS DE ALTO GRADO
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -152,6 +327,17 @@
                         </a>
                     </p>
                     <div id="ecdList" class="row">
+                        @if ($resultados)
+                            @foreach($seccECD as $secc)
+                                <div class="col-md-3">
+                                    <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
+                                        <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemExtendido(this); return false;">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a> {{$secc->key}}</p>
+                                    <input type="checkbox" style="visibility: hidden;" name="ExtComp[]" checked="" value="{{$secc->key}}">
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <hr>
                     <p class="text-muted">REACCION INFLAMATORIA
@@ -159,108 +345,427 @@
                             <i class="far fa-plus-square fa-lg"></i>
                         </a>
                     </p>
-                    <div id="reacInflamatoriaList" class="row"></div>
+                    <div id="reacInflamatoriaList" class="row">
+                        @if ($resultados)
+                            @foreach($seccReaccInfl as $secc)
+                                <div class="col-md-4 row">
+                                    <div class="col-md-12">
+                                        <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
+                                            <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemReacInfla(this); return false;">
+                                                <i class="far fa-trash-alt"></i></a> {{$secc->key}} <i class="far fa-check-square"></i></p>
+                                        <input type="hidden" name="reacInfla[{{$secc->key}}]" value="SI">
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
                     <hr>
                     <p class="text-muted">ESTUDIO MICROBIOLOGICO
                         <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#estMicroModal">
                             <i class="far fa-plus-square fa-lg"></i>
                         </a>
                     </p>
-                    <div id="estMicroList" class="row"></div>
-                    <hr>
-                    <p class="text-muted">ESTUDIO CITO - HORMONAL</p>
-                    <div class="row">
-                        <div class="col-md-4 form-group">
-                            <label for="estCito[PARABASALES]">PARABASALES</label>
-                            <input type="text" class="form-control"
-                                   name="estCito[PARABASALES]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="estCito[INTERMEDIAS]">INTERMEDIAS</label>
-                            <input type="text" class="form-control"
-                                   name="estCito[INTERMEDIAS]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
-                        </div>
-                        <div class="col-md-4 form-group">
-                            <label for="estCito[SUPERFICIALES]">SUPERFICIALES</label>
-                            <input type="text" class="form-control"
-                                   name="estCito[SUPERFICIALES]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
-                        </div>
+                    <div id="estMicroList" class="row">
+                        @if ($resultados)
+                            @foreach($seccEstMicro as $secc)
+                                <div class="col-md-4 row">
+                                    <div class="col-md-6">
+                                        <p style="color: #000; font-size: .8rem; margin-bottom: 2px; text-align: right;">
+                                            <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemEstudioMicro(this); return false;">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a> {{$secc->key}}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="estudioMicro[{{$secc->key}}]" value="{{$secc->value}}" readonly="">
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <hr>
+
                     <div class="row">
-                        <div class="col-md-3 form-group">
-                            <label for="tipo[ESTROGENICO]">TIPO ESTROGENICO</label>
-                            <input type="text" class="form-control"
-                                   name="tipo[ESTROGENICO]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                        <div class="col-md-6" style="background-color: #EBEBE9;">
+                            <p class="text-muted text-center" style="background-color: #EBEBE9;">ESTUDIO CITO - HORMONAL</p>
                         </div>
-                        <div class="col-md-3 form-group">
-                            <label for="tipo[INTERMEDIO]">TIPO INTERMEDIO</label>
-                            <input type="text" class="form-control"
-                                   name="tipo[INTERMEDIO]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                        <div class="col-md-6" style="background-color: #FFF6ED;">
+                            <p class="text-muted text-center" style="background-color: #FFF6ED;">CITOLOGIA POSMENOPAUSIA</p>
                         </div>
-                        <div class="col-md-3 form-group">
-                            <label for="tipo[PARABASAL]">TIPO PARABASAL</label>
-                            <input type="text" class="form-control"
-                                   name="tipo[PARABASAL]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="background-color: #EBEBE9;">
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label for="estCito[PARABASALES]">PARABASALES</label>
+                                    @if ($resultados)
+                                        @php
+                                        $seccAux = null;
+                                        @endphp
+                                        @foreach($seccCitoHormonal as $secc)
+                                            @if (strcmp($secc->key, 'PARABASALES') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if (isset($seccAux))
+                                            <input type="text" class="form-control"
+                                                   name="estCito[PARABASALES]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="estCito[PARABASALES]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="estCito[PARABASALES]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="estCito[INTERMEDIAS]">INTERMEDIAS</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoHormonal as $secc)
+                                            @if (strcmp($secc->key, 'INTERMEDIAS') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="estCito[INTERMEDIAS]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="estCito[INTERMEDIAS]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="estCito[INTERMEDIAS]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="estCito[SUPERFICIALES]">SUPERFICIALES</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoHormonal as $secc)
+                                            @if (strcmp($secc->key, 'SUPERFICIALES') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="estCito[SUPERFICIALES]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="estCito[SUPERFICIALES]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="estCito[SUPERFICIALES]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 form-group">
-                            <label for="tipo[ATROFICO]">TIPO ATROFICO</label>
-                            <input type="text" class="form-control"
-                                   name="tipo[ATROFICO]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                        <div class="col-md-6" style="background-color: #FFF6ED;">
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label for="citoPosmenopausia[ESTROGENICO]">T. ESTROGENICO</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoPosm as $secc)
+                                            @if (strcmp($secc->key, 'ESTROGENICO') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[ESTROGENICO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[ESTROGENICO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="citoPosmenopausia[ESTROGENICO]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="citoPosmenopausia[INTERMEDIO]">T. INTERMEDIO</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoPosm as $secc)
+                                            @if (strcmp($secc->key, 'INTERMEDIO') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[INTERMEDIO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[INTERMEDIO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="citoPosmenopausia[INTERMEDIO]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="citoPosmenopausia[PARABASAL]">T. PARABASAL</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoPosm as $secc)
+                                            @if (strcmp($secc->key, 'PARABASAL') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[PARABASAL]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[PARABASAL]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="citoPosmenopausia[PARABASAL]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label for="citoPosmenopausia[ATROFICO]">T. ATROFICO</label>
+                                    @if ($resultados)
+                                        @php
+                                            $seccAux = null;
+
+                                        @endphp
+                                        @foreach($seccCitoPosm as $secc)
+                                            @if (strcmp($secc->key, 'ATROFICO') == 0)
+                                                @php
+                                                    $seccAux = $secc;
+                                                @endphp
+                                            @endif
+                                        @endforeach
+                                        @if ($seccAux)
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[ATROFICO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                                   value="{{$seccAux->value}}"
+                                            >
+                                        @else
+                                            <input type="text" class="form-control"
+                                                   name="citoPosmenopausia[ATROFICO]"
+                                                   onkeyup="uppercaseInput(this);"
+                                            >
+                                        @endif
+                                    @else
+                                        <input type="text" class="form-control"
+                                               name="citoPosmenopausia[ATROFICO]"
+                                               onkeyup="uppercaseInput(this);"
+                                        >
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA IZQUIERDA]">DESVIACION A LA IZQUIERDA</label>
-                            <input type="text" class="form-control"
-                                   name="desviacion[DESVIACION A LA IZQUIERDA]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                            @if ($resultados)
+                                @php
+                                    $seccAux = null;
+
+                                @endphp
+                                @foreach($seccDesviacion as $secc)
+                                    @if (strcmp($secc->key, 'DESVIACION A LA IZQUIERDA') == 0)
+                                        @php
+                                            $seccAux = $secc;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($seccAux)
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION A LA IZQUIERDA]"
+                                           onkeyup="uppercaseInput(this);"
+                                           value="{{$seccAux->value}}"
+                                    >
+                                @else
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION A LA IZQUIERDA]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
+                                @endif
+                            @else
+                                <input type="text" class="form-control"
+                                       name="desviacion[DESVIACION A LA IZQUIERDA]"
+                                       onkeyup="uppercaseInput(this);"
+                                >
+                            @endif
+
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION AL CENTRO]">DESVIACION AL CENTRO</label>
-                            <input type="text" class="form-control"
-                                   name="desviacion[DESVIACION AL CENTRO]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                            @if ($resultados)
+                                @php
+                                    $seccAux = null;
+
+                                @endphp
+                                @foreach($seccDesviacion as $secc)
+                                    @if (strcmp($secc->key, 'DESVIACION AL CENTRO') == 0)
+                                        @php
+                                            $seccAux = $secc;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($seccAux)
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION AL CENTRO]"
+                                           onkeyup="uppercaseInput(this);"
+                                           value="{{$seccAux->value}}"
+                                    >
+                                @else
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION AL CENTRO]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
+                                @endif
+                            @else
+                                <input type="text" class="form-control"
+                                       name="desviacion[DESVIACION AL CENTRO]"
+                                       onkeyup="uppercaseInput(this);"
+                                >
+                            @endif
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA DERECHA]">DESVIACION A LA DERECHA</label>
-                            <input type="text" class="form-control"
-                                   name="desviacion[DESVIACION A LA DERECHA]"
-                                   onkeyup="uppercaseInput(this);"
-                            >
+                            @if ($resultados)
+                                @php
+                                    $seccAux = null;
+
+                                @endphp
+                                @foreach($seccDesviacion as $secc)
+                                    @if (strcmp($secc->key, 'DESVIACION A LA DERECHA') == 0)
+                                        @php
+                                            $seccAux = $secc;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($seccAux)
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION A LA DERECHA]"
+                                           onkeyup="uppercaseInput(this);"
+                                           value="{{$seccAux->value}}"
+                                    >
+                                @else
+                                    <input type="text" class="form-control"
+                                           name="desviacion[DESVIACION A LA DERECHA]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
+                                @endif
+                            @else
+                                <input type="text" class="form-control"
+                                       name="desviacion[DESVIACION A LA DERECHA]"
+                                       onkeyup="uppercaseInput(this);"
+                                >
+                            @endif
                         </div>
                     </div>
                     <hr>
                     <p class="text-muted">OBSERVACIONES</p>
                     <div class="row">
                         <div class="col-md-6">
-                            <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
+                            @if ($resultados)
+                                <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones1}}</textarea>
+                                @else
+                                <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
+                            @endif
                         </div>
                         <div class="col-md-6">
-                            <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
+                            @if ($resultados)
+                                <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones2}}</textarea>
+                            @else
+                                <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
+                            @endif
+
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cerrar</a>
-                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <button type="submit" class="btn btn-primary">
+                        @if ($resultados)
+                            Editar
+                        @else
+                            Crear
+                        @endif
+                    </button>
                 </div>
             </form>
         </div>
@@ -306,7 +811,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <select class="form-control" name="tipo" required>
                                 <option value="">Seleccione ...</option>
                                 @foreach(Config::get('clinica.reac_inflamatoria') as $reacInfla)
@@ -314,11 +819,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" name="descripcion" class="form-control"
-                                   onkeyup="uppercaseInput(this);"
-                                   required>
-                        </div>
+{{--                        <div class="col-md-6">--}}
+{{--                            <input type="text" name="descripcion" class="form-control"--}}
+{{--                                   onkeyup="uppercaseInput(this);"--}}
+{{--                                   required>--}}
+{{--                        </div>--}}
                     </div>
 
                 </div>
@@ -355,7 +860,7 @@
                             <div class="col-md-6">
                                 <input type="text" name="descripcion" class="form-control"
                                        onkeyup="uppercaseInput(this);"
-                                       required>
+                                       required value="ESCASOS">
                             </div>
                         </div>
 
@@ -376,7 +881,7 @@
             $("#reacInflaForm").submit(function (event) {
                 event.preventDefault();
                 var riKey = $("#reacInflaForm").find("select[name=tipo]").val();
-                var riValue = $("#reacInflaForm").find("input[name=descripcion]").val();
+                var riValue = "SI";
 
                 //alert(riKey+" || "+riValue);
                 var numItemReacInfla = $("#reacInflamatoriaList").find("input[type=text]").length;
@@ -442,14 +947,12 @@
         function tplItemReacInfla(key, value){
             var html = "";
             html += "<div class='col-md-4 row'>";
-            html += "<div class='col-md-6'>";
-            html += "<p style='color: #000; font-size: .8rem; margin-bottom: 2px; text-align: right;'>";
+            html += "<div class='col-md-12'>";
+            html += "<p style='color: #000; font-size: .8rem; margin-bottom: 2px;'>";
             html += "<a href='#' class='btn btn-link' style='padding: 2px;' onclick='removeItemReacInfla(this); return false;'>";
-            html += "<i class='far fa-trash-alt'></i></a> "+key;
+            html += "<i class='far fa-trash-alt'></i></a> "+key+' <i class="far fa-check-square"></i>';
             html += "</p>";
-            html += "</div>";
-            html += "<div class='col-md-6'>";
-            html += "<input type='text' class='form-control' name='reacInfla["+key+"]' value='"+value+"' readonly>";
+            html += "<input type='hidden' name='reacInfla["+key+"]' value='"+value+"'>";
             html += "</div>";
             html += "</div>";
 
