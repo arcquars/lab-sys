@@ -16,19 +16,31 @@
             <form method="post" action="/reportes/reporte-diario">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-5">
-                        <label for="fecha_ingreso">Fecha de ingreso</label>
+                    <div class="col-md-3">
+                        <label for="fecha_inicio">Fecha inicio</label>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
+                        <label for="fecha_fin">Fecha fin</label>
+                    </div>
+                    <div class="col-md-3">
                         <label for="fecha_ingreso">Tipo de Analisis</label>
                     </div>
-                    <div class="col-md-2"></div>
+                    <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
-                        <input type="date" name="fecha" class="form-control" value="{{$fecha}}" required>
+                    <div class="col-md-3">
+                        <input type="date" name="fecha_ini" class="form-control" value="{{old('fecha_ini', $fecha_ini)}}" >
+                        @error('fecha_ini')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
+                        <input type="date" name="fecha_fin" class="form-control" value="{{$fecha_fin}}" >
+                        @error('fecha_fin')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-3">
                         <select name="procedencia" class="form-control">
                             <option value="0">Todos</option>
                             @foreach($procedencias as $procedencia)
@@ -40,7 +52,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <input type="submit" value="Buscar" class="btn btn-info btn-block">
                     </div>
                 </div>
@@ -75,9 +87,20 @@
                             </tr>
                         @endforeach
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{$totalPrecio}}</td>
+                    <td>{{$totalAcuenta}}</td>
+                    <td>{{$totalDebe}}</td>
+                    <td></td>
+                </tr>
+                </tfoot>
             </table>
-            <h6 class="text-right">Total ingreso: {{$total}}</h6>
-
         </div>
     </div>
 

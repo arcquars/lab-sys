@@ -46,6 +46,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-users-only-tecnico', function($user){
             return $user->hasAnyRoles(['tecnico']);
         });
+        Gate::define('manage-users-only-secretaria', function($user){
+            return $user->hasAnyRoles(['secretaria']);
+        });
         Gate::define('manage-users-no-tecnico', function($user){
             return $user->hasAnyRoles(['secretaria', 'medico']);
         });

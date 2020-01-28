@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
 use App\Http\Requests\StoreReporte2Post;
+use App\Http\Requests\StoreReporteDiarioPost;
 use App\Institucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -47,21 +48,26 @@ class ReporteController extends Controller
 
     public function reporteDiario()
     {
-        $fecha = date('Y-m-d');
+        $fecha_ini = date('Y-m-d', strtotime('-1 month'));
+        $fecha_fin = date('Y-m-d');
         $procedenciaId = 0;
 
         $procedencias = Institucion::all();
-        $analisis = Analisis::where('fecha', $fecha)->get();
-        $total = 0;
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+        $totalPrecio = 0;
+        $totalAcuenta = 0;
+        $totalDebe = 0;
         foreach ($analisis as $ana){
-            $total += $ana->precio;
+            $totalPrecio += $ana->precio;
+            $totalAcuenta += $ana->acuenta;
+            $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
         return view('reportes.reporte-diario', compact(
             'procedencias',
-            'analisis',
-            'total',
-            'fecha',
+            'analisis', 'totalDebe',
+            'totalPrecio', 'totalAcuenta',
+            'fecha_ini', 'fecha_fin',
             'procedenciaId'
         ));
     }
@@ -116,27 +122,30 @@ class ReporteController extends Controller
         ));
     }
 
-    public function reporteDiarioPost(Request $request)
+    public function reporteDiarioPost(StoreReporteDiarioPost $request)
     {
-        $fecha = $request->post('fecha');
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
 
         $procedencias = Institucion::all();
 
         if($procedenciaId == 0){
-            $analisis = Analisis::where('fecha', $fecha)->get();
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         } else {
-            $analisis = Analisis::where('fecha', $fecha)->where('procedencia', $procedenciaId)->get();
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
         }
+
         $total = 0;
         foreach ($analisis as $ana){
             $total += $ana->precio;
         }
+
         return view('reportes.reporte-diario', compact(
             'procedencias',
             'analisis',
             'total',
-            'fecha',
+            'fecha_ini', 'fecha_fin',
             'procedenciaId'
         ));
     }
@@ -151,7 +160,8 @@ class ReporteController extends Controller
         $procedenciaId = $request->post('procedencia');
         $procedencias = Institucion::all();
 
-        $dias =  intval(date_diff($dIni, $dFin)->format('%d'));
+        $dias =  intval(date_diff($dIni, $dFin)->format('%R%a'));
+
         $reporte_2 = $this->getResultReporte2($dIni, $dias, $procedenciaId);
 
         return view('reportes.reporte2', compact(
@@ -191,8 +201,6 @@ class ReporteController extends Controller
                     ->where('procedencia', $procedenciaId)
                     ->get();
             }
-
-
             $t_precio = 0;
             $t_acuenta = 0;
             $t_pago_efectuado = 0;
@@ -218,7 +226,8 @@ class ReporteController extends Controller
             $reporte2->setPagoEfectuado($t_pago_efectuado);
             $reporte2->setFecha($fechaIngrementado);
 
-            array_push($rows, $reporte2);
+            if($reporte2->getBiopsiaTotal() > 0 || $reporte2->getCitologiaTotal() > 0 || $reporte2->getInmunoTotal() > 0)
+                array_push($rows, $reporte2);
         }
         return $rows;
     }

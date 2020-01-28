@@ -107,6 +107,14 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
             @endcannot
+            @can('manage-users-only-secretaria')
+            <li class="nav-item @if($activePage == 'reportetecnico') active @endif">
+                <a class="nav-link" href="{{route('analisis.listatecnico')}}">
+                    <i class="fas fa-cash-register"></i>
+                    <p>Caja Chica</p>
+                </a>
+            </li>
+            @endcan
         </ul>
     </div>
 </div>

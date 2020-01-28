@@ -109,3 +109,12 @@
     font-weight: 700;
     color: #0B0D33;
 }
+
+.table-clinica tfoot tr {
+    background-color: #343a40;
+}
+
+.table-clinica tfoot tr td{
+    color: #fff;
+    font-weight: 700;
+}
