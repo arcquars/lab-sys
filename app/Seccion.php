@@ -26,29 +26,31 @@ class Seccion extends Model
     ];
 
     public static function saveSeccionValue($seccionArray, $tipoSeccion, $resultadoId){
-        foreach ($seccionArray as $key => $value){
-            if(isset($value) && !empty($value)){
-                $seccion = new Seccion();
-                $seccion->seccion = $tipoSeccion;
-                $seccion->key = $key;
-                $seccion->value = $value;
-                $seccion->resultado_id = $resultadoId;
-                $seccion->save();
+        if(isset($seccionArray))
+            foreach ($seccionArray as $key => $value){
+                if(isset($value) && !empty($value)){
+                    $seccion = new Seccion();
+                    $seccion->seccion = $tipoSeccion;
+                    $seccion->key = $key;
+                    $seccion->value = $value;
+                    $seccion->resultado_id = $resultadoId;
+                    $seccion->save();
+                }
             }
-        }
     }
 
     public static function saveSeccionKey($seccionArray, $tipoSeccion, $resultadoId){
-        foreach ($seccionArray as $key => $value){
-            if(isset($value) && !empty($value)){
-                $seccion = new Seccion();
-                $seccion->seccion = $tipoSeccion;
-                $seccion->key = $value;
-                $seccion->value = true;
-                $seccion->resultado_id = $resultadoId;
-                $seccion->save();
+        if(isset($seccionArray))
+            foreach ($seccionArray as $key => $value){
+                if(isset($value) && !empty($value)){
+                    $seccion = new Seccion();
+                    $seccion->seccion = $tipoSeccion;
+                    $seccion->key = $value;
+                    $seccion->value = true;
+                    $seccion->resultado_id = $resultadoId;
+                    $seccion->save();
+                }
             }
-        }
     }
 
     public static function getArraySeccionesByOMS($secciones){

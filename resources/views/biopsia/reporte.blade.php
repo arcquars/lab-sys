@@ -19,5 +19,4 @@
 <div class="div-campo">
     {!! $biopsia->diagnostico !!}
 </div>
-<div style="height: 25px;"></div>
 @include('citologia.partial.reporte-footer', compact('analisis'))

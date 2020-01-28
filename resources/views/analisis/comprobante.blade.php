@@ -32,8 +32,6 @@
                 <tr>
                     <td><p class="p-dato"><b>Enviado por Doctor(a): </b></p></td>
                     <td><p class="p-dato">{{$analisis->doctor}}</p></td>
-                    <td><p class="p-dato"><b>Fecha de Entrega:</b></p></td>
-                    <td><p class="p-dato">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</p></td>
                 </tr>
             </table>
         </td>

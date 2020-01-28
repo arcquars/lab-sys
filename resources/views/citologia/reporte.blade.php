@@ -175,5 +175,4 @@
         </td>
     </tr>
 </table>
-<div style="height: 25px;"></div>
 @include('citologia.partial.reporte-footer', compact('analisis'))

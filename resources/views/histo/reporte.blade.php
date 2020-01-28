@@ -15,5 +15,4 @@
 <div class="div-campo">
     {!! $histo->bibliografia !!}
 </div>
-<div style="height: 25px;"></div>
 @include('citologia.partial.reporte-footer', compact('analisis'))
