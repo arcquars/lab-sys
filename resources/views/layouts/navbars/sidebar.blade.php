@@ -70,7 +70,7 @@ Tip 2: you can also add an image using data-image tag
                             <li class="nav-item @if($activePage == 'admin_reporte_diario') active @endif">
                                 <a class="nav-link" href="{{route('reporte.reporte.diario')}}">
                                     <i class="fas fa-receipt"></i>
-                                    <p>Informe Diario</p>
+                                    <p>Reporte Semanal</p>
                                 </a>
                             </li>
                             <li class="nav-item @if($activePage == 'admin_reporte') active @endif">
@@ -84,6 +84,12 @@ Tip 2: you can also add an image using data-image tag
                                     <a class="nav-link" href="{{route('reporte.reporte2')}}">
                                         <i class="fas fa-receipt"></i>
                                         <p>Reporte Administrador</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item @if($activePage == 'admin_reporte_admin_diario') active @endif">
+                                    <a class="nav-link" href="{{route('reporte.reporte_admin_diario')}}">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>Reporte Adm. Diario</p>
                                     </a>
                                 </li>
                             @endcan
@@ -108,8 +114,8 @@ Tip 2: you can also add an image using data-image tag
             </li>
             @endcannot
             @can('manage-users-only-secretaria')
-            <li class="nav-item @if($activePage == 'reportetecnico') active @endif">
-                <a class="nav-link" href="{{route('analisis.listatecnico')}}">
+            <li class="nav-item @if($activePage == 'gasto_index') active @endif">
+                <a class="nav-link" href="{{route('gastos.home')}}">
                     <i class="fas fa-cash-register"></i>
                     <p>Caja Chica</p>
                 </a>

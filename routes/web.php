@@ -78,6 +78,8 @@ Route::post('/reportes/reporte-diario', 'ReporteController@reporteDiarioPost')->
 
 Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.reporte2');
 Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
+Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
+Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
 
 Route::get('/institucion/index', 'InstitucionController@index')->name('institucion.home');
 Route::get('/institucion/datatable', 'InstitucionController@getDatatablesData')->name('institucion.datatablesInstitucionData');
@@ -88,3 +90,8 @@ Route::get('/doctores/index', 'DoctorController@index')->name('doctores.home');
 Route::post('/doctores/ajaxcreatedoctor','DoctorController@ajaxCreateDoctor')->name('doctores.createDoctor');
 Route::get('/doctores/datatables-doctores', 'DoctorController@getDatatablesDoctor')->name('doctor.datatables_doctores');
 Route::post('/doctores/ajaxgetdoctor','DoctorController@ajaxGetDoctor')->name('doctor.getDoctor');
+
+
+Route::get('/gastos/index', 'GastoController@index')->name('gastos.home');
+Route::post('/gastos/ajaxcreategasto','GastoController@ajaxCreateGasto')->name('gastos.createGasto');
+Route::get('/gastos/datatables-gastos', 'GastoController@getDatatablesGasto')->name('gasto.datatables_gastos');

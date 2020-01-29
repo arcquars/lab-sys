@@ -24,3 +24,7 @@
 {{--    <dt class="col-md-3">Fecha Entrega:</dt>--}}
 {{--    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</dd>--}}
 </dl>
+<dl class="row row-citologia">
+    <dt class="col-md-3">Region:</dt>
+    <dd class="col-md-9">{{$analisis->region}}</dd>
+</dl>

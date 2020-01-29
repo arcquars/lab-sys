@@ -61,11 +61,13 @@
             <table class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                     <tr>
+                        <th>N.</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Codigo</th>
                         <th scope="col">Paciente</th>
                         <th scope="col">Doctor que Pidio</th>
-                        <th scope="col">Institucion</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Tipo Estudio</th>
                         <th scope="col">Precio</th>
                         <th scope="col">A cuenta</th>
                         <th scope="col">Debe</th>
@@ -73,13 +75,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                @php
+                $i = 1;
+                @endphp
                         @foreach($analisis as $analisi)
                             <tr>
+                                <td>{{$i++}}</td>
                                 <td>{{$analisi->fecha}}</td>
                                 <td>{{$analisi->codigo}}</td>
                                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}}</td>
                                 <td>{{$analisi->doctor}}</td>
-                                <td>{{$analisi->institucion->nombre}}</td>
+                                <td>{{$analisi->region}}</td>
+                                <td>{{$analisi->tipo_analisis}}</td>
                                 <td>{{$analisi->precio}}</td>
                                 <td>{{$analisi->acuenta}}</td>
                                 <td>{{$analisi->precio - $analisi->acuenta}}</td>
@@ -94,6 +101,8 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
+                    <td>TOTALES</td>
                     <td>{{$totalPrecio}}</td>
                     <td>{{$totalAcuenta}}</td>
                     <td>{{$totalDebe}}</td>

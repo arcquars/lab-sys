@@ -88,6 +88,34 @@ class ReporteController extends Controller
         ));
     }
 
+    public function reporteAdminDiario()
+    {
+
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+        $year_select = intval($date->format('Y'));
+        $mes = $date->format('m');
+        $day_last = $date->format('t');
+        $meses = Config::get('clinica.meses-id');
+        $procedenciaId = 0;
+
+        $fecha_ini = $year.'-'.$mes.'-01';
+        $fecha_fin = $year.'-'.$mes.'-'.$day_last;
+
+//        $dFin = date_create($fechaFin);
+        $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
+
+        $procedencias = Institucion::all();
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+
+
+        return view('reportes.reporte-admin-diario', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'meses', 'year', 'year_old',
+            'procedenciaId', 'day_last', 'mes', 'year_select'
+        ));
+    }
+
     public function reportePost(Request $request)
     {
         $fecha = $request->post('fecha');
@@ -136,15 +164,19 @@ class ReporteController extends Controller
             $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
         }
 
-        $total = 0;
+        $totalPrecio = 0;
+        $totalAcuenta = 0;
+        $totalDebe = 0;
         foreach ($analisis as $ana){
-            $total += $ana->precio;
+            $totalPrecio += $ana->precio;
+            $totalAcuenta += $ana->acuenta;
+            $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
         return view('reportes.reporte-diario', compact(
             'procedencias',
-            'analisis',
-            'total',
+            'analisis', 'totalDebe',
+            'totalPrecio', 'totalAcuenta',
             'fecha_ini', 'fecha_fin',
             'procedenciaId'
         ));
@@ -168,6 +200,42 @@ class ReporteController extends Controller
             'procedencias',
             'fechaIni', 'fechaFin',
             'procedenciaId', 'reporte_2'
+        ));
+    }
+
+    public function reporteAdminDiarioPost(Request $request)
+    {
+        $year_select = intval($request->post('year'));
+
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+
+        $mes = $request->post('mes');
+
+        $date_last = \DateTime::createFromFormat('Y-m-d', $year.'-'.$mes.'-01');
+        $day_last = $date_last->format('t');
+
+        $meses = Config::get('clinica.meses-id');
+        $procedenciaId = $request->post('procedencia');
+
+        $fecha_ini = $year_select.'-'.$mes.'-01';
+        $fecha_fin = $year_select.'-'.$mes.'-'.$day_last;
+
+        $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
+
+        $procedencias = Institucion::all();
+
+        if($procedenciaId == 0){
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+        } else {
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+        }
+
+
+        return view('reportes.reporte-admin-diario', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'meses', 'year', 'year_old',
+            'procedenciaId', 'day_last', 'mes', 'year_select'
         ));
     }
 
