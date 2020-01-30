@@ -13,4 +13,8 @@ class Gasto extends Model
         'detalle',
         'gasto'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

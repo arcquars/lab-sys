@@ -7,6 +7,26 @@
 <div class="div-campo">
     {!! $histo->interpretacion !!}
 </div>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 100%;">
+            @if (isset($histo->imagen1))
+                <img src="{{$histo->imagen1}}" width="100%">
+            @endif
+
+        </td>
+        <td style="width: 100%;">
+            @if (isset($histo->imagen2))
+                <img src="{{$histo->imagen2}}" width="100%">
+            @endif
+        </td>
+        <td style="width: 100%;">
+            @if (isset($histo->imagen3))
+                <img src="{{$histo->imagen3}}" width="100%">
+            @endif
+        </td>
+    </tr>
+</table>
 <h4 class="h4-cito">Tecnica</h4>
 <div class="div-campo">
     {!! $histo->tecnica !!}

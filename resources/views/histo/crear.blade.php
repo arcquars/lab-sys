@@ -25,10 +25,19 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-            <form action="{{url('/histo/save')}}" method="post">
+            <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
+                <div class="form-group">
+                    Selecciones Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
+                </div>
+                <div class="form-group">
+                    Selecciones Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
+                </div>
+                <div class="form-group">
+                    Selecciones Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
+                </div>
                 <div class="form-group">
                     <label for="organo_tejido">Interpretacion</label>
                     <textarea name="interpretacion" id="ta-interpretacion" class="form-control">{{@old('interpretacion', $histo ? $histo->interpretacion : '')}}</textarea>

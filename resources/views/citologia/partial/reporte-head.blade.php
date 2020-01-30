@@ -1,13 +1,6 @@
-<style>
-    .h1-cito{
-        text-align: center;
-        color: #012035;
-        font-size: 14px;
-        margin: 0;
-        padding: 0;
-    }
-</style>
-<img src="{{public_path('img/head-cdcc.png')}}" width="750">
+<htmlpageheader name="page-header">
+    <img src="{{public_path('img/head-cdcc.png')}}" width="750">
+</htmlpageheader>
 <h1 class="h1-cito">CENTRO DE DIAGNOSTICO CITOPATOLOGICO</h1>
 <table style="width: 100%;">
     <tr>

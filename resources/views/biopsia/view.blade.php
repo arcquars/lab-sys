@@ -15,16 +15,7 @@
         </div>
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
-
             <hr>
-            <div class="row row-biopsia">
-                <div class="col-md-12 form-group">
-                    <label>Organo o Tejido:</label>
-                    <div>
-                        {!! $biopsia->organo_tejido !!}
-                    </div>
-                </div>
-            </div>
             <div class="row row-biopsia">
                 <div class="col-md-12 form-group">
                     <label>MACROSCOPIA:</label>

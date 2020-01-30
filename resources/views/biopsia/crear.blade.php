@@ -34,7 +34,8 @@
                 <input type="hidden" name="biopsia_id" value="{{$biopsia ? $biopsia->id : ''}}">
                 <div class="form-group">
                     <label for="organo_tejido">Organo o Tejido</label>
-                    <textarea name="organo_tejido" id="ta-organo_tejido" class="form-control">{{@old('organo_tejido', $biopsia ? $biopsia->organo_tejido : '')}}</textarea>
+{{--                    <textarea name="organo_tejido" id="ta-organo_tejido" class="form-control"></textarea>--}}
+                    <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $biopsia ? $analisis->region : '')}}" required>
                 </div>
                 <div class="form-group">
                     <label for="macroscopia">Macroscopia</label>
@@ -64,28 +65,28 @@
     <script src="{{ asset('ckeditor5/translations/es.js') }}"></script>
     <script>
         $(document).ready(function () {
-            ClassicEditor
-                .create( document.querySelector( '#ta-organo_tejido' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
+            {{--ClassicEditor--}}
+            {{--    .create( document.querySelector( '#ta-organo_tejido' ), {--}}
+            {{--        alignment: {--}}
+            {{--            options: [ 'left', 'right' ]--}}
+            {{--        },--}}
+            {{--        toolbar: [--}}
+            {{--            'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'--}}
+            {{--        ],--}}
+            {{--        language: {--}}
+            {{--            // The UI will be English.--}}
+            {{--            ui: 'es',--}}
 
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
-                })
-                .catch( error => {
-                    console.error( error );
-                } );
+            {{--            // But the content will be edited in Arabic.--}}
+            {{--            content: 'es'--}}
+            {{--        }--}}
+            {{--    })--}}
+            {{--    .then( editor => {--}}
+            {{--        @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot--}}
+            {{--    })--}}
+            {{--    .catch( error => {--}}
+            {{--        console.error( error );--}}
+            {{--    } );--}}
 
 
 

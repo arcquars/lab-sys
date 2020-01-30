@@ -58,6 +58,7 @@
                 </div>
             </form>
             <br>
+            <h4>Analisis</h4>
             <table class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                     <tr>
@@ -109,6 +110,66 @@
                     <td></td>
                 </tr>
                 </tfoot>
+            </table>
+            <br>
+            <h4>Gastos</h4>
+            <table class="table table-bordered table-clinica">
+                <thead class="thead-dark">
+                <tr>
+                    <th>N.</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Monto</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php
+                    $i = 1;
+                @endphp
+                @foreach($gastos as $gasto)
+                    <tr>
+                        <td>{{$i++}}</td>
+                        <td>{{$gasto->fecha}}</td>
+                        <td>{{$gasto->detalle}}</td>
+                        <td>{{$gasto->user->name}} {{$analisi->person->apellidos}}</td>
+                        <td>{{$gasto->gasto}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>TOTALES</td>
+                    <td>{{$totalGastos}}</td>
+                </tr>
+                </tfoot>
+            </table>
+            <br>
+            <h4>Totales</h4>
+            <table class="table table-bordered table-clinica">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Resumen</th>
+                    <th>$</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Ingresos</td>
+                        <td>{{$totalPrecio}}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Egresos</td>
+                        <td>{{$totalGastos}}</td>
+                    </tr>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td>{{$totalPrecio - $totalGastos}}</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>

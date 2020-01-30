@@ -1,4 +1,11 @@
 <style>
+    @page {
+        header: page-header;
+        footer: page-footer;
+
+        margin-header: 4mm;
+    }
+
     .h1-cito{
         text-align: center;
         color: #012035;

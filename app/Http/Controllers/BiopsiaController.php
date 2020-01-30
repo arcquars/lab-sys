@@ -43,6 +43,9 @@ class BiopsiaController extends Controller
             $biopsia->diagnostico = $request->post('diagnostico');
             $biopsia->user_id = auth()->id();
 
+            $analisis = Analisis::find($request->post('analisis_id'));
+            $analisis->region = $request->post('organo_tejido');
+            $analisis->update();
             if($biopsia->save()){
                 if(Auth::user()->hasRole('tecnico')){
                     return redirect('/analisis/lista/tecnico');
@@ -60,6 +63,10 @@ class BiopsiaController extends Controller
             $biopsia->microscopia = $request->post('microscopia');
             $biopsia->diagnostico = $request->post('diagnostico');
             $biopsia->user_id = auth()->id();
+
+            $analisis = Analisis::find($request->post('analisis_id'));
+            $analisis->region = $request->post('organo_tejido');
+            $analisis->update();
 
             if($biopsia->update()){
                 if(Auth::user()->hasRole('tecnico')){

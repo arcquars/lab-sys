@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
+use App\Gasto;
 use App\Http\Requests\StoreReporte2Post;
 use App\Http\Requests\StoreReporteDiarioPost;
 use App\Institucion;
@@ -53,7 +54,9 @@ class ReporteController extends Controller
         $procedenciaId = 0;
 
         $procedencias = Institucion::all();
+
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+        $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         $totalPrecio = 0;
         $totalAcuenta = 0;
         $totalDebe = 0;
@@ -63,12 +66,17 @@ class ReporteController extends Controller
             $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
+        $totalGastos = 0;
+        foreach ($gastos as $gasto){
+            $totalGastos += $gasto->gasto;
+        }
+
         return view('reportes.reporte-diario', compact(
             'procedencias',
             'analisis', 'totalDebe',
             'totalPrecio', 'totalAcuenta',
-            'fecha_ini', 'fecha_fin',
-            'procedenciaId'
+            'fecha_ini', 'fecha_fin', 'gastos',
+            'procedenciaId', 'totalGastos'
         ));
     }
 
