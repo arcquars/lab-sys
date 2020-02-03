@@ -53,6 +53,25 @@
                         </div>
                     </div>
                     <hr>
+                    <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS
+                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#ecdModal">
+                            <i class="far fa-plus-square fa-lg"></i>
+                        </a>
+                    </p>
+                    <div id="ecdList" class="row">
+                        @if ($resultados)
+                            @foreach($seccECD as $secc)
+                                <div class="col-md-3">
+                                    <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
+                                        <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemExtendido(this); return false;">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a> {{$secc->key}}</p>
+                                    <input type="checkbox" style="visibility: hidden;" name="ExtComp[]" checked="" value="{{$secc->key}}">
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-4">
                             <h3 class="ana-ext-title text-muted">OMS</h3>
@@ -319,25 +338,6 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS
-                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#ecdModal">
-                            <i class="far fa-plus-square fa-lg"></i>
-                        </a>
-                    </p>
-                    <div id="ecdList" class="row">
-                        @if ($resultados)
-                            @foreach($seccECD as $secc)
-                                <div class="col-md-3">
-                                    <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
-                                        <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemExtendido(this); return false;">
-                                            <i class="far fa-trash-alt"></i>
-                                        </a> {{$secc->key}}</p>
-                                    <input type="checkbox" style="visibility: hidden;" name="ExtComp[]" checked="" value="{{$secc->key}}">
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
                     <hr>
                     <p class="text-muted">REACCION INFLAMATORIA

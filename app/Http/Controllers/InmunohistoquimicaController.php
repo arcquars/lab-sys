@@ -52,7 +52,7 @@ class InmunohistoquimicaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
 //                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
                 $histo->imagen1 = 'uploads/'.$profilefile;
-            }
+            }   
             if ($files = $request->file('imagen2')) {
                 $profilefile = 'imagen2'.date('YmdHis') . "." . $files->getClientOriginalExtension();
                 $files->move(public_path('uploads'), $profilefile);

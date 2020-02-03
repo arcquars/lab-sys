@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
+use App\Exports\ReporteDiarioExport;
 use App\Gasto;
 use App\Http\Requests\StoreReporte2Post;
 use App\Http\Requests\StoreReporteDiarioPost;
@@ -11,6 +12,7 @@ use App\Institucion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Excel;
 
 class ReporteController extends Controller
 {
@@ -52,8 +54,11 @@ class ReporteController extends Controller
         $fecha_ini = date('Y-m-d', strtotime('-1 month'));
         $fecha_fin = date('Y-m-d');
         $procedenciaId = 0;
+        $tipoId = 0;
 
         $procedencias = Institucion::all();
+
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
@@ -73,10 +78,10 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-diario', compact(
             'procedencias',
-            'analisis', 'totalDebe',
+            'analisis', 'totalDebe', 'tipoId',
             'totalPrecio', 'totalAcuenta',
             'fecha_ini', 'fecha_fin', 'gastos',
-            'procedenciaId', 'totalGastos'
+            'procedenciaId', 'totalGastos', 'tipoAnalisis'
         ));
     }
 
@@ -101,16 +106,13 @@ class ReporteController extends Controller
 
         $date = new \DateTime();
         $year = intval($date->format('Y'));
-        $year_select = intval($date->format('Y'));
         $mes = $date->format('m');
         $day_last = $date->format('t');
-        $meses = Config::get('clinica.meses-id');
         $procedenciaId = 0;
 
         $fecha_ini = $year.'-'.$mes.'-01';
         $fecha_fin = $year.'-'.$mes.'-'.$day_last;
 
-//        $dFin = date_create($fechaFin);
         $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
 
         $procedencias = Institucion::all();
@@ -120,7 +122,7 @@ class ReporteController extends Controller
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis', 'meses', 'year', 'year_old',
-            'procedenciaId', 'day_last', 'mes', 'year_select'
+            'procedenciaId', 'day_last'
         ));
     }
 
@@ -163,14 +165,25 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
+        $tipoId = $request->post('tipo_analisis');
 
         $procedencias = Institucion::all();
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
 
         if($procedenciaId == 0){
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+            if(strcmp($tipoId, '0') == 0)
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+            else{
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->get();
+            }
         } else {
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+            if(strcmp($tipoId, '0') == 0)
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+            else
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->get();
         }
+        $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha')->get();
+
 
         $totalPrecio = 0;
         $totalAcuenta = 0;
@@ -181,12 +194,17 @@ class ReporteController extends Controller
             $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
+        $totalGastos = 0;
+        foreach ($gastos as $gasto){
+            $totalGastos += $gasto->gasto;
+        }
+
         return view('reportes.reporte-diario', compact(
-            'procedencias',
+            'procedencias', 'tipoId',
             'analisis', 'totalDebe',
             'totalPrecio', 'totalAcuenta',
-            'fecha_ini', 'fecha_fin',
-            'procedenciaId'
+            'fecha_ini', 'fecha_fin', 'tipoAnalisis',
+            'procedenciaId', 'gastos', 'totalGastos'
         ));
     }
 
@@ -213,23 +231,9 @@ class ReporteController extends Controller
 
     public function reporteAdminDiarioPost(Request $request)
     {
-        $year_select = intval($request->post('year'));
-
-        $date = new \DateTime();
-        $year = intval($date->format('Y'));
-
-        $mes = $request->post('mes');
-
-        $date_last = \DateTime::createFromFormat('Y-m-d', $year.'-'.$mes.'-01');
-        $day_last = $date_last->format('t');
-
-        $meses = Config::get('clinica.meses-id');
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
-
-        $fecha_ini = $year_select.'-'.$mes.'-01';
-        $fecha_fin = $year_select.'-'.$mes.'-'.$day_last;
-
-        $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
 
         $procedencias = Institucion::all();
 
@@ -242,8 +246,8 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis', 'meses', 'year', 'year_old',
-            'procedenciaId', 'day_last', 'mes', 'year_select'
+            'analisis', 'meses', 'year',
+            'procedenciaId'
         ));
     }
 
@@ -306,5 +310,39 @@ class ReporteController extends Controller
                 array_push($rows, $reporte2);
         }
         return $rows;
+    }
+
+    function excelDiario($fechaIni, $fechaFin, $procedenciaId, $tipo){
+        if($procedenciaId == 0){
+            if(strcmp($tipo, '0') == 0)
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+            else{
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+            }
+        } else {
+            if(strcmp($tipo, '0') == 0)
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+            else
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+        }
+        $gastos = Gasto::whereBetween('fecha', [$fechaIni, $fechaFin])->orderBy('fecha')->get();
+
+
+        $totalPrecio = 0;
+        $totalAcuenta = 0;
+        $totalDebe = 0;
+        foreach ($analisis as $ana){
+            $totalPrecio += $ana->precio;
+            $totalAcuenta += $ana->acuenta;
+            $totalDebe += ($ana->precio - $ana->acuenta);
+        }
+
+        $totalGastos = 0;
+        foreach ($gastos as $gasto){
+            $totalGastos += $gasto->gasto;
+        }
+        return Excel::download(
+            new ReporteDiarioExport(
+                $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe, $totalGastos), 'reportediario'.date('Ymd').'.xlsx');
     }
 }

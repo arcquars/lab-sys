@@ -1,11 +1,18 @@
-@extends('layouts.dash', ['activePage' => 'admin_reporte2', 'title' => 'Reporte Admin', 'navName' => 'Reporte administrador', 'activeButton' => 'reporteActiveButton'])
-
+@extends('layouts.dash', ['activePage' => 'admin_reporte2', 'title' => 'Administracion', 'navName' => 'Administracion', 'activeButton' => 'reporteActiveButton'])
+@php
+$t_CitologiaTotal = 0;
+$t_BiopsiaTotal = 0;
+$t_InmunoTotal = 0;
+$t_Acuenta = 0;
+$t_PagoEfectuado = 0;
+$t_Ingreso = 0;
+@endphp
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item">Reportes</li>
-            <li class="breadcrumb-item">Reporte Administrador</li>
+            <li class="breadcrumb-item">Administracion</li>
 
         </ol>
     </nav>
@@ -62,7 +69,7 @@
                 </div>
             </form>
             <br>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Fecha</th>
@@ -76,6 +83,14 @@
                 </thead>
                 <tbody>
                         @foreach($reporte_2 as $reporte)
+                            @phpe
+                                $t_CitologiaTotal += $reporte->getCitologiaTotal();
+                                $t_BiopsiaTotal += $reporte->getBiopsiaTotal();
+                                $t_InmunoTotal += $reporte->getInmunoTotal();
+                                $t_Acuenta += $reporte->getAcuenta();
+                                $t_PagoEfectuado += $reporte->getPagoEfectuado();
+                                $t_Ingreso += $reporte->getIngreso();
+                            @endphp
                             <tr>
                                 <td>{{$reporte->getFecha()->format('Y-m-d')}}</td>
                                 <td>{{$reporte->getCitologiaTotal()}}</td>
@@ -87,6 +102,17 @@
                             </tr>
                         @endforeach
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td>Totales</td>
+                    <td>{{$t_CitologiaTotal}}</td>
+                    <td>{{$t_BiopsiaTotal}}</td>
+                    <td>{{$t_InmunoTotal}}</td>
+                    <td>{{$t_Acuenta}}</td>
+                    <td>{{$t_PagoEfectuado}}</td>
+                    <td>{{$t_Ingreso}}</td>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>

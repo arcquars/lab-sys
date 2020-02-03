@@ -1,6 +1,6 @@
 <dl class="row row-citologia">
     <dt class="col-md-3">Nombres y Apellidos:</dt>
-    <dd class="col-md-3">{{$analisis->person->apellidos.', '.$analisis->person->nombres}}</dd>
+    <dd class="col-md-3">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</dd>
     <dt class="col-md-3">Enviado por (Doctor):</dt>
     <dd class="col-md-3">{{$analisis->doctor}}</dd>
 </dl>
@@ -26,5 +26,10 @@
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Region:</dt>
-    <dd class="col-md-9">{{$analisis->region}}</dd>
+    <dd class="col-md-3">{{$analisis->region}}</dd>
+    <dd class="col-md-6">
+        @if($analisis->hasHistory())
+            <p class="text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></p>
+        @endif
+    </dd>
 </dl>

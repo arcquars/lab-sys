@@ -83,7 +83,7 @@ Tip 2: you can also add an image using data-image tag
                                 <li class="nav-item @if($activePage == 'admin_reporte2') active @endif">
                                     <a class="nav-link" href="{{route('reporte.reporte2')}}">
                                         <i class="fas fa-receipt"></i>
-                                        <p>Reporte Administrador</p>
+                                        <p>Administracion</p>
                                     </a>
                                 </li>
                                 <li class="nav-item @if($activePage == 'admin_reporte_admin_diario') active @endif">

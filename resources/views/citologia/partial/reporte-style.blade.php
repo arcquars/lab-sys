@@ -3,7 +3,7 @@
         header: page-header;
         footer: page-footer;
 
-        margin-header: 4mm;
+        margin-header: 10mm;
     }
 
     .h1-cito{

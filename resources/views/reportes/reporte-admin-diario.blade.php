@@ -16,51 +16,31 @@
         <form method="post" action="/reportes/reporte-admin-diario">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-2">
-                    <label for="fecha_fin">Mes</label>
+                <div class="col-md-3">
+                    <label for="fecha_inicio">Fecha inicio</label>
                 </div>
-                <div class="col-md-2">
-                    <label for="fecha_fin">Anio</label>
+                <div class="col-md-3">
+                    <label for="fecha_fin">Fecha fin</label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="fecha_ingreso">Institucion</label>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-md-3"></div>
             </div>
             <div class="row">
-                <div class="col-md-2">
-                    <select name="mes" id="mes" class="form-control">
-                        @foreach($meses as $key => $value)
-                            @if ($key == $mes)
-                                <option value="{{$key}}" selected>{{$value}}</option>
-                            @else
-                                <option value="{{$key}}">{{$value}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    @error('mes')
+                <div class="col-md-3">
+                    <input type="date" name="fecha_ini" class="form-control" value="{{old('fecha_ini', $fecha_ini)}}" required>
+                    @error('fecha_ini')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-2">
-                    <select name="year" id="year" class="form-control">
-                        @while($year_old <= $year)
-                            @if($year_old == $year_select)
-                                <option value="{{$year_old}}" selected>{{$year_old}}</option>
-                            @else
-                                <option value="{{$year_old}}">{{$year_old}}</option>
-                            @endif
-
-                            @php
-                            $year_old++;
-                            @endphp
-                        @endwhile
-                    </select>
-                    @error('mes')
+                <div class="col-md-3">
+                    <input type="date" name="fecha_fin" class="form-control" value="{{old('fecha_fin', $fecha_fin)}}" required>
+                    @error('fecha_fin')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <select name="procedencia" class="form-control">
                         <option value="0">Todos</option>
                         @foreach($procedencias as $procedencia)
@@ -77,10 +57,6 @@
                 </div>
             </div>
         </form>
-        <dl class="row row-citologia">
-            <dt class="col-md-6"><b>Fecha Inicio:</b> <span>{{$fecha_ini}}</span></dt>
-            <dt class="col-md-6"><b>Fecha Fin:</b> <span>{{$fecha_fin}}</span></dt>
-        </dl>
         <br>
         <table class="table table-bordered table-clinica">
             <thead class="thead-dark">
@@ -92,9 +68,6 @@
                 <th scope="col">Doctor que Pidio</th>
                 <th scope="col">Region</th>
                 <th scope="col">Precio</th>
-                <th scope="col">A cuenta</th>
-                <th scope="col">Debe</th>
-                <th scope="col">Empresa</th>
             </tr>
             </thead>
             <tbody>
@@ -102,14 +75,11 @@
             <tr>
                 <td>{{$analisi->fecha}}</td>
                 <td>{{$analisi->codigo}}</td>
-                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}}</td>
+                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->person->edad}}</td>
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->region}}</td>
                 <td>{{$analisi->precio}}</td>
-                <td>{{$analisi->acuenta}}</td>
-                <td>{{$analisi->precio - $analisi->acuenta}}</td>
-                <td>{{ $analisi->institucion->nombre }}</td>
             </tr>
             @endforeach
             </tbody>

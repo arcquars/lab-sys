@@ -34,8 +34,7 @@
                 <input type="hidden" name="biopsia_id" value="{{$biopsia ? $biopsia->id : ''}}">
                 <div class="form-group">
                     <label for="organo_tejido">Organo o Tejido</label>
-{{--                    <textarea name="organo_tejido" id="ta-organo_tejido" class="form-control"></textarea>--}}
-                    <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $biopsia ? $analisis->region : '')}}" required>
+                    <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $analisis->region)}}" required>
                 </div>
                 <div class="form-group">
                     <label for="macroscopia">Macroscopia</label>

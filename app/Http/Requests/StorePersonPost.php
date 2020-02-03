@@ -25,12 +25,14 @@ class StorePersonPost extends FormRequest
     {
         $id = $this->input('id');
         $roleCi = 'unique:persons,ci|nullable|numeric';
+        $roleNombres = 'required|';
+
         if(isset($id)){
             $roleCi = 'nullable|numeric|unique:persons,ci,'.$id.',id';
         }
         return [
             'ci' => $roleCi,
-            'nombres' => 'required',
+            'nombres' => $roleNombres,
             'apellidos' => 'required',
             'edad' => 'required'
         ];

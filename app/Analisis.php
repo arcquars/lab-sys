@@ -41,6 +41,13 @@ class Analisis extends Model
         return $this->belongsTo('App\Doctor', 'doctor_asignado', 'id');
     }
 
+    public function hasHistory(){
+        $count = Analisis::where('person_id', $this->person_id)->count();
+        if($count > 1)
+            return true;
+        return false;
+    }
+
     /**
      * Returns the action column html for datatables.
      *

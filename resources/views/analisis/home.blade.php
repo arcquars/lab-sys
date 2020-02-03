@@ -111,6 +111,7 @@
                         <div class="form-group">
                             <label for="fecha_entrega">Fecha de entrega</label>
                             <input type="date" name="fecha_entrega" class="form-control"
+                                   value="{{date('Y-m-d')}}"
                                    min="{{date('Y-m-d', strtotime("-5 days"))}}"
                                    max="{{date('Y-m-d', strtotime("5 days"))}}"
                             >
@@ -142,6 +143,7 @@
                         <div class="form-group">
                             <label for="fecha_cierre">Fecha de cierre del Analisis</label>
                             <input type="date" name="fecha_cierre" class="form-control"
+                                   value="{{date('Y-m-d')}}"
                                    min="{{date('Y-m-d', strtotime("-2 days"))}}"
                                    max="{{date('Y-m-d', strtotime("2 days"))}}"
                             >

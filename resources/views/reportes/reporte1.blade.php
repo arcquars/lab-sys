@@ -67,7 +67,7 @@
                             <tr>
                                 <td>{{$analisi->fecha}}</td>
                                 <td>{{$analisi->codigo}}</td>
-                                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}}</td>
+                                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                                 <td>{{$analisi->doctor}}</td>
                                 <td>{{$analisi->institucion->nombre}}</td>
                                 <td>{{$analisi->precio}}</td>
@@ -102,7 +102,7 @@
                     <tr>
                         <td>{{$analisi->fecha}}</td>
                         <td>{{$analisi->codigo}}</td>
-                        <td>{{$analisi->person->nombres}} {{$analisi->apellidos}}</td>
+                        <td>{{$analisi->person->nombres}} {{$analisi->apellidos}} {{$analisi->person->apellido_materno}}</td>
                         <td>{{$analisi->doctor}}</td>
                         <td>{{$analisi->institucion->nombre}}</td>
                         <td>{{$analisi->precio}}</td>

@@ -13,32 +13,47 @@
         <div class="card-header">
         </div>
         <div class="card-body">
-            <form method="post" action="/reportes/reporte-diario">
+            <form id="f_reporte_diario" method="post" action="/reportes/reporte-diario">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="fecha_inicio">Fecha inicio</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="fecha_fin">Fecha fin</label>
                     </div>
+                    <div class="col-md-2">
+                        <label for="fecha_fin">Tipo analisis</label>
+                    </div>
                     <div class="col-md-3">
-                        <label for="fecha_ingreso">Tipo de Analisis</label>
+                        <label for="tipo_analisis">Procedencia</label>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <input type="date" name="fecha_ini" class="form-control" value="{{old('fecha_ini', $fecha_ini)}}" >
                         @error('fecha_ini')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <input type="date" name="fecha_fin" class="form-control" value="{{$fecha_fin}}" >
                         @error('fecha_fin')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
+                    </div>
+                    <div class="col-md-2">
+                        <select name="tipo_analisis" class="form-control">
+                            <option value="0">Todos</option>
+                            @foreach($tipoAnalisis as $tipo)
+                                @if(strcmp(old('tipo_analisis', $tipoId), $tipo) == 0)
+                                    <option value="{{$tipo}}" selected>{{$tipo}}</option>
+                                @else
+                                    <option value="{{$tipo}}">{{$tipo}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-3">
                         <select name="procedencia" class="form-control">
@@ -53,7 +68,8 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                        <input type="submit" value="Buscar" class="btn btn-info">
+                        <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar</a>
                     </div>
                 </div>
             </form>
@@ -84,7 +100,7 @@
                                 <td>{{$i++}}</td>
                                 <td>{{$analisi->fecha}}</td>
                                 <td>{{$analisi->codigo}}</td>
-                                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}}</td>
+                                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                                 <td>{{$analisi->doctor}}</td>
                                 <td>{{$analisi->region}}</td>
                                 <td>{{$analisi->tipo_analisis}}</td>
@@ -132,7 +148,7 @@
                         <td>{{$i++}}</td>
                         <td>{{$gasto->fecha}}</td>
                         <td>{{$gasto->detalle}}</td>
-                        <td>{{$gasto->user->name}} {{$analisi->person->apellidos}}</td>
+                        <td>{{$gasto->user->name}}</td>
                         <td>{{$gasto->gasto}}</td>
                     </tr>
                 @endforeach
@@ -182,5 +198,14 @@
 
         });
 
+        function exportExcel(){
+            var fechaIni = $("#f_reporte_diario input[name='fecha_ini']").val();
+            var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
+            var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
+            var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            var url = '{{url("/")}}/reportes/reporte-diario-excel/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId;
+
+            window.open(url, '_blank');
+        }
     </script>
 @endpush

@@ -25,7 +25,8 @@
                 <tr>
                     <th>CI</th>
                     <th>Nombres</th>
-                    <th>Apellidos</th>
+                    <th>Ape. Paterno</th>
+                    <th>Ape. Materno</th>
                     <th>Edad</th>
                     <th>Fecha Creacion</th>
                     <th>Acciones</th>
@@ -226,6 +227,7 @@
                     {name: 'ci'},
                     {name: 'nombres'},
                     {name: 'apellidos'},
+                    {name: 'apellido_materno'},
                     {name: 'edad'},
                     {name: 'created_at'},
                     {name: 'action', orderable: false, searchable: false}
