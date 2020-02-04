@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
+use App\Exports\ReporteAdminExport;
 use App\Exports\ReporteDiarioExport;
 use App\Gasto;
 use App\Http\Requests\StoreReporte2Post;
@@ -344,5 +345,25 @@ class ReporteController extends Controller
         return Excel::download(
             new ReporteDiarioExport(
                 $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe, $totalGastos), 'reportediario'.date('Ymd').'.xlsx');
+    }
+
+    function excelAdminDiario($fechaIni, $fechaFin, $procedenciaId){
+        $dIni = date_create($fechaIni);
+        $dFin = date_create($fechaFin);
+
+        $dias =  intval(date_diff($dIni, $dFin)->format('%R%a'));
+
+        $reporte_2 = $this->getResultReporte2($dIni, $dias, $procedenciaId);
+//        $reporte_2 = array();
+
+        $procedencia = "Todos";
+        if($procedenciaId != 0){
+            $procedenciaModel = Institucion::find($procedenciaId);
+            $procedencia = $procedenciaModel->nombre;
+        }
+
+        return Excel::download(
+            new ReporteAdminExport(
+                $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
     }
 }

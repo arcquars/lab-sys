@@ -20,7 +20,7 @@ $t_Ingreso = 0;
         <div class="card-header">
         </div>
         <div class="card-body">
-            <form method="post" action="/reportes/reporte2">
+            <form id="f_reporte_admin" method="post" action="/reportes/reporte2">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-3">
@@ -64,7 +64,8 @@ $t_Ingreso = 0;
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                        <input type="submit" value="Buscar" class="btn btn-info">
+                        <a class="btn btn-warning" onclick="exportExcelReporteDia(); return false;">Exportar</a>
                     </div>
                 </div>
             </form>
@@ -83,7 +84,7 @@ $t_Ingreso = 0;
                 </thead>
                 <tbody>
                         @foreach($reporte_2 as $reporte)
-                            @phpe
+                            @php
                                 $t_CitologiaTotal += $reporte->getCitologiaTotal();
                                 $t_BiopsiaTotal += $reporte->getBiopsiaTotal();
                                 $t_InmunoTotal += $reporte->getInmunoTotal();
@@ -125,5 +126,13 @@ $t_Ingreso = 0;
 
         });
 
+        function exportExcelReporteDia(){
+            var fechaIni = $("#f_reporte_admin input[name='fechaIni']").val();
+            var fechaFin = $("#f_reporte_admin input[name='fechaFin']").val();
+            var procedencia = $("#f_reporte_admin select[name='procedencia']").val();
+            var url = '{{url("/")}}/reportes/reporte-admin/'+fechaIni+'/'+fechaFin+'/'+procedencia;
+
+            window.open(url, '_blank');
+        }
     </script>
 @endpush

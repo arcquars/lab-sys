@@ -1,7 +1,7 @@
 <htmlpageheader name="page-header">
-    <img src="{{public_path('img/head-cdcc.png')}}" width="750">
+    <img src="{{public_path('img/image-c.png')}}" width="600">
 </htmlpageheader>
-<h1 class="h1-cito">CENTRO DE DIAGNOSTICO CITOPATOLOGICO</h1>
+{{--<div style="height: 45px;"></div>--}}
 <table style="width: 100%;">
     <tr>
         <td width="33%" class="td-datos">
@@ -13,7 +13,7 @@
             <p class="td-p-datos">Dom. 4470226 - Cel. 65348759</p>
         </td>
         <td width="34%" style="text-align: center; vertical-align: text-top;">
-            <h1 class="h1-cito">COCHABAMBA</h1>
+
         </td>
         <td width="33%" style="text-align: right;">
             <p class="td-p-datos">Calle Lanza esq. Ecuador</p>
