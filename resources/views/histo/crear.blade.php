@@ -31,12 +31,21 @@
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
                 <div class="form-group">
                     Selecciones Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
+                    @if($histo)
+                        <p><a href="{{asset($histo->imagen1)}}" target="_blank">Imagen 1</a></p>
+                    @endif
                 </div>
                 <div class="form-group">
                     Selecciones Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
+                    @if($histo)
+                        <p><a href="{{asset($histo->imagen2)}}" target="_blank">Imagen 2</a></p>
+                    @endif
                 </div>
                 <div class="form-group">
                     Selecciones Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
+                    @if($histo)
+                        <p><a href="{{asset($histo->imagen3)}}" target="_blank">Imagen 3</a></p>
+                    @endif
                 </div>
                 <div class="form-group">
                     <label for="organo_tejido">Interpretacion</label>

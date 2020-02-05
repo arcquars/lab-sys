@@ -13,7 +13,7 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <form method="post" action="/reportes/reporte-admin-diario">
+        <form id="f_reporte_admin_d" method="post" action="/reportes/reporte-admin-diario">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-3">
@@ -53,7 +53,8 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                    <input type="submit" value="Buscar" class="btn btn-info">
+                    <a class="btn btn-warning" onclick="exportExcelReporteAdmin(); return false;">Exportar</a>
                 </div>
             </div>
         </form>
@@ -108,5 +109,13 @@
 
     });
 
+    function exportExcelReporteAdmin(){
+        var fechaIni = $("#f_reporte_admin_d input[name='fecha_ini']").val();
+        var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
+        var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
+        var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia;
+
+        window.open(url, '_blank');
+    }
 </script>
 @endpush

@@ -35,6 +35,23 @@ class InmunohistoquimicaController extends Controller
             $histo->bibliografia = $request->post('bibliografia');
             $histo->user_id = auth()->id();
 
+            if ($files = $request->file('imagen1')) {
+                $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+//                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
+                $histo->imagen1 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen2')) {
+                $profilefile = 'imagen2'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $histo->imagen2 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen3')) {
+                $profilefile = 'imagen3'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $histo->imagen3 = 'uploads/'.$profilefile;
+            }
+
             if($histo->save()){
                 return redirect('/analisis');
             } else {

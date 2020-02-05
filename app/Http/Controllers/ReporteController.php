@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
+use App\Exports\ReporteAdminDiaExport;
 use App\Exports\ReporteAdminExport;
 use App\Exports\ReporteDiarioExport;
 use App\Gasto;
@@ -365,5 +366,25 @@ class ReporteController extends Controller
         return Excel::download(
             new ReporteAdminExport(
                 $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
+    }
+
+    function excelAdmin($fechaIni, $fechaFin, $procedencia){
+
+        $procedencias = Institucion::all();
+
+        if($procedencia == 0){
+            $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+        } else {
+            $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedencia)->get();
+        }
+
+        $procedenciaName = "Todos";
+        if($procedencia != 0){
+            $procedenciaName = Institucion::find($procedencia)->nombre;
+        }
+
+        return Excel::download(
+            new ReporteAdminDiaExport(
+                $analisis, $fechaIni, $fechaFin, $procedenciaName), 'reporteadmindia'.date('Ymd').'.xlsx');
     }
 }
