@@ -1,11 +1,11 @@
-@extends('layouts.dash', ['activePage' => 'admin_reporte_admin_diario', 'title' => 'Reporte Admin dia', 'navName' => 'Reporte admin dia', 'activeButton' => 'reporteActiveButton'])
+@extends('layouts.dash', ['activePage' => 'admin_reporte_admin_diario', 'title' => 'Reporte Administracion', 'navName' => 'Reporte administracion', 'activeButton' => 'reporteActiveButton'])
 
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
         <li class="breadcrumb-item">Reportes</li>
-        <li class="breadcrumb-item">Admin diario</li>
+        <li class="breadcrumb-item">Administracion</li>
 
     </ol>
 </nav>
