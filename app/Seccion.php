@@ -28,14 +28,16 @@ class Seccion extends Model
     public static function saveSeccionValue($seccionArray, $tipoSeccion, $resultadoId){
         if(isset($seccionArray))
             foreach ($seccionArray as $key => $value){
-                if(isset($value) && !empty($value)){
+//                if(isset($value) && !empty($value)){
                     $seccion = new Seccion();
                     $seccion->seccion = $tipoSeccion;
                     $seccion->key = $key;
                     $seccion->value = $value;
+                    if($value == null)
+                        $seccion->value = '';
                     $seccion->resultado_id = $resultadoId;
                     $seccion->save();
-                }
+//                }
             }
     }
 

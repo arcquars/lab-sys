@@ -195,6 +195,7 @@ class CitologiaController extends Controller
         Seccion::saveSeccionValue($reacInflaArray, Seccion::REACCION_INFLAMATORIA, $resultado->id);
 
         $estudioMicroArray = is_array($request->input('estudioMicro'))? $request->input('estudioMicro') : array();
+
         Seccion::saveSeccionValue($estudioMicroArray, Seccion::ESTUDIO_MICROBIOLOGICO, $resultado->id);
 
         $estudioCitohormonalArray = is_array($request->input('estCito'))? $request->input('estCito') : array();

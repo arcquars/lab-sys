@@ -860,7 +860,7 @@
                             <div class="col-md-6">
                                 <input type="text" name="descripcion" class="form-control"
                                        onkeyup="uppercaseInput(this);"
-                                       required value="ESCASOS">
+                                       value="ESCASOS">
                             </div>
                         </div>
 

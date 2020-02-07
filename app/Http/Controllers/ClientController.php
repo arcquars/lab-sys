@@ -199,4 +199,37 @@ class ClientController extends Controller
         return false;
     }
 
+    /**
+     * Display a listing of the ajaxSearchPerson.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxSearchPerson(Request $request){
+        $ci = $request->post('ci');
+        $nombres = $request->post('nombres');
+        $apellidos = $request->post('apellidos');
+        $apellido_materno = $request->post('apellido_materno');
+        $edad = $request->post('edad');
+
+        $query = '';
+        if(isset($ci)){
+            $query .= "ci like '%".$ci."%' AND ";
+        }
+        if(isset($nombres)){
+            $query .= "nombres like '%".$nombres."%' AND ";
+        }
+        if(isset($apellidos)){
+            $query .= "apellidos like '%".$apellidos."%' AND ";
+        }
+        if(isset($apellido_materno)){
+            $query .= "apellido_materno like '%".$apellido_materno."%' AND ";
+        }
+        if(isset($edad)){
+            $query .= "edad like '%".$edad."%' AND ";
+        }
+
+        $query .= " 1=1 ";
+        $persons = Person::query()->whereRaw($query, [])->limit(5)->get();
+        return response()->json(['success'=>true, 'persons' => $persons]);
+    }
 }

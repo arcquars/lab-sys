@@ -32,12 +32,23 @@
                     <th>Acciones</th>
                 </tr>
                 </thead>
+                <tfoot>
+                <tr>
+                    <th>CI</th>
+                    <th>Nombres</th>
+                    <th>Ape. Paterno</th>
+                    <th>Ape. Materno</th>
+                    <th>Edad</th>
+                    <th>Fecha Creacion</th>
+                    <th>Acciones</th>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>
     <!-- Modal registro persona-->
     <div id="mpersona" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-xl" role="document">
             <form id="fcrearpersona" action="">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="">
@@ -53,7 +64,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="ci">CI</label>
-                                    <input type="text" name="ci" class="form-control" placeholder="Carnet de identidad">
+                                    <input type="text" name="ci" class="form-control" placeholder="Carnet de identidad" onchange="searchClient(this);">
                                     <div class="fcp_error_ci" style="display: none;"></div>
                                 </div>
                             </div>
@@ -62,6 +73,7 @@
                                     <label for="exampleInputEmail1">Nombres</label>
                                     <input type="text" name="nombres"
                                            onkeyup="uppercaseInput(this);"
+                                           onchange="searchClient(this);"
                                            class="form-control" placeholder="Nombres">
                                     <div class="fcp_error_nombres" style="display: none;"></div>
                                 </div>
@@ -74,6 +86,7 @@
                                     <input type="text" name="apellidos"
                                            class="form-control"
                                            onkeyup="uppercaseInput(this);"
+                                           onchange="searchClient(this);"
                                            placeholder="Apellido Paterno">
                                     <div class="fcp_error_apellidos" style="display: none;"></div>
                                 </div>
@@ -84,6 +97,7 @@
                                     <input type="text" name="apellido_materno"
                                            class="form-control"
                                            onkeyup="uppercaseInput(this);"
+                                           onchange="searchClient(this);"
                                            placeholder="Apellido Materno">
                                     <div class="fcp_error_apellido_materno" style="display: none;"></div>
                                 </div>
@@ -93,7 +107,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="edad">Edad</label>
-                                    <input type="number" name="edad" class="form-control">
+                                    <input type="number" name="edad" class="form-control" onchange="searchClient(this);">
                                     <div class="fcp_error_edad" style="display: none;"></div>
                                 </div>
                             </div>
@@ -110,6 +124,24 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="tableResultPerson" class="table table-bordered table-clinica">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>Ci</th>
+                                        <th>Nombres</th>
+                                        <th>Ap. Paterno</th>
+                                        <th>Ap. Materno</th>
+                                        <th>Edad</th>
+                                        <th>Sexo</th>
+                                        <th>Accion</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -217,6 +249,11 @@
 @push('js')
     <script>
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             $('#simple-datatable-example').DataTable({
                 serverSide: true,
@@ -253,6 +290,24 @@
                         "previous": "Anterior"
                     }
                 },
+                initComplete: function ()
+                {
+                    this.api().columns([0,1,2]).every( function () //Columnas a mostrar
+                    {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {var val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            });
+                        column.data().unique().sort().each( function ( d, j )
+                        {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        });
+                    });
+                }
             });
 
             $("#mpersona").on('shown.bs.modal', function (event) {
@@ -375,6 +430,63 @@
             $("#fcrearpersona").find("input[name='apellido_materno']").val(person.apellido_materno);
             $("#fcrearpersona").find("input[name='edad']").val(person.edad);
             $("#fcrearpersona").find("input[name='sexo'][value="+person.sexo+"]").attr('checked', 'checked');
+        }
+        
+        function searchClient(input){
+            var ci = $('#fcrearpersona').find("input[name='ci']").val();
+            var nombres = $('#fcrearpersona').find("input[name='nombres']").val();
+            var apellidos = $('#fcrearpersona').find("input[name='apellidos']").val();
+            var apellido_materno = $('#fcrearpersona').find("input[name='apellido_materno']").val();
+            var edad = $('#fcrearpersona').find("input[name='edad']").val();
+            var sexo = $('#fcrearpersona').find("input[name='sexo']:checked").val();
+
+            $.ajax({
+                url: "{{ route('client.searchAjaxPerson') }}",
+                type: 'POST',
+                data: {
+                    // _token: _token,
+                    ci: ci,
+                    nombres: nombres,
+                    apellidos: apellidos,
+                    apellido_materno: apellido_materno,
+                    edad: edad,
+                },
+                success: function (data) {
+                    if (data.success) {
+                        getTdPerson(data.persons);
+
+                    } else {
+                        alert(data.errors);
+                    }
+                }
+            });
+        }
+
+        function getTdPerson(persons){
+            var html = "";
+            $.each(persons, function(index, person){
+                html += "<tr>";
+                html += "<td>"+person.ci+"</td>";
+                html += "<td>"+person.nombres+"</td>";
+                html += "<td>"+person.apellidos+"</td>";
+                html += "<td>"+person.apellido_materno+"</td>";
+                html += "<td>"+person.edad+"</td>";
+                if(person.sexo != null)
+                    html += "<td>"+person.sexo.toUpperCase()+"</td>";
+                else
+                    html += "<td>--</td>";
+
+                html += "<td>";
+
+                html += "<a href='{{url('/analisis/crear_analisis')}}/"+person.id+"' class='btn btn-link float-right' title='Crear Analisis'>";
+                html += "<i class='fas fa-notes-medical fa-lg'></i>";
+                html += "</a>";
+                html += "";
+
+                html += "</td>";
+                html += "</tr>";
+            });
+            $('#tableResultPerson tbody').empty().append(html);
         }
     </script>
 @endpush

@@ -33,7 +33,7 @@ return [
         'MODERADA',
         'ACENTUADA',
         'VAGINA',
-        'CERVI',
+        'CERVIX',
         'ENDOCERMIX',
         'OTROS'
     ],

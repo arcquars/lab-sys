@@ -92,6 +92,12 @@ Tip 2: you can also add an image using data-image tag
                                         <p>Reporte Administracion</p>
                                     </a>
                                 </li>
+                                <li class="nav-item @if($activePage == 'admin_reporte_cerrados') active @endif">
+                                    <a class="nav-link" href="{{route('reporte.reporte_cerrados')}}">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>Reporte Cerrados</p>
+                                    </a>
+                                </li>
                             @endcan
                         </ul>
                     </div>

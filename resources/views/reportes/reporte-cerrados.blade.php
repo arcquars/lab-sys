@@ -1,0 +1,142 @@
+@extends('layouts.dash', ['activePage' => 'admin_reporte_cerrados', 'title' => 'Reporte Cerrados', 'navName' => 'Reporte Cerrados', 'activeButton' => 'reporteActiveButton'])
+
+@section('content')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
+        <li class="breadcrumb-item">Reportes</li>
+        <li class="breadcrumb-item">Cerrados</li>
+
+    </ol>
+</nav>
+<div class="card">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <form id="f_reporte_admin_d" method="post" action="/reportes/reporte-cerrados">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="fecha_inicio">Fecha inicio</label>
+                </div>
+                <div class="col-md-3">
+                    <label for="fecha_fin">Fecha fin</label>
+                </div>
+                <div class="col-md-3">
+                    <label for="fecha_ingreso">Institucion</label>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="date" name="fecha_ini" class="form-control" value="{{old('fecha_ini', $fecha_ini)}}" required>
+                    @error('fecha_ini')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-3">
+                    <input type="date" name="fecha_fin" class="form-control" value="{{old('fecha_fin', $fecha_fin)}}" required>
+                    @error('fecha_fin')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-3">
+                    <select name="procedencia" class="form-control">
+                        <option value="0">Todos</option>
+                        @foreach($procedencias as $procedencia)
+                        @if ($procedenciaId == $procedencia->id)
+                        <option value="{{$procedencia->id}}" selected>{{$procedencia->nombre}}</option>
+                        @else
+                        <option value="{{$procedencia->id}}">{{$procedencia->nombre}}</option>
+                        @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="entregados" type="checkbox" value="1" @if(isset($entregado)) checked @endif>
+                            <span class="form-check-sign"></span>
+                            Entregados
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" name="cerrados" value="1" @if(isset($cerrados)) checked @endif>
+                            <span class="form-check-sign"></span>
+                            Cerrados
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <table class="table table-bordered table-clinica">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Doctor que Pidio</th>
+                <th scope="col">Institucion</th>
+                <th scope="col">Entregado a</th>
+                <th scope="col">Fecha Entrega</th>
+                <th scope="col">Fecha Cierre</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($analisis as $analisi)
+            <tr>
+                <td>{{$analisi->fecha}}</td>
+                <td>{{$analisi->codigo}}</td>
+                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
+                <td>{{$analisi->doctor}}</td>
+                <td>{{$analisi->institucion->nombre}}</td>
+                <td>{{$analisi->persona_entrega}}</td>
+                <td>{{$analisi->fecha_entrega}}</td>
+                <td>{{$analisi->fecha_cierre}}</td>
+            </tr>
+            @endforeach
+            </tbody>
+{{--            <tfoot>--}}
+{{--            <tr>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--                <td></td>--}}
+{{--            </tr>--}}
+{{--            </tfoot>--}}
+        </table>
+    </div>
+</div>
+
+@endsection
+
+@push('js')
+<script>
+    $(document).ready(function () {
+
+    });
+
+    function exportExcelReporteAdmin(){
+        var fechaIni = $("#f_reporte_admin_d input[name='fecha_ini']").val();
+        var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
+        var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
+        var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia;
+
+        window.open(url, '_blank');
+    }
+</script>
+@endpush

@@ -387,4 +387,58 @@ class ReporteController extends Controller
             new ReporteAdminDiaExport(
                 $analisis, $fechaIni, $fechaFin, $procedenciaName), 'reporteadmindia'.date('Ymd').'.xlsx');
     }
+
+    public function reporteCerrados()
+    {
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+        $mes = $date->format('m');
+        $day_last = $date->format('t');
+        $procedenciaId = 0;
+
+        $fecha_ini = $year.'-'.$mes.'-01';
+        $fecha_fin = $year.'-'.$mes.'-'.$day_last;
+
+        $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
+
+        $procedencias = Institucion::all();
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+
+
+        return view('reportes.reporte-cerrados', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'procedenciaId'
+        ));
+    }
+
+    public function reporteCerradosPost(Request $request)
+    {
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
+        $procedenciaId = $request->post('procedencia');
+        $entregado = $request->post('entregados');
+        $cerrados = $request->post('cerrados');
+        $procedencias = Institucion::all();
+
+        $addQuery = "";
+        if(isset($entregado)){
+            $addQuery = "AND fecha_entrega is not null ";
+        }
+        $addCerrados = '';
+        if(isset($cerrados)){
+            $addCerrados = 'AND fecha_cierre is not null ';
+        }
+        $addProcedencia = '';
+        if($procedenciaId != 0){
+//            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('fecha_entrega', $entregado)->get();
+            $addProcedencia = 'AND procedencia = '.$procedenciaId.' ';
+        }
+
+        $analisis = Analisis::query()->whereRaw('fecha between ? and ? '.$addQuery.$addCerrados.$addProcedencia, [$fecha_ini, $fecha_fin])->get();
+
+        return view('reportes.reporte-cerrados', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'procedenciaId', 'entregado', 'cerrados'
+        ));
+    }
 }

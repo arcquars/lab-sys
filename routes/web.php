@@ -29,6 +29,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 Route::resource('clients', 'ClientController');
 Route::post('/clients/ajaxcreateperson','ClientController@ajaxCreatePerson')->name('client.createPerson');
 Route::post('/clients/ajaxgetperson','ClientController@ajaxGetPerson')->name('client.getPerson');
+Route::post('/clients/ajax-search-person','ClientController@ajaxSearchPerson')->name('client.searchAjaxPerson');
 
 Route::get('/get-simple-datatables-data', 'ClientController@getSimpleDatatablesData')->name('simple_datatables_persons_data');
 Route::get('/get-custom-column-datatables-data', 'ClientController@getCustomColumnDatatablesData')->name('custom_column_datatables_persons_data');
@@ -82,6 +83,9 @@ Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.re
 Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
 Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
+
+Route::get('/reportes/reporte-cerrados', 'ReporteController@reporteCerrados')->name('reporte.reporte_cerrados');
+Route::post('/reportes/reporte-cerrados', 'ReporteController@reporteCerradosPost')->name('reporte.reporte_cerrados_post');
 
 Route::get('/institucion/index', 'InstitucionController@index')->name('institucion.home');
 Route::get('/institucion/datatable', 'InstitucionController@getDatatablesData')->name('institucion.datatablesInstitucionData');
