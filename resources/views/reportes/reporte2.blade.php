@@ -3,6 +3,7 @@
 $t_CitologiaTotal = 0;
 $t_BiopsiaTotal = 0;
 $t_InmunoTotal = 0;
+$t_BethesdaTotal = 0;
 $t_Acuenta = 0;
 $t_PagoEfectuado = 0;
 $t_Ingreso = 0;
@@ -77,6 +78,7 @@ $t_Ingreso = 0;
                         <th scope="col">{{\App\Analisis::CITOLOGIA}}</th>
                         <th scope="col">{{\App\Analisis::BIOPSIA}}</th>
                         <th scope="col">{{\App\Analisis::INMUNOHISTOQUIMICA}}</th>
+                        <th scope="col">{{\App\Analisis::BETHESDA}}</th>
                         <th scope="col">Acuenta</th>
                         <th scope="col">Pago Efectuado</th>
                         <th scope="col">Ingreso</th>
@@ -88,6 +90,7 @@ $t_Ingreso = 0;
                                 $t_CitologiaTotal += $reporte->getCitologiaTotal();
                                 $t_BiopsiaTotal += $reporte->getBiopsiaTotal();
                                 $t_InmunoTotal += $reporte->getInmunoTotal();
+                                $t_BethesdaTotal += $reporte->getBethesdaTotal();
                                 $t_Acuenta += $reporte->getAcuenta();
                                 $t_PagoEfectuado += $reporte->getPagoEfectuado();
                                 $t_Ingreso += $reporte->getIngreso();
@@ -97,6 +100,7 @@ $t_Ingreso = 0;
                                 <td>{{$reporte->getCitologiaTotal()}}</td>
                                 <td>{{$reporte->getBiopsiaTotal()}}</td>
                                 <td>{{$reporte->getInmunoTotal()}}</td>
+                                <td>{{$reporte->getBethesdaTotal()}}</td>
                                 <td>{{$reporte->getAcuenta()}}</td>
                                 <td>{{$reporte->getPagoEfectuado()}}</td>
                                 <td>{{$reporte->getIngreso()}}</td>
@@ -109,6 +113,7 @@ $t_Ingreso = 0;
                     <td>{{$t_CitologiaTotal}}</td>
                     <td>{{$t_BiopsiaTotal}}</td>
                     <td>{{$t_InmunoTotal}}</td>
+                    <td>{{$t_BethesdaTotal}}</td>
                     <td>{{$t_Acuenta}}</td>
                     <td>{{$t_PagoEfectuado}}</td>
                     <td>{{$t_Ingreso}}</td>

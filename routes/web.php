@@ -65,6 +65,11 @@ Route::post('/biopsia/save', 'BiopsiaController@store')->name('biopsia.save');
 Route::get('/biopsia/view/{analisisId}', 'BiopsiaController@viewResultado')->name('biopsia.viewResultado');
 Route::get('/biopsia/reporte/{analisisId}', 'BiopsiaController@reporte')->name('biopsia.reporte');
 
+Route::get('/bethesda/crear/{analisisId}', 'BethesdaController@create')->name('bethesda.crear');
+Route::post('/bethesda/save', 'BethesdaController@store')->name('bethesda.save');
+Route::get('/bethesda/view/{analisisId}', 'BethesdaController@viewResultado')->name('bethesda.viewResultado');
+Route::get('/bethesda/reporte/{analisisId}', 'BethesdaController@reporte')->name('bethesda.reporte');
+
 Route::get('/histo/crear/{analisisId}', 'InmunohistoquimicaController@create')->name('histo.crear');
 Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.save');
 Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');

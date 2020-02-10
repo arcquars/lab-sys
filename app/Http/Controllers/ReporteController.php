@@ -298,6 +298,9 @@ class ReporteController extends Controller
                     case Analisis::INMUNOHISTOQUIMICA:
                         $reporte2->setInmunoTotal($resultado->contador);
                         break;
+                    case Analisis::BETHESDA:
+                        $reporte2->setBethesdaTotal($resultado->contador);
+                        break;
                 }
                 $t_precio += $resultado->t_precio;
                 $t_acuenta += $resultado->t_acuenta;
@@ -308,7 +311,11 @@ class ReporteController extends Controller
             $reporte2->setPagoEfectuado($t_pago_efectuado);
             $reporte2->setFecha($fechaIngrementado);
 
-            if($reporte2->getBiopsiaTotal() > 0 || $reporte2->getCitologiaTotal() > 0 || $reporte2->getInmunoTotal() > 0)
+            if($reporte2->getBiopsiaTotal() > 0 ||
+                $reporte2->getCitologiaTotal() > 0 ||
+                $reporte2->getInmunoTotal() > 0 ||
+                $reporte2->getBethesdaTotal() > 0
+            )
                 array_push($rows, $reporte2);
         }
         return $rows;

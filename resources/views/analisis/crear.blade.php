@@ -12,7 +12,7 @@
         <div class="card-header">
             <dl class="row row-citologia">
                 <dt class="col-md-3">Nombres y Apellidos:</dt>
-                <dd class="col-md-3">{{$persona->apellidos.', '.$persona->nombres}}</dd>
+                <dd class="col-md-3">{{$persona->apellidos.' '.$persona->apellido_materno.', '.$persona->nombres}}</dd>
                 <dt class="col-md-3">Edad:</dt>
                 <dd class="col-md-3">{{$persona->edad}}</dd>
             </dl>

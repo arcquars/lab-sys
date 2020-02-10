@@ -14,6 +14,7 @@ return [
         'CITOLOGIA',
         'BIOPSIA',
         'INMUNOHISTOQUIMICA',
+        'BETHESDA',
 
     ],
     'extendido_compatible' => [
@@ -81,4 +82,60 @@ return [
         '11' => 'noviembre',
         '12' => 'diciembre'
     ],
+    'bethesda_calidad_muestra' => [
+        '1' => 'Satisfactoria para evaluación',
+        '2' => 'Satisfactoria para evaluación, parcialmente cubierta por 50% a 70% de inflamación',
+        '3' => 'Satisfactoria para evaluación, parcialmente cubierta por 50% a 70% de hemorragia',
+        '4' => 'Satisfactoria para evaluación, parcialmente cubierta por 50% a 70% de moco',
+        '5' => 'Insatisfactoria para evaluación debido a celularidad escamosa insuficiente',
+        '6' => 'Insatisfactoria para evaluación debido a que se encuentra cubierta en mas del 75% por inflamación',
+        '7' => 'Insatisfactoria para evaluación debido a que se encuentra cubierta en mas del 75% por hemorragia',
+        '8' => 'Insatisfactoria para evaluación debido a que se encuentra cubierta en mas del 75% por moco',
+        '9' => 'Muestra rechazada o no procesada por falta de Identificación del portaobjetos',
+        '10' => 'Muestra rechazada o no procesada ya que el portaobjetos se encuentra roto',
+        '11' => 'Muestra rechazada o no procesada ya que los datos no coinciden con los del paciente',
+    ],
+    'bethesda_clasificacion_general' => [
+        '1' => 'Negativo para Lesión Intraepitelial o Malignidad',
+        '2' => 'Anomalías de Células Epiteliales',
+        '3' => 'Otras Categorías',
+    ],
+    'bethesda_interpretacion' => [
+        'N0' => 'Negativo para Lesión Intraepitelial o Malignidad',
+        'N1' => 'Cambios celulares reactivos asociados a inflamación',
+        'N2' => 'Cambios celulares reactivos asociados a radiación',
+        'N3' => 'Cambios celulares reactivos asociados a dispositivo intrauterino (DIU)',
+        'N4' => 'Cambios celulares reactivos asociados a atrofia',
+        'O1' => 'Presencia de células endometriales en mujer mayor de 40 anos',
+        'O2' => 'Células glandulares poshisterectomia',
+        'E1' => 'Células escamosas atípicas de significado indeterminado (ASC-US)',
+        'E2' => 'Células escamosas atípicas; no se puede descartar lesión intraepitelial de alto grado (ASC-H)',
+        'E3' => 'Lesión intraepitelial de bajo grado (LIBG; incluye HPV/displasia leve/ NIC I)',
+        'E4' => 'Lesión intraepitelial de alto grado (LIAG; incluye displasia moderada y grave/NIC II, NIC III/Carcinoma In Situ)',
+        'E5' => 'Lesión intraepitelial de alto grado, con hallazgos sospechosos de invasión',
+        'E6' => 'Carcinoma escamoso',
+        'G1' => 'Células glandulares atípicas (AGC)',
+        'G2' => 'Células glandulares atípicas sugestivas de neoplasia',
+        'G3' => 'Células endocervicales atípicas sin especificar (NOS)',
+        'G4' => 'Células endocervicales atípicas sugestivas de neoplasia',
+        'G5' => 'Células endometriales atípicas sin especificar (NOS)',
+        'G6' => 'Adenocarcinoma endocervical in situ',
+        'G7' => 'Adenocarcinoma endocervical',
+        'G8' => 'Adenocarcinoma endometrial',
+        'G9' => 'Adenocarcinoma extrauterino',
+        'G10' => 'Adenocarcinoma sin especificar (NOS)'
+    ],
+    'bethesta_checks' => [
+        '1' => 'Bac. Doderlain',
+        '2' => 'Bac. Cocoides',
+        '3' => 'Flora Mixta',
+        '4' => 'Coliformes',
+        '5' => 'Cocos',
+        '6' => 'Doplicocos',
+        '7' => 'Gardnerella Vag.',
+        '8' => 'Leptrotix Vag',
+        '9' => 'Monilias',
+        '10' => 'Tricomonas',
+        '11' => 'Virus'
+    ]
 ];

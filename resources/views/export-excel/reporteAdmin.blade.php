@@ -2,6 +2,7 @@
 $t_CitologiaTotal = 0;
 $t_BiopsiaTotal = 0;
 $t_InmunoTotal = 0;
+$t_BethesdaTotal = 0;
 $t_Acuenta = 0;
 $t_PagoEfectuado = 0;
 $t_Ingreso = 0;
@@ -9,6 +10,7 @@ foreach ($resultados as $reporte){
     $t_CitologiaTotal += $reporte->getCitologiaTotal();
     $t_BiopsiaTotal += $reporte->getBiopsiaTotal();
     $t_InmunoTotal += $reporte->getInmunoTotal();
+    $t_BethesdaTotal += $reporte->getBethesdaTotal();
     $t_Acuenta += $reporte->getAcuenta();
     $t_PagoEfectuado += $reporte->getPagoEfectuado();
     $t_Ingreso += $reporte->getIngreso();
@@ -22,10 +24,11 @@ foreach ($resultados as $reporte){
 <table class="table-clinica">
     <thead class="thead-dark">
     <tr>
-        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">N.</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Fecha</th>
-        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 16px;">Codigo</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{\App\Analisis::CITOLOGIA}}</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{\App\Analisis::BIOPSIA}}</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{\App\Analisis::INMUNOHISTOQUIMICA}}</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{\App\Analisis::BETHESDA}}</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Acuenta</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Pago Efectuado</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Ingreso</th>
@@ -41,6 +44,7 @@ foreach ($resultados as $reporte){
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getCitologiaTotal()}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getBiopsiaTotal()}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getInmunoTotal()}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getBethesdaTotal()}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getAcuenta()}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getPagoEfectuado()}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$reporte->getIngreso()}}</td>
@@ -53,6 +57,7 @@ foreach ($resultados as $reporte){
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_CitologiaTotal}}</td>
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_BiopsiaTotal}}</td>
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_InmunoTotal}}</td>
+        <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_BethesdaTotal}}</td>
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_Acuenta}}</td>
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_PagoEfectuado}}</td>
         <td style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">{{$t_Ingreso}}</td>

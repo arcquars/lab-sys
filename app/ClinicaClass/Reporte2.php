@@ -7,6 +7,7 @@ class Reporte2
     private $citologia_total;
     private $biopsia_total;
     private $inmuno_total;
+    private $bethesda_total;
 
     private $ingreso;
     private $acuenta;
@@ -26,6 +27,7 @@ class Reporte2
         $this->citologia_total = 0;
         $this->biopsia_total = 0;
         $this->inmuno_total = 0;
+        $this->bethesda_total = 0;
         $this->ingreso = 0;
         $this->acuenta = 0;
         $this->pago_efectuado = 0;
@@ -143,4 +145,19 @@ class Reporte2
         $this->fecha = $fecha;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getBethesdaTotal()
+    {
+        return $this->bethesda_total;
+    }
+
+    /**
+     * @param mixed $bethesda_total
+     */
+    public function setBethesdaTotal($bethesda_total): void
+    {
+        $this->bethesda_total = $bethesda_total;
+    }
 }

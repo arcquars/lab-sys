@@ -9,6 +9,7 @@ class Analisis extends Model
     const CITOLOGIA = 'CITOLOGIA';
     const BIOPSIA = 'BIOPSIA';
     const INMUNOHISTOQUIMICA = 'INMUNOHISTOQUIMICA';
+    const BETHESDA = 'BETHESDA';
 
     protected $table = 'analisis';
 
@@ -79,6 +80,12 @@ class Analisis extends Model
             case Analisis::BIOPSIA:
                 if(Biopsia::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'biopsia.viewResultado';
+                    $isHasResult = true;
+                }
+                break;
+            case Analisis::BETHESDA:
+                if(Bethesda::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'bethesda.viewResultado';
                     $isHasResult = true;
                 }
                 break;

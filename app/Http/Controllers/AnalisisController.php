@@ -284,6 +284,10 @@ class AnalisisController extends Controller
                 return redirect()->action(
                     'CitologiaController@create',
                     ['analisisId' => $analisisId]);
+            case Analisis::BETHESDA:
+                return redirect()->action(
+                    'BethesdaController@create',
+                    ['analisisId' => $analisisId]);
         }
     }
 
@@ -301,6 +305,9 @@ class AnalisisController extends Controller
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
                 $codigo = 'I'.$numeroFecha.$analisisIdNext;
+                break;
+            case Analisis::BETHESDA:
+                $codigo = 'BTD'.$numeroFecha.$analisisIdNext;
                 break;
         }
         return response()->json(['success' => $codigo]);
