@@ -46,6 +46,25 @@ class BiopsiaController extends Controller
             $analisis = Analisis::find($request->post('analisis_id'));
             $analisis->region = $request->post('organo_tejido');
             $analisis->update();
+
+            if ($files = $request->file('imagen1')) {
+                $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+//                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
+                $biopsia->imagen1 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen2')) {
+                $profilefile = 'imagen2'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen2 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen3')) {
+                $profilefile = 'imagen3'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen3 = 'uploads/'.$profilefile;
+            }
+
+
             if($biopsia->save()){
                 if(Auth::user()->hasRole('tecnico')){
                     return redirect('/analisis/lista/tecnico');
@@ -67,6 +86,24 @@ class BiopsiaController extends Controller
             $analisis = Analisis::find($request->post('analisis_id'));
             $analisis->region = $request->post('organo_tejido');
             $analisis->update();
+
+            if ($files = $request->file('imagen1')) {
+                $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+//                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
+                $biopsia->imagen1 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen2')) {
+                $profilefile = 'imagen2'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen2 = 'uploads/'.$profilefile;
+            }
+            if ($files = $request->file('imagen3')) {
+                $profilefile = 'imagen3'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen3 = 'uploads/'.$profilefile;
+            }
+
 
             if($biopsia->update()){
                 if(Auth::user()->hasRole('tecnico')){

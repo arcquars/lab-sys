@@ -71,76 +71,27 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
-    <script src="{{ asset('ckeditor5/translations/es.js') }}"></script>
+    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            ClassicEditor
-                .create( document.querySelector( '#ta-interpretacion' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'blockQuote', 'underline','undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    console.log( editor );
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-            ClassicEditor
-                .create( document.querySelector( '#ta-tecnica' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @cannot('manage-users-tecnico') editor.isReadOnly = true; @endcannot
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-            ClassicEditor
-                .create( document.querySelector( '#ta-bibliografia' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @can('manage-users-tecnico') editor.isReadOnly = true; @endcan
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
+            tinymce.init({
+                selector: '#ta-interpretacion',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-tecnico') readonly : 1 @endcannot
+            });
+            tinymce.init({
+                selector: '#ta-tecnica',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-tecnico') readonly : 1 @endcannot
+            });
+            tinymce.init({
+                selector: '#ta-bibliografia',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-tecnico') readonly : 1 @endcan
+            });
         });
 
     </script>

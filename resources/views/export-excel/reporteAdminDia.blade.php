@@ -1,12 +1,17 @@
 <?php
 $total = 0;
+/** @var  [] $resultados */
+/** @var \App\Analisis $analisi */
 foreach ($resultados as $analisi){
     $total += $analisi->precio;
 }
 ?>
 <table>
     <tr>
-        <td colspan="4"><h4>{{$institucion}}</h4></td>
+        <td colspan="8" style="text-align: center;"><h4>{{Config::get('clinica.nombre')}}</h4></td>
+    </tr>
+    <tr>
+        <td colspan="4"><h4>Institucion: {{$institucion}}</h4></td>
     </tr>
     <tr>
         <td>Desde</td>

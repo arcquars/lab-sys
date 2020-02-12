@@ -1,6 +1,9 @@
 
 <table>
     <tr>
+        <td colspan="8" style="text-align: center;"><h4>{{Config::get('clinica.nombre')}}</h4></td>
+    </tr>
+    <tr>
         <td colspan="11"><h4>Analisis</h4></td>
     </tr>
 </table>

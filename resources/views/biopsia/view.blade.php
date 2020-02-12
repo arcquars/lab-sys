@@ -16,6 +16,23 @@
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
             <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    @if (isset($biopsia->imagen1))
+                        <img src="{{asset($biopsia->imagen1)}}" width="100%">
+                    @endif
+                </div>
+                <div class="col-md-4">
+                    @if (isset($biopsia->imagen2))
+                        <img src="{{asset($biopsia->imagen2)}}" width="100%">
+                    @endif
+                </div>
+                <div class="col-md-4">
+                    @if (isset($biopsia->imagen3))
+                        <img src="{{asset($biopsia->imagen3)}}" width="100%">
+                    @endif
+                </div>
+            </div>
             <div class="row row-biopsia">
                 <div class="col-md-12 form-group">
                     <label>MACROSCOPIA:</label>

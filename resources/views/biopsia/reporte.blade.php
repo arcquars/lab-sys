@@ -3,6 +3,26 @@
 <h3 class="h2-cito">INFORME HISTOPATOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 100%;">
+            @if (isset($biopsia->imagen1))
+                <img src="{{$biopsia->imagen1}}" width="100%">
+            @endif
+
+        </td>
+        <td style="width: 100%;">
+            @if (isset($biopsia->imagen2))
+                <img src="{{$biopsia->imagen2}}" width="100%">
+            @endif
+        </td>
+        <td style="width: 100%;">
+            @if (isset($biopsia->imagen3))
+                <img src="{{$biopsia->imagen3}}" width="100%">
+            @endif
+        </td>
+    </tr>
+</table>
 <h4 class="h4-cito">Organo o Tejido</h4>
 <div class="div-campo">
     {!! $biopsia->organo_tejido !!}

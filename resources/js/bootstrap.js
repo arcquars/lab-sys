@@ -11,7 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.dt = require( 'datatables.net' )( window, $ );
 
-    window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
+    window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic/build/ckeditor');
+    const Underline = require('@ckeditor/ckeditor5-basic-styles/src/underline');
     require('bootstrap');
 } catch (e) {}
 

@@ -1,5 +1,6 @@
 <?php
 return [
+    'nombre' => 'CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA',
     'procedencia' => [
         'ADRIATICA',
         'AIQUILE',

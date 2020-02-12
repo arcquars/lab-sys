@@ -28,10 +28,28 @@
                         <li>{{ $error }}</li>
                     @endforeach
             </ul>
-            <form action="{{url('/biopsia/save')}}" method="post">
+            <form action="{{url('/biopsia/save')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="biopsia_id" value="{{$biopsia ? $biopsia->id : ''}}">
+                <div class="form-group">
+                    Selecciones Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
+                    @if($biopsia && !empty($biopsia->imagen1))
+                        <p><a href="{{asset($biopsia->imagen1)}}" target="_blank">Imagen 1</a></p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    Selecciones Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
+                    @if($biopsia && !empty($biopsia->imagen2))
+                        <p><a href="{{asset($biopsia->imagen2)}}" target="_blank">Imagen 2</a></p>
+                    @endif
+                </div>
+                <div class="form-group">
+                    Selecciones Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
+                    @if($biopsia && !empty($biopsia->imagen3))
+                        <p><a href="{{asset($biopsia->imagen3)}}" target="_blank">Imagen 3</a></p>
+                    @endif
+                </div>
                 <div class="form-group">
                     <label for="organo_tejido">Organo o Tejido</label>
                     <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $analisis->region)}}" required>
@@ -60,102 +78,27 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('ckeditor5/ckeditor.js') }}"></script>
-    <script src="{{ asset('ckeditor5/translations/es.js') }}"></script>
+    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            {{--ClassicEditor--}}
-            {{--    .create( document.querySelector( '#ta-organo_tejido' ), {--}}
-            {{--        alignment: {--}}
-            {{--            options: [ 'left', 'right' ]--}}
-            {{--        },--}}
-            {{--        toolbar: [--}}
-            {{--            'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'--}}
-            {{--        ],--}}
-            {{--        language: {--}}
-            {{--            // The UI will be English.--}}
-            {{--            ui: 'es',--}}
-
-            {{--            // But the content will be edited in Arabic.--}}
-            {{--            content: 'es'--}}
-            {{--        }--}}
-            {{--    })--}}
-            {{--    .then( editor => {--}}
-            {{--        @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot--}}
-            {{--    })--}}
-            {{--    .catch( error => {--}}
-            {{--        console.error( error );--}}
-            {{--    } );--}}
-
-
-
-            ClassicEditor
-                .create( document.querySelector( '#ta-macroscopia' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @cannot('manage-users-tecnico') editor.isReadOnly = true; @endcannot
-                } )
-                .catch( error => {
-                    console.error( error );
-                });
-            ClassicEditor
-                .create( document.querySelector( '#ta-microscopia' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-            ClassicEditor
-                .create( document.querySelector( '#ta-diagnostico' ), {
-                    alignment: {
-                        options: [ 'left', 'right' ]
-                    },
-                    toolbar: [
-                        'heading', '|', 'bulletedList', 'numberedList', 'alignment', 'bold', 'italic', 'undo', 'redo'
-                    ],
-                    language: {
-                        // The UI will be English.
-                        ui: 'es',
-
-                        // But the content will be edited in Arabic.
-                        content: 'es'
-                    }
-                })
-                .then( editor => {
-                    @cannot('manage-users-dr') editor.isReadOnly = true; @endcannot
-                } )
-                .catch( error => {
-                    console.error( error );
-                } );
-
+            tinymce.init({
+                selector: '#ta-macroscopia',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-tecnico') readonly : 1 @endcannot
+            });
+            tinymce.init({
+                selector: '#ta-microscopia',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-dr') readonly : 1 @endcannot
+            });
+            tinymce.init({
+                selector: '#ta-diagnostico',
+                toolbar: "undo redo | bold italic | link image | underline",
+                menubar: false,
+                @cannot('manage-users-dr') readonly : 1 @endcannot
+            });
         });
 
         function prueba() {
