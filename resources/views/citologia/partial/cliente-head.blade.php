@@ -21,12 +21,16 @@
     <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</dd>
     <dt class="col-md-3">Fecha Cierre:</dt>
     <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre: '--NO CERRADO--')}}</dd>
-{{--    <dt class="col-md-3">Fecha Entrega:</dt>--}}
-{{--    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->fecha_entrega: '--NO ENTREGADO--')}}</dd>--}}
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Region:</dt>
     <dd class="col-md-3">{{$analisis->region}}</dd>
+    <dt class="col-md-3">Telefono de referencia:</dt>
+    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>
+</dl>
+<dl class="row row-citologia">
+    <dt class="col-md-3"></dt>
+    <dd class="col-md-3"></dd>
     <dd class="col-md-6">
         @if($analisis->hasHistory())
             <p class="text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></p>

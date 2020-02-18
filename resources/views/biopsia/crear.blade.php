@@ -32,24 +32,54 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="biopsia_id" value="{{$biopsia ? $biopsia->id : ''}}">
-                <div class="form-group">
-                    Selecciones Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
-                    @if($biopsia && !empty($biopsia->imagen1))
-                        <p><a href="{{asset($biopsia->imagen1)}}" target="_blank">Imagen 1</a></p>
-                    @endif
+
+                <div class="row">
+                    <div class="col-md-3">
+                        Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
+                        @if($biopsia && !empty($biopsia->imagen1))
+                            <p><a href="{{asset($biopsia->imagen1)}}" target="_blank">Imagen 1</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3">
+                        Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
+                        @if($biopsia && !empty($biopsia->imagen2))
+                            <p><a href="{{asset($biopsia->imagen2)}}" target="_blank">Imagen 2</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3">
+                        Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
+                        @if($biopsia && !empty($biopsia->imagen3))
+                            <p><a href="{{asset($biopsia->imagen3)}}" target="_blank">Imagen 3</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3">
+                        Imagen 4: <input type="file" name="imagen4" accept="image/x-png,image/gif,image/jpeg">
+                        @if($biopsia && !empty($biopsia->imagen4))
+                            <p><a href="{{asset($biopsia->imagen4)}}" target="_blank">Imagen 4</a></p>
+                        @endif
+                    </div>
                 </div>
-                <div class="form-group">
-                    Selecciones Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
-                    @if($biopsia && !empty($biopsia->imagen2))
-                        <p><a href="{{asset($biopsia->imagen2)}}" target="_blank">Imagen 2</a></p>
-                    @endif
+
+
+                <div class="row">
+                    <div class="col-md-3 form-group" >
+                        <label>Titulo 1</label>
+                        <input type="text" name="titulo_1" class="form-control" value="{{@old('titulo_1', $biopsia->titulo_1)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 2</label>
+                        <input type="text" name="titulo_2" class="form-control" value="{{@old('titulo_2', $biopsia->titulo_2)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 3</label>
+                        <input type="text" name="titulo_3" class="form-control" value="{{@old('titulo_3', $biopsia->titulo_3)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 4</label>
+                        <input type="text" name="titulo_4" class="form-control" value="{{@old('titulo_4', $biopsia->titulo_4)}}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    Selecciones Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
-                    @if($biopsia && !empty($biopsia->imagen3))
-                        <p><a href="{{asset($biopsia->imagen3)}}" target="_blank">Imagen 3</a></p>
-                    @endif
-                </div>
+
                 <div class="form-group">
                     <label for="organo_tejido">Organo o Tejido</label>
                     <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $analisis->region)}}" required>

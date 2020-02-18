@@ -22,12 +22,16 @@
     margin-bottom: 2px;
 }
 
-.row-citologia dt, dd{
-    font-size: .70rem;
+.row-citologia dt{
+    font-size: .9rem;
+}
+
+.row-citologia dd{
+    font-size: .9rem;
 }
 
 .p-cito-resultado{
-    font-size: .70rem;
+    font-size: .90rem;
     padding: 2px 4px;
     margin: 0;
 }

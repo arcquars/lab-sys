@@ -63,7 +63,16 @@ class BiopsiaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
                 $biopsia->imagen3 = 'uploads/'.$profilefile;
             }
+            if ($files = $request->file('imagen4')) {
+                $profilefile = 'imagen4'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen4 = 'uploads/'.$profilefile;
+            }
 
+            $biopsia->titulo_1 = $request->post('titulo_1');
+            $biopsia->titulo_2 = $request->post('titulo_2');
+            $biopsia->titulo_3 = $request->post('titulo_3');
+            $biopsia->titulo_4 = $request->post('titulo_4');
 
             if($biopsia->save()){
                 if(Auth::user()->hasRole('tecnico')){
@@ -90,7 +99,6 @@ class BiopsiaController extends Controller
             if ($files = $request->file('imagen1')) {
                 $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
                 $files->move(public_path('uploads'), $profilefile);
-//                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
                 $biopsia->imagen1 = 'uploads/'.$profilefile;
             }
             if ($files = $request->file('imagen2')) {
@@ -103,7 +111,15 @@ class BiopsiaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
                 $biopsia->imagen3 = 'uploads/'.$profilefile;
             }
-
+            if ($files = $request->file('imagen4')) {
+                $profilefile = 'imagen4'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $biopsia->imagen4 = 'uploads/'.$profilefile;
+            }
+            $biopsia->titulo_1 = $request->post('titulo_1');
+            $biopsia->titulo_2 = $request->post('titulo_2');
+            $biopsia->titulo_3 = $request->post('titulo_3');
+            $biopsia->titulo_4 = $request->post('titulo_4');
 
             if($biopsia->update()){
                 if(Auth::user()->hasRole('tecnico')){

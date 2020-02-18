@@ -9,22 +9,52 @@
 </div>
 <table style="width: 100%;">
     <tr>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($histo->imagen1))
                 <img src="{{$histo->imagen1}}" width="100%">
             @endif
 
         </td>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($histo->imagen2))
                 <img src="{{$histo->imagen2}}" width="100%">
             @endif
         </td>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($histo->imagen3))
                 <img src="{{$histo->imagen3}}" width="100%">
             @endif
         </td>
+        <td style="width: 25%;">
+            @if (isset($histo->imagen4))
+                <img src="{{$histo->imagen4}}" width="100%">
+            @endif
+        </td>
+    </tr>
+</table>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($histo->titulo_1))
+                <h5>{{$histo->titulo_1}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($histo->titulo_2))
+                <h5>{{$histo->titulo_2}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($histo->titulo_3))
+                <h5>{{$histo->titulo_3}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($histo->titulo_4))
+                <h5>{{$histo->titulo_4}}</h5>
+            @endif
+        </td>
+
     </tr>
 </table>
 <h4 class="h4-cito">Tecnica</h4>

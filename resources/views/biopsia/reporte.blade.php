@@ -5,20 +5,49 @@
 <br>
 <table style="width: 100%;">
     <tr>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($biopsia->imagen1))
                 <img src="{{$biopsia->imagen1}}" width="100%">
             @endif
 
         </td>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($biopsia->imagen2))
                 <img src="{{$biopsia->imagen2}}" width="100%">
             @endif
         </td>
-        <td style="width: 100%;">
+        <td style="width: 25%;">
             @if (isset($biopsia->imagen3))
                 <img src="{{$biopsia->imagen3}}" width="100%">
+            @endif
+        </td>
+        <td style="width: 25%;">
+            @if (isset($biopsia->imagen4))
+                <img src="{{$biopsia->imagen4}}" width="100%">
+            @endif
+        </td>
+    </tr>
+</table>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($biopsia->titulo_1))
+                <h5>{{$biopsia->titulo_1}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($biopsia->titulo_2))
+                <h5>{{$biopsia->titulo_2}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($biopsia->titulo_3))
+                <h5>{{$biopsia->titulo_3}}</h5>
+            @endif
+        </td>
+        <td style="width: 25%; text-align: center;">
+            @if (isset($biopsia->titulo_4))
+                <h5>{{$biopsia->titulo_4}}</h5>
             @endif
         </td>
     </tr>

@@ -25,22 +25,52 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @if (isset($histo->imagen1))
                         <img src="{{asset($histo->imagen1)}}" width="100%">
                     @endif
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @if (isset($histo->imagen2))
                         <img src="{{asset($histo->imagen2)}}" width="100%">
                     @endif
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @if (isset($histo->imagen3))
                         <img src="{{asset($histo->imagen3)}}" width="100%">
                     @endif
                 </div>
+                <div class="col-md-3">
+                    @if (isset($histo->imagen4))
+                        <img src="{{asset($histo->imagen4)}}" width="100%">
+                    @endif
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    @if (isset($histo->titulo_1))
+                        <h5>({{$histo->titulo_1}})</h5>
+                    @endif
+                </div>
+                <div class="col-md-3 text-center">
+                    @if (isset($histo->titulo_2))
+                        <h5>({{$histo->titulo_2}})</h5>
+                    @endif
+                </div>
+                <div class="col-md-3 text-center">
+                    @if (isset($histo->titulo_3))
+                        <h5>({{$histo->titulo_3}})</h5>
+                    @endif
+                </div>
+                <div class="col-md-3 text-center">
+                    @if (isset($histo->titulo_4))
+                        <h5>({{$histo->titulo_4}})</h5>
+                    @endif
+                </div>
+            </div>
+
+
             <div class="row row-biopsia">
                 <div class="col-md-12 form-group">
                     <label>TECNICA:</label>

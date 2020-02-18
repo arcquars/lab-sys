@@ -29,23 +29,51 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
-                <div class="form-group">
-                    Selecciones Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
-                    @if($histo)
-                        <p><a href="{{asset($histo->imagen1)}}" target="_blank">Imagen 1</a></p>
-                    @endif
+
+
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        Imagen 1: <input type="file" name="imagen1" accept="image/x-png,image/gif,image/jpeg">
+                        @if($histo && !empty($histo->imagen1))
+                            <p><a href="{{asset($histo->imagen1)}}" target="_blank">Imagen 1</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3 form-group">
+                        Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
+                        @if($histo && !empty($histo->imagen2))
+                            <p><a href="{{asset($histo->imagen2)}}" target="_blank">Imagen 2</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3 form-group">
+                        Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
+                        @if($histo && !empty($histo->imagen3))
+                            <p><a href="{{asset($histo->imagen3)}}" target="_blank">Imagen 3</a></p>
+                        @endif
+                    </div>
+                    <div class="col-md-3 form-group">
+                        Imagen 4: <input type="file" name="imagen4" accept="image/x-png,image/gif,image/jpeg">
+                        @if($histo && !empty($histo->imagen4))
+                            <p><a href="{{asset($histo->imagen4)}}" target="_blank">Imagen 4</a></p>
+                        @endif
+                    </div>
                 </div>
-                <div class="form-group">
-                    Selecciones Imagen 2: <input type="file" name="imagen2" accept="image/x-png,image/gif,image/jpeg">
-                    @if($histo)
-                        <p><a href="{{asset($histo->imagen2)}}" target="_blank">Imagen 2</a></p>
-                    @endif
-                </div>
-                <div class="form-group">
-                    Selecciones Imagen 3: <input type="file" name="imagen3" accept="image/x-png,image/gif,image/jpeg">
-                    @if($histo)
-                        <p><a href="{{asset($histo->imagen3)}}" target="_blank">Imagen 3</a></p>
-                    @endif
+                <div class="row">
+                    <div class="col-md-3 form-group" >
+                        <label>Titulo 1</label>
+                        <input type="text" name="titulo_1" class="form-control" value="{{@old('titulo_1', $histo->titulo_1)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 2</label>
+                        <input type="text" name="titulo_2" class="form-control" value="{{@old('titulo_2', $histo->titulo_2)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 3</label>
+                        <input type="text" name="titulo_3" class="form-control" value="{{@old('titulo_3', $histo->titulo_3)}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Titulo 4</label>
+                        <input type="text" name="titulo_4" class="form-control" value="{{@old('titulo_4', $histo->titulo_4)}}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="organo_tejido">Interpretacion</label>

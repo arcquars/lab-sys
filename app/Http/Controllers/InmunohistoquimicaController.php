@@ -51,6 +51,15 @@ class InmunohistoquimicaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
                 $histo->imagen3 = 'uploads/'.$profilefile;
             }
+            if ($files = $request->file('imagen4')) {
+                $profilefile = 'imagen4'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $histo->imagen4 = 'uploads/'.$profilefile;
+            }
+            $histo->titulo_1 = $request->post('titulo_1');
+            $histo->titulo_2 = $request->post('titulo_2');
+            $histo->titulo_3 = $request->post('titulo_3');
+            $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->save()){
                 return redirect('/analisis');
@@ -80,6 +89,15 @@ class InmunohistoquimicaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
                 $histo->imagen3 = 'uploads/'.$profilefile;
             }
+            if ($files = $request->file('imagen4')) {
+                $profilefile = 'imagen4'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+                $files->move(public_path('uploads'), $profilefile);
+                $histo->imagen4 = 'uploads/'.$profilefile;
+            }
+            $histo->titulo_1 = $request->post('titulo_1');
+            $histo->titulo_2 = $request->post('titulo_2');
+            $histo->titulo_3 = $request->post('titulo_3');
+            $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->update()){
                 return redirect('/analisis');
@@ -103,10 +121,9 @@ class InmunohistoquimicaController extends Controller
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('histo.reporte', compact(
-            'analisis', 'histo'));
+            'analisis', 'histo'), [], ['marginTop' => 800]);
 
-        $stylesheet = asset('css/reporte-pdf.css'); // external css
-        $pdf->mpdf->WriteHTML($stylesheet,1);
+
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }
