@@ -23,11 +23,11 @@
 }
 
 .row-citologia dt{
-    font-size: .9rem;
+    font-size: 16px;
 }
 
 .row-citologia dd{
-    font-size: .9rem;
+    font-size: 16px;
 }
 
 .p-cito-resultado{
@@ -76,6 +76,14 @@
     padding: 2px 5px !important;
     color: #012035;
     font-size: .62rem;
+}
+
+.table-clinica thead tr th{
+    font-size: 0.5rem;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 2px;
+    padding-right: 12px;
 }
 
 .p-estado-red{
@@ -137,4 +145,21 @@
 .label-clinica{
     color: #f6993f !important;
     font-size: 1rem !important;
+}
+
+.form-sin-border{
+    border: none !important;
+}
+
+.form-sin-border:focus{
+    box-shadow: none !important;
+}
+
+.form-control:focus{
+    box-shadow: 0 0 0 0.1rem rgba(52, 144, 220, 0.25);
+}
+
+.btn-outline-info:focus, .btn-outline-info.focus {
+    box-shadow: 0 0 0 0.1rem
+    rgba(108, 178, 235, 0.5);
 }

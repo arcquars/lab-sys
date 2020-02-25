@@ -41,6 +41,7 @@ class StoreAnalisisPost extends FormRequest
             'region' => 'required|max:200',
             'precio' => 'required|numeric|min:0|max:10000',
             'acuenta' => 'lte:precio|nullable',
+            'nit' => 'numeric',
         ];
 
         for ($i=0; $i<count($convenios); $i++){

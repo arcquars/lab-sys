@@ -58,6 +58,7 @@
     </tr>
 </table>
 <h4 class="h4-cito">Tecnica</h4>
+<hr style="margin: 2px 4px;">
 <div class="div-campo">
     {!! $histo->tecnica !!}
 </div>

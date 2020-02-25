@@ -277,6 +277,29 @@
                         </div>
 
                     </div>
+                    <h5>Datos Para Facturacion</h5>
+                    <div class="row" style="background-color: #E8F1FF;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="razon_social">Razon Social</label>
+                                <input type="text" name="razon_social" class="form-control @error('razon_social') is-invalid @enderror"
+                                       value="{{@old('razon_social')}}"
+                                >
+                                @error('razon_social')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nit">NIT</label>
+                            <input type="text" name="nit" class="form-control @error('nit') is-invalid @enderror"
+                                   value="{{@old('nit')}}"
+                            >
+                            @error('nit')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

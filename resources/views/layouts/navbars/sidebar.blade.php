@@ -98,6 +98,12 @@ Tip 2: you can also add an image using data-image tag
                                         <p>Reporte Cerrados</p>
                                     </a>
                                 </li>
+                                <li class="nav-item @if($activePage == 'admin_reporte_facturado') active @endif">
+                                    <a class="nav-link" href="{{route('reporte.reporte_facturacion')}}">
+                                        <i class="fas fa-receipt"></i>
+                                        <p>Reporte de Facturaciones</p>
+                                    </a>
+                                </li>
                             @endcan
                         </ul>
                     </div>

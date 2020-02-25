@@ -49,6 +49,8 @@ Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPag
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
+Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
+Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 
 Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
 
@@ -60,7 +62,7 @@ Route::post('/citologia/resultadosedit', 'CitologiaController@resultadosEdit')->
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');
 Route::get('/citologia/reporte/{analisisId}', 'CitologiaController@reporte')->name('citologia.reporte');
 
-Route::get('/biopsia/crear/{analisisId}', 'BiopsiaController@create')->name('biopsia.crear');
+Route::get('/biopsia/crear/{analisisId}/{is_histopatologico}', 'BiopsiaController@create')->name('biopsia.crear');
 Route::post('/biopsia/save', 'BiopsiaController@store')->name('biopsia.save');
 Route::get('/biopsia/view/{analisisId}', 'BiopsiaController@viewResultado')->name('biopsia.viewResultado');
 Route::get('/biopsia/reporte/{analisisId}', 'BiopsiaController@reporte')->name('biopsia.reporte');
@@ -88,6 +90,9 @@ Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.re
 Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
 Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
+
+Route::get('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacion')->name('reporte.reporte_facturacion');
+Route::post('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacionPost')->name('reporte.reporte_facturacion_post');
 
 Route::get('/reportes/reporte-cerrados', 'ReporteController@reporteCerrados')->name('reporte.reporte_cerrados');
 Route::post('/reportes/reporte-cerrados', 'ReporteController@reporteCerradosPost')->name('reporte.reporte_cerrados_post');

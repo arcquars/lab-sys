@@ -60,6 +60,71 @@
                     @endif
                 </div>
             </div>
+            @if ($biopsia->is_histopatologico)
+                <hr>
+                <h5>Imagenes Histopatologicos</h5>
+                <div class="row">
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes1))
+                            <img src="{{asset($biopsia->histopatologico_imagenes1)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre1))
+                            <h5>({{$biopsia->histopatologico_nombre1}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes2))
+                            <img src="{{asset($biopsia->histopatologico_imagenes2)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre2))
+                            <h5>({{$biopsia->histopatologico_nombre2}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes3))
+                            <img src="{{asset($biopsia->histopatologico_imagenes3)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre3))
+                            <h5>({{$biopsia->histopatologico_nombre3}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes4))
+                            <img src="{{asset($biopsia->histopatologico_imagenes4)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre4))
+                            <h5>({{$biopsia->histopatologico_nombre4}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes5))
+                            <img src="{{asset($biopsia->histopatologico_imagenes5)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre5))
+                            <h5>({{$biopsia->histopatologico_nombre5}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes6))
+                            <img src="{{asset($biopsia->histopatologico_imagenes6)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre6))
+                            <h5>({{$biopsia->histopatologico_nombre6}})</h5>
+                        @endif
+                    </div>
+                    <div class="col-md-2">
+                        @if (isset($biopsia->histopatologico_imagenes7))
+                            <img src="{{asset($biopsia->histopatologico_imagenes7)}}" width="100%">
+                        @endif
+                        @if (isset($biopsia->histopatologico_nombre7))
+                            <h5>({{$biopsia->histopatologico_nombre7}})</h5>
+                        @endif
+                    </div>
+                </div>
+
+
+
+            @endif
             <div class="row row-biopsia">
                 <div class="col-md-12 form-group">
                     <label>MACROSCOPIA:</label>
@@ -90,7 +155,7 @@
                     @can('manage-users-dr')
                     <a href="{{route('biopsia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
-                    <a href="{{route('biopsia.crear', ['analisisId' => $analisis->id])}}" class="btn btn-primary">Editar</a>
+                    <a href="{{route('biopsia.crear', ['analisisId' => $analisis->id, 'is_histopatologico' => $biopsia->is_histopatologico])}}" class="btn btn-primary">Editar</a>
                     <a href="{{url()->previous()}}" class="btn btn-dark">Atras</a>
                 </div>
             </div>

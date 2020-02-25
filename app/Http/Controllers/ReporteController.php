@@ -448,4 +448,49 @@ class ReporteController extends Controller
             'analisis', 'procedenciaId', 'entregado', 'cerrados'
         ));
     }
+
+    public function reporteFacturacion()
+    {
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+        $mes = $date->format('m');
+        $day_last = $date->format('t');
+        $procedenciaId = 0;
+
+        $fecha_ini = $year.'-'.$mes.'-01';
+        $fecha_fin = $year.'-'.$mes.'-'.$day_last;
+
+        $procedencias = Institucion::all();
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha', 'desc')->get();
+
+
+        return view('reportes.reporte-facturacion', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'procedenciaId'
+        ));
+    }
+
+    public function reporteFacturacionPost(Request $request)
+    {
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
+        $procedenciaId = $request->post('procedencia');
+
+        $facturados = $request->post('facturados', 0);
+
+        $procedencias = Institucion::all();
+
+        if($procedenciaId == 0){
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->orderBy('fecha', 'desc')->get();
+        } else {
+            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->where('procedencia', $procedenciaId)->orderBy('fecha', 'desc')->get();
+        }
+
+
+        return view('reportes.reporte-facturacion', compact(
+            'procedencias', 'fecha_ini', 'fecha_fin',
+            'analisis', 'meses', 'year', 'facturados',
+            'procedenciaId'
+        ));
+    }
 }

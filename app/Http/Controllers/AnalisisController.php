@@ -67,6 +67,10 @@ class AnalisisController extends Controller
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
         $analisis->codigo = $request->get('codigo');
+
+        $analisis->razon_social = $request->get('razon_social');
+        $analisis->nit = $request->get('nit');
+
         if($request->get('acuenta')) {
             if($request->get('acuenta') == $request->get('precio')){
                 $analisis->pago_efectuado = $request->get('acuenta');
@@ -231,19 +235,7 @@ class AnalisisController extends Controller
         $resultado->analisis_id = $request->input('analisis_id');
         $resultado->user_id = auth()->id();
 
-//        $resultado->save();
-//        $omsArray = $request->input('oms');
-//        foreach ($omsArray as $key => $value){
-//            $seccion = new Seccion();
-//            $seccion->seccion = 'OMS';
-//            $seccion->key = $key;
-//            $seccion->value = $value;
-//            $seccion->resultado_id = $resultado->id;
-//            $seccion->save();
-//        }
-
         $hichartArray = $request->input('hichart');
-//        dd($hichartArray);
         foreach($hichartArray as $key => $value){
             dd($key.' || '.$value);
             $seccion = new Seccion();
@@ -275,7 +267,7 @@ class AnalisisController extends Controller
             case Analisis::BIOPSIA:
                 return redirect()->action(
                     'BiopsiaController@create',
-                    ['analisisId' => $analisisId]);
+                    ['analisisId' => $analisisId, 'is_histopatologico' => 0]);
             case Analisis::INMUNOHISTOQUIMICA:
                 return redirect()->action(
                     'InmunohistoquimicaController@create',
@@ -288,6 +280,10 @@ class AnalisisController extends Controller
                 return redirect()->action(
                     'BethesdaController@create',
                     ['analisisId' => $analisisId]);
+            case Analisis::HISTOPATOLOGICO:
+                return redirect()->action(
+                    'BiopsiaController@create',
+                    ['analisisId' => $analisisId, 'is_histopatologico' => true]);
         }
     }
 
@@ -308,6 +304,9 @@ class AnalisisController extends Controller
                 break;
             case Analisis::BETHESDA:
                 $codigo = 'BTD'.$numeroFecha.$analisisIdNext;
+                break;
+            case Analisis::HISTOPATOLOGICO:
+                $codigo = 'BH'.$numeroFecha.$analisisIdNext;
                 break;
         }
         return response()->json(['success' => $codigo]);
@@ -396,10 +395,30 @@ class AnalisisController extends Controller
      */
     public function getDatatablesTecnico()
     {
-//        return Laratables::recordsOf(   Analisis::class);
-
         return Laratables::recordsOf(Analisis::class, function($query){
             return $query->where('tipo_analisis', Analisis::BIOPSIA)->orderBy('fecha', 'desc');
         });
+    }
+
+    public function ajaxGetPrecio(Request $request){
+        $analisisId = $request->post('analisis_id');
+        $analisis = Analisis::find($analisisId);
+
+        return response()->json(['success' => '1', 'precio' => $analisis->precio]);
+    }
+
+    public function ajaxSetPrecio(Request $request){
+        $request->validate([
+            'precio' => 'required|integer|min:10'
+        ]);
+
+        $analisisId = $request->post('analisis_id');
+        $precio = $request->post('precio');
+
+        $analisis = Analisis::find($analisisId);
+
+        $analisis->precio = $precio;
+
+        return response()->json(['success' => $analisis->save()]);
     }
 }

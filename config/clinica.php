@@ -16,6 +16,7 @@ return [
         'BIOPSIA',
         'INMUNOHISTOQUIMICA',
         'BETHESDA',
+        'HISTOPATOLOGICO'
 
     ],
     'extendido_compatible' => [

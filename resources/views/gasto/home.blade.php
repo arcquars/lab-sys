@@ -30,7 +30,7 @@
     </div>
 
 
-    <!-- Modal registro Doctor-->
+    <!-- Modal registro gasto-->
     <div id="mgasto" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <form id="fcreargasto" action="">
@@ -38,7 +38,7 @@
                 <input type="hidden" name="id" value="">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 id="mgasto_title" class="modal-title ">Registrar Doctor</h5>
+                        <h5 id="mgasto_title" class="modal-title ">Crear Gasto</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -69,6 +69,7 @@
                                 <div class="form-group">
                                     <label for="fecha">Fecha</label>
                                     <input type="date" name="fecha"
+                                           value="{{date('Y-m-d')}}"
                                            class="form-control">
                                     <div class="fcp_error_fecha" style="display: none;"></div>
                                 </div>
