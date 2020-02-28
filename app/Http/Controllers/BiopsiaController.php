@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Biopsia;
 use App\Http\Requests\StoreBiopsiaPost;
-use Faker\Provider\File;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class BiopsiaController extends Controller

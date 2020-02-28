@@ -69,7 +69,8 @@
                     </div>
                     <div class="col-md-3">
                         <input type="submit" value="Buscar" class="btn btn-info">
-                        <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar</a>
+                        <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar excel</a>
+                        <a href="#" onclick="exportPdf(); return false;"  class="btn btn-warning">Exportar pdf</a>
                     </div>
                 </div>
             </form>
@@ -262,6 +263,16 @@
             var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
             var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
             var url = '{{url("/")}}/reportes/reporte-diario-excel/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId;
+
+            window.open(url, '_blank');
+        }
+
+        function exportPdf(){
+            var fechaIni = $("#f_reporte_diario input[name='fecha_ini']").val();
+            var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
+            var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
+            var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            var url = '{{url("/")}}/reportes/reporte-diario-pdf/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId;
 
             window.open(url, '_blank');
         }

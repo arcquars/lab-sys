@@ -82,6 +82,7 @@ Route::post('/reportes/reporte1', 'ReporteController@reportePost')->name('report
 Route::get('/reportes/reporte-diario', 'ReporteController@reporteDiario')->name('reporte.reporte.diario');
 Route::post('/reportes/reporte-diario', 'ReporteController@reporteDiarioPost')->name('reporte.reporte.diario.post');
 Route::get('/reportes/reporte-diario-excel/{fechaIni}/{fechaFin}/{procedencia}/{tipo}', 'ReporteController@excelDiario')->name('reporte.reporte.diario.exceldiario');
+Route::get('/reportes/reporte-diario-pdf/{fechaIni}/{fechaFin}/{procedencia}/{tipo}', 'ReporteController@pdfDiario')->name('reporte.reporte.diario.pdfdiario');
 Route::get('/reportes/reporte-admin/{fechaIni}/{fechaFin}/{procedencia}', 'ReporteController@excelAdminDiario')->name('reporte.reporte.diario.excelAdmindiario');
 Route::get('/reportes/reporte-admin-diario/{fechaIni}/{fechaFin}/{procedencia}', 'ReporteController@excelAdmin')->name('reporte.reporte_admin');
 

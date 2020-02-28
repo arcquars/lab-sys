@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Excel;
+use PDF;
 
 class ReporteController extends Controller
 {
@@ -533,5 +534,61 @@ class ReporteController extends Controller
             'analisis', 'meses', 'year', 'facturados',
             'procedenciaId'
         ));
+    }
+
+    function pdfDiario($fechaIni, $fechaFin, $procedenciaId, $tipo){
+        if($procedenciaId == 0) {
+            if (strcmp($tipo, '0') == 0){
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->get();
+            }else{
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+            }
+        } else {
+            if(strcmp($tipo, '0') == 0) {
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+            }else{
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+            }
+        }
+        $gastos = Gasto::whereBetween('fecha', [$fechaIni, $fechaFin])->orderBy('fecha')->get();
+
+
+        $totalPrecio = 0;
+        $totalAcuenta = 0;
+        $totalDebe = 0;
+        foreach ($analisis as $ana){
+            $totalPrecio += $ana->precio;
+            $totalAcuenta += $ana->acuenta;
+            $totalDebe += ($ana->precio - $ana->acuenta);
+        }
+
+        $totalPrecioPago = 0;
+        $totalAcuentaPago = 0;
+        $totalDebePago = 0;
+        foreach ($analisisPagos as $ana){
+            $totalPrecioPago += $ana->precio;
+            $totalAcuentaPago += $ana->acuenta;
+            $totalDebePago += ($ana->precio - $ana->acuenta);
+        }
+
+        $totalGastos = 0;
+        foreach ($gastos as $gasto){
+            $totalGastos += $gasto->gasto;
+        }
+//        return Excel::download(
+//            new ReporteDiarioExport(
+//                $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe,
+//                $totalGastos, $analisisPago, $totalPrecioPago, $totalAcuentaPago, $totalDebePago), 'reportediario'.date('Ymd').'.xlsx');
+
+        $pdf = PDF::loadView('export-excel.reporte-diario-excel', compact(
+            'analisis', 'totalPrecio', 'totalDebe', 'totalAcuenta', 'analisisPagos',
+            'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago', 'gastos', 'totalGastos'));
+
+        $fileNombre = 'reporte-diario'.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
     }
 }
