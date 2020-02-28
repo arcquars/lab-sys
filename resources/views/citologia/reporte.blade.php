@@ -1,10 +1,10 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
-<h3 class="h2-cito">INFORME CITOLOGICO</h3>
+<h3 class="h4-cito">INFORME CITOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 
 <p class="p-dato"><b>Clasificacion del Papanicolaou Clase: </b> {{'( '.$resultados->papanicolaou_clase1.' ) '.$resultados->papanicolaou_clase2}}</p>
-<h3 class="h2-cito" style="text-transform: uppercase;">Extendido Compatible con los Diagnosticos</h3>
+<h3 class="h4-cito" style="text-transform: uppercase;">Extendido Compatible con los Diagnosticos</h3>
 @php
     $secciones = array_chunk(Config::get('clinica.extendido_compatible'), 3);
 @endphp
@@ -80,7 +80,7 @@
     </tr>
 </table>
 <br>
-<h3 class="h2-cito" style="text-transform: uppercase;">Reaccion Inflamatoria</h3>
+<h3 class="h4-cito" style="text-transform: uppercase;">Reaccion Inflamatoria</h3>
 @php
     $reaccInflamatorias = array_chunk(Config::get('clinica.reac_inflamatoria'), 3);
 @endphp
@@ -105,7 +105,7 @@
     @endforeach
 </table>
 <br>
-<h3 class="h2-cito" style="text-transform: uppercase;">Estudio Microbiologico</h3>
+<h3 class="h4-cito" style="text-transform: uppercase;">Estudio Microbiologico</h3>
 @php
     $reaccEstMicro = array_chunk(Config::get('clinica.estudio_microbiologico'), 3);
 @endphp
@@ -133,10 +133,10 @@
 <table class="clinica-table" style="width: 100%;">
     <tr>
         <td width="50%" style="text-align: center;">
-            <h3 class="h2-cito">ESTUDIO CITO-HORMONAL</h3>
+            <h3 class="h4-cito">ESTUDIO CITO-HORMONAL</h3>
         </td>
         <td width="50%" style="text-align: center;">
-            <h3 class="h2-cito" style="text-align: center;">CITOLOGIA POSMENOPAUSIA</h3>
+            <h3 class="h4-cito" style="text-align: center;">CITOLOGIA POSMENOPAUSIA</h3>
         </td>
     </tr>
     <tr>
@@ -160,10 +160,10 @@
 <table class="clinica-table" style="width: 100%;">
     <tr>
         <td width="50%" style="text-align: center;">
-            <h3 class="h2-cito">OBSERVACION 1</h3>
+            <h3 class="h4-cito">OBSERVACION 1</h3>
         </td>
         <td width="50%" style="text-align: center;">
-            <h3 class="h2-cito" style="text-align: center;">OBSERVACION 2</h3>
+            <h3 class="h4-cito" style="text-align: center;">OBSERVACION 2</h3>
         </td>
     </tr>
     <tr>

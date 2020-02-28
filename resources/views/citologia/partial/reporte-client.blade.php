@@ -1,9 +1,9 @@
 <table style="width: 100%">
     <tr>
-        <td width="20%"><p class="p-dato"><b>Nombre y Apellido:</b></p></td>
-        <td width="40%"><p class="p-dato">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</p></td>
-        <td width="20%" style="text-align: right;"><p class="p-dato"><b>Edad:</b></p></td>
-        <td width="20%"><p class="p-dato">{{$analisis->person->edad}}</p></td>
+        <td width="30%"><p class="p-dato"><b>Nombre y Apellido:</b></p></td>
+        <td width="30%"><p class="p-dato">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</p></td>
+        <td width="30%" style="text-align: right;"><p class="p-dato"><b>Edad:</b></p></td>
+        <td width="30%"><p class="p-dato">{{$analisis->person->edad}}</p></td>
     </tr>
     <tr>
         <td><p class="p-dato"><b>Procedencia:</b></p></td>

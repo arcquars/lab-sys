@@ -120,7 +120,7 @@
 <hr>
 <h4 class="h4-cito">Organo o Tejido</h4>
 <div class="div-campo">
-    {!! $biopsia->organo_tejido !!}
+    {!! ($biopsia->is_histopatologico == 1)? 'BIOPSIAS DE RIÑON' : $biopsia->organo_tejido !!}
 </div>
 @if ($biopsia->macroscopia)
 <h4 class="h4-cito">Macroscopia</h4>
