@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/resources/views/clients/home.blade.php" line="312" />
+    <bookmark url="file://$PROJECT_DIR$/resources/views/clients/home.blade.php" line="318" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="Cambios en reportes parte 2">
-      <change afterPath="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Clinica.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Clinica.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="analisis bethesda">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Analisis.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Analisis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/StorePersonPost.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/StorePersonPost.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analisis/comprobante.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analisis/comprobante.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/analisis/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analisis/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/clients/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/clients/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte2.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte2.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
+    <ignored path="public/uploads/20200130022711.png" />
+    <ignored path="public/generateqr/b-020-020229.png" />
+    <ignored path="public/generateqr/i-019-122815.png" />
+    <ignored path="public/img/image-c-5.jpeg" />
+    <ignored path="public/uploads/imagen120200130023250.png" />
+    <ignored path="public/uploads/imagen120200130023523.png" />
+    <ignored path="public/uploads/imagen120200130023550.png" />
+    <ignored path="public/uploads/imagen120200130032348.png" />
+    <ignored path="public/uploads/imagen120200130032543.jpeg" />
+    <ignored path="public/uploads/imagen120200205014408.jpg" />
+    <ignored path="public/uploads/imagen120200205014937.JPG" />
+    <ignored path="public/uploads/imagen120200205015313.JPG" />
+    <ignored path="public/uploads/imagen220200130023523.png" />
+    <ignored path="public/uploads/imagen220200130023550.png" />
+    <ignored path="public/uploads/imagen220200130032543.jpg" />
+    <ignored path="public/uploads/imagen220200205014515.jpg" />
+    <ignored path="public/uploads/imagen220200205014937.JPG" />
+    <ignored path="public/uploads/imagen220200205015313.JPG" />
+    <ignored path="public/uploads/imagen320200130023523.png" />
+    <ignored path="public/uploads/imagen320200130023550.png" />
+    <ignored path="public/uploads/imagen320200130032543.jpg" />
+    <ignored path="public/uploads/imagen320200205014937.JPG" />
+    <ignored path="public/uploads/imagen320200205015313.JPG" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,102 +81,55 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReporteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="156" column="24" lean-forward="true" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="464">
+              <caret line="395" column="96" selection-start-line="395" selection-start-column="96" selection-end-line="395" selection-end-column="96" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
+        <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="27" lean-forward="true" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/composer.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="6" lean-forward="true" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-head.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-127">
-              <caret line="1" column="46" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="46" />
-              <folding>
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#hr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
+            <state relative-caret-position="509">
+              <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte2.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="85" column="32" lean-forward="true" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="32" />
+            <state relative-caret-position="119">
+              <caret line="160" column="7" lean-forward="true" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/pdf.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+            <state relative-caret-position="330">
+              <caret line="244" column="25" lean-forward="true" selection-start-line="244" selection-start-column="25" selection-end-line="244" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="83" column="107" lean-forward="true" selection-start-line="83" selection-start-column="107" selection-end-line="83" selection-end-column="118" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="1a6d22f3-cc96-455d-8430-473ee99579bc">
+              <filtering>
+                <filter text="" />
+              </filtering>
             </state>
           </provider>
         </entry>
@@ -192,36 +146,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reporteDiario</find>
-      <find>name=</find>
-      <find>aja</find>
+      <find>presio</find>
       <find>.ajax</find>
+      <find>fcp_error_</find>
+      <find>printErrorMsg</find>
+      <find>fecha de</find>
+      <find>mgasto</find>
+      <find>crear gas</find>
+      <find>reporte-admin-diario</find>
+      <find>reporteAdminDiario</find>
+      <find>year_old</find>
+      <find>$year</find>
+      <find>meses</find>
+      <find>$day_last</find>
+      <find>$procedenciaId</find>
+      <find>form</find>
+      <find>reporteAdminDiarioPost</find>
+      <find>check</find>
+      <find>chec</find>
+      <find>h4-citoh4-cito</find>
+      <find>extendido</find>
+      <find>h2</find>
+      <find>h2-cito</find>
+      <find>p-dato</find>
+      <find>reporte.reporte_facturacion</find>
       <find>reportes/reporte-diario</find>
+      <find>reporteDiario(</find>
       <find>reporteDiarioPost</find>
-      <find>total</find>
-      <find>analis</find>
-      <find>analisi</find>
-      <find>$analisi-&gt;person</find>
-      <find>&lt;th scope=&quot;col&quot;&gt;</find>
-      <find>font-weight: 700</find>
-      <find>font-weight: 600</find>
-      <find>font-weight: 500</find>
-      <find>&lt;th style=&quot;background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500;&quot;&gt;</find>
-      <find>&lt;th style=&quot;background-color: #0B0D33; color: #FFF6ED; font-size: 10px; font-weight: 500;&quot;&gt;</find>
-      <find>&lt;th style=&quot;background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500;</find>
-      <find>#0B0D33; color: #FFF6ED</find>
-      <find>&lt;th style=&quot;background-color: #FFF6ED; color: #0B0D33; font-size: 10px;&quot;&gt;</find>
-      <find>diagno</find>
-      <find>cerrar a</find>
-      <find>type=&quot;date&quot;</find>
-      <find>Entrega de</find>
-      <find>tipo</find>
-      <find>excel</find>
-      <find>excelDiario</find>
-      <find>marg</find>
-      <find>pdf</find>
-      <find>pdf-&gt;mPDF</find>
-      <find>page-header</find>
+      <find>exportar</find>
+      <find>reportes/reporte-diario-excel</find>
+      <find>excelDiario(</find>
     </findStrings>
     <replaceStrings>
       <replace>(SI)</replace>
@@ -240,6 +194,15 @@
       <replace>&lt;th style=&quot;background-color: #0B0D33; color: #FFF6ED; font-size: 9px; font-weight: 500;&quot;</replace>
       <replace>#FFF6ED; color: #0B0D33</replace>
       <replace>&lt;th style=&quot;background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;&quot;&gt;</replace>
+      <replace>f_reporte_diari</replace>
+      <replace>f_reporte_admin</replace>
+      <replace>searchClient(input)</replace>
+      <replace>searchClient(this)</replace>
+      <replace>/bethesda/</replace>
+      <replace>BethesdaController@</replace>
+      <replace>bethesda.</replace>
+      <replace>mEditarPrecio</replace>
+      <replace>h4-cito</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/public/light-bootstrap</dir>
@@ -252,15 +215,15 @@
       <dir>$PROJECT_DIR$/resources/views/layouts</dir>
       <dir>$PROJECT_DIR$/</dir>
       <dir>$PROJECT_DIR$/node_modules</dir>
-      <dir>$PROJECT_DIR$/resources/views</dir>
       <dir>$PROJECT_DIR$/app/Http/Controllers</dir>
+      <dir>$PROJECT_DIR$/resources/views</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Pedro" />
         <option value="Angel Pedro Domingo &lt;arc.quars@gmail.com&gt;" />
+        <option value="Pedro" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -268,57 +231,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/view.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/StoreReporte2Post.php" />
-        <option value="$PROJECT_DIR$/public/light-bootstrap/css/light-bootstrap-dashboard.css" />
-        <option value="$PROJECT_DIR$/app/ClinicaClass/Reporte2.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
-        <option value="$PROJECT_DIR$/app/Seccion.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-footer.blade.php" />
-        <option value="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/StoreReporteDiarioPost.php" />
-        <option value="$PROJECT_DIR$/public/css/clinica.css" />
-        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.php" />
-        <option value="$PROJECT_DIR$/config/clinica.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_01_28_032401_create_gastos_table.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/493bc5ed-2835-45e7-aa0c-ff409d15da48/console.sql" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/StoreGastoPost.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/GastoController.php" />
-        <option value="$PROJECT_DIR$/resources/views/gasto/home.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/biopsia/view.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_01_30_022923_add_image123_for_histoquimicas_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/histo/crear.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/histo/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/app/Gasto.php" />
-        <option value="$PROJECT_DIR$/resources/views/histo/view.blade.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php" />
-        <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" />
-        <option value="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/comprobante.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" />
         <option value="$PROJECT_DIR$/resources/views/clients/home.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/home.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" />
-        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/StorePersonPost.php" />
-        <option value="$PROJECT_DIR$/app/Analisis.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" />
-        <option value="$PROJECT_DIR$/config/pdf.php" />
         <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-head.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/public/light-bootstrap/css/light-bootstrap-dashboard.css" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_08_154927_create_bethesta_table.php" />
         <option value="$PROJECT_DIR$/resources/views/reportes/reporte2.blade.php" />
+        <option value="$PROJECT_DIR$/app/ClinicaClass/Reporte2.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteAdmin.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/bethesda/reporte.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/bethesda/view.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BethesdaController.php" />
+        <option value="$PROJECT_DIR$/app/Bethesda.php" />
+        <option value="$PROJECT_DIR$/resources/views/bethesda/crear.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" />
+        <option value="$PROJECT_DIR$/resources/js/bootstrap.js" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_12_022853_add_image123_for_biopsia_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_18_021029_add_image4_and_titulo_for_biopsia_table.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_18_025044_add_image4_and_titulos1234_for_histoquimicas_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/histo/crear.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/histo/view.blade.php" />
+        <option value="$PROJECT_DIR$/config/pdf.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php" />
+        <option value="$PROJECT_DIR$/config/clinica.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_20_022036_add_is_histopatologico_for_biopsias_table.php" />
+        <option value="$PROJECT_DIR$/app/Analisis.php" />
+        <option value="$PROJECT_DIR$/resources/views/analisis/includes/action.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php" />
+        <option value="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/biopsia/view.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/analisis/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/histo/reporte.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/analisis/crear.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_02_24_150258_add_facturacion_analisis_table.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php" />
+        <option value="$PROJECT_DIR$/public/css/clinica.css" />
+        <option value="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" />
+        <option value="$PROJECT_DIR$/resources/views/gasto/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-facturacion.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/citologia/reporte.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" />
+        <option value="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" />
       </list>
     </option>
   </component>
@@ -435,7 +398,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -457,6 +419,18 @@
             <path>
               <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
               <item name="Clinica" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -464,6 +438,27 @@
               <item name="Clinica" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="biopsia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="citologia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="export-excel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
@@ -476,6 +471,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -483,7 +479,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/gasto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -493,15 +489,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/gasto" />
-      <recent name="$PROJECT_DIR$/resources/views/reportes" />
-      <recent name="$PROJECT_DIR$/resources/views/citologia/partial" />
-      <recent name="$PROJECT_DIR$/resources/views/analisis/includes" />
-      <recent name="$PROJECT_DIR$/resources/views/analisis" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/reportes" />
+      <recent name="$PROJECT_DIR$/public/ckeditor5" />
+      <recent name="$PROJECT_DIR$/resources/views/bethesda" />
+      <recent name="$PROJECT_DIR$/resources/views/export-excel" />
+      <recent name="$PROJECT_DIR$/resources/views/gasto" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -609,7 +605,22 @@
       <workItem from="1580444012842" duration="563000" />
       <workItem from="1580522431981" duration="6182000" />
       <workItem from="1580669860131" duration="1876000" />
-      <workItem from="1580672302247" duration="16470000" />
+      <workItem from="1580672302247" duration="17117000" />
+      <workItem from="1580779231294" duration="8507000" />
+      <workItem from="1580864938181" duration="9119000" />
+      <workItem from="1580954867610" duration="1681000" />
+      <workItem from="1581040824311" duration="7702000" />
+      <workItem from="1581167542606" duration="25605000" />
+      <workItem from="1581293233173" duration="10300000" />
+      <workItem from="1581386638679" duration="7590000" />
+      <workItem from="1581473129139" duration="3601000" />
+      <workItem from="1581990847309" duration="7052000" />
+      <workItem from="1582161461883" duration="8176000" />
+      <workItem from="1582507448926" duration="5030000" />
+      <workItem from="1582516549433" duration="6941000" />
+      <workItem from="1582553216537" duration="16700000" />
+      <workItem from="1582768570100" duration="3410000" />
+      <workItem from="1582852725540" duration="4421000" />
     </task>
     <task id="LOCAL-00001" summary="Segundo commit">
       <created>1573740837571</created>
@@ -758,16 +769,94 @@
       <option name="project" value="LOCAL" />
       <updated>1580354034732</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="datalless">
+      <created>1580703697309</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1580703697310</updated>
+    </task>
+    <task id="LOCAL-00023" summary="datalless">
+      <created>1580786784646</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1580786784647</updated>
+    </task>
+    <task id="LOCAL-00024" summary="datalless">
+      <created>1580866718133</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1580866718133</updated>
+    </task>
+    <task id="LOCAL-00025" summary="excel admin diario">
+      <created>1580870768055</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1580870768055</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Cliente crear y buscar">
+      <created>1581048283047</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1581048283047</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Biopsia add imagenes 3">
+      <created>1581475852898</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1581475852898</updated>
+    </task>
+    <task id="LOCAL-00028" summary="borrar keditor">
+      <created>1581476201943</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1581476201943</updated>
+    </task>
+    <task id="LOCAL-00029" summary="analisis bethesda">
+      <created>1581476230389</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1581476230389</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Detalles">
+      <created>1581997204389</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1581997204390</updated>
+    </task>
+    <task id="LOCAL-00031" summary="facturas y otros">
+      <created>1582598743308</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1582598743308</updated>
+    </task>
+    <task id="LOCAL-00032" summary="analisis bethesda">
+      <created>1582852792220</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1582852792220</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="554722000" />
+    <option name="totallyTimeSpent" value="681204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759614" visible="true" weight="0.32348484" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759614" visible="true" weight="0.33636364" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.50240386" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -779,12 +868,14 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49848485" visible="true" weight="0.3263328" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49848485" visible="true" weight="0.3231018" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32956383" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50454545" side_tool="true" weight="0.32419354" />
       <window_info anchor="bottom" id="Database Console" order="11" weight="0.32956383" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49545455" weight="0.32471728" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49545455" weight="0.33925685" />
       <window_info anchor="bottom" id="TypeScript" order="13" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.32956383" />
+      <window_info anchor="bottom" id="SQL Generator" order="15" weight="0.32956383" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -794,9 +885,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Segundo commit" />
-    <MESSAGE value="Crear persona y crear analisis" />
     <MESSAGE value="Crear persona y crear analisis II" />
     <MESSAGE value="Cambio para demostracion sabado 14" />
     <MESSAGE value="Citologia" />
@@ -814,7 +913,15 @@
     <MESSAGE value="Cambios en reportes" />
     <MESSAGE value="Implementar GASTOS" />
     <MESSAGE value="Cambios en reportes parte 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios en reportes parte 2" />
+    <MESSAGE value="datalless" />
+    <MESSAGE value="excel admin diario" />
+    <MESSAGE value="Cliente crear y buscar" />
+    <MESSAGE value="Biopsia add imagenes 3" />
+    <MESSAGE value="borrar keditor" />
+    <MESSAGE value="Detalles" />
+    <MESSAGE value="facturas y otros" />
+    <MESSAGE value="analisis bethesda" />
+    <option name="LAST_COMMIT_MESSAGE" value="analisis bethesda" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -828,395 +935,362 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_29_022333_create_analisis_table.php">
+    <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-basic-styles/src/underline/underlineui.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="165">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_01_28_032401_create_gastos_table.php">
+    <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/493bc5ed-2835-45e7-aa0c-ff409d15da48/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Doctor.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreDoctorPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="26" column="12" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/GastoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="67" column="51" selection-start-line="67" selection-start-column="51" selection-end-line="67" selection-end-column="51" />
+        <state relative-caret-position="120">
+          <caret line="4" column="728" lean-forward="true" selection-start-line="4" selection-start-column="728" selection-end-line="4" selection-end-column="728" />
           <folding>
-            <element signature="e#40#54#0#PHP" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreGastoPost.php">
+    <entry file="file://$PROJECT_DIR$/public/ckeditor5/ckeditor.js" />
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BethesdaController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+        <state relative-caret-position="405">
+          <caret line="31" column="83" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="83" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/gasto/home.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/bethesda/view.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1605">
-          <caret line="107" column="36" selection-start-line="107" selection-start-column="36" selection-end-line="107" selection-end-column="36" />
+        <state relative-caret-position="735">
+          <caret line="49" column="42" selection-start-line="49" selection-start-column="42" selection-end-line="49" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+        <state relative-caret-position="210">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DoctorController.php">
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="77" column="25" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+        <state relative-caret-position="1606875">
+          <caret line="106533" column="46" selection-start-line="106533" selection-start-column="46" selection-end-line="106533" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/view.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/resources/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_01_10_020639_add_telefono_referencia_for_analisis_table.php">
+    <entry file="file://$PROJECT_DIR$/webpack.mix.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="54" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="54" />
+        <state relative-caret-position="270">
+          <caret line="18" column="82" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_01_30_022923_add_image123_for_histoquimicas_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="39" selection-end-line="32" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/histo/crear.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="38" column="118" selection-start-line="38" selection-start-column="118" selection-end-line="38" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/gastos">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="313cab86-4d33-4282-b8b9-c0dbf11c4040">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="313cab86-4d33-4282-b8b9-c0dbf11c4040">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Gasto.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/histo/view.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+        <state relative-caret-position="248">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="32" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/histoquimicas">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="562d0078-12e3-44de-85a8-a9762fb47a6e">
+        <state projectRestartId="f72e3b3c-e04e-49f5-b526-efdf698189cb">
           <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Providers/AuthServiceProvider.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_12_022853_add_image123_for_biopsia_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_18_021029_add_image4_and_titulo_for_biopsia_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="36" column="43" lean-forward="true" selection-start-line="32" selection-start-column="12" selection-end-line="36" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/pdf.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/histo/view.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="66" column="34" selection-start-line="66" selection-start-column="34" selection-end-line="66" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/histo/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="68" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        <state relative-caret-position="1815">
+          <caret line="124" selection-start-line="124" selection-end-line="124" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
+    <entry file="file://$PROJECT_DIR$/config/clinica.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3585">
-          <caret line="239" column="58" selection-start-line="239" selection-start-column="58" selection-end-line="239" selection-end-column="58" />
+        <state relative-caret-position="216">
+          <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_18_025044_add_image4_and_titulos1234_for_histoquimicas_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+        <state relative-caret-position="450">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Analisis.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1230">
+          <caret line="82" column="55" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3570">
+          <caret line="244" column="33" selection-start-line="244" selection-start-column="33" selection-end-line="244" selection-end-column="33" />
           <folding>
-            <element signature="e#32#67#0#PHP" expanded="true" />
+            <element signature="e#40#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/doctor/home.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/view.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2010">
-          <caret line="134" column="62" selection-start-line="134" selection-start-column="26" selection-end-line="134" selection-end-column="62" />
+        <state relative-caret-position="1785">
+          <caret line="119" column="68" selection-start-line="119" selection-start-column="68" selection-end-line="119" selection-end-column="68" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/histo/reporte.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/crear.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="60" column="50" lean-forward="true" selection-start-line="60" selection-start-column="50" selection-end-line="60" selection-end-column="50" />
+        <state>
           <folding>
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="e#1837#1861#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/analisis/comprobante.blade.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_20_022036_add_is_histopatologico_for_biopsias_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="124" selection-start-line="15" selection-start-column="124" selection-end-line="15" selection-end-column="124" />
+        <state relative-caret-position="329">
+          <caret line="43" column="60" lean-forward="true" selection-start-line="43" selection-start-column="12" selection-end-line="43" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/clients/home.blade.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_24_150258_add_facturacion_analisis_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        <state relative-caret-position="89">
+          <caret line="18" column="31" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/analisis/includes/action.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/analisis/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="90" column="50" lean-forward="true" selection-start-line="90" selection-start-column="50" selection-end-line="90" selection-end-column="50" />
+        <state relative-caret-position="197">
+          <caret line="166" column="12" selection-start-line="166" selection-start-column="12" selection-end-line="170" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/clinica.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="163" column="29" lean-forward="true" selection-start-line="163" selection-start-column="29" selection-end-line="163" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="233" column="11" lean-forward="true" selection-start-line="209" selection-start-column="8" selection-end-line="233" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-cerrados.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dash.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="56" column="46" selection-start-line="56" selection-start-column="46" selection-end-line="56" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institucion/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2550">
+          <caret line="170" column="17" selection-start-line="170" selection-start-column="17" selection-end-line="170" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5790">
+          <caret line="400" column="5" selection-start-line="400" selection-start-column="5" selection-end-line="400" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/analisis/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3600">
+          <caret line="240" column="57" selection-start-line="240" selection-start-column="57" selection-end-line="240" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/gasto/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="60" column="58" selection-start-line="60" selection-start-column="58" selection-end-line="60" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="72" column="46" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="56" column="18" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/biopsias">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="1a6d22f3-cc96-455d-8430-473ee99579bc">
+          <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/citologia/reporte.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1095">
+          <caret line="73" column="38" selection-start-line="73" selection-start-column="38" selection-end-line="73" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-facturacion.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="93" column="78" selection-start-line="93" selection-start-column="78" selection-end-line="93" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="30" column="16" lean-forward="true" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
-          <caret line="75" column="84" selection-start-line="75" selection-start-column="84" selection-end-line="75" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/analisis/crear.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="67" column="51" lean-forward="true" selection-start-line="61" selection-start-column="40" selection-end-line="67" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="172" column="8" selection-start-line="172" selection-start-column="8" selection-end-line="172" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/persons">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="f86075a8-9fd2-4b2b-b93b-030c31e93226">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="104" column="120" selection-start-line="104" selection-start-column="120" selection-end-line="104" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="44" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="82" column="15" selection-start-line="82" selection-start-column="15" selection-end-line="82" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/crear.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StorePersonPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="27" column="33" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
+          <caret line="83" column="107" lean-forward="true" selection-start-line="83" selection-start-column="107" selection-end-line="83" selection-end-column="118" />
         </state>
       </provider>
     </entry>
     <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="f86075a8-9fd2-4b2b-b93b-030c31e93226">
+        <state projectRestartId="1a6d22f3-cc96-455d-8430-473ee99579bc">
           <filtering>
             <filter text="" />
           </filtering>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Analisis.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="43" column="32" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#p#0;n#dd#1;n#dl#4;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReporteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="156" column="24" lean-forward="true" selection-start-line="156" selection-start-column="24" selection-end-line="156" selection-end-column="24" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="464">
+          <caret line="395" column="96" selection-start-line="395" selection-start-column="96" selection-end-line="395" selection-end-column="96" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
+    <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="6" lean-forward="true" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+        <state relative-caret-position="509">
+          <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="330">
+          <caret line="244" column="25" lean-forward="true" selection-start-line="244" selection-start-column="25" selection-end-line="244" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/pdf.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="27" lean-forward="true" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="1" column="46" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="46" />
-          <folding>
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#hr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="60" lean-forward="true" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte2.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="85" column="32" lean-forward="true" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="32" />
+        <state relative-caret-position="119">
+          <caret line="160" column="7" lean-forward="true" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
         </state>
       </provider>
     </entry>

@@ -63,6 +63,7 @@ class ReporteController extends Controller
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->get();
         $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         $totalPrecio = 0;
         $totalAcuenta = 0;
@@ -71,6 +72,15 @@ class ReporteController extends Controller
             $totalPrecio += $ana->precio;
             $totalAcuenta += $ana->acuenta;
             $totalDebe += ($ana->precio - $ana->acuenta);
+        }
+
+        $totalPrecioPago = 0;
+        $totalAcuentaPago = 0;
+        $totalDebePago = 0;
+        foreach ($analisisPagos as $ana){
+            $totalPrecioPago += $ana->precio;
+            $totalAcuentaPago += $ana->acuenta;
+            $totalDebePago += ($ana->precio - $ana->acuenta);
         }
 
         $totalGastos = 0;
@@ -83,7 +93,8 @@ class ReporteController extends Controller
             'analisis', 'totalDebe', 'tipoId',
             'totalPrecio', 'totalAcuenta',
             'fecha_ini', 'fecha_fin', 'gastos',
-            'procedenciaId', 'totalGastos', 'tipoAnalisis'
+            'procedenciaId', 'totalGastos', 'tipoAnalisis',
+            'analisisPagos', 'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago'
         ));
     }
 
@@ -173,16 +184,21 @@ class ReporteController extends Controller
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
 
         if($procedenciaId == 0){
-            if(strcmp($tipoId, '0') == 0)
+            if(strcmp($tipoId, '0') == 0) {
                 $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
-            else{
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->get();
+            }else{
                 $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->get();
             }
         } else {
-            if(strcmp($tipoId, '0') == 0)
+            if(strcmp($tipoId, '0') == 0) {
                 $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
-            else
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+            }else {
                 $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->get();
+                $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->get();
+            }
         }
         $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha')->get();
 
@@ -196,6 +212,15 @@ class ReporteController extends Controller
             $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
+        $totalPrecioPago = 0;
+        $totalAcuentaPago = 0;
+        $totalDebePago = 0;
+        foreach ($analisisPagos as $ana){
+            $totalPrecioPago += $ana->precio;
+            $totalAcuentaPago += $ana->acuenta;
+            $totalDebePago += ($ana->precio - $ana->acuenta);
+        }
+
         $totalGastos = 0;
         foreach ($gastos as $gasto){
             $totalGastos += $gasto->gasto;
@@ -206,7 +231,8 @@ class ReporteController extends Controller
             'analisis', 'totalDebe',
             'totalPrecio', 'totalAcuenta',
             'fecha_ini', 'fecha_fin', 'tipoAnalisis',
-            'procedenciaId', 'gastos', 'totalGastos'
+            'procedenciaId', 'gastos', 'totalGastos',
+            'analisisPagos', 'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago'
         ));
     }
 
@@ -322,17 +348,22 @@ class ReporteController extends Controller
     }
 
     function excelDiario($fechaIni, $fechaFin, $procedenciaId, $tipo){
-        if($procedenciaId == 0){
-            if(strcmp($tipo, '0') == 0)
+        if($procedenciaId == 0) {
+            if (strcmp($tipo, '0') == 0){
                 $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
-            else{
+                $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->get();
+            }else{
                 $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+                $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
             }
         } else {
-            if(strcmp($tipo, '0') == 0)
+            if(strcmp($tipo, '0') == 0) {
                 $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
-            else
+                $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+            }else{
                 $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+                $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+            }
         }
         $gastos = Gasto::whereBetween('fecha', [$fechaIni, $fechaFin])->orderBy('fecha')->get();
 
@@ -346,13 +377,23 @@ class ReporteController extends Controller
             $totalDebe += ($ana->precio - $ana->acuenta);
         }
 
+        $totalPrecioPago = 0;
+        $totalAcuentaPago = 0;
+        $totalDebePago = 0;
+        foreach ($analisisPago as $ana){
+            $totalPrecioPago += $ana->precio;
+            $totalAcuentaPago += $ana->acuenta;
+            $totalDebePago += ($ana->precio - $ana->acuenta);
+        }
+
         $totalGastos = 0;
         foreach ($gastos as $gasto){
             $totalGastos += $gasto->gasto;
         }
         return Excel::download(
             new ReporteDiarioExport(
-                $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe, $totalGastos), 'reportediario'.date('Ymd').'.xlsx');
+                $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe,
+                $totalGastos, $analisisPago, $totalPrecioPago, $totalAcuentaPago, $totalDebePago), 'reportediario'.date('Ymd').'.xlsx');
     }
 
     function excelAdminDiario($fechaIni, $fechaFin, $procedenciaId){
