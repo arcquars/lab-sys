@@ -4,11 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/resources/views/clients/home.blade.php" line="318" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="analisis bethesda">
+    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" afterDir="false" />
     </list>
     <ignored path="public/uploads/20200130022711.png" />
@@ -81,8 +78,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReporteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="395" column="96" selection-start-line="395" selection-start-column="96" selection-end-line="395" selection-end-column="96" />
+            <state relative-caret-position="8565">
+              <caret line="584" column="33" selection-start-line="584" selection-start-column="33" selection-end-line="584" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporte-diario-excel.blade.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -90,26 +101,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
+            <state relative-caret-position="795">
               <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="160" column="7" lean-forward="true" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
+            <state relative-caret-position="45">
+              <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="244" column="25" lean-forward="true" selection-start-line="244" selection-start-column="25" selection-end-line="244" selection-end-column="25" />
+            <state relative-caret-position="123">
+              <caret line="75" column="19" lean-forward="true" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -117,8 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="83" column="107" lean-forward="true" selection-start-line="83" selection-start-column="107" selection-end-line="83" selection-end-column="118" />
+            <state relative-caret-position="1125">
+              <caret line="84" column="105" selection-start-line="84" selection-start-column="105" selection-end-line="84" selection-end-column="114" />
             </state>
           </provider>
         </entry>
@@ -126,10 +137,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="1a6d22f3-cc96-455d-8430-473ee99579bc">
-              <filtering>
-                <filter text="" />
-              </filtering>
+            <state projectRestartId="c2dc0954-ac59-4e05-9204-569a28fd5e66">
+              <filtering />
             </state>
           </provider>
         </entry>
@@ -146,10 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>presio</find>
-      <find>.ajax</find>
-      <find>fcp_error_</find>
-      <find>printErrorMsg</find>
       <find>fecha de</find>
       <find>mgasto</find>
       <find>crear gas</find>
@@ -174,8 +179,12 @@
       <find>reporteDiario(</find>
       <find>reporteDiarioPost</find>
       <find>exportar</find>
-      <find>reportes/reporte-diario-excel</find>
       <find>excelDiario(</find>
+      <find>reportes/reporte-diario-excel</find>
+      <find>excelDiario</find>
+      <find>pdf</find>
+      <find>exportPdf</find>
+      <find>analisisPago</find>
     </findStrings>
     <replaceStrings>
       <replace>(SI)</replace>
@@ -231,7 +240,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" />
         <option value="$PROJECT_DIR$/resources/views/clients/home.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-head.blade.php" />
         <option value="$PROJECT_DIR$/public/light-bootstrap/css/light-bootstrap-dashboard.css" />
@@ -258,7 +266,6 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_02_20_022036_add_is_histopatologico_for_biopsias_table.php" />
         <option value="$PROJECT_DIR$/app/Analisis.php" />
         <option value="$PROJECT_DIR$/resources/views/analisis/includes/action.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php" />
         <option value="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/biopsia/view.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/analisis/home.blade.php" />
@@ -276,12 +283,14 @@
         <option value="$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/citologia/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" />
         <option value="$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" />
         <option value="$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporte-diario-excel.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" />
       </list>
     </option>
   </component>
@@ -419,13 +428,6 @@
             <path>
               <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
               <item name="Clinica" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -479,7 +481,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/export-excel" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -489,15 +491,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/export-excel" />
       <recent name="$PROJECT_DIR$/resources/views/reportes" />
       <recent name="$PROJECT_DIR$/public/ckeditor5" />
       <recent name="$PROJECT_DIR$/resources/views/bethesda" />
-      <recent name="$PROJECT_DIR$/resources/views/export-excel" />
       <recent name="$PROJECT_DIR$/resources/views/gasto" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -620,7 +622,8 @@
       <workItem from="1582516549433" duration="6941000" />
       <workItem from="1582553216537" duration="16700000" />
       <workItem from="1582768570100" duration="3410000" />
-      <workItem from="1582852725540" duration="4421000" />
+      <workItem from="1582852725540" duration="7149000" />
+      <workItem from="1582988579991" duration="532000" />
     </task>
     <task id="LOCAL-00001" summary="Segundo commit">
       <created>1573740837571</created>
@@ -846,17 +849,30 @@
       <option name="project" value="LOCAL" />
       <updated>1582852792220</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Reporte diario correciones">
+      <created>1582858282666</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1582858282666</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Reporte diario exportar a pdf">
+      <created>1582860902517</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1582860902517</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="681204000" />
+    <option name="totallyTimeSpent" value="684464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759614" visible="true" weight="0.33636364" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49759614" visible="true" weight="0.34166667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.50240386" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -896,8 +912,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Crear persona y crear analisis II" />
-    <MESSAGE value="Cambio para demostracion sabado 14" />
     <MESSAGE value="Citologia" />
     <MESSAGE value="Citologia 2" />
     <MESSAGE value="Citologia 3" />
@@ -921,7 +935,9 @@
     <MESSAGE value="Detalles" />
     <MESSAGE value="facturas y otros" />
     <MESSAGE value="analisis bethesda" />
-    <option name="LAST_COMMIT_MESSAGE" value="analisis bethesda" />
+    <MESSAGE value="Reporte diario correciones" />
+    <MESSAGE value="Reporte diario exportar a pdf" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reporte diario exportar a pdf" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -935,13 +951,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-basic-styles/src/underline/underlineui.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1078,16 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1230">
           <caret line="82" column="55" selection-start-line="82" selection-start-column="34" selection-end-line="82" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3570">
-          <caret line="244" column="33" selection-start-line="244" selection-start-column="33" selection-end-line="244" selection-end-column="33" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1250,47 +1249,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="83" column="107" lean-forward="true" selection-start-line="83" selection-start-column="107" selection-end-line="83" selection-end-column="118" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="1a6d22f3-cc96-455d-8430-473ee99579bc">
-          <filtering>
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReporteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="395" column="96" selection-start-line="395" selection-start-column="96" selection-end-line="395" selection-end-column="96" />
+        <state relative-caret-position="8565">
+          <caret line="584" column="33" selection-start-line="584" selection-start-column="33" selection-end-line="584" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporte-diario-excel.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
+        <state relative-caret-position="795">
           <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="244" column="25" lean-forward="true" selection-start-line="244" selection-start-column="25" selection-end-line="244" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="160" column="7" lean-forward="true" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
+        <state relative-caret-position="45">
+          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="84" column="105" selection-start-line="84" selection-start-column="105" selection-end-line="84" selection-end-column="114" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state projectRestartId="c2dc0954-ac59-4e05-9204-569a28fd5e66">
+          <filtering />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="75" column="19" lean-forward="true" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
         </state>
       </provider>
     </entry>

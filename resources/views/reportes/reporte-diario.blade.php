@@ -55,7 +55,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <select name="procedencia" class="form-control">
                             <option value="0">Todos</option>
                             @foreach($procedencias as $procedencia)
@@ -67,7 +67,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input type="submit" value="Buscar" class="btn btn-info">
                         <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar excel</a>
                         <a href="#" onclick="exportPdf(); return false;"  class="btn btn-warning">Exportar pdf</a>
