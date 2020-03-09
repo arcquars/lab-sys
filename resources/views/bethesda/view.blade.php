@@ -16,14 +16,6 @@
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
             <hr>
-            <label class="label-clinica">CELULAS OBSERVADAS:</label>
-            <div class="row">
-                @foreach ($celulasObservadas as $key => $value)
-                    <div class="col-md-4">
-                        <p><i class="far fa-check-square"></i> {{$value}}</p>
-                    </div>
-                @endforeach
-            </div>
             <label class="label-clinica">CALIDAD DE LA MUESTRA:</label>
             <div class="row">
                 <div class="col-md-12">
@@ -36,11 +28,23 @@
                     <p>{{$bethesda->clasificacion_general}}</p>
                 </div>
             </div>
+            @if ($interpretaciones)
+
             <label class="label-clinica">INTERPRETACION / RESULTADOS:</label>
             <div class="row">
                 @foreach ($interpretaciones as $key => $value)
                     <div class="col-md-12">
                         <p><i class="far fa-check-square"></i> {{$key}} - {{$value}}</p>
+                    </div>
+                @endforeach
+            </div>
+            @endif
+            <hr>
+            <label class="label-clinica">FLORA:</label>
+            <div class="row">
+                @foreach ($celulasObservadas as $key => $value)
+                    <div class="col-md-4">
+                        <p><i class="far fa-check-square"></i> {{$value}}</p>
                     </div>
                 @endforeach
             </div>

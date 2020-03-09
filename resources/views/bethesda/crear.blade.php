@@ -94,6 +94,8 @@
                                                 @php
                                                     $valid = false;
                                                 @endphp
+
+                                                @if ($interpretaciones)
                                                 @foreach($interpretaciones as $key1 => $value1)
                                                     @if ($key1==$key)
                                                         @php
@@ -101,6 +103,8 @@
                                                         @endphp
                                                     @endif
                                                 @endforeach
+                                                @endif
+
                                                 @if ($valid)
                                                     <input class="form-check-input" name="interpretaciones[]" type="checkbox" value="{{$key}}" checked>
                                                 @else

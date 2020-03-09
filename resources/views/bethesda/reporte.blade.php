@@ -3,21 +3,6 @@
 <h3 class="h2-cito">INFORME CITOLOGICO - SISTEMA BETHESDA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-@if ($bethesda->celulas_observadas)
-<h4 class="h4-cito">CELULAS OBSERVADAS:</h4>
-<div class="div-campo">
-    <table style="width: 100%">
-        @foreach($celulasObservadas as $key => $value)
-            <tr>
-                @foreach($value as $key1 => $value1)
-                    <td style="width: 33%"><p>(SI) {{$value1}}</p></td>
-                @endforeach
-            </tr>
-        @endforeach
-    </table>
-</div>
-@endif
-<br>
 @if ($bethesda->calidad_muestra)
 <h4 class="h4-cito">CALIDAD DE LA MUESTRA</h4>
 <div class="div-campo">
@@ -38,6 +23,21 @@
         @foreach($interpretaciones as $key => $value)
             <p>{{$value}}</p>
         @endforeach
+    </div>
+@endif
+<br>
+@if ($bethesda->celulas_observadas)
+    <h4 class="h4-cito">FLORA:</h4>
+    <div class="div-campo">
+        <table style="width: 100%">
+            @foreach($celulasObservadas as $key => $value)
+                <tr>
+                    @foreach($value as $key1 => $value1)
+                        <td style="width: 33%"><p>(SI) {{$value1}}</p></td>
+                    @endforeach
+                </tr>
+            @endforeach
+        </table>
     </div>
 @endif
 <br>

@@ -1,9 +1,11 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
-<h3 class="h4-cito">INFORME CITOLOGICO</h3>
+<h3 class="h4-cito" style="text-align: center;">INFORME CITOLOGICO</h3>
+<div style="height: 4px;"></div>
 @include('citologia.partial.reporte-client', compact('analisis'))
-
-<p class="p-dato"><b>Clasificacion del Papanicolaou Clase: </b> {{'( '.$resultados->papanicolaou_clase1.' ) '.$resultados->papanicolaou_clase2}}</p>
+<br>
+<p class="p-datos" style="text-align: center; font-size: 12px; margin: 4px;"><b>Clasificacion del Papanicolaou Clase: </b> {{'( '.$resultados->papanicolaou_clase1.' ) '.$resultados->papanicolaou_clase2}}</p>
+<hr style="margin: 5px">
 <h3 class="h4-cito" style="text-transform: uppercase;">Extendido Compatible con los Diagnosticos</h3>
 @php
     $secciones = array_chunk(Config::get('clinica.extendido_compatible'), 3);
@@ -22,7 +24,7 @@
                             @endphp
                         @endif
                     @endforeach
-                    <td width="33%"><p class="p-dato">{{ $item }} {{ $value12}}</p></td>
+                    <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
                 @endforeach
 
         </tr>
@@ -40,10 +42,10 @@
                 @foreach ($seccionOMG as $seccOmg)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-dato">{{str_replace('-', ' ', $seccOmg->key)}}</p>
+                            <p class="p-datos">{{str_replace('-', ' ', $seccOmg->key)}}</p>
                         </td>
                         <td width="35%">
-                            <p class="p-dato">{{$seccOmg->value}}</p>
+                            <p class="p-datos">{{$seccOmg->value}}</p>
                         </td>
                     </tr>
                 @endforeach
@@ -54,10 +56,10 @@
                 @foreach ($seccionRichart as $seccR)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-dato">{{str_replace('-', ' ', $seccR->key)}}</p>
+                            <p class="p-datos">{{str_replace('-', ' ', $seccR->key)}}</p>
                         </td>
                         <td width="35%">
-                            <p class="p-dato">{{$seccR->value}}</p>
+                            <p class="p-datos">{{$seccR->value}}</p>
                         </td>
                     </tr>
                 @endforeach
@@ -68,10 +70,10 @@
                 @foreach ($seccionBeth as $seccB)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-dato">{{str_replace('-', ' ', $seccB->key)}}</p>
+                            <p class="p-datos">{{str_replace('-', ' ', $seccB->key)}}</p>
                         </td>
                         <td width="35%">
-                            <p class="p-dato">{{$seccB->value}}</p>
+                            <p class="p-datos">{{$seccB->value}}</p>
                         </td>
                     </tr>
                 @endforeach
@@ -98,7 +100,7 @@
                         @endphp
                     @endif
                 @endforeach
-                <td width="33%"><p class="p-dato">{{ $item }} {{ $value12}}</p></td>
+                <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
             @endforeach
 
         </tr>
@@ -123,7 +125,7 @@
                         @endphp
                     @endif
                 @endforeach
-                <td width="33%"><p class="p-dato">{{ $item }} {{ $value12}}</p></td>
+                <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
             @endforeach
 
         </tr>

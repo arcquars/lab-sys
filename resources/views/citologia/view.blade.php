@@ -130,14 +130,14 @@
                     @foreach($seccionEstudioCitoHormonal as $seccEstudioCitoHormonal)
                         <dl class="row row-citologia">
                             <dt class="col-md-8">{{$seccEstudioCitoHormonal->key}}:</dt>
-                            <dd class="col-md-4">{{$seccEstudioCitoHormonal->value}}</dd>
+                            <dd class="col-md-4">{{($seccEstudioCitoHormonal->value)? $seccEstudioCitoHormonal->value : '--'}}</dd>
                         </dl>
                     @endforeach
                         <hr>
                         @foreach($seccionDesviaciones as $seccDesviaciones)
                             <dl class="row row-citologia">
                                 <dt class="col-md-8">{{$seccDesviaciones->key}}:</dt>
-                                <dd class="col-md-4">{{$seccDesviaciones->value}}</dd>
+                                <dd class="col-md-4">{{($seccDesviaciones->value)? $seccDesviaciones->value : '--'}}</dd>
                             </dl>
                         @endforeach
                 </div>
@@ -145,7 +145,7 @@
                     @foreach($seccionEstudioCitoPosmenopausia as $seccCitoPos)
                         <dl class="row row-citologia">
                             <dt class="col-md-8">{{$seccCitoPos->key}}:</dt>
-                            <dd class="col-md-4">{{$seccCitoPos->value}}</dd>
+                            <dd class="col-md-4">{{($seccCitoPos->value)? $seccCitoPos->value : '--'}}</dd>
                         </dl>
                     @endforeach
                 </div>

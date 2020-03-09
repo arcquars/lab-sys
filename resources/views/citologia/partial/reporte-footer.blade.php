@@ -1,4 +1,4 @@
-<div style="height: 85px;"></div>
+<div style="height: 75px;"></div>
 <div style="width: 100%; text-align: center;">
     <p style="margin-bottom: 1px;">__________________</p>
 <p style="margin-top: 1px; font-size: 10px">{{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}} </p>

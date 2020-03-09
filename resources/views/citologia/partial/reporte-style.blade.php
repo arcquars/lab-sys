@@ -24,7 +24,7 @@
 
     .h4-cito{
         color: #053D62;
-        font-size: 12px;
+        font-size: 11px;
         margin: 0;
         padding: 0;
     }
@@ -35,6 +35,16 @@
 
     .p-dato {
         font-size: 16px;
+        color: #012035;
+    }
+
+    .p-datos {
+        font-size: 10px;
+        color: #012035;
+    }
+
+    .p-datos-12 {
+        font-size: 12px;
         color: #012035;
     }
 
