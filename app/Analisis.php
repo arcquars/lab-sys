@@ -25,10 +25,13 @@ class Analisis extends Model
         'procedencia',
         'person_id',
         'pago_efectuado',
+        'telefono_referencia',
         'doctor',
         'movimiento',
         'persona_entrega',
-        'fecha_cierre'
+        'fecha_cierre',
+        'nit',
+        'razon_social'
     ];
 
     public function person(){

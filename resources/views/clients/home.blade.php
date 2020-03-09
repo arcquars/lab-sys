@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="simple-datatable-example" class="table table-bordered">
+            <table id="simple-datatable-example" class="table table-bordered table-clinica">
                 <thead class="thead-dark">
                 <tr>
                     <th>CI</th>

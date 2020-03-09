@@ -64,16 +64,30 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <p><b>Precio: </b> <span id="pago_precio">450</span></p>
+                                <p><b>Precio: </b> <span id="pago_precio"></span></p>
                             </div>
                             <div class="col-md-6">
-                                <p><b>A cuenta: </b> <span id="pago_acuenta">50</span></p>
+                                <p><b>A cuenta: </b> <span id="pago_acuenta"></span></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6"></div>
                             <div class="col-md-6" style="text-align: right;">
-                                <p style="color: #FF9500; font-size: 1rem;"><b>PAGO: </b> <span id="pago_pago">50</span></p>
+                                <p style="color: #FF9500; font-size: 1rem;"><b>PAGO: </b> <span id="pago_pago"></span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nit">Nit</label>
+                                    <input id="realizar_pago_nit" type="text" name="nit" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="razon_social">Razon Social</label>
+                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -251,17 +265,22 @@
                     $('#pago_acuenta').empty().append(data.success.acuenta);
                     $('#pago_pago').empty().append(data.success.precio-data.success.acuenta);
                     $('#i_analisis_id').val(analisisId);
+                    $('#realizar_pago_nit').val(data.success.nit);
+                    $('#realizar_pago_razon_social').val(data.success.razon_social);
+
                     $('#pagoModal').modal('show');
                 },
             });
         }
 
         function savePago(){
-            analisisId = $('#i_analisis_id').val();
+            var analisisId = $('#i_analisis_id').val();
+            var nit = $('#realizar_pago_nit').val();
+            var razon_social = $('#realizar_pago_razon_social').val();
             $.ajax({
                 url: "{{ route('analisis.aSavePago') }}",
                 type: 'POST',
-                data: {'analisis_id': analisisId},
+                data: {'analisis_id': analisisId, 'nit': nit, 'razon_social': razon_social},
                 success: function (data) {
                     $('#pagoModal').modal('hide');
                     $('#tAnalisis').DataTable().ajax.reload();

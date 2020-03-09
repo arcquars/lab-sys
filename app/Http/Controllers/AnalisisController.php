@@ -7,6 +7,7 @@ use App\Convenio;
 use App\Doctor;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
+use App\Http\Requests\UpdateAnalisisPost;
 use App\Institucion;
 use App\Person;
 use App\Resultado;
@@ -17,6 +18,7 @@ use Milon\Barcode\DNS2D;
 use PDF;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\Integer;
 
 class AnalisisController extends Controller
 {
@@ -133,24 +135,31 @@ class AnalisisController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Analisis  $analisis
+     * @param  integer  $analisis
      * @return \Illuminate\Http\Response
      */
-    public function edit(Analisis $analisis)
+    public function edit($id)
     {
-        //
+        $procedencias = Institucion::all();
+        $analisis = Analisis::find($id);
+        $doctores = Doctor::all();
+        return view('analisis.edit',compact('analisis', 'procedencias', 'doctores'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Analisis  $analisis
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Analisis $analisis)
+    public function update(UpdateAnalisisPost $request, $id)
     {
-        //
+        $analisis = Analisis::find($id);
+        $analisis->fill($request->all());
+        $analisis->update();
+        return redirect()->action(
+            'AnalisisController@index');
     }
 
     /**
@@ -314,10 +323,14 @@ class AnalisisController extends Controller
 
     public function ajaxRealizarPago(Request $request){
         $analisisId = $request->get('analisis_id');
+        $nit = $request->get('nit', '');
+        $razon_social = $request->get('razon_social', '');
         $analisis = Analisis::find($analisisId);
         $analisis->pago_efectuado = $analisis->precio - $analisis->acuenta;
         $analisis->fecha_pago_efectuado = Carbon::now();
         $analisis->pago_efectuado_user = auth()->id();
+        $analisis->nit = $nit;
+        $analisis->razon_social = $razon_social;
 
         if($analisis->update())
             return response()->json(['success' => '1']);
@@ -331,7 +344,9 @@ class AnalisisController extends Controller
             'cliente' => $analisis->person->nombres.' '.$analisis->person->apellidos,
             'doctor' => $analisis->doctor,
             'precio' => $analisis->precio,
-            'acuenta' => $analisis->acuenta
+            'acuenta' => $analisis->acuenta,
+            'nit' => $analisis->nit,
+            'razon_social' => $analisis->razon_social,
         );
         return response()->json(['success' => $resultado]);
     }

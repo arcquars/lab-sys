@@ -29,13 +29,15 @@
     <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>
 </dl>
 <dl class="row row-citologia">
-    <dt class="col-md-3">
+    <dt class="col-md-2">
         <button type="button"
-                class="btn btn-outline-info btn-block"
-                class="btn btn-primary" data-toggle="modal"
+                class="btn btn-outline-info btn-block" data-toggle="modal"
                 data-target="#mEditarCosto">Editar Precio</button>
     </dt>
-    <dd class="col-md-3"></dd>
+    <dd class="col-md-2">
+        <a href="{{ route('analisis.edit', $analisis) }}"
+                class="btn btn-outline-success btn-block">Editar Analisis</a>
+    </dd>
     <dd class="col-md-6">
         @if($analisis->hasHistory())
             <p class="text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></p>
