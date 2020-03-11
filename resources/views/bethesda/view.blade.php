@@ -16,6 +16,33 @@
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
             <hr>
+            <label class="label-clinica">CELULAS OBSERVADAS:</label>
+            <div class="row">
+                <div class="col-md-4">
+                    @if($bethesda->escamosas == 1)
+                        <p><i class="far fa-check-square"></i> Escamosas</p>
+                        @else
+                        <p><i class="far fa-square"></i> Escamosas</p>
+                    @endif
+
+                </div>
+                <div class="col-md-4">
+                    @if($bethesda->glandulares == 1)
+                        <p><i class="far fa-check-square"></i> Glandulares</p>
+                    @else
+                        <p><i class="far fa-square"></i> Glandulares</p>
+                    @endif
+
+                </div>
+                <div class="col-md-4">
+                    @if($bethesda->metaplasia == 1)
+                        <p><i class="far fa-check-square"></i> Metaplasia</p>
+                    @else
+                        <p><i class="far fa-square"></i> Metaplasia</p>
+                    @endif
+
+                </div>
+            </div>
             <label class="label-clinica">CALIDAD DE LA MUESTRA:</label>
             <div class="row">
                 <div class="col-md-12">

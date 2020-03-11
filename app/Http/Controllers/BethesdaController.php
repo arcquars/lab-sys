@@ -63,6 +63,10 @@ class BethesdaController extends Controller
         else
             $bethesda->clasificacion_general = null;
 
+        $bethesda->escamosas = $request->post('escamosas', 0);
+        $bethesda->glandulares = $request->post('glandulares', 0);
+        $bethesda->metaplasia = $request->post('metaplasia', 0);
+
         $bethesda->interpretacion = Bethesda::getStringFromArrayInterpretaciones($request->post('interpretaciones', array()));
         $bethesda->celulas_observadas = Bethesda::getStringFromArrayCelulasObservadas($request->post('celulas_observadas', array()));
         $bethesda->observaciones = $request->post('observaciones');

@@ -32,7 +32,8 @@ class StoreAnalisisPost extends FormRequest
         }
 
         $rulesR = [
-            'doctor' => 'required|min:5|max:200|countWordRule',
+//            'doctor' => 'required|min:5|max:200|countWordRule',
+            'doctor' => 'required|min:5|max:200',
             'procedencia' => 'required',
             'tipo_analisis' => 'required',
             'fecha' => 'required',
@@ -41,7 +42,7 @@ class StoreAnalisisPost extends FormRequest
             'region' => 'required|max:200',
             'precio' => 'required|numeric|min:0|max:10000',
             'acuenta' => 'lte:precio|nullable',
-            'nit' => 'numeric',
+            'nit' => 'numeric|nullable',
         ];
 
         for ($i=0; $i<count($convenios); $i++){

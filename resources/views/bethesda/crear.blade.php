@@ -35,6 +35,44 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="bethesda" value="{{$bethesda ? $bethesda->id : ''}}">
+
+
+
+                <div class="form-group">
+                    <label for="calidad_muestra">Celulas Observadas</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input name="escamosas" class="form-check-input" type="checkbox" value="1" @if ($bethesda) @if($bethesda->escamosas == 1) checked @endif  @endif>
+                                    <span class="form-check-sign"></span>
+                                    Escamosas
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input name="glandulares" class="form-check-input" type="checkbox" value="1" @if ($bethesda) @if($bethesda->glandulares == 1) checked @endif  @endif>
+                                    <span class="form-check-sign"></span>
+                                    Glandulares
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input name="metaplasia" class="form-check-input" type="checkbox" value="1" @if ($bethesda) @if($bethesda->metaplasia == 1) checked @endif  @endif>
+                                    <span class="form-check-sign"></span>
+                                    Metaplasia
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="form-group">
                     <label for="calidad_muestra">Calidad de la Muestra</label>
                     <select name="calidad_muestra" class="form-control">
