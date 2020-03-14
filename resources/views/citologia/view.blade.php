@@ -86,6 +86,7 @@
                     $item = '(NO) ';
                     @endphp
                     @foreach($seccionReacInflamatoria as $seccReacInfla)
+
                         @if (strcmp($seccReacInfla->key, $extComp) == 0)
                             @php
                                 $item = '( SI ) ';
@@ -105,7 +106,7 @@
                         $item = '(NO) ';
                     @endphp
                     @foreach($seccionEstudioMicro as $seccEstudioMicro)
-                        @if (strcmp($seccEstudioMicro->key, $extComp) == 0)
+                        @if (strcmp($seccEstudioMicro->key, $extComp) == 0 && strcmp($seccEstudioMicro->value, '') != 0)
                             @php
                                 $item = '( SI ) ';
                             @endphp

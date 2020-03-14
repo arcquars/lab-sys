@@ -46,7 +46,7 @@ Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@get
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
 Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
 Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPago')->name('analisis.aGetAnalisisPago');
-Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
+Route::post('/analisis/realizarpago', 'AnalisisController@reporte-admin-diario')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
@@ -91,6 +91,8 @@ Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.re
 Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
 Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
+
+Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 
 Route::get('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacion')->name('reporte.reporte_facturacion');
 Route::post('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacionPost')->name('reporte.reporte_facturacion_post');

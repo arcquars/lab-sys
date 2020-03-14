@@ -1,6 +1,6 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
-<h3 class="h2-cito">INFORME INMUNOHISTOQUIMICA</h3>
+<h3 class="h4-cito" style='text-align: center;'>INFORME INMUNOHISTOQUIMICA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
 <h4 class="h4-cito">Interpretacion</h4>

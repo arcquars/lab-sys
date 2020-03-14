@@ -1,3 +1,6 @@
+<?php
+use \App\Helpers\HelperConfig;
+?>
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Resultado Analisis', 'navName' => 'Resultado Analisis', 'activeButton' => 'analisisActiveButton'])
 
 @section('content')
@@ -7,7 +10,7 @@
             <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
             <li class="breadcrumb-item">Crear Analisis</li>
 
-        </ol>
+        </ol>EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS
     </nav>
     <div class="card">
         <div class="card-header">
@@ -53,23 +56,23 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS
-                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#ecdModal">
-                            <i class="far fa-plus-square fa-lg"></i>
-                        </a>
-                    </p>
+                    <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS</p>
                     <div id="ecdList" class="row">
-                        @if ($resultados)
-                            @foreach($seccECD as $secc)
-                                <div class="col-md-3">
-                                    <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
-                                        <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemExtendido(this); return false;">
-                                            <i class="far fa-trash-alt"></i>
-                                        </a> {{$secc->key}}</p>
-                                    <input type="checkbox" style="visibility: hidden;" name="ExtComp[]" checked="" value="{{$secc->key}}">
+                        @foreach(Config::get('clinica.extendido_compatible') as $extComp)
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input name="ExtComp[]" class="form-check-input" type="checkbox" value="{{$extComp}}"
+                                               @if ($resultados && HelperConfig::existEdcKey($seccECD, $extComp))
+                                            checked
+                                               @endif
+                                        >
+                                        <span class="form-check-sign"></span>
+                                        {{$extComp}}
+                                    </label>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        @endforeach
                     </div>
                     <hr>
                     <div class="row">
@@ -340,48 +343,38 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="text-muted">REACCION INFLAMATORIA
-                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#reacInflaModal">
-                            <i class="far fa-plus-square fa-lg"></i>
-                        </a>
-                    </p>
+                    <p class="text-muted">REACCION INFLAMATORIA</p>
                     <div id="reacInflamatoriaList" class="row">
-                        @if ($resultados)
-                            @foreach($seccReaccInfl as $secc)
-                                <div class="col-md-4 row">
-                                    <div class="col-md-12">
-                                        <p style="color: #000; font-size: .8rem; margin-bottom: 2px;">
-                                            <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemReacInfla(this); return false;">
-                                                <i class="far fa-trash-alt"></i></a> {{$secc->key}} <i class="far fa-check-square"></i></p>
-                                        <input type="hidden" name="reacInfla[{{$secc->key}}]" value="SI">
-                                    </div>
+                        @foreach(Config::get('clinica.reac_inflamatoria') as $key => $reacInfla)
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input name="reacInfla[{{$reacInfla}}]" class="form-check-input" type="checkbox" value="SI"
+                                               @if ($resultados && HelperConfig::existEdcKey($seccReaccInfl, $key))
+                                               checked
+                                                @endif
+                                        >
+                                        <span class="form-check-sign"></span>
+                                        {{$reacInfla}}
+                                    </label>
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        @endforeach
                     </div>
                     <hr>
                     <p class="text-muted">ESTUDIO MICROBIOLOGICO
-                        <a href="#" class="btn btn-link btn-link-clinica" data-toggle="modal" data-target="#estMicroModal">
-                            <i class="far fa-plus-square fa-lg"></i>
-                        </a>
                     </p>
                     <div id="estMicroList" class="row">
-                        @if ($resultados)
-                            @foreach($seccEstMicro as $secc)
-                                <div class="col-md-4 row">
-                                    <div class="col-md-6">
-                                        <p style="color: #000; font-size: .8rem; margin-bottom: 2px; text-align: right;">
-                                            <a href="#" class="btn btn-link" style="padding: 2px;" onclick="removeItemEstudioMicro(this); return false;">
-                                                <i class="far fa-trash-alt"></i>
-                                            </a> {{$secc->key}}
-                                        </p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" name="estudioMicro[{{$secc->key}}]" value="{{$secc->value}}" readonly="">
-                                    </div>
+                        @foreach(Config::get('clinica.estudio_microbiologico') as $estMicro)
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{$estMicro}}</label>
+                                    <input name="estudioMicro[{{$estMicro}}]" type="text" class="form-control"
+                                           value="@if ($resultados && HelperConfig::existEdcKey($seccEstMicro, $estMicro)){{HelperConfig::getValueSeccionByKey($seccEstMicro, $estMicro)}}@endif"
+                                    >
                                 </div>
-                            @endforeach
-                        @endif
+                            </div>
+                        @endforeach
                     </div>
                     <hr>
 
@@ -757,7 +750,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cerrar</a>
                     <button type="submit" class="btn btn-primary">
                         @if ($resultados)

@@ -166,10 +166,9 @@ class CitologiaController extends Controller
 
     public function resultadosEdit(StoreResultadosPost $request)
     {
+//        dd($request->input('estudioMicro'));
         $resultado = Resultado::where('analisis_id', $request->input('analisis_id'))->first();
-//        echo 'dd: '.$request->input('analisis_id');
-//        dd($resultado->id);
-//        die();
+
         $resultado->papanicolaou_clase1 = $request->input('papanicolaou_clase1');
         $resultado->papanicolaou_clase2 = $request->input('papanicolaou_clase2');
         $resultado->observaciones1 = $request->input('observaciones1');

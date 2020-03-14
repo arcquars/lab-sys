@@ -119,7 +119,7 @@
                     $item = '( _ ) ';
                 @endphp
                 @foreach($seccionEstudioMicro as $seccEstMicro)
-                    @if (strcmp($seccEstMicro->key, $value12) == 0)
+                    @if (strcmp($seccEstMicro->key, $value12) == 0 && strcmp($seccEstMicro->value, '') != 0)
                         @php
                             $item = '(SI) ';
                         @endphp
