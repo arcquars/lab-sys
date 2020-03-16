@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\ClinicaClass\Reporte2;
+use App\Convenio;
+use App\Exports\ReporteAdminDiaConvenioExport;
 use App\Exports\ReporteAdminDiaExport;
 use App\Exports\ReporteAdminExport;
 use App\Exports\ReporteDiarioExport;
@@ -590,5 +592,55 @@ class ReporteController extends Controller
 
         $fileNombre = 'reporte-diario'.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
+    }
+
+    public function reporteAdminDiarioConvenio()
+    {
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+        $mes = $date->format('m');
+        $day_last = $date->format('t');
+
+        $fecha_ini = $year.'-'.$mes.'-01';
+        $fecha_fin = $year.'-'.$mes.'-'.$day_last;
+
+        $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
+
+        $convenios = Convenio::with(['analisis', 'analisis.institucion'])->whereHas('analisis', function($query) use ($fecha_ini, $fecha_fin){
+            $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+        })->get();
+
+        return view('reportes.reporte-admin-diario-convenio', compact(
+            'fecha_ini', 'fecha_fin',
+            'convenios', 'meses', 'year', 'year_old',
+            'day_last'
+        ));
+    }
+
+    public function reporteAdminDiarioConvenioPost(Request $request)
+    {
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
+
+        $convenios = Convenio::with(['analisis', 'analisis.institucion'])->whereHas('analisis', function($query) use ($fecha_ini, $fecha_fin){
+            $query->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+        })->get();
+
+        return view('reportes.reporte-admin-diario-convenio', compact(
+            'fecha_ini', 'fecha_fin',
+            'analisis', 'meses', 'year',
+            'convenios'
+        ));
+    }
+
+    function excelAdminConvenio($fechaIni, $fechaFin){
+
+        $convenios = Convenio::with(['analisis', 'analisis.institucion'])->whereHas('analisis', function($query) use ($fechaIni, $fechaFin){
+            $query->whereBetween('fecha', [$fechaIni, $fechaFin]);
+        })->get();
+
+        return Excel::download(
+            new ReporteAdminDiaConvenioExport(
+                $convenios, $fechaIni, $fechaFin), 'reporteadminconveniodia'.date('Ymd').'.xlsx');
     }
 }

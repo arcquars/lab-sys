@@ -92,7 +92,9 @@ Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('repor
 Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
 
-Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
+Route::get('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenio')->name('reporte.reporte_admin_diario_convenio');
+Route::post('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenioPost')->name('reporte.reporte_admin_diario_convenio_post');
+Route::get('/reportes/reporte-admin-diario-convenio/{fechaIni}/{fechaFin}', 'ReporteController@excelAdminConvenio')->name('reporte.reporte_admin_convenio');
 
 Route::get('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacion')->name('reporte.reporte_facturacion');
 Route::post('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacionPost')->name('reporte.reporte_facturacion_post');

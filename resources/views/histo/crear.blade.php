@@ -106,18 +106,24 @@
                 selector: '#ta-interpretacion',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-tecnico') readonly : 1 @endcannot
             });
             tinymce.init({
                 selector: '#ta-tecnica',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-tecnico') readonly : 1 @endcannot
             });
             tinymce.init({
                 selector: '#ta-bibliografia',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-tecnico') readonly : 1 @endcan
             });
         });

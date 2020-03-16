@@ -212,18 +212,24 @@
                 selector: '#ta-macroscopia',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-tecnico') readonly : 1 @endcannot
             });
             tinymce.init({
                 selector: '#ta-microscopia',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-dr') readonly : 1 @endcannot
             });
             tinymce.init({
                 selector: '#ta-diagnostico',
                 toolbar: "undo redo | bold italic | link image | underline",
                 menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
                 @cannot('manage-users-dr') readonly : 1 @endcannot
             });
 
