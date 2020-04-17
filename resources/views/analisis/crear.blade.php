@@ -109,16 +109,24 @@
                         </div>
                     </div>
                     <div class="row banca_seccion">
-                        <div class="col-md-6 form-group">
-                            <label for="bancaMatricula">Matricula del paciente</label>
+                        <div class="col-md-4 form-group">
+                            <label for="bancaInstitucion" style="color: #000;">Institucion</label>
+                            <input type="text" name="bancaInstitucion" class="form-control @error('bancaInstitucion') is-invalid @enderror"
+                                   value="{{old('bancaInstitucion')}}">
+                            @error('bancaInstitucion')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="bancaMatricula" style="color: #000;">Matricula del paciente</label>
                             <input type="text" name="bancaMatricula" class="form-control @error('bancaMatricula') is-invalid @enderror"
                                    value="{{old('bancaMatricula')}}">
                             @error('bancaMatricula')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="bancaPreAfiliacion">Pre afiliacion</label>
+                        <div class="col-md-4 form-group">
+                            <label for="bancaPreAfiliacion" style="color: #000;">Pre afiliacion</label>
                             <input type="text" name="bancaPreAfiliacion" class="form-control @error('bancaPreAfiliacion') is-invalid @enderror"
                                    value="{{old('bancaPreAfiliacion')}}">
                             @error('bancaPreAfiliacion')
@@ -202,7 +210,7 @@
                     </div>
                     <div class="row banca_seccion">
                         <div class="col-md-4 form-group">
-                            <label for="bancaEspecialidad">Especialidad</label>
+                            <label for="bancaEspecialidad" style="color: #000;">Especialidad</label>
                             <input type="text" name="bancaEspecialidad" class="form-control @error('bancaEspecialidad') is-invalid @enderror"
                                    value="{{old('bancaEspecialidad')}}">
                             @error('bancaEspecialidad')
@@ -210,7 +218,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="bancaAmbulatorio">Ambulatorio</label>
+                            <label for="bancaAmbulatorio" style="color: #000;">Ambulatorio</label>
                             <input type="text" name="bancaAmbulatorio" class="form-control @error('bancaAmbulatorio') is-invalid @enderror"
                                    value="{{old('bancaAmbulatorio')}}">
                             @error('bancaAmbulatorio')
@@ -218,7 +226,7 @@
                             @enderror
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="bancaHospitalizado">Hospitalizado</label>
+                            <label for="bancaHospitalizado" style="color: #000;">Hospitalizado</label>
                             <input type="text" name="bancaHospitalizado" class="form-control @error('bancaHospitalizado') is-invalid @enderror"
                                    value="{{old('bancaHospitalizado')}}">
                             @error('bancaHospitalizado')

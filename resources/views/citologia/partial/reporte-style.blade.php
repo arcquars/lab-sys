@@ -22,9 +22,16 @@
         padding: 0;
     }
 
-    .h4-cito{
+    .h4-cito-1{
         color: #053D62;
         font-size: 18px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .h4-cito{
+        color: #053D62;
+        font-size: 10px;
         margin: 0;
         padding: 0;
     }

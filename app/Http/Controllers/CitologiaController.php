@@ -244,11 +244,22 @@ class CitologiaController extends Controller
         $seccionEstudioCitoPosmenopausia = Seccion::getArraySeccionesByCitoPosmenopausia($resultados->secciones);
         $seccionDesviaciones = Seccion::getArraySeccionesByDesviaciones($resultados->secciones);
 
+        $reacInflaAusente = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'AUSENTE');
+        $reacInflaLeve = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'LEVE');
+        $reacInflaVagina = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'VAGINA');
+        $reacInflaEndocervix = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'ENDOCERVIX');
+        $reacInflaModerada = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'MODERADA');
+        $reacInflaCervix = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'CERVIX');
+        $reacInflaOtros = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'OTROS');
+        $reacInflaAcentuada = Seccion::getArraySeccionesByReacInflamatorioByName($resultados->secciones, 'ACENTUADA');
+
         $pdf = PDF::loadView('citologia.reporte', compact(
             'analisis', 'resultados', 'seccionOMG',
             'seccionBeth', 'seccionRichart', 'seccionReacInflamatoria',
             'seccionEstudioMicro', 'seccionEstudioCitoHormonal', 'seccionEstudioCitoPosmenopausia',
-            'seccionDesviaciones',
+            'seccionDesviaciones', 'reacInflaAusente', 'reacInflaLeve', 'reacInflaVagina',
+            'reacInflaEndocervix', 'reacInflaModerada', 'reacInflaCervix', 'reacInflaOtros',
+            'reacInflaAcentuada',
             'seccionExtendidoCompatible'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css

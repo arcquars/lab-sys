@@ -1,6 +1,6 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
-<h3 class="h4-cito" style='text-align: center;'>INFORME HISTOPATOLOGICO</h3>
+<h3 class="h4-cito-1" style='text-align: center;'>INFORME HISTOPATOLOGICO</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
 <table style="width: 100%;">

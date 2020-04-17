@@ -80,20 +80,20 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nit">Nit</label>
-                                    <input id="realizar_pago_nit" type="text" name="nit" class="form-control">
+                                    <input id="realizar_pago_nit" type="text" name="nit" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="razon_social">Razon Social</label>
-                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control">
+                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" onclick="savePago();" class="btn btn-primary">Realizar Pago</button>
+                        <button type="submit" class="btn btn-primary">Realizar Pago</button>
                     </div>
                 </form>
             </div>
@@ -240,6 +240,11 @@
                         "previous": "Anterior"
                     }
                 },
+            });
+
+            $('#f_realizarpago').submit(function( event ) {
+                savePago();
+                event.preventDefault();
             });
 
         });

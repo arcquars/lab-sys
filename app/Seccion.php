@@ -91,6 +91,21 @@ class Seccion extends Model
         return $seccs;
     }
 
+    public static function getArraySeccionesByReacInflamatorioByName($secciones, $name){
+
+        $resultado = '';
+        foreach ($secciones as $seccion){
+            if(strcmp($seccion->seccion, Seccion::REACCION_INFLAMATORIA) == 0 && strcmp($seccion->key, $name) == 0)
+                $resultado = '('.$seccion->value.') '.$seccion->key;
+        }
+
+        if(strcmp($resultado, '') == 0){
+            return '(NO) '.$name;
+        }
+        return $resultado;
+    }
+
+
     public static function getArraySeccionesByExtendidoCompatible($secciones){
         $seccs = array();
         foreach ($secciones as $seccion){

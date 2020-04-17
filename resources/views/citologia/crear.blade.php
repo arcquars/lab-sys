@@ -59,7 +59,7 @@ use \App\Helpers\HelperConfig;
                     <p class="text-muted">EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS</p>
                     <div id="ecdList" class="row">
                         @foreach(Config::get('clinica.extendido_compatible') as $extComp)
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-check">
                                     <label class="form-check-label">
                                         <input name="ExtComp[]" class="form-check-input" type="checkbox" value="{{$extComp}}"
@@ -267,23 +267,23 @@ use \App\Helpers\HelperConfig;
                                             $seccAux = null;
                                         @endphp
                                         @foreach($seccHichart as $secc)
-                                            @if (strcmp($secc->key, 'nic-vi') == 0)
+                                            @if (strcmp($secc->key, 'nic-iii-i') == 0)
                                                 @php
                                                     $seccAux = $secc;
                                                 @endphp
                                             @endif
                                         @endforeach
                                         @if(isset($seccAux))
-                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]" checked>
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii-i]" checked>
                                             @else
-                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]">
+                                            <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii-i]">
                                             @endif
                                     @else
-                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-vi]">
+                                        <input class="form-check-input" type="checkbox" value="SI" name="hichart[nic-iii-i]">
                                     @endif
 
                                     <span class="form-check-sign"></span>
-                                    NIC VI
+                                    NIC III
                                 </label>
                             </div>
                         </div>
@@ -345,20 +345,28 @@ use \App\Helpers\HelperConfig;
                     <hr>
                     <p class="text-muted">REACCION INFLAMATORIA</p>
                     <div id="reacInflamatoriaList" class="row">
+                        <?php $indiceInflamatoria = 0; ?>
                         @foreach(Config::get('clinica.reac_inflamatoria') as $key => $reacInfla)
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input name="reacInfla[{{$reacInfla}}]" class="form-check-input" type="checkbox" value="SI"
-                                               @if ($resultados && HelperConfig::existEdcKey($seccReaccInfl, $key))
-                                               checked
-                                                @endif
-                                        >
-                                        <span class="form-check-sign"></span>
-                                        {{$reacInfla}}
-                                    </label>
-                                </div>
-                            </div>
+                            <?php $indiceInflamatoria++; ?>
+                            @if ($indiceInflamatoria == 5 || $indiceInflamatoria == 8)
+                                    <div class="col-md-3">
+                                    </div>
+                                @endif
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input name="reacInfla[{{$reacInfla}}]" class="form-check-input" type="checkbox" value="SI"
+                                                       @if ($resultados && HelperConfig::existEdcKey($seccReaccInfl, $key))
+                                                       checked
+                                                        @endif
+                                                >
+                                                <span class="form-check-sign"></span>
+                                                {{$reacInfla}}
+                                            </label>
+                                        </div>
+                                    </div>
+
+
                         @endforeach
                     </div>
                     <hr>
@@ -366,7 +374,7 @@ use \App\Helpers\HelperConfig;
                     </p>
                     <div id="estMicroList" class="row">
                         @foreach(Config::get('clinica.estudio_microbiologico') as $estMicro)
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{$estMicro}}</label>
                                     <input name="estudioMicro[{{$estMicro}}]" type="text" class="form-control"

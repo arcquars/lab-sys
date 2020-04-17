@@ -214,7 +214,7 @@
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
-                @cannot('manage-users-tecnico') readonly : 1 @endcannot
+                @cannot('manage-users-all') readonly : 1 @endcannot
             });
             tinymce.init({
                 selector: '#ta-microscopia',

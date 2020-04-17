@@ -25,7 +25,7 @@ class StoreResultadosPost extends FormRequest
     {
         return [
             'papanicolaou_clase1' => 'required',
-            'papanicolaou_clase2' => 'required'
+//            'papanicolaou_clase2' => 'required'
         ];
     }
 

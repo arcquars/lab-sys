@@ -1,6 +1,6 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
-<h3 class="h4-cito" style="text-align: center;">INFORME CITOLOGICO</h3>
+<h3 class="h4-cito-1" style="text-align: center;">INFORME CITOLOGICO</h3>
 <div style="height: 4px;"></div>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
@@ -83,28 +83,43 @@
 </table>
 <br>
 <h3 class="h4-cito" style="text-transform: uppercase;">Reaccion Inflamatoria</h3>
-@php
-    $reaccInflamatorias = array_chunk(Config::get('clinica.reac_inflamatoria'), 3);
-@endphp
 <table width="100%">
-    @foreach($reaccInflamatorias as $secc)
-        <tr>
-            @foreach($secc as $key => $value12)
-                @php
-                    $item = '( _ ) ';
-                @endphp
-                @foreach($seccionReacInflamatoria as $seccReacInfla)
-                    @if (strcmp($seccReacInfla->key, $value12) == 0)
-                        @php
-                            $item = '(SI) ';
-                        @endphp
-                    @endif
-                @endforeach
-                <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
-            @endforeach
+    <tr>
+        <td width="25%"><p class="p-datos">{{$reacInflaAusente}}</p></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaLeve}}</p></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaVagina}}</p></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaEndocervix}}</p></td>
+    </tr>
+    <tr>
+        <td width="25%"></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaModerada}}</p></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaCervix}}</p></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaOtros}}</p></td>
+    </tr>
+    <tr>
+        <td width="25%"></td>
+        <td width="25%"><p class="p-datos">{{$reacInflaAcentuada}}</p></td>
+        <td width="25%"></td>
+        <td width="25%"></td>
+    </tr>
+{{--    @foreach($reaccInflamatorias as $secc)--}}
+{{--        <tr>--}}
+{{--            @foreach($secc as $key => $value12)--}}
+{{--                @php--}}
+{{--                    $item = '( _ ) ';--}}
+{{--                @endphp--}}
+{{--                @foreach($seccionReacInflamatoria as $seccReacInfla)--}}
+{{--                    @if (strcmp($seccReacInfla->key, $value12) == 0)--}}
+{{--                        @php--}}
+{{--                            $item = '(SI) ';--}}
+{{--                        @endphp--}}
+{{--                    @endif--}}
+{{--                @endforeach--}}
+{{--                <td width="25%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>--}}
+{{--            @endforeach--}}
 
-        </tr>
-    @endforeach
+{{--        </tr>--}}
+{{--    @endforeach--}}
 </table>
 <br>
 <h3 class="h4-cito" style="text-transform: uppercase;">Estudio Microbiologico</h3>

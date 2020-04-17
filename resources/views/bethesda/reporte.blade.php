@@ -3,7 +3,7 @@
 <h3 class="h4-cito" style='text-align: center;'>INFORME CITOLOGICO - SISTEMA BETHESDA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-<h4 class="h4-cito">CELULAS OBSERVADAS</h4>
+<h4 class="h4-cito-1">CELULAS OBSERVADAS</h4>
 <div style="height: 6px;"></div>
 <table style="width: 100%;">
     <tr>

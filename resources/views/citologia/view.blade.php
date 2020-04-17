@@ -81,19 +81,24 @@
             <h6 class="h6-cito-titulo">Reaccion Inflamatoria</h6>
             <div style="height: 8px;"></div>
             <div class="row">
+                <?php $indiceInflamatoria = 0; ?>
                 @foreach(Config::get('clinica.reac_inflamatoria') as $extComp)
+                        <?php $indiceInflamatoria++; ?>
+                        @if ($indiceInflamatoria == 5 || $indiceInflamatoria == 8)
+                            <div class="col-md-3">
+                            </div>
+                        @endif
                     @php
                     $item = '(NO) ';
                     @endphp
                     @foreach($seccionReacInflamatoria as $seccReacInfla)
-
                         @if (strcmp($seccReacInfla->key, $extComp) == 0)
                             @php
                                 $item = '( SI ) ';
                             @endphp
                         @endif
                     @endforeach
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <p class="p-cito-resultado">{{ $item.$extComp}}</p>
                     </div>
                 @endforeach

@@ -95,6 +95,7 @@ class AnalisisController extends Controller
             for ($i=0; $i<count($convenios); $i++){
                 if($convenios[$i] == $analisis->procedencia){
                     $convenio = new Convenio();
+                    $convenio->bancaInstitucion = $request->get('bancaInstitucion');
                     $convenio->bancaMatricula = $request->get('bancaMatricula');
                     $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
                     $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
@@ -424,7 +425,7 @@ class AnalisisController extends Controller
 
     public function ajaxSetPrecio(Request $request){
         $request->validate([
-            'precio' => 'required|integer|min:10'
+            'precio' => 'required|numeric|between:10,999.99'
         ]);
 
         $analisisId = $request->post('analisis_id');

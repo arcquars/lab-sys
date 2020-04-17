@@ -8,7 +8,7 @@ foreach ($resultados as $convenio){
 ?>
 <table>
     <tr>
-        <td colspan="12" style="text-align: center;"><h4>{{Config::get('clinica.nombre')}}</h4></td>
+        <td colspan="20" style="text-align: center;"><h4>{{Config::get('clinica.nombre')}}</h4></td>
     </tr>
     <tr>
         <td>Desde</td>
@@ -31,7 +31,23 @@ foreach ($resultados as $convenio){
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Institucion</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Matricula</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">PreAfiliacion</th>
-        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Precio</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Precio</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Institucion</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Institucion Manda</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Matricula</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">PreAfiliacion</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Act. Asegurado</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Act. Ext. 19-25</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Act. Resto Benef.</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Pas. Resto Benef.</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Pas. Ext. 19-25</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Pas. Resto Benef.</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Sec. Vol. Resto Benef.</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Sec. Vol. Ext. 19-25</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Sec. Vol. Resto Benef.</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Especialidad</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Ambulatorio</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Hospitalizado</th>
     </tr>
     </thead>
     <tbody>
@@ -52,6 +68,23 @@ foreach ($resultados as $convenio){
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaMatricula}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaPreAfiliacion}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->precio}}</td>
+
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->institucion->nombre}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaInstitucion}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaMatricula}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaPreAfiliacion}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaActivoAsegurado)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaActivoExt)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaActivoResto)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaPasivoAsegurado)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaPasivoExt)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaPasivoResto)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaSecAsegurado)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaSecExt)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaSecResto)? 'SI' : ''}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaEspecialidad}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaAmbulatorio}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaHospitalizado}}</td>
         </tr>
     @endforeach
     </tbody>
