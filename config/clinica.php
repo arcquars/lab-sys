@@ -15,7 +15,7 @@ return [
         'CITOLOGIA',
         'BIOPSIA',
         'INMUNOHISTOQUIMICA',
-        'BETHESDA',
+//        'BETHESDA',
         'HISTOPATOLOGICO'
 
     ],

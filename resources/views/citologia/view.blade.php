@@ -26,7 +26,7 @@
             <div class="row">
                 @foreach(Config::get('clinica.extendido_compatible') as $extComp)
                     @php
-                        $item = '(NO) ';
+                        $item = '( _ ) ';
                     @endphp
                     @foreach($seccionExtendidoCompatible as $seccExtComp)
                         @if (strcmp($seccExtComp->key, $extComp) == 0)

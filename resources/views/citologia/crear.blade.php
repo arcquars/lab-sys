@@ -874,11 +874,71 @@ use \App\Helpers\HelperConfig;
             </div>
         </div>
     </div>
+
+    @if ($nuevoAnalisis)
+        <!-- Modal Elegir tipo de analisis -->
+        <div class="modal" id="tipoAnalisisModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form id="tipoAnalisisForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="tipoAModalLabel">Estableser Tipo de analisis</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control" name="tipo" required>
+                                        <option value="">Seleccione ...</option>
+                                        <option value="{{\App\Analisis::CITOLOGIA}}">{{\App\Analisis::CITOLOGIA}}</option>
+                                        <option value="{{\App\Analisis::BETHESDA}}">{{\App\Analisis::BETHESDA}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary align-right">Establecer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
 @push('js')
     <script>
         $(document).ready(function () {
+            @if ($nuevoAnalisis)
+            $("#tipoAnalisisModal").modal("show");
+            @endif
+
+            $("#tipoAnalisisForm").submit(function (event) {
+                event.preventDefault();
+                var riKey = $("#tipoAnalisisForm select[name=tipo]");
+                if($(riKey).val() === '{{\App\Analisis::CITOLOGIA}}') {
+                    $('#tipoAnalisisModal').modal('hide');
+                } else {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('citologia.asettipo') }}",
+                        type: 'POST',
+                        data: $('#tipoAnalisisForm').serialize(),
+                        success: function (data) {
+                            window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            printErrorMsg($("#fcrearinstitucion"), JSON.parse(XMLHttpRequest.responseText));
+                        }
+                    });
+                }
+            });
+
             $("#reacInflaForm").submit(function (event) {
                 event.preventDefault();
                 var riKey = $("#reacInflaForm").find("select[name=tipo]").val();

@@ -100,7 +100,7 @@ class Seccion extends Model
         }
 
         if(strcmp($resultado, '') == 0){
-            return '(NO) '.$name;
+            return '( _ ) '.$name;
         }
         return $resultado;
     }

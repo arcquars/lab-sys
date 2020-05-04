@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Bethesda;
 use App\Http\Requests\StoreResultadosPost;
 use App\Resultado;
 use App\Seccion;
@@ -35,8 +36,17 @@ class CitologiaController extends Controller
     public function create($analisisId)
     {
         $analisis = Analisis::find($analisisId);
-
         $resultados = Resultado::where('analisis_id', $analisisId)->first();
+        $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
+
+        $nuevoAnalisis = false;
+        if(!isset($resultados) && !isset($bethesda)){
+            $nuevoAnalisis = true;
+        }
+
+//        if(!$nuevoAnalisis && strcmp($analisis->tipo_analisis, Analisis::BETHESDA) == 0){
+//        }
+
         $seccOms = null;
         $seccHichart = null;
         $seccBethesda = null;
@@ -64,7 +74,7 @@ class CitologiaController extends Controller
             'resultados', 'seccOms', 'seccBethesda',
             'seccECD', 'seccReaccInfl', 'seccEstMicro',
             'seccCitoHormonal', 'seccCitoPosm', 'seccDesviacion',
-            'seccHichart'));
+            'seccHichart', 'nuevoAnalisis'));
     }
 
     /**
@@ -266,5 +276,19 @@ class CitologiaController extends Controller
         $pdf->mpdf->WriteHTML($stylesheet,1);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function ajaxSetTipo(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $tipo = $request->get('tipo');
+
+        $analisis = Analisis::find($analisisId);
+        $analisis->tipo_analisis = $tipo;
+        $analisis->save();
+
+        return response()->json(['success' => true]);
     }
 }
