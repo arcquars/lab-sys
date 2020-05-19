@@ -80,8 +80,8 @@
                     <textarea name="interpretacion" id="ta-interpretacion" class="form-control">{{@old('interpretacion', $histo ? $histo->interpretacion : '')}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="tecnica">Tecnica</label>
-                    <textarea name="tecnica" id="ta-tecnica" class="form-control">{{@old('tecnica', $histo ? $histo->tecnica : '')}}</textarea>
+                    <label for="tecnica">Técnica</label>
+                    <textarea name="tecnica" id="ta-tecnica" class="form-control">{{@old('tecnica', $histo ? $histo->tecnica : config('clinica.tecnica'))}}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="bibliografia">Bibliografia</label>

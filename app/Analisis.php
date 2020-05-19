@@ -31,7 +31,8 @@ class Analisis extends Model
         'persona_entrega',
         'fecha_cierre',
         'nit',
-        'razon_social'
+        'razon_social',
+        'doctor_asignado'
     ];
 
     public function person(){

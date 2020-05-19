@@ -139,5 +139,6 @@ return [
         '9' => 'Monilias',
         '10' => 'Tricomonas',
         '11' => 'Virus'
-    ]
+    ],
+    'tecnica' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, recuperación antigénica con calor húmedo con tampón de recuperación universal. Detección a base de estreptavidina/biotina y revelados con sistema cromogénico DAB. Controles positivos internos y externos demuestran la fidelidad de las reacciones.'
 ];

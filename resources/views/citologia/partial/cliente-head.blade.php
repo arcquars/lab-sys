@@ -29,6 +29,12 @@
     <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>
 </dl>
 <dl class="row row-citologia">
+    <dt class="col-md-3">Doctor asignado:</dt>
+    <dd class="col-md-9">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
+{{--    <dt class="col-md-3">Telefono de referencia:</dt>--}}
+{{--    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>--}}
+</dl>
+<dl class="row row-citologia">
     <dt class="col-md-2">
         <button type="button"
                 class="btn btn-outline-info btn-block" data-toggle="modal"
