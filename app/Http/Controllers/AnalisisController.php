@@ -310,7 +310,7 @@ class AnalisisController extends Controller
                 $codigo = 'B'.$numeroFecha.$analisisIdNext;
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
-                $codigo = 'I'.$numeroFecha.$analisisIdNext;
+                $codigo = 'IHQ'.$numeroFecha.$analisisIdNext;
                 break;
             case Analisis::BETHESDA:
                 $codigo = 'BTD'.$numeroFecha.$analisisIdNext;
