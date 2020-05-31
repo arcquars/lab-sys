@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Histoquimica;
 use App\Http\Requests\StoreHistoPost;
+use App\Marcador;
 use PDF;
 
 class InmunohistoquimicaController extends Controller
@@ -22,7 +23,11 @@ class InmunohistoquimicaController extends Controller
     public function create($analisisId)
     {
         $analisis = Analisis::find($analisisId);
+        if (strcmp($analisis->tipo_analisis, Analisis::INMUNOHISTOQUIMICA) != 0) {
+            return redirect()->action('AnalisisController@index');
+        }
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+
         return view('histo.crear', compact('analisis', 'histo'));
     }
 
@@ -62,6 +67,7 @@ class InmunohistoquimicaController extends Controller
             $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->save()){
+                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
                 return redirect('/analisis');
             } else {
                 dd('Algo Salio mal al crear la Inmunohistoquimica, contactese con el administrador');
@@ -100,18 +106,21 @@ class InmunohistoquimicaController extends Controller
             $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->update()){
+                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
                 return redirect('/analisis');
             } else {
                 dd('Algo Salio mal al actualizar la Inmunohistoquimica, contactese con el administrador');
             }
 
         }
+        return redirect('/analisis');
     }
 
     public function viewResultado($analisisId){
         $analisis = Analisis::find($analisisId);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
 
+//        dd($histo->id);
         return view('histo.view', compact(
             'analisis', 'histo'));
     }

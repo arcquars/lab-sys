@@ -70,4 +70,19 @@
 <div class="div-campo">
     {!! $histo->bibliografia !!}
 </div>
+<h4 class="h4-cito">Marcadores</h4>
+<div class="div-campo">
+    <table>
+        @foreach($histo->marcadores as $marcador)
+            <tr>
+                <td style="width: 40%;">
+                    <p style="font-size: 10px; font-weight: 700;">{{$marcador->nombre}}:</p>
+                </td>
+                <td style="width: 60%;">
+                    <p style="font-size: 9px;">{{$marcador->resultado}}</p>
+                </td>
+            </tr>
+        @endforeach
+    </table>
+</div>
 @include('citologia.partial.reporte-footer', compact('analisis'))

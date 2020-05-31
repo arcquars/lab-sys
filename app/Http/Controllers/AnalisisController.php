@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Bethesda;
+use App\Biopsia;
 use App\Convenio;
 use App\Doctor;
 use App\Http\Requests\StoreAnalisisPost;
@@ -300,23 +302,29 @@ class AnalisisController extends Controller
     public function ajaxGetCode(Request $request){
         $tipoAnalisis = $request->get('tipo-analisis');
         $codigo = '';
-        $numeroFecha = '-'.substr(date('Y'), 1).'-'.date('m').date('d');
-        $analisisIdNext = Analisis::max('id')+1;
+//        $numeroFecha = '-'.date('y').date('m').date('d');
+        $numeroFecha = '-'.date('y');
+//        $analisisIdNext = Analisis::max('id');
         switch ($tipoAnalisis){
             case Analisis::CITOLOGIA:
-                $codigo = 'C'.$numeroFecha.$analisisIdNext;
+                $num = Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + 200;
+                $codigo = 'C'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::BIOPSIA:
-                $codigo = 'B'.$numeroFecha.$analisisIdNext;
+                $num = Analisis::where('tipo_analisis', Analisis::BIOPSIA)->count() + 700;
+                $codigo = 'B'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
-                $codigo = 'IHQ'.$numeroFecha.$analisisIdNext;
+                $num = Analisis::where('tipo_analisis', Analisis::INMUNOHISTOQUIMICA)->count() + 500;
+                $codigo = 'IHQ'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::BETHESDA:
-                $codigo = 'BTD'.$numeroFecha.$analisisIdNext;
+                $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() + 200;
+                $codigo = 'BTD'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::HISTOPATOLOGICO:
-                $codigo = 'BH'.$numeroFecha.$analisisIdNext;
+                $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + 300;
+                $codigo = 'BH'.$numeroFecha.'-'.$num;
                 break;
         }
         return response()->json(['success' => $codigo]);

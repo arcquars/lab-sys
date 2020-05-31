@@ -13,4 +13,8 @@ class Histoquimica extends Model
         'tecnica',
         'bibliografia'
     ];
+
+    public function marcadores(){
+        return $this->hasMany('App\Marcador');
+    }
 }

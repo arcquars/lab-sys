@@ -46,7 +46,7 @@
     </dd>
     <dd class="col-md-6">
         @if($analisis->hasHistory())
-            <p class="text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></p>
+            <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
         @endif
     </dd>
 </dl>

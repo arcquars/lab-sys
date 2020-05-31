@@ -87,6 +87,24 @@
                     </div>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Marcadores:</label>
+                    <div>
+                        @foreach($histo->marcadores as $marcador)
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="text-primary" style="font-size: 12px;">{{$marcador->nombre}}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="text-muted">{{$marcador->resultado}}</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
             <div style="height: 8px;"></div>
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">

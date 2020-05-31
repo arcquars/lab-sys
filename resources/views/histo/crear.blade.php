@@ -87,6 +87,11 @@
                     <label for="bibliografia">Bibliografia</label>
                     <textarea name="bibliografia" id="ta-bibliografia" class="form-control">{{@old('bibliografia', $histo ? $histo->bibliografia : '')}}</textarea>
                 </div>
+                <label>Añadir Marcado <a href="#" onclick="openMdlMarcador(); return false;"><i class="fas fa-plus-circle"></i></a></label>
+                <div id="list_marcadores" class="row">
+
+                </div>
+                <br>
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
@@ -96,11 +101,19 @@
             </form>
         </div>
     </div>
+
+    @include('histo.partial.marcador_modal')
+
 @endsection
 
 @push('js')
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
+        @if ($histo)
+        var numMarcadores = parseInt('{{count($histo->marcadores)}}');
+        @else
+        var numMarcadores = 0;
+        @endif
         $(document).ready(function () {
             tinymce.init({
                 selector: '#ta-interpretacion',
@@ -126,7 +139,16 @@
                 browser_spellcheck: true,
                 @cannot('manage-users-all') readonly : 1 @endcan
             });
-        });
+            @if ($histo)
+            @foreach($histo->marcadores as $marcador)
+            $("#list_marcadores").append(addMarcadorHtml(
+                '{{ $marcador->nombre }}',
+                '{{ $marcador-> resultado }}',
+            ));
 
+            @endforeach
+            @endif
+
+        });
     </script>
 @endpush
