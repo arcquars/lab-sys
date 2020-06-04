@@ -118,24 +118,24 @@
 </table>
 @endif
 <hr>
-<h4 class="h4-cito">Organo o Tejido</h4>
+<h4 class="h4-cito">ÓRGANO Y TEJIDO</h4>
 <div class="div-campo">
     {!! ($biopsia->is_histopatologico == 1)? 'BIOPSIAS DE RIÑON' : $biopsia->organo_tejido !!}
 </div>
 @if ($biopsia->macroscopia)
-<h4 class="h4-cito">Macroscopia</h4>
+<h4 class="h4-cito" style="text-transform: uppercase;">Macroscopia</h4>
 <div class="div-campo">
     {!! $biopsia->macroscopia !!}
 </div>
 @endif
 @if ($biopsia->microscopia)
-<h4 class="h4-cito">Microscopia</h4>
+<h4 class="h4-cito" style="text-transform: uppercase;">Microscopia</h4>
 <div class="div-campo">
     {!! $biopsia->microscopia !!}
 </div>
 @endif
 @if ($biopsia->diagnostico)
-    <h4 class="h4-cito">Diagnostico</h4>
+    <h4 class="h4-cito" style="text-transform: uppercase;">Diagnostico</h4>
     <div class="div-campo">
         {!! $biopsia->diagnostico !!}
     </div>

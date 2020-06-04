@@ -178,7 +178,7 @@
                     </div>
                 @endif
                 <div class="form-group">
-                    <label for="organo_tejido">Organo o Tejido</label>
+                    <label for="organo_tejido">ÓRGANO Y TEJIDO</label>
                     <input type="text" name="organo_tejido" id="ta-organo_tejido" class="form-control" value="{{@old('organo_tejido', $analisis->region)}}" required>
                 </div>
                 <div class="form-group">

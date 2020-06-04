@@ -117,3 +117,6 @@ Route::post('/doctores/ajaxgetdoctor','DoctorController@ajaxGetDoctor')->name('d
 Route::get('/gastos/index', 'GastoController@index')->name('gastos.home');
 Route::post('/gastos/ajaxcreategasto','GastoController@ajaxCreateGasto')->name('gastos.createGasto');
 Route::get('/gastos/datatables-gastos', 'GastoController@getDatatablesGasto')->name('gasto.datatables_gastos');
+
+Route::resource('marcador', 'MarcadorController');
+Route::post('/marcador/ajaxsave','DoctorController@ajaxSave')->name('marcador.ajaxsave');

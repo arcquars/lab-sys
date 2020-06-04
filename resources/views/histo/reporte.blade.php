@@ -3,7 +3,7 @@
 <h3 class="h4-cito" style='text-align: center;'>INFORME INMUNOHISTOQUIMICA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-<h4 class="h4-cito-1">Interpretacion</h4>
+<h4 class="h4-cito-1" style="text-transform: uppercase;">Interpretación</h4>
 <div class="div-campo">
     {!! $histo->interpretacion !!}
 </div>
@@ -57,7 +57,7 @@
 
     </tr>
 </table>
-<h4 class="h4-cito">Tecnica</h4>
+<h4 class="h4-cito" style="text-transform: uppercase;">Técnica</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
     @if($histo->tecnica)
@@ -66,11 +66,7 @@
         <p>{!! config('clinica.tecnica') !!}</p>
     @endif
 </div>
-<h4 class="h4-cito">Bibliografia</h4>
-<div class="div-campo">
-    {!! $histo->bibliografia !!}
-</div>
-<h4 class="h4-cito">Marcadores</h4>
+<h4 class="h4-cito">Marcadores utilizados (clones entre paréntesis) y resultados obtenidos:</h4>
 <div class="div-campo">
     <table>
         @foreach($histo->marcadores as $marcador)
@@ -84,5 +80,9 @@
             </tr>
         @endforeach
     </table>
+</div>
+<h4 class="h4-cito" style="text-transform: uppercase;">Bibliografía</h4>
+<div class="div-campo">
+    {!! $histo->bibliografia !!}
 </div>
 @include('citologia.partial.reporte-footer', compact('analisis'))

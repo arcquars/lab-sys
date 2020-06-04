@@ -1,7 +1,7 @@
 <table style="width: 100%">
     <tr>
         <td width="20%"><p class="p-datos-12"><b>Nombre y Apellido:</b></p></td>
-        <td width="40%"><p class="p-datos-12" style="font-weight: 700; font-size: 18px;">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</p></td>
+        <td width="40%"><p class="p-datos-12" style="font-size: 12px;"><b>{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</b></p></td>
         <td width="20%" style="text-align: right;"><p class="p-datos-12"><b>Edad:</b></p></td>
         <td width="20%"><p class="p-datos-12">{{$analisis->person->edad}}</p></td>
     </tr>
