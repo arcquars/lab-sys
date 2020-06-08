@@ -3,7 +3,8 @@
 <h3 class="h4-cito" style='text-align: center;'>INFORME CITOLOGICO - SISTEMA BETHESDA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-<h4 class="h4-cito-1">CELULAS OBSERVADAS</h4>
+<h4 class="h4-cito">CELULAS OBSERVADAS</h4>
+<hr style="margin: 2px 4px;">
 <div style="height: 6px;"></div>
 <table style="width: 100%;">
     <tr>
@@ -33,6 +34,7 @@
 <div style="height: 6px;"></div>
 @if ($bethesda->calidad_muestra)
 <h4 class="h4-cito">CALIDAD DE LA MUESTRA</h4>
+<hr style="margin: 2px 4px;">
 <div class="div-campo">
     <p class="p-datos">{!! $bethesda->calidad_muestra !!}</p>
 </div>
@@ -40,6 +42,7 @@
 <br>
 @if ($bethesda->clasificacion_general)
     <h4 class="h4-cito">CLASIFICACION GENERAL</h4>
+    <hr style="margin: 2px 4px;">
     <div class="div-campo">
         <p  class="p-datos">{!! $bethesda->clasificacion_general !!}</p>
     </div>
@@ -47,6 +50,7 @@
 <br>
 @if ($bethesda->interpretacion)
     <h4 class="h4-cito">INTERPRETACION / RESULTADOS</h4>
+    <hr style="margin: 2px 4px;">
     <div class="div-campo">
         @foreach($interpretaciones as $key => $value)
             <p class="p-datos">{{$value}}</p>
@@ -56,6 +60,7 @@
 <br>
 @if ($bethesda->celulas_observadas)
     <h4 class="h4-cito">FLORA:</h4>
+    <hr style="margin: 2px 4px;">
     <div class="div-campo">
         <table style="width: 100%">
             @foreach($celulasObservadas as $key => $value)
@@ -71,6 +76,7 @@
 <br>
 @if ($bethesda->observaciones)
     <h4 class="h4-cito">OBSERVACIONES</h4>
+    <hr style="margin: 2px 4px;">
     <div class="div-campo">
         <p class="p-datos">{!! $bethesda->observaciones !!}</p>
     </div>

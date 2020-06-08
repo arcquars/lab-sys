@@ -117,7 +117,8 @@
         $(document).ready(function () {
             tinymce.init({
                 selector: '#ta-interpretacion',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -125,7 +126,8 @@
             });
             tinymce.init({
                 selector: '#ta-tecnica',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -133,7 +135,8 @@
             });
             tinymce.init({
                 selector: '#ta-bibliografia',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,

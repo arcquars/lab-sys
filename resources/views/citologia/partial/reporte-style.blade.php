@@ -51,7 +51,12 @@
     }
 
     .p-datos-12 {
-        font-size: 12px;
+        font-size: 11px;
+        color: #012035;
+    }
+
+    .p-datos-13 {
+        font-size: 14px;
         color: #012035;
     }
 

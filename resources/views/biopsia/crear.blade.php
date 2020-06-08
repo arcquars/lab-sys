@@ -210,7 +210,8 @@
         $(document).ready(function () {
             tinymce.init({
                 selector: '#ta-macroscopia',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -218,7 +219,8 @@
             });
             tinymce.init({
                 selector: '#ta-microscopia',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -226,7 +228,8 @@
             });
             tinymce.init({
                 selector: '#ta-diagnostico',
-                toolbar: "undo redo | bold italic | link image | underline",
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
