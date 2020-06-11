@@ -261,5 +261,12 @@ return [
         'ZAP70 (BC.2F3.2)',
 
 
+    ],
+    'contadores_analisis' =>[
+        'CITOLOGIA' => 6584,
+        'BIOPSIA' => 3231,
+        'INMUNOHISTOQUIMICA' => 222,
+        'BETHESDA' => 200,
+        'HISTOPATOLOGICO' => 300,
     ]
 ];

@@ -42,7 +42,7 @@
                 @foreach ($seccionOMG as $seccOmg)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-datos">{{str_replace('-', ' ', $seccOmg->key)}}</p>
+                            <p class="p-datos" style="text-transform: uppercase;">{{str_replace('-', ' ', $seccOmg->key)}}</p>
                         </td>
                         <td width="35%">
                             <p class="p-datos">{{$seccOmg->value}}</p>
@@ -56,7 +56,7 @@
                 @foreach ($seccionRichart as $seccR)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-datos">{{str_replace('-', ' ', $seccR->key)}}</p>
+                            <p class="p-datos" style="text-transform: uppercase;">{{str_replace('-', ' ', $seccR->key)}}</p>
                         </td>
                         <td width="35%">
                             <p class="p-datos">{{$seccR->value}}</p>
@@ -70,7 +70,7 @@
                 @foreach ($seccionBeth as $seccB)
                     <tr>
                         <td width="65%" style="text-align: left">
-                            <p class="p-datos">{{str_replace('-', ' ', $seccB->key)}}</p>
+                            <p class="p-datos" style="text-transform: uppercase;">{{str_replace('-', ' ', $seccB->key)}}</p>
                         </td>
                         <td width="35%">
                             <p class="p-datos">{{$seccB->value}}</p>
@@ -136,7 +136,7 @@
                 @foreach($seccionEstudioMicro as $seccEstMicro)
                     @if (strcmp($seccEstMicro->key, $value12) == 0 && strcmp($seccEstMicro->value, '') != 0)
                         @php
-                            $item = '(SI) ';
+                            $item = '('.$seccEstMicro->value.') ';
                         @endphp
                     @endif
                 @endforeach
@@ -174,22 +174,13 @@
     </tr>
 </table>
 <br>
-<table class="clinica-table" style="width: 100%;">
-    <tr>
-        <td width="50%" style="text-align: center;">
-            <h3 class="h4-cito">OBSERVACION 1</h3>
-        </td>
-        <td width="50%" style="text-align: center;">
-            <h3 class="h4-cito" style="text-align: center;">OBSERVACION 2</h3>
-        </td>
-    </tr>
-    <tr>
-        <td width="50%" style="padding: 5px;" class="cito-estudio-tr">
-            {{$resultados->observaciones1}}
-        </td>
-        <td width="50%" style="padding: 5px;" class="cito-estudio-tr">
-            {{$resultados->observaciones2}}
-        </td>
-    </tr>
-</table>
+<h3 class="h4-cito">OBSERVACION 1</h3>
+<div class="div-observacion" style="width: 100%;">
+    {!! $resultados->observaciones1 !!}
+</div>
+<br>
+<h3 class="h4-cito">OBSERVACION 2</h3>
+<div class="div-observacion" style="width: 100%;">
+    {!! $resultados->observaciones2 !!}
+</div>
 @include('citologia.partial.reporte-footer', compact('analisis'))

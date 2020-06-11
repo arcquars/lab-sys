@@ -117,4 +117,24 @@
     .cito-estudio-tr{
         font-size: 9px;
     }
+
+    .div-observacion p {
+        font-size: 10px;
+    }
+
+    .div-observacion h1 {
+        font-size: 14px;
+    }
+
+    .div-observacion h2 {
+        font-size: 12px;
+    }
+
+    .div-observacion h3 {
+        font-size: 11px;
+    }
+
+    .div-observacion h4 {
+        font-size: 10px;
+    }
 </style>

@@ -113,7 +113,7 @@
                     @foreach($seccionEstudioMicro as $seccEstudioMicro)
                         @if (strcmp($seccEstudioMicro->key, $extComp) == 0 && strcmp($seccEstudioMicro->value, '') != 0)
                             @php
-                                $item = '( SI ) ';
+                                $item = '( '.$seccEstudioMicro->value.' ) ';
                             @endphp
                         @endif
                     @endforeach
@@ -165,12 +165,14 @@
                 <div class="col-md-6">
                     <h7 class="h7-cito-titulo">Observacion 1:</h7>
                     <br>
-                    {{$resultados->observaciones1}}
+                    <hr>
+                    {!! $resultados->observaciones1 !!}
                 </div>
                 <div class="col-md-6">
                     <h7 class="h7-cito-titulo">Observacion 2:</h7>
                     <br>
-                    {{$resultados->observaciones2}}
+                    <hr>
+                    {!! $resultados->observaciones2 !!}
                 </div>
             </div>
 

@@ -296,19 +296,19 @@ use \App\Helpers\HelperConfig;
                                             $seccAux = null;
                                         @endphp
                                         @foreach($seccBethesda as $secc)
-                                            @if (strcmp($secc->key, 'lis-bajo') == 0)
+                                            @if (strcmp($secc->key, 'lis-de-bajo-grado') == 0)
                                                 @php
                                                     $seccAux = $secc;
                                                 @endphp
                                             @endif
                                         @endforeach
                                         @if (isset($seccAux))
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]" checked>
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]" checked>
                                             @else
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]">
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]">
                                         @endif
                                     @else
-                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-bajo]">
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]">
                                     @endif
                                     <span class="form-check-sign"></span>
                                     LIS DE BAJO GRADO
@@ -321,7 +321,7 @@ use \App\Helpers\HelperConfig;
                                             $seccAux = null;
                                         @endphp
                                         @foreach($seccBethesda as $secc)
-                                            @if (strcmp($secc->key, 'lis-alto') == 0)
+                                            @if (strcmp($secc->key, 'lis-de-alto-grado') == 0)
                                                 @php
                                                     $seccAux = $secc;
                                                 @endphp
@@ -329,12 +329,12 @@ use \App\Helpers\HelperConfig;
                                             @endif
                                         @endforeach
                                         @if (isset($seccAux))
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]" checked>
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]" checked>
                                             @else
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]">
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]">
                                         @endif
                                     @else
-                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-alto]">
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]">
                                     @endif
                                     <span class="form-check-sign"></span>
                                     LIS DE ALTO GRADO
@@ -743,16 +743,16 @@ use \App\Helpers\HelperConfig;
                     <div class="row">
                         <div class="col-md-6">
                             @if ($resultados)
-                                <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones1}}</textarea>
+                                <textarea id="observaciones1" name="observaciones1" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones1}}</textarea>
                                 @else
-                                <textarea name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
+                                <textarea id="observaciones1" name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
                             @endif
                         </div>
                         <div class="col-md-6">
                             @if ($resultados)
-                                <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones2}}</textarea>
+                                <textarea id="observaciones2" name="observaciones2" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones2}}</textarea>
                             @else
-                                <textarea name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
+                                <textarea id="observaciones2" name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
                             @endif
 
                         </div>
@@ -908,11 +908,30 @@ use \App\Helpers\HelperConfig;
 @endsection
 
 @push('js')
+    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             @if ($nuevoAnalisis)
             $("#tipoAnalisisModal").modal("show");
             @endif
+
+
+            tinymce.init({
+                selector: '#observaciones1',
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
+            });
+            tinymce.init({
+                selector: '#observaciones2',
+                plugins: "lists",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
+            });
 
             $("#tipoAnalisisForm").submit(function (event) {
                 event.preventDefault();

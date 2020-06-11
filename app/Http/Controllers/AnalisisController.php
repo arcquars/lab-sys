@@ -307,23 +307,23 @@ class AnalisisController extends Controller
 //        $analisisIdNext = Analisis::max('id');
         switch ($tipoAnalisis){
             case Analisis::CITOLOGIA:
-                $num = Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + 200;
+                $num = Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + config('clinica.contadores_analisis.CITOLOGIA');
                 $codigo = 'C'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::BIOPSIA:
-                $num = Analisis::where('tipo_analisis', Analisis::BIOPSIA)->count() + 700;
+                $num = Analisis::where('tipo_analisis', Analisis::BIOPSIA)->count() + config('clinica.contadores_analisis.BIOPSIA');
                 $codigo = 'B'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
-                $num = Analisis::where('tipo_analisis', Analisis::INMUNOHISTOQUIMICA)->count() + 500;
+                $num = Analisis::where('tipo_analisis', Analisis::INMUNOHISTOQUIMICA)->count() + config('clinica.contadores_analisis.INMUNOHISTOQUIMICA');
                 $codigo = 'IHQ'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::BETHESDA:
-                $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() + 200;
+                $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() + config('clinica.contadores_analisis.BETHESDA');
                 $codigo = 'BTD'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::HISTOPATOLOGICO:
-                $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + 300;
+                $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + config('clinica.contadores_analisis.BETHESDA'); // 300
                 $codigo = 'BH'.$numeroFecha.'-'.$num;
                 break;
         }
