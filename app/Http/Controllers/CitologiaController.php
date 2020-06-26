@@ -171,6 +171,9 @@ class CitologiaController extends Controller
         $desviacionesArray = is_array($request->input('desviacion'))? $request->input('desviacion') : array();
         Seccion::saveSeccionValue($desviacionesArray, Seccion::DESVIACION, $resultado->id);
 
+        if($request->has('grabar-imprimir')){
+            return redirect('/citologia/reporte/'.$resultado->analisis_id);
+        }
         return redirect()->route('citologia.viewResultado', ['analisisId' => $resultado->analisis_id]);
     }
 
@@ -216,6 +219,9 @@ class CitologiaController extends Controller
         $desviacionesArray = is_array($request->input('desviacion'))? $request->input('desviacion') : array();
         Seccion::saveSeccionValue($desviacionesArray, Seccion::DESVIACION, $resultado->id);
 
+        if($request->has('grabar-imprimir')){
+            return redirect('/citologia/reporte/'.$resultado->analisis_id);
+        }
         return redirect()->route('citologia.viewResultado', ['analisisId' => $resultado->analisis_id]);
     }
 

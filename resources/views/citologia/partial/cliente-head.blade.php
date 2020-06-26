@@ -34,6 +34,8 @@
 {{--    <dt class="col-md-3">Telefono de referencia:</dt>--}}
 {{--    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>--}}
 </dl>
+
+@can('manage-users')
 <dl class="row row-citologia">
     <dt class="col-md-2">
         <button type="button"
@@ -50,7 +52,7 @@
         @endif
     </dd>
 </dl>
-
+@endcan
 <div id="mEditarCosto" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

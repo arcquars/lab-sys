@@ -65,8 +65,8 @@ class ReporteController extends Controller
 
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
 
-        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
-        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->get();
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0)->get();
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->whereNotNull('fecha_pago_efectuado')->get();
         $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         $totalPrecio = 0;
         $totalAcuenta = 0;
@@ -83,7 +83,8 @@ class ReporteController extends Controller
         foreach ($analisisPagos as $ana){
             $totalPrecioPago += $ana->precio;
             $totalAcuentaPago += $ana->acuenta;
-            $totalDebePago += ($ana->precio - $ana->acuenta);
+//            $totalDebePago += ($ana->precio - $ana->acuenta);
+            $totalDebePago += $ana->pago_efectuado;
         }
 
         $totalGastos = 0;

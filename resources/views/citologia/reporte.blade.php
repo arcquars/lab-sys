@@ -20,11 +20,11 @@
                     @foreach($seccionExtendidoCompatible as $seccExtComp)
                         @if (strcmp($seccExtComp->key, $value12) == 0)
                             @php
-                                $item = '(SI) ';
+                                $item = '<b>(SI) </b>';
                             @endphp
                         @endif
                     @endforeach
-                    <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
+                    <td width="33%"><p class="p-datos">{!! $item !!} {{ $value12}}</p></td>
                 @endforeach
 
         </tr>
@@ -85,20 +85,20 @@
 <h3 class="h4-cito" style="text-transform: uppercase;">Reaccion Inflamatoria</h3>
 <table width="100%">
     <tr>
-        <td width="25%"><p class="p-datos">{{$reacInflaAusente}}</p></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaLeve}}</p></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaVagina}}</p></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaEndocervix}}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaAusente !!}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaLeve !!}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaVagina !!}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaEndocervix !!}</p></td>
     </tr>
     <tr>
         <td width="25%"></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaModerada}}</p></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaCervix}}</p></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaOtros}}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaModerada !!}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaCervix !!}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaOtros !!}</p></td>
     </tr>
     <tr>
         <td width="25%"></td>
-        <td width="25%"><p class="p-datos">{{$reacInflaAcentuada}}</p></td>
+        <td width="25%"><p class="p-datos">{!! $reacInflaAcentuada !!}</p></td>
         <td width="25%"></td>
         <td width="25%"></td>
     </tr>
@@ -140,7 +140,7 @@
                         @endphp
                     @endif
                 @endforeach
-                <td width="33%"><p class="p-datos">{{ $item }} {{ $value12}}</p></td>
+                <td width="33%"><p class="p-datos"><b>{{ $item }}</b> {{ $value12}}</p></td>
             @endforeach
 
         </tr>

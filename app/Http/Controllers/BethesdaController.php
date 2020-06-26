@@ -46,7 +46,10 @@ class BethesdaController extends Controller
         }
         $this->settingBethesda($bethesda, $request);
         if($bethesda->save()){
-            return redirect('/analisis');
+            if($request->has('grabar-imprimir')){
+                return redirect('/bethesda/reporte/'.$bethesda->analisis_id);
+            }
+            return redirect('/bethesda/view/'.$bethesda->analisis_id);
         } else {
             dd('Algo Salio mal al crear Bethesda, contactese con el administrador');
         }

@@ -221,15 +221,18 @@
                 <div class="form-group">
                     <label for="observaciones">Observaciones</label>
                     @if ($bethesda)
-                        <textarea name="observaciones" class="form-control">{{$bethesda->observaciones}}</textarea>
+                        <textarea id="observaciones_id" name="observaciones" class="form-control">{{$bethesda->observaciones}}</textarea>
                     @else
-                        <textarea name="observaciones" class="form-control"></textarea>
+                        <textarea id="observaciones_id" name="observaciones" class="form-control"></textarea>
                     @endif
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
-                        <input type="submit" class="btn btn-primary float-right" value="Grabar">
+                        <div class="float-right">
+                            <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir">
+                            <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
+                        </div>
                     </div>
                 </div>
             </form>
@@ -238,9 +241,18 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-
+            tinymce.init({
+                selector: '#observaciones_id',
+                plugins: "lists autoresize",
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
+                @cannot('manage-users-all') readonly : 1 @endcannot
+            });
 
         });
 

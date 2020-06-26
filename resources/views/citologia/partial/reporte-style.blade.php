@@ -3,7 +3,7 @@
         header: page-header;
         footer: page-footer;
 
-        margin-header: 15mm;
+        margin-header: 13mm;
         margin-top: 4.5cm;
     }
 
@@ -31,13 +31,13 @@
 
     .h4-cito{
         color: #053D62;
-        font-size: 10px;
+        font-size: 14px;
         margin: 0;
         padding: 0;
     }
     .td-p-datos{
-        font-size: 10px;
-        color: #053D62;
+        font-size: 12px;
+        color: #001781;
     }
 
     .p-dato {
@@ -46,7 +46,7 @@
     }
 
     .p-datos {
-        font-size: 10px;
+        font-size: 12px;
         color: #012035;
     }
 
@@ -78,20 +78,24 @@
         text-justify: inter-word;
     }
 
+    .div-campo h1 {
+        font-size: 18px !important;
+    }
+
     .div-campo h2 {
-        font-size: 16px;
+        font-size: 16px !important;
     }
 
     .div-campo h3 {
-        font-size: 14px;
+        font-size: 14px !important;
     }
 
     .div-campo h4 {
-        font-size: 12px;
+        font-size: 12px !important;
     }
 
     .div-campo p{
-        font-size: 11px;
+        font-size: 12px !important;
     }
 
     .div-campo ul li{
@@ -111,7 +115,7 @@
     }
 
     .cito-estudio-p{
-        font-size: 9px;
+        font-size: 11px;
     }
 
     .cito-estudio-tr{
@@ -119,7 +123,7 @@
     }
 
     .div-observacion p {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .div-observacion h1 {

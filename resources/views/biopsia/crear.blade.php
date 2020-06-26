@@ -196,7 +196,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
-                        <input type="submit" class="btn btn-primary float-right" value="Grabar">
+                        <div class="float-right">
+                            @can('manage-users')
+                            <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir">
+                            @endcan
+                            <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
+                        </div>
                     </div>
                 </div>
             </form>
@@ -210,7 +215,7 @@
         $(document).ready(function () {
             tinymce.init({
                 selector: '#ta-macroscopia',
-                plugins: "lists",
+                plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
@@ -219,7 +224,7 @@
             });
             tinymce.init({
                 selector: '#ta-microscopia',
-                plugins: "lists",
+                plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
@@ -228,7 +233,7 @@
             });
             tinymce.init({
                 selector: '#ta-diagnostico',
-                plugins: "lists",
+                plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',

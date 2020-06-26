@@ -96,7 +96,7 @@ class Seccion extends Model
         $resultado = '';
         foreach ($secciones as $seccion){
             if(strcmp($seccion->seccion, Seccion::REACCION_INFLAMATORIA) == 0 && strcmp($seccion->key, $name) == 0)
-                $resultado = '('.$seccion->value.') '.$seccion->key;
+                $resultado = '<b>('.$seccion->value.')</b> '.$seccion->key;
         }
 
         if(strcmp($resultado, '') == 0){

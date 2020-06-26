@@ -68,7 +68,11 @@ class InmunohistoquimicaController extends Controller
 
             if($histo->save()){
                 Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
-                return redirect('/analisis');
+                if($request->has('grabar-imprimir')){
+                    return redirect('/histo/reporte/'.$histo->analisis_id);
+                }
+                return redirect('/histo/view/'.$histo->analisis_id);
+//                return redirect('/analisis');
             } else {
                 dd('Algo Salio mal al crear la Inmunohistoquimica, contactese con el administrador');
             }
@@ -107,7 +111,11 @@ class InmunohistoquimicaController extends Controller
 
             if($histo->update()){
                 Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
-                return redirect('/analisis');
+                if($request->has('grabar-imprimir')){
+                    return redirect('/histo/reporte/'.$histo->analisis_id);
+                }
+                return redirect('/histo/view/'.$histo->analisis_id);
+//                return redirect('/analisis');
             } else {
                 dd('Algo Salio mal al actualizar la Inmunohistoquimica, contactese con el administrador');
             }

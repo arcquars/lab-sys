@@ -78,7 +78,7 @@
             <label class="label-clinica">OBSERVACIONES:</label>
             <div class="row">
                 <div class="col-md-12">
-                    <p>{{$bethesda->observaciones}}</p>
+                    <p>{!! $bethesda->observaciones !!}</p>
                 </div>
             </div>
             <div style="height: 8px;"></div>

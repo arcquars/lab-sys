@@ -758,16 +758,15 @@ use \App\Helpers\HelperConfig;
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary">Cerrar</a>
-                    <button type="submit" class="btn btn-primary">
-                        @if ($resultados)
-                            Editar
-                        @else
-                            Crear
-                        @endif
-                    </button>
-                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
+                            <div class="float-right">
+                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir">
+                                <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
+                            </div>
+                        </div>
+                    </div>
             </form>
         </div>
     </div>
@@ -777,7 +776,7 @@ use \App\Helpers\HelperConfig;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ecdModalLabel">Aniadir Extendido Compatible</h5>
+                    <h5 class="modal-title" id="ecdModalLabel">Añadir Extendido Compatible</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -793,7 +792,7 @@ use \App\Helpers\HelperConfig;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="addExtendidoCompatible();">Aniadir</button>
+                    <button type="button" class="btn btn-primary" onclick="addExtendidoCompatible();">Añadir</button>
                 </div>
             </div>
         </div>
@@ -805,7 +804,7 @@ use \App\Helpers\HelperConfig;
             <div class="modal-content">
                 <form id="reacInflaForm">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reacModalLabel">Aniadir reaccion inflamatoria</h5>
+                    <h5 class="modal-title" id="reacModalLabel">Añadir reaccion inflamatoria</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -830,7 +829,7 @@ use \App\Helpers\HelperConfig;
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Aniadir</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
                 </form>
             </div>
@@ -843,7 +842,7 @@ use \App\Helpers\HelperConfig;
             <div class="modal-content">
                 <form id="estMicroForm">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="estMicroModalLabel">Aniadir Estudio Microbiologico</h5>
+                        <h5 class="modal-title" id="estMicroModalLabel">Añadir Estudio Microbiologico</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -868,7 +867,7 @@ use \App\Helpers\HelperConfig;
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Aniadir</button>
+                        <button type="submit" class="btn btn-primary">Añadir</button>
                     </div>
                 </form>
             </div>
@@ -918,7 +917,7 @@ use \App\Helpers\HelperConfig;
 
             tinymce.init({
                 selector: '#observaciones1',
-                plugins: "lists",
+                plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
@@ -926,7 +925,7 @@ use \App\Helpers\HelperConfig;
             });
             tinymce.init({
                 selector: '#observaciones2',
-                plugins: "lists",
+                plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
@@ -1001,7 +1000,7 @@ use \App\Helpers\HelperConfig;
             if(numItemExtComp < 10){
                 tplItemExtendido($("#s_extendido_compatible").val());
             } else {
-                alert("No puede aniadir mas items.");
+                alert("No puede Añadir mas items.");
             }
 
             $("#ecdModal").modal('hide');

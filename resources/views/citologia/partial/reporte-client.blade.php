@@ -14,7 +14,7 @@
     <tr>
         <td><p class="p-datos-12"><b>Enviado por Doctor(a): </b></p></td>
         <td><p class="p-datos-12">{{$analisis->doctor}}</p></td>
-        <td colspan="2" style="text-align: right;">
+        <td colspan="2" style="text-align: right; padding-right: 50px;">
             <div style="border: 2px double #f6993f; width: 100%; text-align: right; margin-top: 2px;">
                 <p class="p-datos-13"><b>&nbsp;&nbsp;Codigo: {{$analisis->codigo}}&nbsp;&nbsp;</b></p>
             </div>
