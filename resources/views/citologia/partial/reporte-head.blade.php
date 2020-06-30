@@ -5,7 +5,7 @@
     <table style="width: 100%;">
         <tr>
             <td width="33%" class="td-datos">
-                <p class="td-p-datos">Dr. Victor Hugo Gonsales M.</p>
+                <p class="td-p-datos">Dr. Victor Hugo Gonzales M.</p>
                 <p class="td-p-datos">Dom. 4470226 - Cel. 717 35336</p>
                 <p class="td-p-datos">Dr. Abel Acosta Canedo</p>
                 <p class="td-p-datos">Dom. 4534469 - Cel. 717 33419</p>
@@ -13,7 +13,7 @@
                 <p class="td-p-datos">Dom. 4470226 - Cel. 65348759</p>
             </td>
             <td width="34%" style="text-align: center; vertical-align: text-top;">
-                <img src="{{public_path('img/clinica.png')}}" width="550">
+                <img src="{{public_path('img/clinica.png')}}" width="700">
             </td>
             <td width="33%" style="text-align: right;">
                 <p class="td-p-datos">Calle Lanza esq. Ecuador</p>

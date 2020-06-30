@@ -158,21 +158,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h6 class="h6-cito-titulo">OBSERVACIONES</h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h7 class="h7-cito-titulo">Observacion 1:</h7>
+                    <h7 class="h7-cito-titulo">Observaciones:</h7>
                     <br>
                     <hr>
                     {!! $resultados->observaciones1 !!}
-                </div>
-                <div class="col-md-6">
-                    <h7 class="h7-cito-titulo">Observacion 2:</h7>
-                    <br>
-                    <hr>
-                    {!! $resultados->observaciones2 !!}
                 </div>
             </div>
 

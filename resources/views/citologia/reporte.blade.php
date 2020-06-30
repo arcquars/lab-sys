@@ -175,16 +175,9 @@
 </table>
 <br>
 @if($resultados->observaciones1)
-<h3 class="h4-cito">OBSERVACION 1</h3>
+<h3 class="h4-cito">OBSERVACIONES</h3>
 <div class="div-observacion" style="width: 100%;">
     {!! $resultados->observaciones1 !!}
-</div>
-<br>
-@endif
-@if($resultados->observaciones2)
-<h3 class="h4-cito">OBSERVACION 2</h3>
-<div class="div-observacion" style="width: 100%;">
-    {!! $resultados->observaciones2 !!}
 </div>
 @endif
 @include('citologia.partial.reporte-footer', compact('analisis'))

@@ -741,20 +741,12 @@ use \App\Helpers\HelperConfig;
                     <hr>
                     <p class="text-muted">OBSERVACIONES</p>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             @if ($resultados)
                                 <textarea id="observaciones1" name="observaciones1" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones1}}</textarea>
                                 @else
                                 <textarea id="observaciones1" name="observaciones1" class="form-control" style="resize: none;" rows="3"></textarea>
                             @endif
-                        </div>
-                        <div class="col-md-6">
-                            @if ($resultados)
-                                <textarea id="observaciones2" name="observaciones2" class="form-control" style="resize: none;" rows="3">{{$resultados->observaciones2}}</textarea>
-                            @else
-                                <textarea id="observaciones2" name="observaciones2" class="form-control" style="resize: none;" rows="3"></textarea>
-                            @endif
-
                         </div>
                     </div>
                 </div>
@@ -917,14 +909,6 @@ use \App\Helpers\HelperConfig;
 
             tinymce.init({
                 selector: '#observaciones1',
-                plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-                menubar: false,
-                language: 'es',
-                browser_spellcheck: true,
-            });
-            tinymce.init({
-                selector: '#observaciones2',
                 plugins: "lists autoresize",
                 toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
                 menubar: false,
