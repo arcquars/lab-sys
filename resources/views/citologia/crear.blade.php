@@ -930,10 +930,17 @@ use \App\Helpers\HelperConfig;
                     $.ajax({
                         url: "{{ route('citologia.asettipo') }}",
                         type: 'POST',
+                        dataType : 'json',
                         data: $('#tipoAnalisisForm').serialize(),
                         success: function (data) {
                             window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
                         },
+                        beforeSend: function(xhr, status){
+                         // Handle the beforeSend event
+                        },
+                        complete: function(xhr, status){
+                         // Handle the complete event
+                        }
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             printErrorMsg($("#fcrearinstitucion"), JSON.parse(XMLHttpRequest.responseText));
                         }

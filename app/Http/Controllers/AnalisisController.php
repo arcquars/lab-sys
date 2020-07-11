@@ -357,7 +357,10 @@ class AnalisisController extends Controller
             'nit' => $analisis->nit,
             'razon_social' => $analisis->razon_social,
         );
-        return response()->json(['success' => $resultado]);
+
+        return response()->json(['success' => $resultado, 'bandera' => 1]);
+        //$view = view('view.name', $arr)->render();
+        //return response()->json(['status' => 200, 'view' => $view]);
     }
 
     public function ajaxRegistrarFechaEntrega(Request $request){
