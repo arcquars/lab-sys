@@ -141,4 +141,8 @@
     .div-observacion h4 {
         font-size: 10px;
     }
+
+    .t_images_4_p{
+        font-size: 8px;
+    }
 </style>

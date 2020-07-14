@@ -26,6 +26,9 @@ class StoreDoctorPost extends FormRequest
         return [
             'nombres' => 'required',
             'apellidos' => 'required',
+            'especialidad' => 'string|min:0|max:120|nullable',
+            'matricula' => 'string|min:0|max:120|nullable',
+            'file' => 'image|max:4048|sometimes|nullable'
         ];
     }
 }

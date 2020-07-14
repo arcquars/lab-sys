@@ -23,7 +23,7 @@
                         <th>Ap Ma</th>
                         <th>Fecha</th>
                         <th>Tipo</th>
-                        <th>Doctor Refiere</th>
+                        <th>R. de análisis</th>
                         <th>Doctor Asignado</th>
                         @can('manage-users')
                             <th>Procedencia</th>
@@ -198,7 +198,7 @@
                     {name: 'person.apellido_materno', orderable: false, visible: false},
                     {name: 'fecha', orderable: false},
                     {name: 'tipo_analisis'},
-                    {name: 'doctor', orderable: false},
+                    {name: 'region', orderable: false},
                     {name: 'doctorasig.nombres', orderable: false},
                     {name: 'institucion.nombre'},
                         @can('manage-users')

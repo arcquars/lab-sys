@@ -1,7 +1,15 @@
 <div style="height: 35px;"></div>
 <div style="width: 100%; text-align: center;">
-    <p style="margin-bottom: 1px;">__________________</p>
-{{--<p style="margin-top: 1px; font-size: 10px">{{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}} </p>--}}
+    @if (strcmp($analisis->doctorasig->signing, '') == 0)
+        <br>
+        <br>
+        <br>
+        <p style="margin: 0; font-size: 11px; font-weight: 700;">Dr. {{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}}</p>
+        <p style="margin: 1px; font-size: 8px">{{$analisis->doctorasig->especialidad}}</p>
+        <p style="margin: 1px; font-size: 8px">{{$analisis->doctorasig->matricula}}</p>
+    @else
+        <img width="180" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
+    @endif
     <br>
 </div>
 <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{date('d')}} de {{ strtoupper(config('clinica.meses')[date('n')-1]) }} de {{date('Y')}}</p>

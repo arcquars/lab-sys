@@ -25,6 +25,9 @@
                     <th>ID</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
+                    <th>Especialidad</th>
+                    <th>Matrícula</th>
+                    <th>Imagen Firma</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -36,7 +39,7 @@
     <!-- Modal registro Doctor-->
     <div id="mdoctor" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <form id="fcreardoctor" action="">
+            <form id="fcreardoctor" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="">
                 <div class="modal-content">
@@ -65,6 +68,40 @@
                                            onkeyup="uppercaseInput(this);"
                                            placeholder="Apellido Paterno">
                                     <div class="fcp_error_apellidos" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Especialidad</label>
+                                    <input type="text" name="especialidad"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" placeholder="Especialidad">
+                                    <div class="fcp_error_especialidad" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="matricula">Matrícula</label>
+                                    <input type="text" name="matricula"
+                                           class="form-control"
+                                           onkeyup="uppercaseInput(this);"
+                                           placeholder="Matricula">
+                                    <div class="fcp_error_matricula" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divSigning" style="border: solid 1px #ced4da; padding: 5px;">
+                                    <button type="button" class="btn btn-danger" onclick="deleteImageSigningDr(this); return false;">Borrar Imagen</button>
+                                    <img class="img-fluid" src="" alt="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signing">Example file input</label>
+                                    <input id="signing" type="file" class="form-control-file" name="signing">
+                                    <div class="fcp_error_file" style="display: none;"></div>
                                 </div>
                             </div>
                         </div>
@@ -97,6 +134,16 @@
                     {name: 'id', visible: false},
                     {name: 'nombres', orderable: true},
                     {name: 'apellidos'},
+                    {name: 'especialidad'},
+                    {name: 'matricula'},
+                    { name: 'signing', "render": function ( data, type, row ) {
+                            if(data === ''){
+                                return '--';
+                            } else {
+                                return '<a href="{{asset('uploads/signings/')}}/'+data+'" target="_blank">Firma Digital</a>';
+                            }
+                        }
+                    },
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 "order": [[ 1, "asc" ]],
@@ -126,20 +173,29 @@
                 event.preventDefault();
                 clearErrorMsg();
 
-                var _token = $(this).find("input[name='_token']").val();
-                var id = $(this).find("input[name='id']").val();
-                var nombres = $(this).find("input[name='nombres']").val();
-                var apellidos = $(this).find("input[name='apellidos']").val();
+                // var _token = $(this).find("input[name='_token']").val();
+                // var id = $(this).find("input[name='id']").val();
+                // var nombres = $(this).find("input[name='nombres']").val();
+                // var apellidos = $(this).find("input[name='apellidos']").val();
+
+                var fd = new FormData();
+                var files = $('#signing')[0].files[0];
+                if(files === undefined){
+                    files = '';
+                }
+                fd.append('id', $(this).find("input[name='id']").val());
+                fd.append('file',files);
+                fd.append('nombres', $(this).find("input[name='nombres']").val());
+                fd.append('apellidos', $(this).find("input[name='apellidos']").val());
+                fd.append('especialidad', $(this).find("input[name='especialidad']").val());
+                fd.append('matricula', $(this).find("input[name='matricula']").val());
 
                 $.ajax({
                     url: "{{ route('doctores.createDoctor') }}",
                     type: 'POST',
-                    data: {
-                        _token: _token,
-                        id: id,
-                        nombres: nombres,
-                        apellidos: apellidos
-                    },
+                    data: fd,
+                    processData: false,
+                    contentType: false,
                     success: function (data) {
                         if (data.success) {
                             $("#mdoctor").modal("hide");
@@ -158,6 +214,7 @@
                 $("#fcreardoctor")[0].reset();
                 $("#fcreardoctor").find("input[name='id']").val('');
                 clearErrorMsg();
+                clearSectionSigning();
             });
         });
 
@@ -169,9 +226,15 @@
         function clearErrorMsg() {
             $('.fcp_error_nombres').empty();
             $('.fcp_error_apellidos').empty();
+            $('.fcp_error_file').empty();
+            $('.fcp_error_especialidad').empty();
+            $('.fcp_error_matricula').empty();
 
             $("#fcreardoctor").find("input[name='nombres']").removeClass('is-invalid');
             $("#fcreardoctor").find("input[name='apellidos']").removeClass('is-invalid');
+            $("#fcreardoctor").find("input[name='signing']").removeClass('is-invalid');
+            $("#fcreardoctor").find("input[name='especialidad']").removeClass('is-invalid');
+            $("#fcreardoctor").find("input[name='matricula']").removeClass('is-invalid');
         }
 
         function printErrorMsg(form, msg) {
@@ -209,6 +272,37 @@
             $("#fcreardoctor").find("input[name='id']").val(doctor.id);
             $("#fcreardoctor").find("input[name='nombres']").val(doctor.nombres);
             $("#fcreardoctor").find("input[name='apellidos']").val(doctor.apellidos);
+            $("#fcreardoctor").find("input[name='especialidad']").val(doctor.especialidad);
+            $("#fcreardoctor").find("input[name='matricula']").val(doctor.matricula);
+            if(doctor.signing !== ''){
+                $("#divSigning").show();
+                $("#divSigning").find('button').attr('data-id', doctor.id);
+                $("#fcreardoctor").find("img").attr('src', '{{asset('uploads/signings')}}/'+doctor.signing);
+            } else {
+                clearSectionSigning();
+            }
+        }
+
+        function deleteImageSigningDr(button){
+            $.ajax({
+                url: "{{ route('doctor.pDeleteSigning') }}",
+                type: 'POST',
+                data: {doctorId: $(button).attr('data-id')},
+                success: function (data) {
+                    if (data.success) {
+                        clearSectionSigning();
+                        $('#tDoctores').DataTable().ajax.reload();
+                    } else {
+                        alert(data.errors);
+                    }
+                }
+            });
+        }
+
+        function clearSectionSigning(){
+            $("#divSigning").hide();
+            $("#fcreardoctor").find("img").attr('src', '');
+            $("#divSigning").find('button').attr('data-id', '-1');
         }
     </script>
 @endpush

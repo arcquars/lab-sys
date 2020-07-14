@@ -436,7 +436,7 @@ class AnalisisController extends Controller
 
     public function ajaxSetPrecio(Request $request){
         $request->validate([
-            'precio' => 'required|numeric|between:10,999.99'
+            'precio' => 'required|numeric|between:10,20000'
         ]);
 
         $analisisId = $request->post('analisis_id');

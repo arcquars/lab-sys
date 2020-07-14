@@ -34,6 +34,8 @@ class DoctorController extends Controller
      */
     public function ajaxCreateDoctor(StoreDoctorPost $request){
         $doctorId = $request->get('id');
+
+
         $valid = true;
         if(isset($doctorId)){
             $valid = $this->updateDoctor($request);
@@ -48,24 +50,44 @@ class DoctorController extends Controller
     }
 
     private function createDoctor($request){
-        $person = new Doctor();
-        $person->nombres = $request->get('nombres');
-        $person->apellidos = $request->get('apellidos');
-        if($person->save()) {
-            return $person->id;
+        $doctor = new Doctor();
+        $doctor->nombres = $request->get('nombres');
+        $doctor->apellidos = $request->get('apellidos');
+        $doctor->especialidad = $request->get('especialidad');
+        $doctor->matricula = $request->get('matricula');
+
+        if(isset($request->file)){
+            $doctor->signing = $this->uploadSignig($request->file);
+        }
+
+        if($doctor->save()) {
+            return $doctor->id;
         }
         return false;
     }
 
     private function updateDoctor($request){
-        $person = Doctor::find($request->get('id'));
-        $person->nombres = $request->get('nombres');
-        $person->apellidos = $request->get('apellidos');
+        $doctor = Doctor::find($request->get('id'));
+        $doctor->nombres = $request->get('nombres');
+        $doctor->apellidos = $request->get('apellidos');
+        $doctor->especialidad = $request->get('especialidad');
+        $doctor->matricula = $request->get('matricula');
 
-        if($person->update()) {
+        if(isset($request->file)){
+            $doctor->signing = $this->uploadSignig($request->file);
+        }
+
+        if($doctor->update()) {
             return true;
         }
         return false;
+    }
+
+    private function uploadSignig($file){
+        $fileName = time().'.'.$file->extension();
+        $file->move(public_path('uploads/signings/'), $fileName);
+
+        return $fileName;
     }
 
     /**
@@ -81,5 +103,14 @@ class DoctorController extends Controller
     public function ajaxGetDoctor(Request $request){
         return response()
             ->json(['success'=> true, 'doctor' => Doctor::find($request->get('doctorId'))]);
+    }
+
+    public function ajaxDeleteSigning(Request $request){
+        $doctorId = $request->post('doctorId');
+        $doctor = Doctor::find($doctorId);
+        $doctor->signing = '';
+        $doctor->save();
+        return response()
+            ->json(['success'=> true]);
     }
 }

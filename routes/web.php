@@ -113,6 +113,7 @@ Route::get('/doctores/index', 'DoctorController@index')->name('doctores.home');
 Route::post('/doctores/ajaxcreatedoctor','DoctorController@ajaxCreateDoctor')->name('doctores.createDoctor');
 Route::get('/doctores/datatables-doctores', 'DoctorController@getDatatablesDoctor')->name('doctor.datatables_doctores');
 Route::post('/doctores/ajaxgetdoctor','DoctorController@ajaxGetDoctor')->name('doctor.getDoctor');
+Route::post('/doctores/ajaxDeleteSigning','DoctorController@ajaxDeleteSigning')->name('doctor.pDeleteSigning');
 
 
 Route::get('/gastos/index', 'GastoController@index')->name('gastos.home');
