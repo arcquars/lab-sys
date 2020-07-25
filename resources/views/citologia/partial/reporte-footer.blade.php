@@ -1,4 +1,4 @@
-<div style="height: 35px;"></div>
+<div style="height: 5px;"></div>
 <div style="width: 100%; text-align: center;">
     @if (strcmp($analisis->doctorasig->signing, '') == 0)
         <br>
@@ -10,7 +10,6 @@
     @else
         <img width="180" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
     @endif
-    <br>
 </div>
 <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{date('d')}} de {{ strtoupper(config('clinica.meses')[date('n')-1]) }} de {{date('Y')}}</p>
 <htmlpagefooter name="page-footer">

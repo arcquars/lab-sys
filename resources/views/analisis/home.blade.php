@@ -25,10 +25,8 @@
                         <th>Tipo</th>
                         <th>R. de análisis</th>
                         <th>Doctor Asignado</th>
-                        @can('manage-users')
-                            <th>Procedencia</th>
-                            <th>Precio</th>
-                        @endcan
+                        <th>Procedencia</th>
+                        <th>Precio</th>
                         <th>A cuenta</th>
                         <th>Pago</th>
                         <th>Estado</th>
@@ -200,24 +198,30 @@
                     {name: 'tipo_analisis'},
                     {name: 'region', orderable: false},
                     {name: 'doctorasig.nombres', orderable: false},
-                    {name: 'institucion.nombre'},
                         @can('manage-users')
+                    {name: 'institucion.nombre'},
                     {name: 'precio', searchable: false},
                     {name: 'acuenta', searchable: false},
-                        @endcan
                     {name: 'pago_efectuado', searchable: false},
+
+                    @else
+                    {name: 'institucion.nombre', visible: false},
+                    {name: 'precio', searchable: false, visible: false},
+                    {name: 'acuenta', searchable: false, visible: false},
+                    {name: 'pago_efectuado', searchable: false, visible: false},
+                        @endcan
                     {name: 'precio1', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false},
                     {name: 'persona_entrega', visible: false},
                     {name: 'fecha_cierre', visible: false}
                 ],
-                aoColumnDefs: [
-                    {
-                        "targets": [10],
-                        "visible": false,
-                        "searchable": false
-                    }
-                ],
+                // aoColumnDefs: [
+                //     {
+                //         "targets": [10],
+                //         "visible": false,
+                //         "searchable": false
+                //     }
+                // ],
                 "pagingType": "full_numbers",
                 "order": [[ 5, "desc" ]],
                 language: {

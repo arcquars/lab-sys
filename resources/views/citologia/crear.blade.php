@@ -940,7 +940,7 @@ use \App\Helpers\HelperConfig;
                         },
                         complete: function(xhr, status){
                          // Handle the complete event
-                        }
+                        },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             printErrorMsg($("#fcrearinstitucion"), JSON.parse(XMLHttpRequest.responseText));
                         }
