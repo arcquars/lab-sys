@@ -34,7 +34,7 @@ return [
         'AUSENTE',
         'LEVE',
         'VAGINA',
-        'ENDOCERMIX',
+        'ENDOCERVIX',
         'MODERADA',
         'CERVIX',
         'OTROS',

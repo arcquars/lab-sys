@@ -672,14 +672,14 @@ use \App\Helpers\HelperConfig;
 
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="desviacion[DESVIACION AL CENTRO]">DESVIACION AL CENTRO</label>
+                            <label for="desviacion[VALOR DE MADURACION (MV)]">VALOR DE MADURACION (MV)</label>
                             @if ($resultados)
                                 @php
                                     $seccAux = null;
 
                                 @endphp
                                 @foreach($seccDesviacion as $secc)
-                                    @if (strcmp($secc->key, 'DESVIACION AL CENTRO') == 0)
+                                    @if (strcmp($secc->key, 'VALOR DE MADURACION (MV)') == 0)
                                         @php
                                             $seccAux = $secc;
                                         @endphp
@@ -687,19 +687,19 @@ use \App\Helpers\HelperConfig;
                                 @endforeach
                                 @if ($seccAux)
                                     <input type="text" class="form-control"
-                                           name="desviacion[DESVIACION AL CENTRO]"
+                                           name="desviacion[VALOR DE MADURACION (MV)]"
                                            onkeyup="uppercaseInput(this);"
                                            value="{{$seccAux->value}}"
                                     >
                                 @else
                                     <input type="text" class="form-control"
-                                           name="desviacion[DESVIACION AL CENTRO]"
+                                           name="desviacion[VALOR DE MADURACION (MV)]"
                                            onkeyup="uppercaseInput(this);"
                                     >
                                 @endif
                             @else
                                 <input type="text" class="form-control"
-                                       name="desviacion[DESVIACION AL CENTRO]"
+                                       name="desviacion[VALOR DE MADURACION (MV)]"
                                        onkeyup="uppercaseInput(this);"
                                 >
                             @endif

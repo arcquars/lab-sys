@@ -2,7 +2,8 @@
 
 return [
 	'mode'                  => 'utf-8',
-	'format'                => 'A4',
+	'format'                => [216, 325],
+//	'format'                => 'Legal',
 //    'marginTop'          => 500,
 //    'marginBottom'       => 10,
 //    'marginHeader'       => 0,

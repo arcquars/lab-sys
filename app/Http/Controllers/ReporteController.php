@@ -32,7 +32,7 @@ class ReporteController extends Controller
         $procedenciaId = 0;
 
         $procedencias = Institucion::all();
-        $analisis = Analisis::where('fecha', $fecha)->get();
+        $analisis = Analisis::where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
         $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->get();
         $totalAcuenta = 0;
         $totalEfec = 0;
@@ -151,10 +151,10 @@ class ReporteController extends Controller
         $procedencias = Institucion::all();
 
         if($procedenciaId == 0){
-            $analisis = Analisis::where('fecha', $fecha)->get();
+            $analisis = Analisis::where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
             $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->get();
         } else {
-            $analisis = Analisis::where('fecha', $fecha)->where('procedencia', $procedenciaId)->get();
+            $analisis = Analisis::where('fecha', $fecha)->where('procedencia', $procedenciaId)->where('acuenta', '>', 0 )->get();
             $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->where('procedencia', $procedenciaId)->get();
         }
         $totalAcuenta = 0;

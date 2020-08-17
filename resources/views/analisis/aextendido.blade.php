@@ -170,8 +170,8 @@
                             <input type="text" class="form-control" name="desviacion[DESVIACION A LA IZQUIERDA]">
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="desviacion[DESVIACION AL CENTRO]">DESVIACION AL CENTRO</label>
-                            <input type="text" class="form-control" name="desviacion[DESVIACION AL CENTRO]">
+                            <label for="desviacion[VALOR DE MADURACION (MV)]">VALOR DE MADURACION (MV)</label>
+                            <input type="text" class="form-control" name="desviacion[VALOR DE MADURACION (MV)]">
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA DERECHA]">DESVIACION A LA DERECHA</label>

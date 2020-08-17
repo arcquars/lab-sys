@@ -1,8 +1,5 @@
-<div style="height: 5px;"></div>
 <div style="width: 100%; text-align: center;">
     @if (strcmp($analisis->doctorasig->signing, '') == 0)
-        <br>
-        <br>
         <br>
         <p style="margin: 0; font-size: 11px; font-weight: 700;">Dr. {{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}}</p>
         <p style="margin: 1px; font-size: 8px">{{$analisis->doctorasig->especialidad}}</p>
