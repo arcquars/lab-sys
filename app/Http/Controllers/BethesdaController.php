@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Bethesda;
+use App\EditarControl;
 use App\Http\Requests\StoreBiopsiaPost;
+use App\ImpresionControl;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use PDF;
 
@@ -39,6 +42,7 @@ class BethesdaController extends Controller
     }
 
     public function store(StoreBiopsiaPost $request){
+        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         if (empty($request->post('bethesda'))){
             $bethesda = new Bethesda();
         } else {
@@ -88,6 +92,7 @@ class BethesdaController extends Controller
     }
 
     function reporte($analisisId) {
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
         $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
 

@@ -39,6 +39,8 @@ Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getEx
 
 Route::resource('analisis', 'AnalisisController');
 Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');
+Route::get('/analisis/lista_impresiones/{analisisId}', 'AnalisisController@listaImpresion')->name('analisis.lista.impresion');
+Route::get('/analisis/lista_ediciones/{analisisId}', 'AnalisisController@listaEdicion')->name('analisis.lista.edicion');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
 Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crearTipoAnalisis')->name('analisis.analisisextendido');
 Route::get('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
@@ -100,6 +102,9 @@ Route::get('/reportes/reporte-admin-diario-convenio/{fechaIni}/{fechaFin}', 'Rep
 
 Route::get('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacion')->name('reporte.reporte_facturacion');
 Route::post('/reportes/reporte-facturacion', 'ReporteController@reporteFacturacionPost')->name('reporte.reporte_facturacion_post');
+
+Route::get('/reportes/reporte-diagnostico', 'ReporteController@reporteDiagnostico')->name('reporte.reporte_diagnostico');
+Route::post('/reportes/reporte-diagnostico', 'ReporteController@reporteDiagnosticoPost')->name('reporte.reporte_diagnostico_post');
 
 Route::get('/reportes/reporte-cerrados', 'ReporteController@reporteCerrados')->name('reporte.reporte_cerrados');
 Route::post('/reportes/reporte-cerrados', 'ReporteController@reporteCerradosPost')->name('reporte.reporte_cerrados_post');

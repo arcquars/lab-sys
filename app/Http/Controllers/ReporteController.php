@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Biopsia;
 use App\ClinicaClass\Reporte2;
 use App\Convenio;
 use App\Exports\ReporteAdminDiaConvenioExport;
@@ -536,6 +537,49 @@ class ReporteController extends Controller
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis', 'meses', 'year', 'facturados',
             'procedenciaId'
+        ));
+    }
+
+    public function reporteDiagnostico()
+    {
+        $date = new \DateTime();
+        $year = intval($date->format('Y'));
+        $mes = $date->format('m');
+        $day_last = $date->format('t');
+
+        $fecha_ini = $year.'-'.$mes.'-01';
+        $fecha_fin = $year.'-'.$mes.'-'.$day_last;
+
+        $biopsias = Biopsia::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->orderBy('id', 'desc')->get();
+
+        $diagnostico = '';
+        return view('reportes.reporte-diagnostico', compact(
+            'fecha_ini', 'fecha_fin',
+            'biopsias', 'diagnostico'
+        ));
+    }
+
+    public function reporteDiagnosticoPost(Request $request)
+    {
+        $diagnostico = $request->post('diagnostico');
+        $fecha_ini = $request->post('fecha_ini');
+        $fecha_fin = $request->post('fecha_fin');
+
+//        $biopsias = Biopsia::with(['analisis' => function($q) use($fecha_ini, $fecha_fin){
+//            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha', 'desc');
+//        }])->where('diagnostico', 'like', "%".$diagnostico."%")->with('analisis')->get();
+
+        $biopsias = Biopsia::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->where('diagnostico', 'like', "%".$diagnostico."%")->orderBy('id', 'desc')->get();
+
+        return view('reportes.reporte-diagnostico', compact(
+            'fecha_ini', 'fecha_fin',
+            'biopsias', 'diagnostico'
         ));
     }
 

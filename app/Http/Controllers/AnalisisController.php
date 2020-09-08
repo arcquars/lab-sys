@@ -7,9 +7,11 @@ use App\Bethesda;
 use App\Biopsia;
 use App\Convenio;
 use App\Doctor;
+use App\EditarControl;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Http\Requests\UpdateAnalisisPost;
+use App\ImpresionControl;
 use App\Institucion;
 use App\Person;
 use App\Resultado;
@@ -199,9 +201,28 @@ class AnalisisController extends Controller
      *
      * @return Json
      */
-    public function getDatatablesData()
+    public function getDatatablesData(Request $request)
     {
-        return Laratables::recordsOf(   Analisis::class);
+        $columns = $request->get('columns');
+        $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
+        $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
+//        dd($searchApellidos);
+//        if(isset($searchNombres)){
+//            return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos){
+//                return $query->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+//                {
+//                    $q->where('nombres', 'like', '%'.$searchNombres.'%')->orWhere('apellidos', 'like', '%'.$searchApellidos.'%');
+//                });
+//            });
+//        }
+//        return Laratables::recordsOf(Analisis::class);
+
+        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos){
+            return $query->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+            {
+                $q->where('nombres', 'like', '%'.$searchNombres.'%')->where('apellidos', 'like', '%'.$searchApellidos.'%');
+            });
+        });
     }
 
     /**
@@ -447,5 +468,21 @@ class AnalisisController extends Controller
         $analisis->precio = $precio;
 
         return response()->json(['success' => $analisis->save()]);
+    }
+
+    public function listaImpresion($analisisId){
+        /** @var ImpresionControl $impresionesControl */
+        $impresionesControl = ImpresionControl::where('analisis_id',$analisisId)->orderBy('created_at', 'desc')->get();
+
+        return view('analisis.lista_impresiones', compact(
+            'impresionesControl'));
+    }
+
+    public function listaEdicion($analisisId){
+        /** @var EditarControl $editarControl */
+        $editarControl = EditarControl::where('analisis_id',$analisisId)->orderBy('created_at', 'desc')->get();
+
+        return view('analisis.lista_cambios', compact(
+            'editarControl'));
     }
 }

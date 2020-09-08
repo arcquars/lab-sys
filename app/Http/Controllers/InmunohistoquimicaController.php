@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\EditarControl;
 use App\Histoquimica;
 use App\Http\Requests\StoreHistoPost;
+use App\ImpresionControl;
 use App\Marcador;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class InmunohistoquimicaController extends Controller
@@ -32,6 +35,7 @@ class InmunohistoquimicaController extends Controller
     }
 
     public function store(StoreHistoPost $request){
+        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         if (empty($request->post('histo_id'))){
             $histo = new Histoquimica();
             $histo->analisis_id = $request->post('analisis_id');
@@ -134,6 +138,7 @@ class InmunohistoquimicaController extends Controller
     }
 
     function reporte($analisisId) {
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
 

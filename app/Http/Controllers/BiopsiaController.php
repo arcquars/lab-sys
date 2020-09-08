@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Biopsia;
+use App\EditarControl;
 use App\Http\Requests\StoreBiopsiaPost;
+use App\ImpresionControl;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 
@@ -156,6 +158,8 @@ class BiopsiaController extends Controller
     }
 
     function reporte($analisisId) {
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+
         $analisis = Analisis::find($analisisId);
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
 
@@ -169,6 +173,7 @@ class BiopsiaController extends Controller
     }
 
     private function updateBiopsia($request){
+        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         $biopsia = Biopsia::find($request->post('biopsia_id'));
         $biopsia->analisis_id = $request->post('analisis_id');
         $biopsia->organo_tejido = $request->post('organo_tejido');

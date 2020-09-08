@@ -46,7 +46,15 @@
         <a href="{{ route('analisis.edit', $analisis) }}"
                 class="btn btn-outline-success btn-block">Editar Analisis</a>
     </dd>
-    <dd class="col-md-6">
+    <dd class="col-md-2">
+        <a href="{{ route('analisis.lista.impresion', $analisis) }}"
+           class="btn btn-outline-success btn-block">Historial Impresion</a>
+    </dd>
+    <dd class="col-md-2">
+        <a href="{{ route('analisis.lista.edicion', $analisis) }}"
+           class="btn btn-outline-success btn-block">Historial de Cambios</a>
+    </dd>
+    <dd class="col-md-2">
         @if($analisis->hasHistory())
             <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
         @endif

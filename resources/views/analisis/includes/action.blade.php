@@ -18,6 +18,9 @@
     <a href="{{route($routeView, ['analisisId' => $id])}}" class="btn btn-link float-right btn-clinica" title="Ver Resultados">
         <i class="far fa-eye"></i>
     </a>
+    <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
+        <i class="fas fa-file-pdf text-success"></i>
+    </a>
 @endif
 @if($precio != ($acuenta + $pago_efectuado))
     @can('manage-users')
@@ -27,5 +30,5 @@
     @endcan
 @endif
 <a href="{{route('analisis.comprobante', ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
-    <i class="fas fa-print text-warning"></i>
+    <i class="fas fa-print text-success"></i>
 </a>

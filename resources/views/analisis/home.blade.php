@@ -12,6 +12,23 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" name="nombres" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Apellido</label>
+                        <input type="text" name="apellidos" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
             <div class="table-responsive">
                 <table id="tAnalisis" class="table table-bordered table-clinica">
                     <thead class="thead-dark">
@@ -156,7 +173,7 @@
                             <label for="fecha_cierre">Fecha de cierre del Analisis</label>
                             <input type="date" name="fecha_cierre" class="form-control"
                                    value="{{date('Y-m-d')}}"
-                                   min="{{date('Y-m-d', strtotime("-2 days"))}}"
+                                   min="{{date('Y-m-d', strtotime("-20 days"))}}"
                                    max="{{date('Y-m-d', strtotime("2 days"))}}"
                             >
                             <div class="fcp_error_fecha_cierre" style="display: none;"></div>
@@ -182,7 +199,7 @@
                 }
             });
 
-            $('#tAnalisis').DataTable({
+            var table = $('#tAnalisis').DataTable({
                 serverSide: true,
                 processing: true,
                 responsive: true,
@@ -250,6 +267,17 @@
                 savePago();
                 event.preventDefault();
             });
+
+            $('input[name="nombres"]').on( 'keyup', function () {
+                table.column(2).search(
+                    $(this).val()
+                ).draw();
+            } );
+            $('input[name="apellidos"]').on( 'keyup', function () {
+                table.column(3).search(
+                    $(this).val()
+                ).draw();
+            } );
 
         });
 

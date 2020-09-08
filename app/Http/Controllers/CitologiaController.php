@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Bethesda;
+use App\EditarControl;
 use App\Http\Requests\StoreResultadosPost;
+use App\ImpresionControl;
 use App\Resultado;
 use App\Seccion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class CitologiaController extends Controller
@@ -179,7 +182,7 @@ class CitologiaController extends Controller
 
     public function resultadosEdit(StoreResultadosPost $request)
     {
-//        dd($request->input('estudioMicro'));
+        EditarControl::grabarEditar(Auth::user()->id, $request->input('analisis_id'));
         $resultado = Resultado::where('analisis_id', $request->input('analisis_id'))->first();
 
         $resultado->papanicolaou_clase1 = $request->input('papanicolaou_clase1');
@@ -248,6 +251,9 @@ class CitologiaController extends Controller
     }
 
     function reporte($analisisId) {
+
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+
         $analisis = Analisis::find($analisisId);
         $resultados = Resultado::where('analisis_id', $analisisId)->first();
         $seccionOMG = Seccion::getArraySeccionesByOMS($resultados->secciones);

@@ -35,6 +35,10 @@ class Analisis extends Model
         'doctor_asignado'
     ];
 
+    protected $dates = [
+        'fecha_cierre',
+    ];
+
     public function person(){
         return $this->belongsTo('App\Person');
     }
@@ -69,34 +73,40 @@ class Analisis extends Model
         }
         $isHasResult = false;
         $routeView = '';
+        $printAnalisis = 'home';
         switch ($analisis->tipo_analisis){
             case Analisis::CITOLOGIA:
-                $routeView = 'citologia.viewResultado';
                 if(Resultado::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'citologia.viewResultado';
+                    $printAnalisis = 'citologia.reporte';
                     $isHasResult = true;
                 }
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
-                $routeView = 'histo.viewResultado';
                 if(Histoquimica::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'histo.viewResultado';
+                    $printAnalisis = 'histo.reporte';
                     $isHasResult = true;
                 }
                 break;
             case Analisis::BIOPSIA:
                 if(Biopsia::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'biopsia.viewResultado';
+                    $printAnalisis = 'biopsia.reporte';
                     $isHasResult = true;
                 }
                 break;
             case Analisis::HISTOPATOLOGICO:
                 if(Biopsia::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'biopsia.viewResultado';
+                    $printAnalisis = 'biopsia.reporte';
                     $isHasResult = true;
                 }
                 break;
             case Analisis::BETHESDA:
                 if(Bethesda::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'bethesda.viewResultado';
+                    $printAnalisis = 'bethesda.reporte';
                     $isHasResult = true;
                 }
                 break;
@@ -105,6 +115,7 @@ class Analisis extends Model
             'id' => $analisis->id,
             'isHasResult' => $isHasResult,
             'routeView' => $routeView,
+            'printAnalisis' => $printAnalisis,
             'acuenta' => $analisis->acuenta,
             'precio' => $analisis->precio,
             'pago_efectuado' => $analisis->pago_efectuado,
@@ -192,5 +203,36 @@ class Analisis extends Model
             "isHasResult" => $isHasResult,
             "routeView" => $routeView
             ))->render();
+    }
+
+    /**
+     * Adds the condition for searching the name of the user in the query.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder
+     * @param string search term
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function laratablesSearchPersonNombres($query, $searchValue)
+    {
+        return $query->orWhereHas('person', function ($query) use ($searchValue) {
+            $query->where('nombres', 'like', "%". $searchValue ."%");
+        });
+    }
+
+//    public static function laratablesQueryConditions($query)
+//    {
+//        return $query->join('persons', 'persons.id', 'analisis.person_id');
+//    }
+
+    /**
+     * Eager load media items of the role for displaying in the datatables.
+     *
+     * @return callable
+     */
+    public static function laratablesAnalisisRelationQuery()
+    {
+        return function ($query) {
+            $query->with('person');
+        };
     }
 }

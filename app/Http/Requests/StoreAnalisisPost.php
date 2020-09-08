@@ -33,6 +33,7 @@ class StoreAnalisisPost extends FormRequest
 
         $rulesR = [
 //            'doctor' => 'required|min:5|max:200|countWordRule',
+        'codigo' => 'required|unique:analisis,codigo',
             'doctor' => 'required|min:5|max:200',
             'procedencia' => 'required',
             'tipo_analisis' => 'required',

@@ -18,4 +18,8 @@ class Biopsia extends Model
         'user_microscopia',
         'user_diagnostico'
     ];
+
+    public function analisis(){
+        return $this->belongsTo('App\Analisis', 'analisis_id', 'id');
+    }
 }
