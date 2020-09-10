@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Analisis extends Model
@@ -37,6 +38,7 @@ class Analisis extends Model
 
     protected $dates = [
         'fecha_cierre',
+        'fecha_entrega'
     ];
 
     public function person(){
@@ -234,5 +236,17 @@ class Analisis extends Model
         return function ($query) {
             $query->with('person');
         };
+    }
+
+    /**
+     * @param Analisis $analisis
+     * @param string $username
+     */
+    public static function saveFechaEntrega($analisis, $username){
+        if(!isset($analisis->fecha_entrega)){
+            $analisis->fecha_entrega = Carbon::now();
+            $analisis->persona_entrega = $username;
+            $analisis->save();
+        }
     }
 }

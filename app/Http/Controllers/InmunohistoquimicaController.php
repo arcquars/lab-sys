@@ -140,6 +140,7 @@ class InmunohistoquimicaController extends Controller
     function reporte($analisisId) {
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
+        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('histo.reporte', compact(

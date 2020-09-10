@@ -141,7 +141,7 @@
                             <label for="fecha_entrega">Fecha de entrega</label>
                             <input type="date" name="fecha_entrega" class="form-control"
                                    value="{{date('Y-m-d')}}"
-                                   min="{{date('Y-m-d', strtotime("-5 days"))}}"
+                                   min="{{date('Y-m-d', strtotime("-30 days"))}}"
                                    max="{{date('Y-m-d', strtotime("5 days"))}}"
                             >
                             <div class="fcp_error_fecha_entrega" style="display: none;"></div>

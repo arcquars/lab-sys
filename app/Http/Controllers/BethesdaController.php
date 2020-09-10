@@ -94,6 +94,7 @@ class BethesdaController extends Controller
     function reporte($analisisId) {
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
+        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
 
         $arr = json_decode($bethesda->celulas_observadas, true);

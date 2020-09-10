@@ -161,6 +161,7 @@ class BiopsiaController extends Controller
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
+        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('biopsia.reporte', compact(
