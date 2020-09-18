@@ -47,6 +47,7 @@ class CitologiaController extends Controller
             $nuevoAnalisis = true;
         }
 
+
 //        if(!$nuevoAnalisis && strcmp($analisis->tipo_analisis, Analisis::BETHESDA) == 0){
 //        }
 
