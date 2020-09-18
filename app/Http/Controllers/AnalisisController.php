@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
-use App\Bethesda;
-use App\Biopsia;
 use App\Convenio;
 use App\Doctor;
 use App\EditarControl;
@@ -206,16 +204,6 @@ class AnalisisController extends Controller
         $columns = $request->get('columns');
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
-//        dd($searchApellidos);
-//        if(isset($searchNombres)){
-//            return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos){
-//                return $query->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
-//                {
-//                    $q->where('nombres', 'like', '%'.$searchNombres.'%')->orWhere('apellidos', 'like', '%'.$searchApellidos.'%');
-//                });
-//            });
-//        }
-//        return Laratables::recordsOf(Analisis::class);
 
         return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos){
             return $query->whereHas('person', function($q) use ($searchNombres, $searchApellidos)

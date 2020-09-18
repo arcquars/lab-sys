@@ -29,6 +29,6 @@
     </a>
     @endcan
 @endif
-<a href="{{route('analisis.comprobante', ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
-    <i class="fas fa-print text-success"></i>
-</a>
+{{--<a href="{{route('analisis.comprobante', ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">--}}
+{{--    <i class="fas fa-print text-success"></i>--}}
+{{--</a>--}}

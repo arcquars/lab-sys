@@ -356,7 +356,7 @@ use \App\Helpers\HelperConfig;
                                         <div class="form-check">
                                             <label class="form-check-label">
                                                 <input name="reacInfla[{{$reacInfla}}]" class="form-check-input" type="checkbox" value="SI"
-                                                       @if ($resultados && HelperConfig::existEdcKey($seccReaccInfl, $key))
+                                                       @if ($resultados && HelperConfig::existEdcKey($seccReaccInfl, $reacInfla))
                                                        checked
                                                         @endif
                                                 >
@@ -672,39 +672,6 @@ use \App\Helpers\HelperConfig;
 
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="desviacion[VALOR DE MADURACION (MV)]">VALOR DE MADURACION (MV)</label>
-                            @if ($resultados)
-                                @php
-                                    $seccAux = null;
-
-                                @endphp
-                                @foreach($seccDesviacion as $secc)
-                                    @if (strcmp($secc->key, 'VALOR DE MADURACION (MV)') == 0)
-                                        @php
-                                            $seccAux = $secc;
-                                        @endphp
-                                    @endif
-                                @endforeach
-                                @if ($seccAux)
-                                    <input type="text" class="form-control"
-                                           name="desviacion[VALOR DE MADURACION (MV)]"
-                                           onkeyup="uppercaseInput(this);"
-                                           value="{{$seccAux->value}}"
-                                    >
-                                @else
-                                    <input type="text" class="form-control"
-                                           name="desviacion[VALOR DE MADURACION (MV)]"
-                                           onkeyup="uppercaseInput(this);"
-                                    >
-                                @endif
-                            @else
-                                <input type="text" class="form-control"
-                                       name="desviacion[VALOR DE MADURACION (MV)]"
-                                       onkeyup="uppercaseInput(this);"
-                                >
-                            @endif
-                        </div>
-                        <div class="col-md-4 form-group">
                             <label for="desviacion[DESVIACION A LA DERECHA]">DESVIACION A LA DERECHA</label>
                             @if ($resultados)
                                 @php
@@ -733,6 +700,39 @@ use \App\Helpers\HelperConfig;
                             @else
                                 <input type="text" class="form-control"
                                        name="desviacion[DESVIACION A LA DERECHA]"
+                                       onkeyup="uppercaseInput(this);"
+                                >
+                            @endif
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="desviacion[VALOR DE MADURACION (MV)]">VALOR DE MADURACION (MV)</label>
+                            @if ($resultados)
+                                @php
+                                    $seccAux = null;
+
+                                @endphp
+                                @foreach($seccDesviacion as $secc)
+                                    @if (strcmp($secc->key, 'VALOR DE MADURACION (MV)') == 0)
+                                        @php
+                                            $seccAux = $secc;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($seccAux)
+                                    <input type="text" class="form-control"
+                                           name="desviacion[VALOR DE MADURACION (MV)]"
+                                           onkeyup="uppercaseInput(this);"
+                                           value="{{$seccAux->value}}"
+                                    >
+                                @else
+                                    <input type="text" class="form-control"
+                                           name="desviacion[VALOR DE MADURACION (MV)]"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
+                                @endif
+                            @else
+                                <input type="text" class="form-control"
+                                       name="desviacion[VALOR DE MADURACION (MV)]"
                                        onkeyup="uppercaseInput(this);"
                                 >
                             @endif
