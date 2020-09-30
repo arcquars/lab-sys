@@ -20,7 +20,7 @@
     <dt class="col-md-3">Analisis Entregado A:</dt>
     <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</dd>
     <dt class="col-md-3">Fecha Cierre:</dt>
-    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre: '--NO CERRADO--')}}</dd>
+    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--NO CERRADO--')}}</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Region:</dt>
@@ -35,8 +35,9 @@
 {{--    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>--}}
 </dl>
 
-@can('manage-users')
+
 <dl class="row row-citologia">
+    @can('manage-users')
     <dt class="col-md-2">
         <button type="button"
                 class="btn btn-outline-info btn-block" data-toggle="modal"
@@ -54,13 +55,15 @@
         <a href="{{ route('analisis.lista.edicion', $analisis) }}"
            class="btn btn-outline-success btn-block">Historial de Cambios</a>
     </dd>
+    @endcan
+    @can('manage-users-dr1')
     <dd class="col-md-2">
         @if($analisis->hasHistory())
             <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
         @endif
     </dd>
+    @endcan
 </dl>
-@endcan
 <div id="mEditarCosto" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

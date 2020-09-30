@@ -17,7 +17,7 @@ class CreateResultadosTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('papanicolaou_clase1', 150);
-            $table->string('papanicolaou_clase2', 250);
+            $table->string('papanicolaou_clase2', 250)->nullable(true);
             $table->text('observaciones1')->nullable(true);
             $table->text('observaciones2')->nullable(true);
 

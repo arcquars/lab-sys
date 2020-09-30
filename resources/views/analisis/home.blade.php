@@ -141,11 +141,12 @@
                             <label for="fecha_entrega">Fecha de entrega</label>
                             <input type="date" name="fecha_entrega" class="form-control"
                                    value="{{date('Y-m-d')}}"
-                                   min="{{date('Y-m-d', strtotime("-30 days"))}}"
+                                   min="{{date('Y-m-d', strtotime("-100 days"))}}"
                                    max="{{date('Y-m-d', strtotime("5 days"))}}"
                             >
                             <div class="fcp_error_fecha_entrega" style="display: none;"></div>
                         </div>
+                        <span class="font-weight-bold text-success">Esta fecha es la que se imprime en el resultado del análisis</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -162,7 +163,7 @@
             <div class="modal-content">
                 <form id="f_cerraranalisis">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Cerrar Analisis</h5>
+                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Cerrar Análisis</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -173,7 +174,7 @@
                             <label for="fecha_cierre">Fecha de cierre del Analisis</label>
                             <input type="date" name="fecha_cierre" class="form-control"
                                    value="{{date('Y-m-d')}}"
-                                   min="{{date('Y-m-d', strtotime("-20 days"))}}"
+                                   min="{{date('Y-m-d', strtotime("-100 days"))}}"
                                    max="{{date('Y-m-d', strtotime("2 days"))}}"
                             >
                             <div class="fcp_error_fecha_cierre" style="display: none;"></div>
@@ -340,17 +341,67 @@
         }
 
         function openModalFechaEntrega(link) {
-            $('#fechaEntregaModal').modal('show');
+            $.ajax({
+                url: "{{ route('analisis.aGetAnalisisById') }}",
+                type: 'POST',
+                data: {analisis_id: $(link).data('id')},
+                success: function (data) {
+                    if(data.success == 1){
+                        $('#fechaEntregaModal').modal('show');
+                        clearErrorMsg();
+                        $('#f_fechaentrega')[0].reset();
+                        $('#f_fechaentrega input[name="analisis_id"]').val($(link).data('id'));
 
-            clearErrorMsg();
-            $('#f_fechaentrega')[0].reset();
-            $('#f_fechaentrega input[name="analisis_id"]').val($(link).data('id'));
+
+
+                        if(data.analisis.fecha_entrega !== null){
+                            $('#f_fechaentrega input[name="fecha_entrega"]').val(data.analisis.fecha_entrega.split(' ')[0]);
+                        } else {
+                            $('#f_fechaentrega input[name="fecha_entrega"]').val('');
+                        }
+                        if(data.analisis.persona_entrega !== null){
+                            $('#f_fechaentrega input[name="persona_entrega"]').val(data.analisis.persona_entrega);
+                        } else {
+                            $('#f_fechaentrega input[name="persona_entrega"]').val('');
+                        }
+
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
         }
 
         function openModalCerrarAnalisis(link) {
-            $('#cerrarAnalisisModal').modal('show');
-            $('#f_cerraranalisis')[0].reset();
-            $('#f_cerraranalisis input[name="analisis_id"]').val($(link).data('id'))
+            $.ajax({
+                url: "{{ route('analisis.aGetAnalisisById') }}",
+                type: 'POST',
+                data: {analisis_id: $(link).data('id')},
+                success: function (data) {
+                    // alert(data.analisis.fecha_cierre);
+
+                    if(data.success == 1){
+                        $('#cerrarAnalisisModal').modal('show');
+                        $('#f_cerraranalisis')[0].reset();
+                        $('#f_cerraranalisis input[name="analisis_id"]').val($(link).data('id'));
+                        // $('#f_cerraranalisis input[name="fecha_cierre"]').val(data.analisis.fecha_cierre);
+                        if(data.analisis.fecha_cierre !== null){
+                            $('#f_cerraranalisis input[name="fecha_cierre"]').val(data.analisis.fecha_cierre.split(' ')[0]);
+                        } else {
+                            $('#f_cerraranalisis input[name="fecha_cierre"]').val('');
+                        }
+
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
         }
 
         function saveFechaEntrega(){

@@ -1,14 +1,14 @@
 @can('manage-users')
-    @if(!$entregado)
+{{--    @if(!$entregado)--}}
 <a href="#" onclick="openModalFechaEntrega(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica" title="Fecha Entrega">
     <i class="far fa-calendar-times "></i>
 </a>
-    @endif
-    @if(!isset($fechaCierre))
+{{--    @endif--}}
+{{--    @if(!isset($fechaCierre))--}}
 <a href="#" onclick="openModalCerrarAnalisis(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica" title="Cerrar Analisis">
     <i class="fas fa-hourglass-end "></i>
 </a>
-    @endif
+{{--    @endif--}}
 @endcan
 @if (!$isHasResult)
     <a href="{{ route('analisis.analisisextendido', $id) }}" class="btn btn-link float-right btn-clinica" title="Detallar Resultados">

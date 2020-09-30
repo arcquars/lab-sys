@@ -30,6 +30,7 @@ class Analisis extends Model
         'doctor',
         'movimiento',
         'persona_entrega',
+        'fecha_entrega',
         'fecha_cierre',
         'nit',
         'razon_social',
@@ -37,6 +38,7 @@ class Analisis extends Model
     ];
 
     protected $dates = [
+        'fecha',
         'fecha_cierre',
         'fecha_entrega'
     ];

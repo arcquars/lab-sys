@@ -910,7 +910,7 @@ use \App\Helpers\HelperConfig;
             tinymce.init({
                 selector: '#observaciones1',
                 plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,

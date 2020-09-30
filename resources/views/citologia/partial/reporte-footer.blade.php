@@ -11,11 +11,11 @@
         <img width="180" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
     @endif
 </div>
-@if($analisis->fecha_entrega)
-    <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{ $analisis->fecha_entrega->format('d') }} de {{ strtoupper(config('clinica.meses')[$analisis->fecha_entrega->format('n') -1]) }} de {{ $analisis->fecha_entrega->format('Y') }}</p>
-@else
-    <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{date('d')}} de {{ strtoupper(config('clinica.meses')[date('n')-1]) }} de {{date('Y')}}</p>
-@endif
+{{--@if($analisis->fecha_entrega)--}}
+{{--    <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{ $analisis->fecha_entrega->format('d') }} de {{ strtoupper(config('clinica.meses')[$analisis->fecha_entrega->format('n') -1]) }} de {{ $analisis->fecha_entrega->format('Y') }}</p>--}}
+{{--@else--}}
+{{--    <p style="text-align: center; font-size: 12px; font-weight: bold; color: #5e5e5e;">Cochabamba {{date('d')}} de {{ strtoupper(config('clinica.meses')[date('n')-1]) }} de {{date('Y')}}</p>--}}
+{{--@endif--}}
 <htmlpagefooter name="page-footer">
     <div style="width: 100%; text-align: center">
         <p style="font-size: 10px;">-{PAGENO}-</p>

@@ -49,6 +49,7 @@ Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@get
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
 Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
 Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPago')->name('analisis.aGetAnalisisPago');
+Route::post('/analisis/agetanalisis', 'AnalisisController@ajaxGetAnalisisById')->name('analisis.aGetAnalisisById');
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');

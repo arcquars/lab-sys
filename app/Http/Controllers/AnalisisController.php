@@ -372,6 +372,11 @@ class AnalisisController extends Controller
         //return response()->json(['status' => 200, 'view' => $view]);
     }
 
+    public function ajaxGetAnalisisById(Request $request){
+        $analisisId = $request->get('analisis_id');
+        return response()->json(['success' => true, 'analisis' => Analisis::find($analisisId), 'bandera' => 1]);
+    }
+
     public function ajaxRegistrarFechaEntrega(Request $request){
         $validatedFechaEntrega = $request->validate([
             'analisis_id' => 'required',
