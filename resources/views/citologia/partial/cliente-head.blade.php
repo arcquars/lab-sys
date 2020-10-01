@@ -20,7 +20,8 @@
     <dt class="col-md-3">Fecha de Registro:</dt>
     <dd class="col-md-3">{{(isset($analisis->fecha)? $analisis->fecha->format('Y-m-d'): '--')}}</dd>
     <dt class="col-md-3">Fecha Conclusión:</dt>
-    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--')}}</dd>
+{{--    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--')}}</dd>--}}
+    <dd class="col-md-3">{{ $analisis->lastControlEdition()? $analisis->lastControlEdition()->created_at->format('Y-m-d') : '--' }}</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Analisis Entregado A:</dt>

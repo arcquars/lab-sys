@@ -55,6 +55,10 @@ class Analisis extends Model
         return $this->belongsTo('App\Doctor', 'doctor_asignado', 'id');
     }
 
+    public function lastControlEdition(){
+        return EditarControl::where('analisis_id',$this->id)->orderBy('created_at', 'desc')->get()->first();
+    }
+
     public function hasHistory(){
         $count = Analisis::where('person_id', $this->person_id)->count();
         if($count > 1)
