@@ -163,7 +163,7 @@
             <div class="modal-content">
                 <form id="f_cerraranalisis">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Cerrar Análisis</h5>
+                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Conclusión de Análisis</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -171,7 +171,7 @@
                     <div class="modal-body m-pago-p">
                         <input type="hidden" name="analisis_id">
                         <div class="form-group">
-                            <label for="fecha_cierre">Fecha de cierre del Analisis</label>
+                            <label for="fecha_cierre">Fecha de Conclusión del Analisis</label>
                             <input type="date" name="fecha_cierre" class="form-control"
                                    value="{{date('Y-m-d')}}"
                                    min="{{date('Y-m-d', strtotime("-100 days"))}}"
@@ -179,6 +179,7 @@
                             >
                             <div class="fcp_error_fecha_cierre" style="display: none;"></div>
                         </div>
+                        <span class="font-weight-bold text-success">Esta fecha es de conclusión del análisis</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -357,7 +358,13 @@
                         if(data.analisis.fecha_entrega !== null){
                             $('#f_fechaentrega input[name="fecha_entrega"]').val(data.analisis.fecha_entrega.split(' ')[0]);
                         } else {
-                            $('#f_fechaentrega input[name="fecha_entrega"]').val('');
+                            var now = new Date();
+
+                            var day = ("0" + now.getDate()).slice(-2);
+                            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                            var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+                            $('#f_fechaentrega input[name="fecha_entrega"]').val(today);
                         }
                         if(data.analisis.persona_entrega !== null){
                             $('#f_fechaentrega input[name="persona_entrega"]').val(data.analisis.persona_entrega);

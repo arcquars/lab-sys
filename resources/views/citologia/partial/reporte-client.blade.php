@@ -12,10 +12,10 @@
         <td><p class="p-datos-12">{{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</p></td>
     </tr>
     <tr>
-        <td width="20%"><p class="p-datos-12"><b>Fecha inicio:</b></p></td>
+        <td width="20%"><p class="p-datos-12"><b>Fecha de Registro:</b></p></td>
         <td width="30%"><p class="p-datos-12">{{$analisis->fecha->format('Y-m-d')}}</p></td>
-        <td width="20%" style="text-align: right;"><p class="p-datos-12"><b>Fecha entrega:</b></p></td>
-        <td width="30%"><p class="p-datos-12">{{isset($analisis->fecha_entrega)? $analisis->fecha_entrega->format('Y-m-d') : '--'}}</p></td>
+        <td width="20%" style="text-align: right;"><p class="p-datos-12"><b>Fecha Conclusión:</b></p></td>
+        <td width="30%"><p class="p-datos-12">{{isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d') : '--'}}</p></td>
     </tr>
     <tr>
         <td><p class="p-datos-12"><b>Enviado por Doctor(a): </b></p></td>

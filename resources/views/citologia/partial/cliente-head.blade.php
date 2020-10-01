@@ -17,10 +17,16 @@
     <dd class="col-md-3">{{$analisis->codigo}}</dd>
 </dl>
 <dl class="row row-citologia">
+    <dt class="col-md-3">Fecha de Registro:</dt>
+    <dd class="col-md-3">{{(isset($analisis->fecha)? $analisis->fecha->format('Y-m-d'): '--')}}</dd>
+    <dt class="col-md-3">Fecha Conclusión:</dt>
+    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--')}}</dd>
+</dl>
+<dl class="row row-citologia">
     <dt class="col-md-3">Analisis Entregado A:</dt>
-    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--NO ENTREGADO--')}}</dd>
-    <dt class="col-md-3">Fecha Cierre:</dt>
-    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--NO CERRADO--')}}</dd>
+    <dd class="col-md-3">{{(isset($analisis->persona_entrega)? $analisis->persona_entrega: '--')}}</dd>
+    <dt class="col-md-3">Fecha Entrega:</dt>
+    <dd class="col-md-3">{{(isset($analisis->fecha_entrega)? $analisis->fecha_entrega->format('Y-m-d'): '--')}}</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Region:</dt>
