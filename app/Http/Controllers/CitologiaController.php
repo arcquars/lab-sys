@@ -139,6 +139,7 @@ class CitologiaController extends Controller
 
     public function resultados(StoreResultadosPost $request)
     {
+        EditarControl::grabarEditar(Auth::user()->id, $request->input('analisis_id'));
         $resultado = new Resultado();
         $resultado->papanicolaou_clase1 = $request->input('papanicolaou_clase1');
         $resultado->papanicolaou_clase2 = $request->input('papanicolaou_clase2');
