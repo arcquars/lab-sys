@@ -142,11 +142,8 @@ class InmunohistoquimicaController extends Controller
         $analisis = Analisis::find($analisisId);
         Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
-
         $pdf = PDF::loadView('histo.reporte', compact(
             'analisis', 'histo'), [], ['marginTop' => 800]);
-
-
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }
