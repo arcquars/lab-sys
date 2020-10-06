@@ -247,7 +247,7 @@
             tinymce.init({
                 selector: '#observaciones_id',
                 plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,

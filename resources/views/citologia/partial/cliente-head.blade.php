@@ -30,18 +30,25 @@
     <dd class="col-md-3">{{(isset($analisis->fecha_entrega)? $analisis->fecha_entrega->format('Y-m-d'): '--')}}</dd>
 </dl>
 <dl class="row row-citologia">
-    <dt class="col-md-3">Region:</dt>
+    <dt class="col-md-3">Región:</dt>
     <dd class="col-md-3">{{$analisis->region}}</dd>
-    <dt class="col-md-3">Telefono de referencia:</dt>
+    <dt class="col-md-3">Teléfono de referencia:</dt>
     <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>
 </dl>
 <dl class="row row-citologia">
-    <dt class="col-md-3">Doctor asignado:</dt>
+    <dt class="col-md-3">Doctor asígnado:</dt>
     <dd class="col-md-9">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
 {{--    <dt class="col-md-3">Telefono de referencia:</dt>--}}
 {{--    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>--}}
 </dl>
-
+@if(isset($analisis->convenio))
+    <dl class="row row-citologia">
+        <dt class="col-md-3">Matrícula convenio:</dt>
+        <dd class="col-md-3">{{$analisis->convenio->bancaMatricula}}</dd>
+        <dt class="col-md-3">Preafiliación convenio:</dt>
+        <dd class="col-md-3">{{$analisis->convenio->bancaPreAfiliacion}}</dd>
+    </dl>
+@endif
 
 <dl class="row row-citologia">
     @can('manage-users')

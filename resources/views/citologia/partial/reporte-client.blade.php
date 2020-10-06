@@ -26,4 +26,12 @@
             </div>
         </td>
     </tr>
+    @if(isset($analisis->convenio))
+    <tr>
+        <td width="20%"><p class="p-datos-12"><b>Matrícula convenio:</b></p></td>
+        <td width="30%"><p class="p-datos-12">{{$analisis->convenio->bancaMatricula}}</p></td>
+        <td width="20%" style="text-align: right;"><p class="p-datos-12"><b>Preafiliación convenio:</b></p></td>
+        <td width="30%"><p class="p-datos-12">{{ $analisis->convenio->bancaPreAfiliacion }}</p></td>
+    </tr>
+    @endif
 </table>

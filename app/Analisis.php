@@ -59,6 +59,10 @@ class Analisis extends Model
         return EditarControl::where('analisis_id',$this->id)->orderBy('created_at', 'desc')->get()->first();
     }
 
+    public function convenio(){
+        return $this->hasOne('App\Convenio', 'analisis_id', 'id');
+    }
+
     public function hasHistory(){
         $count = Analisis::where('person_id', $this->person_id)->count();
         if($count > 1)
@@ -251,7 +255,7 @@ class Analisis extends Model
     public static function saveFechaEntrega($analisis, $username){
         if(!isset($analisis->fecha_entrega)){
             $analisis->fecha_entrega = Carbon::now();
-            $analisis->persona_entrega = $username;
+            //$analisis->persona_entrega = $username;
             $analisis->save();
         }
     }

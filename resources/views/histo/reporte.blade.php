@@ -67,6 +67,7 @@
         <p>{!! config('clinica.tecnica') !!}</p>
     @endif
 </div>
+@if(count($histo->marcadores) > 0)
 <h4 class="h4-cito">MARCADORES UTILIZADOS (clones entre paréntesis) Y RESULTADOS OBTENIDOS:</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
@@ -83,6 +84,7 @@
         @endforeach
     </table>
 </div>
+@endif
 <h4 class="h4-cito" style="text-transform: uppercase;">Bibliografía</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">

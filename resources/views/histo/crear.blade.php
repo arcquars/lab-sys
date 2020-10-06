@@ -121,7 +121,7 @@
             tinymce.init({
                 selector: '#ta-interpretacion',
                 plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -130,7 +130,7 @@
             tinymce.init({
                 selector: '#ta-tecnica',
                 plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,
@@ -139,7 +139,7 @@
             tinymce.init({
                 selector: '#ta-bibliografia',
                 plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
                 menubar: false,
                 language: 'es',
                 browser_spellcheck: true,

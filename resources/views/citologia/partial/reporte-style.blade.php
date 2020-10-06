@@ -7,6 +7,10 @@
         margin-top: 4.5cm;
     }
 
+    body {
+        font-family: 'Times New Roman', 'Sansita Swashed', sans-serif;
+    }
+
     .h1-cito{
         text-align: center;
         color: #012035;
@@ -51,6 +55,8 @@
     }
 
     .p-datos-12 {
+        /*font-family: 'Sansita Swashed', cursive;*/
+        font-family: 'Times New Roman', cursive;
         font-size: 11px;
         color: #012035;
     }

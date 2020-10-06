@@ -15,6 +15,7 @@ class Convenio extends Model
         'bancaEspecialidad',
         'bancaAmbulatorio',
         'bancaHospitalizado',
+        'analisis_id'
     ];
 
     public function analisis(){
