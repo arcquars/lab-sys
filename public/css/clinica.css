@@ -164,3 +164,11 @@
     box-shadow: 0 0 0 0.1rem
     rgba(108, 178, 235, 0.5);
 }
+
+.form-check-sign-black:before {
+    color: #ffc107 !important;
+}
+
+.form-check-sign-black:after {
+    color: #ffc107 !important;
+}

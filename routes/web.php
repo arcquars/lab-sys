@@ -55,6 +55,7 @@ Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistr
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
+Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
 
 Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
 

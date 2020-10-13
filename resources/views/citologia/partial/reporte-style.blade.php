@@ -62,7 +62,7 @@
     }
 
     .p-datos-13 {
-        font-size: 14px;
+        font-size: 16px;
         color: #012035;
     }
 

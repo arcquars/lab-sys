@@ -50,34 +50,33 @@
     </dl>
 @endif
 
-<dl class="row row-citologia">
-    @can('manage-users')
-    <dt class="col-md-2">
+<div class="row">
+    <div class="col-md-12">
+        @can('manage-users')
         <button type="button"
-                class="btn btn-outline-info btn-block" data-toggle="modal"
+                class="btn btn-outline-info" data-toggle="modal"
                 data-target="#mEditarCosto">Editar Precio</button>
-    </dt>
-    <dd class="col-md-2">
         <a href="{{ route('analisis.edit', $analisis) }}"
-                class="btn btn-outline-success btn-block">Editar Analisis</a>
-    </dd>
-    <dd class="col-md-2">
+           class="btn btn-outline-success">Editar Analisis</a>
         <a href="{{ route('analisis.lista.impresion', $analisis) }}"
-           class="btn btn-outline-success btn-block">Historial Impresion</a>
-    </dd>
-    <dd class="col-md-2">
-        <a href="{{ route('analisis.lista.edicion', $analisis) }}"
-           class="btn btn-outline-success btn-block">Historial de Cambios</a>
-    </dd>
-    @endcan
-    @can('manage-users-dr1')
-    <dd class="col-md-2">
-        @if($analisis->hasHistory())
-            <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
-        @endif
-    </dd>
-    @endcan
-</dl>
+           class="btn btn-outline-success">Historial Impresion</a>
+            <a href="{{ route('analisis.lista.edicion', $analisis) }}"
+               class="btn btn-outline-success">Historial de Edición</a>
+        @endcan
+        @can('manage-users-dr1')
+                @if($analisis->hasHistory())
+                    <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
+                @endif
+                    <div class="form-check" style="display: inline;">
+                        <label class="form-check-label">
+                            <input name="escamosas" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma) checked @endif onchange="setImprimirFirma(this, '{{$analisis->id}}');">
+                            <span class="form-check-sign form-check-sign-black" ></span>
+                            Imprimir Firma del doctor
+                        </label>
+                    </div>
+        @endcan
+    </div>
+</div>
 <div id="mEditarCosto" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -160,5 +159,30 @@
             }
         });
     });
+
+    function setImprimirFirma(check, analisisId){
+        // alert("ww: " + analisisId + " || checked:: " + $(check).is(':checked'));
+        let imprimir = 0;
+        if($(check).is(':checked')){
+            imprimir = 1;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('analisis.aSetImprimirFirma') }}",
+            type: 'POST',
+            data: {analisis_id: '{{$analisis->id}}', imprimir_firma: imprimir},
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    }
 </script>
 @endpush

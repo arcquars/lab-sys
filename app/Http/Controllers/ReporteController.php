@@ -190,18 +190,18 @@ class ReporteController extends Controller
 
         if($procedenciaId == 0){
             if(strcmp($tipoId, '0') == 0) {
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->get();
             }else{
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('tipo_analisis', $tipoId)->get();
             }
         } else {
             if(strcmp($tipoId, '0') == 0) {
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
             }else {
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipoId)->get();
             }
         }
@@ -355,18 +355,18 @@ class ReporteController extends Controller
     function excelDiario($fechaIni, $fechaFin, $procedenciaId, $tipo){
         if($procedenciaId == 0) {
             if (strcmp($tipo, '0') == 0){
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0)->get();
                 $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->get();
             }else{
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->where('acuenta', '>', 0)->get();
                 $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
             }
         } else {
             if(strcmp($tipo, '0') == 0) {
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('acuenta', '>', 0)->get();
                 $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
             }else{
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->where('acuenta', '>', 0)->get();
                 $analisisPago = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
             }
         }
@@ -586,18 +586,18 @@ class ReporteController extends Controller
     function pdfDiario($fechaIni, $fechaFin, $procedenciaId, $tipo){
         if($procedenciaId == 0) {
             if (strcmp($tipo, '0') == 0){
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->get();
             }else{
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('tipo_analisis', $tipo)->get();
             }
         } else {
             if(strcmp($tipo, '0') == 0) {
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->get();
             }else{
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->where('acuenta', '>', 0)->get();
                 $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin])->where('procedencia', $procedenciaId)->where('tipo_analisis', $tipo)->get();
             }
         }

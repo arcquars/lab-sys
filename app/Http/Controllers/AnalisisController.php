@@ -448,6 +448,16 @@ class AnalisisController extends Controller
         return response()->json(['success' => '1', 'precio' => $analisis->precio]);
     }
 
+    public function ajaxSetImprimirFirma(Request $request){
+        $analisisId = $request->post('analisis_id');
+        $ifirma = $request->post('imprimir_firma');
+        $analisis = Analisis::find($analisisId);
+        $analisis->imprimir_firma = $ifirma;
+        $analisis->update();
+
+        return response()->json(['success' => '1']);
+    }
+
     public function ajaxSetPrecio(Request $request){
         $request->validate([
             'precio' => 'required|numeric|between:10,20000'
