@@ -78,6 +78,11 @@ Route::post('/bethesda/save', 'BethesdaController@store')->name('bethesda.save')
 Route::get('/bethesda/view/{analisisId}', 'BethesdaController@viewResultado')->name('bethesda.viewResultado');
 Route::get('/bethesda/reporte/{analisisId}', 'BethesdaController@reporte')->name('bethesda.reporte');
 
+Route::get('/liquidos/crear/{analisisId}', 'LiquidoController@create')->name('liquidos.crear');
+Route::post('/liquidos/save', 'LiquidoController@store')->name('liquidos.save');
+Route::get('/liquidos/view/{analisisId}', 'LiquidoController@viewResultado')->name('liquidos.viewResultado');
+Route::get('/liquidos/reporte/{analisisId}', 'LiquidoController@reporte')->name('liquidos.reporte');
+
 Route::get('/histo/crear/{analisisId}', 'InmunohistoquimicaController@create')->name('histo.crear');
 Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.save');
 Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');

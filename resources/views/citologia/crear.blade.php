@@ -883,6 +883,7 @@ use \App\Helpers\HelperConfig;
                                         <option value="">Seleccione ...</option>
                                         <option value="{{\App\Analisis::CITOLOGIA}}">{{\App\Analisis::CITOLOGIA}}</option>
                                         <option value="{{\App\Analisis::BETHESDA}}">{{\App\Analisis::BETHESDA}}</option>
+                                        <option value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -933,7 +934,12 @@ use \App\Helpers\HelperConfig;
                         dataType : 'json',
                         data: $('#tipoAnalisisForm').serialize(),
                         success: function (data) {
-                            window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
+                            // alert(data.tipo_analisis);
+                            if(data.tipo_analisis === '{{ \App\Analisis::LIQUIDOS }}'){
+                                window.location.href = "{{ url('/liquidos/crear/'.$analisis->id) }}";
+                            } else {
+                                window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
+                            }
                         },
                         beforeSend: function(xhr, status){
                          // Handle the beforeSend event

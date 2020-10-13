@@ -316,7 +316,9 @@ class AnalisisController extends Controller
 //        $analisisIdNext = Analisis::max('id');
         switch ($tipoAnalisis){
             case Analisis::CITOLOGIA:
-                $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() + Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + config('clinica.contadores_analisis.CITOLOGIA');
+                $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() +
+                    Analisis::where('tipo_analisis', Analisis::LIQUIDOS)->count() +
+                    Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + config('clinica.contadores_analisis.CITOLOGIA');
                 $codigo = 'C'.$numeroFecha.'-'.$num;
                 break;
             case Analisis::BIOPSIA:

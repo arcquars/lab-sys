@@ -15,7 +15,23 @@ class CreateLiquidosTable extends Migration
     {
         Schema::create('liquidos', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->text('organo_tejido')->nullable(true);
+            $table->text('macroscopia')->nullable(true);
+            $table->text('microscopia')->nullable(true);
+            $table->text('diagnostico')->nullable(true);
+
+            $table->boolean('deleted')->default(false);
+
             $table->timestamps();
+        });
+
+        Schema::table('liquidos', function (Blueprint $table) {
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->bigInteger('analisis_id')->unsigned();
+            $table->foreign('analisis_id')->references('id')->on('analisis');
         });
     }
 

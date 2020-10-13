@@ -12,6 +12,7 @@ class Analisis extends Model
     const INMUNOHISTOQUIMICA = 'INMUNOHISTOQUIMICA';
     const BETHESDA = 'BETHESDA';
     const HISTOPATOLOGICO = 'HISTOPATOLOGICO';
+    const LIQUIDOS = 'LIQUIDOS';
 
     protected $table = 'analisis';
 
@@ -119,6 +120,13 @@ class Analisis extends Model
                 if(Bethesda::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'bethesda.viewResultado';
                     $printAnalisis = 'bethesda.reporte';
+                    $isHasResult = true;
+                }
+                break;
+            case Analisis::LIQUIDOS:
+                if(Liquido::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'liquidos.viewResultado';
+                    $printAnalisis = 'liquidos.reporte';
                     $isHasResult = true;
                 }
                 break;

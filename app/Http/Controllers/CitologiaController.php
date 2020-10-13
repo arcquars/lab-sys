@@ -7,6 +7,7 @@ use App\Bethesda;
 use App\EditarControl;
 use App\Http\Requests\StoreResultadosPost;
 use App\ImpresionControl;
+use App\Liquido;
 use App\Resultado;
 use App\Seccion;
 use Illuminate\Http\Request;
@@ -41,9 +42,10 @@ class CitologiaController extends Controller
         $analisis = Analisis::find($analisisId);
         $resultados = Resultado::where('analisis_id', $analisisId)->first();
         $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
+        $liquido = Liquido::where('analisis_id', $analisisId)->first();
 
         $nuevoAnalisis = false;
-        if(!isset($resultados) && !isset($bethesda)){
+        if(!isset($resultados) && !isset($bethesda) && !isset($liquido)){
             $nuevoAnalisis = true;
         }
 
@@ -304,6 +306,6 @@ class CitologiaController extends Controller
         $analisis->tipo_analisis = $tipo;
         $analisis->save();
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'tipo_analisis' => $analisis->tipo_analisis]);
     }
 }
