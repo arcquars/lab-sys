@@ -113,7 +113,6 @@ class ReporteController extends Controller
         $reporte_2 = array();
         return view('reportes.reporte2', compact(
             'procedencias',
-            'analisis',
             'fechaIni', 'fechaFin',
             'procedenciaId', 'reporte_2'
         ));
@@ -139,7 +138,7 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis', 'meses', 'year', 'year_old',
+            'analisis', 'year', 'year_old',
             'procedenciaId', 'day_last'
         ));
     }
@@ -657,7 +656,7 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-admin-diario-convenio', compact(
             'fecha_ini', 'fecha_fin',
-            'convenios', 'meses', 'year', 'year_old',
+            'convenios', 'year', 'year_old',
             'day_last'
         ));
     }

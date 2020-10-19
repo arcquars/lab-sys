@@ -64,6 +64,8 @@
                class="btn btn-outline-success">Historial de Edición</a>
         @endcan
         @can('manage-users-dr')
+                <a href="{{ route('analisis.edit', $analisis) }}"
+                   class="btn btn-outline-success">Editar Analisis</a>
                 @if($analisis->hasHistory())
                     <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
                 @endif

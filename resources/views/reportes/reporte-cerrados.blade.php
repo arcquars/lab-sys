@@ -94,7 +94,7 @@
             <tbody>
             @foreach($analisis as $analisi)
             <tr>
-                <td>{{$analisi->fecha}}</td>
+                <td>{{\Carbon\Carbon::parse($analisi->fecha)->format('yy-m-d')}}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->doctor}}</td>

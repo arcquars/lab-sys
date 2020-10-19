@@ -65,7 +65,7 @@
             <tbody>
             @foreach($biopsias as $biopsia)
             <tr>
-                <td>{{ $biopsia->analisis->fecha }}</td>
+                <td>{{ \Carbon\Carbon::parse($biopsia->analisis->fecha)->format('yy-m-d') }}</td>
                 <td>{{ $biopsia->analisis->person->nombres . ' ' . $biopsia->analisis->person->apellidos }}</td>
                 <td>{{ $biopsia->analisis->person->edad }}</td>
                 <td>{{ $biopsia->analisis->person->sexo }}</td>
