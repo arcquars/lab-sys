@@ -672,7 +672,6 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-admin-diario-convenio', compact(
             'fecha_ini', 'fecha_fin',
-            'analisis', 'meses', 'year',
             'convenios'
         ));
     }
