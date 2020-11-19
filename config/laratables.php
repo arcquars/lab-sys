@@ -5,7 +5,7 @@ return [
     'row_id_prefix' => 'laratables_row_',
 
     // Display format of dates (carbon instances) of the table.
-    'date_format' => 'Y-m-d H:i:s',
+    'date_format' => 'Y-m-d',
 
     // Name of the columns that should not be searched for values in the datatables.
     'non_searchable_columns' => [],

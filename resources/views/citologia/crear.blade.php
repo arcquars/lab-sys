@@ -873,7 +873,7 @@ use \App\Helpers\HelperConfig;
                 <div class="modal-content">
                     <form id="tipoAnalisisForm">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="tipoAModalLabel">Estableser Tipo de analisis</h5>
+                            <h5 class="modal-title" id="tipoAModalLabel">Establecer Tipo de analisis</h5>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" value="{{$analisis->id}}" name="analisis_id">

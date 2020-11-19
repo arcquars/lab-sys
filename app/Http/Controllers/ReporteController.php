@@ -278,7 +278,7 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis', 'meses', 'year',
+            'analisis',
             'procedenciaId'
         ));
     }
