@@ -44,6 +44,10 @@ class Analisis extends Model
         'fecha_entrega'
     ];
 
+    protected $casts = [
+        'fecha'  => 'date:Y-m-d'
+    ];
+
     public function person(){
         return $this->belongsTo('App\Person');
     }

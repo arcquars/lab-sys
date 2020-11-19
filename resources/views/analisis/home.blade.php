@@ -205,6 +205,7 @@
                 serverSide: true,
                 processing: true,
                 responsive: true,
+                deferRender: true,
                 ajax: "{{ route('simple_datatables_analisis_data') }}",
                 columns: [
                     {name: 'id', visible: false},

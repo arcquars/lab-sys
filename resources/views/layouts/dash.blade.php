@@ -35,6 +35,9 @@
         <link href="{{ asset('font-awesome/css/solid.css') }}" rel="stylesheet">
 
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/jquery-ui-1.12.1/jquery-ui.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/jquery-ui-1.12.1/jquery-ui.theme.css') }}" rel="stylesheet" />
+        <link href="{{ asset('js/jquery-ui-1.12.1/jquery-ui.structure.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/bootstrap.min.bk.css') }}" rel="stylesheet" />
         <link href="{{ asset('light-bootstrap/css/light-bootstrap-dashboard.css?v=2.0.0') }} " rel="stylesheet" />
 
@@ -64,6 +67,7 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
     <!--   Core JS Files   -->
+    <script src="{{ asset('js/jquery-ui-1.12.1/jquery-ui.js') }}" type="text/javascript"></script>
     <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>

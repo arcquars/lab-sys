@@ -123,26 +123,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table id="tableResultPerson" class="table table-bordered table-clinica">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th>Ci</th>
-                                        <th>Nombres</th>
-                                        <th>Ap. Paterno</th>
-                                        <th>Ap. Materno</th>
-                                        <th>Edad</th>
-                                        <th>Sexo</th>
-                                        <th>Accion</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

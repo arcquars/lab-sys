@@ -46,7 +46,7 @@
         });
     });
     function addMarcadorHtml(marcador, resultado){
-        let html = '<div class="col-md-3">';
+        let html = '<li class="ui-state-default" style="list-style-type: none;">';
         numMarcadores++;
         html += '<div class="table-bordered" style="padding: 4px;">';
         html += '<h6 class="text-primary"><a class="text-danger" href="#" onclick="removeMarcador(this);"><i class="far fa-trash-alt"></i></a> '+marcador+'</h6>';
@@ -54,7 +54,7 @@
         html += '<input type="hidden" name="marcadores['+numMarcadores+'][nombre]" value="'+marcador+'">';
         html += '<input type="hidden" name="marcadores['+numMarcadores+'][resultado]" value="'+resultado+'">';
         html += '</div>';
-        html += '</div>';
+        html += '</li>';
 
         return html;
     }

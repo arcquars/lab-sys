@@ -301,6 +301,10 @@ class AnalisisController extends Controller
                 return redirect()->action(
                     'BethesdaController@create',
                     ['analisisId' => $analisisId]);
+            case Analisis::LIQUIDOS:
+                return redirect()->action(
+                    'LiquidoController@create',
+                    ['analisisId' => $analisisId]);
             case Analisis::HISTOPATOLOGICO:
                 return redirect()->action(
                     'BiopsiaController@create',

@@ -25,7 +25,7 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-            <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data" target="_blank">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
@@ -88,9 +88,8 @@
                     <textarea name="bibliografia" id="ta-bibliografia" class="form-control">{{@old('bibliografia', $histo ? $histo->bibliografia : '')}}</textarea>
                 </div>
                 <label>Añadir Marcado <a href="#" onclick="openMdlMarcador(); return false;"><i class="fas fa-plus-circle"></i></a></label>
-                <div id="list_marcadores" class="row">
-
-                </div>
+                <ul id="list_marcadores">
+                </ul>
                 <br>
                 <div class="row">
                     <div class="col-md-12">
@@ -155,6 +154,8 @@
             @endforeach
             @endif
 
+            $( "#list_marcadores" ).sortable();
+            $( "#list_marcadores" ).disableSelection();
         });
     </script>
 @endpush
