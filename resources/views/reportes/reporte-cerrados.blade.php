@@ -100,8 +100,8 @@
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->institucion->nombre}}</td>
                 <td>{{$analisi->persona_entrega}}</td>
-                <td>{{$analisi->fecha_entrega}}</td>
-                <td>{{$analisi->fecha_cierre}}</td>
+                <td>{{\Carbon\Carbon::parse($analisi->fecha_entrega)->format('yy-m-d')}}</td>
+                <td>{{\Carbon\Carbon::parse($analisi->fecha_cierre)->format('yy-m-d')}}</td>
             </tr>
             @endforeach
             </tbody>

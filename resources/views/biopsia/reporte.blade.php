@@ -116,22 +116,22 @@
 @endif
 <br>
 @if ($biopsia->macroscopia)
+    <hr style="padding: 0; margin: 1px;">
 <h4 class="h4-cito" style="text-transform: uppercase;">Macroscopia</h4>
-<hr style="padding: 0; margin: 1px;">
 <div class="div-campo">
     {!! $biopsia->macroscopia !!}
 </div>
 @endif
 @if ($biopsia->microscopia)
-<h4 class="h4-cito" style="text-transform: uppercase;">Microscopia</h4>
-<hr style="padding: 0; margin: 1px;">
+    <hr style="padding: 0; margin: 1px;">
+    <h4 class="h4-cito" style="text-transform: uppercase;">Microscopia</h4>
 <div class="div-campo">
     {!! $biopsia->microscopia !!}
 </div>
 @endif
 @if ($biopsia->diagnostico)
-    <h4 class="h4-cito" style="text-transform: uppercase;">Diagnostico</h4>
     <hr style="padding: 0; margin: 1px;">
+    <h4 class="h4-cito" style="text-transform: uppercase;">Diagnostico</h4>
     <div class="div-campo">
         {!! $biopsia->diagnostico !!}
     </div>

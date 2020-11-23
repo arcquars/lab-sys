@@ -56,8 +56,6 @@
         <button type="button"
                 class="btn btn-outline-info" data-toggle="modal"
                 data-target="#mEditarCosto">Editar Precio</button>
-        <a href="{{ route('analisis.edit', $analisis) }}"
-           class="btn btn-outline-success">Editar Analisis</a>
         <a href="{{ route('analisis.lista.impresion', $analisis) }}"
            class="btn btn-outline-success">Historial Impresion</a>
             <a href="{{ route('analisis.lista.edicion', $analisis) }}"
