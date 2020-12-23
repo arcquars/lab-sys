@@ -109,7 +109,6 @@
 @stack('js')
 <script>
     $(document).ready(function () {
-
         $('#facebook').sharrre({
             share: {
                 facebook: true

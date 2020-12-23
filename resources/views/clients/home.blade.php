@@ -15,35 +15,55 @@
                     <h4>Clientes</h4>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar Cliente</a>
+{{--                    <a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar Cliente</a>--}}
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <table id="simple-datatable-example" class="table table-bordered table-clinica">
-                <thead class="thead-dark">
-                <tr>
-                    <th>CI</th>
-                    <th>Nombres</th>
-                    <th>Ape. Paterno</th>
-                    <th>Ape. Materno</th>
-                    <th>Edad</th>
-                    <th>Fecha Creacion</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                    <th>CI</th>
-                    <th>Nombres</th>
-                    <th>Ape. Paterno</th>
-                    <th>Ape. Materno</th>
-                    <th>Edad</th>
-                    <th>Fecha Creacion</th>
-                    <th>Acciones</th>
-                </tr>
-                </tfoot>
-            </table>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="s_nombres">Nombres</label>
+                        <input type="text" name="s_nombres" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="apellido_pa">Apellido Paterno</label>
+                        <input type="text" name="apellidos_pa" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="apellido_ma">Apellido Materno</label>
+                        <input type="text" name="apellidos_ma" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="apellido_ma">.</label>
+                        <div>
+                            <a href="#" class="btn btn-primary btn-sm" onclick="openModelPerson();"><i class="far fa-plus-square"></i></a>
+                            <a href="#" class="btn btn-primary btn-sm" onclick="clearSearch(this);"><i class="fas fa-eraser"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="simple-datatable-example" class="table table-bordered table-clinica">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>CI</th>
+                        <th>Nombres</th>
+                        <th>Ape. Paterno</th>
+                        <th>Ape. Materno</th>
+                        <th>Edad</th>
+                        <th>Fecha Creacion</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
     <!-- Modal registro persona-->
@@ -235,20 +255,23 @@
                 }
             });
 
-            $('#simple-datatable-example').DataTable({
+            var table1 = $('#simple-datatable-example').DataTable({
                 serverSide: true,
                 processing: true,
                 responsive: true,
+                deferRender: true,
+                // bFilter: false,
                 ajax: "{{ route('simple_datatables_persons_data') }}",
                 columns: [
                     {name: 'ci'},
-                    {name: 'nombres'},
+                    {name: 'nombres', orderable: false, searchable: true},
                     {name: 'apellidos'},
                     {name: 'apellido_materno'},
                     {name: 'edad'},
                     {name: 'created_at'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
+                "pagingType": "full_numbers",
                 "order": [[ 4, "desc" ]],
                 language: {
                     "decimal": "",
@@ -270,25 +293,24 @@
                         "previous": "Anterior"
                     }
                 },
-                initComplete: function ()
-                {
-                    this.api().columns([0,1,2]).every( function () //Columnas a mostrar
-                    {
-                        var column = this;
-                        var select = $('<select><option value=""></option></select>')
-                            .appendTo( $(column.footer()).empty() )
-                            .on( 'change', function () {var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                                column
-                                    .search( val ? '^'+val+'$' : '', true, false )
-                                    .draw();
-                            });
-                        column.data().unique().sort().each( function ( d, j )
-                        {
-                            select.append( '<option value="'+d+'">'+d+'</option>' )
-                        });
-                    });
-                }
             });
+
+            $('input[name="s_nombres"]').on( 'keyup', function () {
+                table1.column(1).search(
+                    $(this).val()
+                ).draw();
+            } );
+            $('input[name="apellidos_pa"]').on( 'keyup', function () {
+                table1.column(2).search(
+                    $(this).val()
+                ).draw();
+            } );
+            $('input[name="apellidos_ma"]').on( 'keyup', function () {
+                table1.column(3).search(
+                    $(this).val()
+                ).draw();
+            } );
+            $("#simple-datatable-example_filter").css('display', 'none');
 
             $("#mpersona").on('shown.bs.modal', function (event) {
                 $("#fcrearpersona")[0].reset();
@@ -373,6 +395,9 @@
         function openModelPerson() {
             $('#mpersona').modal('show');
             $('#mperson_title').empty().text('Crear Persona');
+            $('#mpersona input[name="nombres"]').val($('input[name="s_nombres"]').val().toUpperCase());
+            $('#mpersona input[name="apellidos"]').val($('input[name="apellidos_pa"]').val().toUpperCase());
+            $('#mpersona input[name="apellido_materno"]').val($('input[name="apellidos_ma"]').val().toUpperCase());
         }
 
         function editPersonAjax(personId) {
@@ -467,6 +492,14 @@
                 html += "</tr>";
             });
             $('#tableResultPerson tbody').empty().append(html);
+        }
+
+        function clearSearch(link){
+            inputs = $(link).parent().parent().parent().parent().find('input[type="text"]');
+            $.each(inputs, function (index, input) {
+               $(input).val('');
+            });
+            return false;
         }
     </script>
 @endpush

@@ -15,6 +15,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav   d-flex align-items-center">
+                <li class="nav-link">
+                    <a href="#" class="text-success" data-toggle="modal" data-target="#textPreModal"><i class="fas fa-atlas"></i> </a>
+                </li>
                 <li class="nav-item">
                     <span class="no-icon">
                         @php

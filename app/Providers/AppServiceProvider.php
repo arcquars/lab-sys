@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\TextoPredefinido;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('textopredefinido.includes.texto-list', function($view){
+            $view->with('tlist', TextoPredefinido::where('user_id', Auth::id())->get());
+        });
     }
 }

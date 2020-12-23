@@ -64,6 +64,25 @@
             </div>
 
         </div>
+    <!-- Modal -->
+    <div class="modal fade" id="textPreModal" tabindex="-1" aria-labelledby="textpreModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="textpreModalLabel">Textos Predefinidos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @include('textopredefinido.includes.texto-list')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
     <!--   Core JS Files   -->
@@ -91,6 +110,14 @@
 
     @stack('js')
     <script>
+        $('body').on("keydown", function(e) {
+            // if (e.ctrlKey && e.shiftKey && e.which === 83) {
+            // ctrl + m
+            if (e.ctrlKey  && e.which === 77) {
+                $("#textPreModal").modal('show');
+                e.preventDefault();
+            }
+        });
         $(document).ready(function () {
 
 
@@ -98,6 +125,19 @@
 
         function uppercaseInput(input){
             $(input).val($(input).val().toUpperCase());
+        }
+
+        function copyToClipboard(id){
+            copyElementToClipboard('select_t_'+id);
+        }
+
+        function copyElementToClipboard(element) {
+            window.getSelection().removeAllRanges();
+            let range = document.createRange();
+            range.selectNode(typeof element === 'string' ? document.getElementById(element) : element);
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
         }
     </script>
 

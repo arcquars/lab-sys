@@ -145,6 +145,12 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
             @endcan
+            <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">
+                <a class="nav-link" href="{{route('texto-predefinido.index')}}">
+                    <i class="far fa-file-word"></i>
+                    <p>Texto Predefinido</p>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

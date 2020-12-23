@@ -134,3 +134,9 @@ Route::get('/gastos/datatables-gastos', 'GastoController@getDatatablesGasto')->n
 
 Route::resource('marcador', 'MarcadorController');
 Route::post('/marcador/ajaxsave','DoctorController@ajaxSave')->name('marcador.ajaxsave');
+
+Route::post('/texto-predefinido/ajaxgettexto','TextoPredefinidoController@ajaxGetTexto')->name('textopredefinido.agettexto');
+Route::post('/texto-predefinido/ajax-crear-text','TextoPredefinidoController@ajaxCreateTexto')->name('textopredefinido.acreatetexto');
+Route::post('/texto-predefinido/ajax-delete-text','TextoPredefinidoController@ajaxDeleteTexto')->name('textopredefinido.adeletetexto');
+Route::get('/texto-predefinido/datatable', 'TextoPredefinidoController@getDatatablesData')->name('textopredefinido.datatablesTextopredefinidoData');
+Route::resource('/texto-predefinido', 'TextoPredefinidoController');
