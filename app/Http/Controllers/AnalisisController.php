@@ -464,6 +464,15 @@ class AnalisisController extends Controller
         return response()->json(['success' => '1']);
     }
 
+    public function ajaxChageToCitologia(Request $request){
+        $analisisId = $request->post('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $analisis->tipo_analisis = Analisis::CITOLOGIA;
+        $analisis->update();
+
+        return response()->json(['success' => '1', 'res' => Analisis::CITOLOGIA]);
+    }
+
     public function ajaxSetPrecio(Request $request){
         $request->validate([
             'precio' => 'required|numeric|between:10,20000'

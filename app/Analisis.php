@@ -75,10 +75,29 @@ class Analisis extends Model
         return false;
     }
 
+    public function isChangeCitologia(){
+        $valid = false;
+        if($this->tipo_analisis == Analisis::BETHESDA || $this->tipo_analisis == Analisis::LIQUIDOS){
+            $valid = true;
+            if($this->tipo_analisis == Analisis::BETHESDA){
+                $bethesda = Bethesda::where('analisis_id', '=', $this->id)->count();
+                if($bethesda > 0){
+                    $valid = false;
+                }
+            }
+            if($this->tipo_analisis == Analisis::LIQUIDOS){
+                $liquidos = Liquido::where('analisis_id', '=', $this->id)->count();
+                if($liquidos > 0){
+                    $valid = false;
+                }
+            }
+        }
+        return $valid;
+    }
     /**
      * Returns the action column html for datatables.
      *
-     * @param \App\Analisis
+     * @param \App\Analisis $analisis
      * @return string
      */
     public static function laratablesCustomAction($analisis)

@@ -64,6 +64,9 @@
         @can('manage-users-dr')
                 <a href="{{ route('analisis.edit', $analisis) }}"
                    class="btn btn-outline-success">Editar Analisis</a>
+                @if($analisis->isChangeCitologia())
+                    <a href="#" onclick="openConfirVolverCito(); return false;" class="btn btn-outline-success">Volver a Citología</a>
+                @endif
                 @if($analisis->hasHistory())
                     <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
                 @endif
@@ -97,6 +100,30 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal confirmar volver a citologia -->
+<div id="mConfirmarVolverCito" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form onsubmit="saveChangeToCitologia(); return false;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirmar volver a Citología</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="callout callout-warning">
+                        <p>Esta seguro que quiere volver a Citologia?</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
                 </div>
             </form>
         </div>
@@ -178,6 +205,31 @@
             data: {analisis_id: '{{$analisis->id}}', imprimir_firma: imprimir},
             success: function (data) {
                 console.log(data)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+    function openConfirVolverCito(){
+        $("#mConfirmarVolverCito").modal('show');
+    }
+
+    function saveChangeToCitologia(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('analisis.aChangeToCitologia') }}",
+            type: 'POST',
+            data: {analisis_id: '{{$analisis->id}}'},
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                window.location.href = '{{url('/analisis/analisisextendido/'.$analisis->id)}}';
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 

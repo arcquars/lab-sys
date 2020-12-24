@@ -76,6 +76,11 @@
                 </div>
                 <div class="modal-body">
                     @include('textopredefinido.includes.texto-list')
+                    <div id="alert-box-texto-pre" class="alert alert-info alert-dismissible" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h6>Copiado!</h6>
+                        Texto predefinido copiado.
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -129,6 +134,7 @@
 
         function copyToClipboard(id){
             copyElementToClipboard('select_t_'+id);
+            $("#alert-box-texto-pre").css('display', 'block').delay(2000).slideUp(300);
         }
 
         function copyElementToClipboard(element) {

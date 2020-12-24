@@ -27,10 +27,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
     Route::resource('/users', 'UsersController');
 });
 
-Route::resource('clients', 'ClientController');
 Route::post('/clients/ajaxcreateperson','ClientController@ajaxCreatePerson')->name('client.createPerson');
 Route::post('/clients/ajaxgetperson','ClientController@ajaxGetPerson')->name('client.getPerson');
 Route::post('/clients/ajax-search-person','ClientController@ajaxSearchPerson')->name('client.searchAjaxPerson');
+Route::get('/clients/delete-duplicados', 'ClientController@deleteDuplicados')->name('client.deleteDuplicados');
+Route::post('/clients/delete-duplicados', 'ClientController@pDeleteDuplicados')->name('client.pdeleteDuplicados');
+Route::resource('clients', 'ClientController');
 
 Route::get('/get-simple-datatables-data', 'ClientController@getSimpleDatatablesData')->name('simple_datatables_persons_data');
 Route::get('/get-custom-column-datatables-data', 'ClientController@getCustomColumnDatatablesData')->name('custom_column_datatables_persons_data');
@@ -56,6 +58,7 @@ Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistra
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
+Route::post('/analisis/change-to-citologia', 'AnalisisController@ajaxChageToCitologia')->name('analisis.aChangeToCitologia');
 
 Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
 

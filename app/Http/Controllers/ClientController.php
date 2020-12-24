@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Analisis;
 use App\DataTables\PersonsDataTable;
 use App\Http\Requests\StorePersonPost;
 use App\Institucion;
@@ -246,5 +247,37 @@ class ClientController extends Controller
         $query .= " 1=1 ";
         $persons = Person::query()->whereRaw($query, [])->limit(5)->get();
         return response()->json(['success'=>true, 'persons' => $persons]);
+    }
+
+    public function deleteDuplicados()
+    {
+        return view('clients.duplicados');
+    }
+
+    public function pDeleteDuplicados(Request $request)
+    {
+        $ids = explode(',', $request->get('ids'));
+        $count = 0;
+        $idMain = 0;
+        foreach ($ids as $id){
+            if($count==0){
+                $idMain = $id;
+            }
+            $count++;
+        }
+
+        foreach ($ids as $id){
+            if($idMain!=$id){
+                $analisis = Analisis::where('person_id', '=', $id)->get();
+                foreach ($analisis as $analisi){
+                    $analisi->person_id = $idMain;
+                    $analisi->save();
+                }
+                Person::destroy($id);
+            }
+        }
+
+        dd($request->get('ids'));
+//        return view('clients.duplicados');
     }
 }

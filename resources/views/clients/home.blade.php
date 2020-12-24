@@ -49,8 +49,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table id="simple-datatable-example" class="table table-bordered table-clinica">
+            <div class="">
+                <table id="simple-datatable-example" class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
                         <th>CI</th>
@@ -256,10 +256,13 @@
             });
 
             var table1 = $('#simple-datatable-example').DataTable({
+                fixedHeader: true,
+                searchDelay: 4000,
+                searching: true,
                 serverSide: true,
-                processing: true,
+                // processing: true,
                 responsive: true,
-                deferRender: true,
+                // deferRender: true,
                 // bFilter: false,
                 ajax: "{{ route('simple_datatables_persons_data') }}",
                 columns: [
