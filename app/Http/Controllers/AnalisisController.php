@@ -323,23 +323,23 @@ class AnalisisController extends Controller
                 $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() +
                     Analisis::where('tipo_analisis', Analisis::LIQUIDOS)->count() +
                     Analisis::where('tipo_analisis', Analisis::CITOLOGIA)->count() + config('clinica.contadores_analisis.CITOLOGIA');
-                $codigo = 'C'.$numeroFecha.'-'.$num;
+                $codigo = 'C'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::BIOPSIA:
                 $num = Analisis::where('tipo_analisis', Analisis::BIOPSIA)->count() + config('clinica.contadores_analisis.BIOPSIA');
-                $codigo = 'B'.$numeroFecha.'-'.$num;
+                $codigo = 'B'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
                 $num = Analisis::where('tipo_analisis', Analisis::INMUNOHISTOQUIMICA)->count() + config('clinica.contadores_analisis.INMUNOHISTOQUIMICA');
-                $codigo = 'IHQ'.$numeroFecha.'-'.$num;
+                $codigo = 'IHQ'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::BETHESDA:
                 $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() + config('clinica.contadores_analisis.BETHESDA');
-                $codigo = 'BTD'.$numeroFecha.'-'.$num;
+                $codigo = 'BTD'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::HISTOPATOLOGICO:
                 $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + config('clinica.contadores_analisis.BETHESDA'); // 300
-                $codigo = 'BH'.$numeroFecha.'-'.$num;
+                $codigo = 'BH'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
         }
         return response()->json(['success' => $codigo]);
@@ -502,5 +502,25 @@ class AnalisisController extends Controller
 
         return view('analisis.lista_cambios', compact(
             'editarControl'));
+    }
+
+    public function formatoCodigo4Dig($num){
+        $lenght = strlen($num);
+        $codigoDig = '';
+        switch ($lenght){
+            case 1:
+                $codigoDig = '000'.$num;
+                break;
+            case 2:
+                $codigoDig = '00'.$num;
+                break;
+            case 3:
+                $codigoDig = '0'.$num;
+                break;
+            default:
+                $codigoDig = ''.$num;
+                break;
+        }
+        return $codigoDig;
     }
 }

@@ -49,8 +49,8 @@
                     </div>
                 </div>
             </div>
-            <div class="">
-                <table id="simple-datatable-example" class="table table-bordered">
+            <div class="table-responsive">
+                <table id="simple-datatable-example" class="table table-clinica">
                     <thead class="thead-dark">
                     <tr>
                         <th>CI</th>
@@ -271,7 +271,7 @@
                     {name: 'apellidos'},
                     {name: 'apellido_materno'},
                     {name: 'edad'},
-                    {name: 'created_at'},
+                    {name: 'created_at', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 "pagingType": "full_numbers",

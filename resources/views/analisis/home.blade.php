@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table id="tAnalisis" class="table table-bordered table-clinica">
+                <table id="tAnalisis" class="table table-clinica">
                     <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
@@ -205,8 +205,18 @@
                 serverSide: true,
                 processing: true,
                 responsive: true,
-                deferRender: true,
-                ajax: "{{ route('simple_datatables_analisis_data') }}",
+                // deferRender: true,
+                ajax: {
+                    url: "{{ route('simple_datatables_analisis_data') }}",
+                    beforeSend: function(){
+                        // Here, manually add the loading message.
+                        $('#tAnalisis > tbody').html(
+                            '<tr class="odd">' +
+                            '<td valign="top" colspan="6" class="dataTables_empty">Loading&hellip;</td>' +
+                            '</tr>'
+                        );
+                    }
+                },
                 columns: [
                     {name: 'id', visible: false},
                     {name: 'codigo'},

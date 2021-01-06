@@ -24,9 +24,9 @@ class StoreHistoPost extends FormRequest
     public function rules()
     {
         return [
-            'interpretacion' => 'nullable|string|max:10000',
-            'tecnica' => 'nullable|string|max:10000',
-            'bibliografia' => 'nullable|string|max:10000'
+            'interpretacion' => 'nullable|string|max:30000',
+            'tecnica' => 'nullable|string|max:30000',
+            'bibliografia' => 'nullable|string|max:30000'
         ];
     }
 }
