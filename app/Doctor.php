@@ -8,6 +8,10 @@ class Doctor extends Model
 {
     protected $table = 'doctores';
 
+    const NOMBRES = 'nombres';
+    const APELLIDOS = 'apellidos';
+    const DELETED = 'deleted';
+
     protected $fillable = [
         'nombres',
         'apellidos',

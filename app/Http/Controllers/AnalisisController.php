@@ -38,8 +38,9 @@ class AnalisisController extends Controller
     public function index()
     {
         $procedencias = Institucion::all();
+        $doctores = Doctor::where(Doctor::DELETED, '=', 0)->get();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
-        return view('analisis.home', compact('procedencias', 'tipoAnalisis'));
+        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores'));
     }
 
     /**
@@ -204,11 +205,13 @@ class AnalisisController extends Controller
         $columns = $request->get('columns');
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
+        $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
 
-        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos){
-            return $query->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId){
+            return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
             {
-                $q->where('nombres', 'like', '%'.$searchNombres.'%')->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                $q->where('nombres', 'like', '%'.$searchNombres.'%')
+                    ->where('apellidos', 'like', '%'.$searchApellidos.'%');
             });
         });
     }

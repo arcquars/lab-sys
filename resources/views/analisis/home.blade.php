@@ -16,17 +16,25 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="nombres">Nombres</label>
-                        <input type="text" name="nombres" class="form-control">
+                        <input type="text" name="nombres" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="nombres">Apellido</label>
-                        <input type="text" name="apellidos" class="form-control">
+                        <input type="text" name="apellidos" class="form-control form-control-sm">
                     </div>
                 </div>
                 <div class="col-md-4">
-
+                    <div class="form-group">
+                        <label for="doctor">Doctores</label>
+                        <select name="doctor" class="form-control form-control-sm">
+                            <option value="">Seleccione</option>
+                            @foreach($doctores as $dr)
+                                <option value="{{$dr->id}}">{{$dr->nombres}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -288,6 +296,11 @@
             } );
             $('input[name="apellidos"]').on( 'keyup', function () {
                 table.column(3).search(
+                    $(this).val()
+                ).draw();
+            } );
+            $('select[name="doctor"]').on( 'change', function () {
+                table.column(8).search(
                     $(this).val()
                 ).draw();
             } );
