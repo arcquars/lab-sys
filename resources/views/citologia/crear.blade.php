@@ -183,7 +183,7 @@ use \App\Helpers\HelperConfig;
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h3 class="ana-ext-title text-muted">HICHART</h3>
+                            <h3 class="ana-ext-title text-muted">RICHART</h3>
                             <div class="form-check">
                                 <label class="form-check-label">
                                     @if ($resultados)
@@ -296,22 +296,22 @@ use \App\Helpers\HelperConfig;
                                             $seccAux = null;
                                         @endphp
                                         @foreach($seccBethesda as $secc)
-                                            @if (strcmp($secc->key, 'lis-de-bajo-grado') == 0)
+                                            @if (strcmp($secc->key, 'sil-de-bajo-grado') == 0)
                                                 @php
                                                     $seccAux = $secc;
                                                 @endphp
                                             @endif
                                         @endforeach
                                         @if (isset($seccAux))
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]" checked>
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-bajo-grado]" checked>
                                             @else
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]">
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-bajo-grado]">
                                         @endif
                                     @else
-                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-bajo-grado]">
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-bajo-grado]">
                                     @endif
                                     <span class="form-check-sign"></span>
-                                    LIS DE BAJO GRADO
+                                    SIL DE BAJO GRADO
                                 </label>
                             </div>
                             <div class="form-check">
@@ -321,7 +321,7 @@ use \App\Helpers\HelperConfig;
                                             $seccAux = null;
                                         @endphp
                                         @foreach($seccBethesda as $secc)
-                                            @if (strcmp($secc->key, 'lis-de-alto-grado') == 0)
+                                            @if (strcmp($secc->key, 'sil-de-alto-grado') == 0)
                                                 @php
                                                     $seccAux = $secc;
                                                 @endphp
@@ -329,12 +329,12 @@ use \App\Helpers\HelperConfig;
                                             @endif
                                         @endforeach
                                         @if (isset($seccAux))
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]" checked>
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-alto-grado]" checked>
                                             @else
-                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]">
+                                            <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-alto-grado]">
                                         @endif
                                     @else
-                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[lis-de-alto-grado]">
+                                        <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-alto-grado]">
                                     @endif
                                     <span class="form-check-sign"></span>
                                     LIS DE ALTO GRADO

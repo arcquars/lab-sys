@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h3 class="ana-ext-title text-muted">HICHART</h3>
+                            <h3 class="ana-ext-title text-muted">RICHART</h3>
                             <div class="form-group row">
                                 <label for="nic-i" class="col-md-6 col-form-label text-right">NIC I</label>
                                 <div class="col-md-6">

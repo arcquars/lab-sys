@@ -22,7 +22,7 @@
             </dl>
         </div>
         <div class="card-body">
-            <form method="post" action="/analisis">
+            <form method="post" action="/analisis" id="formAnalisis">
                 {{ csrf_field() }}
                 <input type="hidden" name="person_id" value="{{$persona->id}}">
                 <div class="modal-body">
@@ -347,7 +347,7 @@
                 </div>
                 <div class="modal-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cerrar</a>
-                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <button type="submit" id="btnSubmit" class="btn btn-primary">Crear</button>
                 </div>
             </form>
         </div>
@@ -364,6 +364,11 @@
             });
             fntBanca($('#s_procedencia'));
             getCodigo();
+
+            $("#formAnalisis").submit(function (e) {
+                $("#btnSubmit").attr("disabled", true);
+                alert("xxx");
+            });
 
         });
 
