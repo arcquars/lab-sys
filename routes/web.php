@@ -60,6 +60,8 @@ Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
 Route::post('/analisis/change-to-citologia', 'AnalisisController@ajaxChageToCitologia')->name('analisis.aChangeToCitologia');
 
+Route::post('/analisis/grafic-report', 'AnalisisController@ajaxGraficReport')->name('analisis.aGraficReport');
+
 Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
 
 Route::get('/analisis/comprobante/{analisisId}', 'AnalisisController@comprobante')->name('analisis.comprobante');

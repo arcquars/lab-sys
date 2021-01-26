@@ -6,6 +6,7 @@ use App\Analisis;
 use App\Convenio;
 use App\Doctor;
 use App\EditarControl;
+use App\Http\Requests\GraficReportPost;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Http\Requests\UpdateAnalisisPost;
@@ -474,6 +475,30 @@ class AnalisisController extends Controller
         $analisis->update();
 
         return response()->json(['success' => '1', 'res' => Analisis::CITOLOGIA]);
+    }
+
+    public function ajaxGraficReport(GraficReportPost $request){
+        $fechaInicio = $request->post('f_inicio');
+        $fechaFin = $request->post('f_fin');
+
+        $analisisType = Analisis::whereBetween('fecha', [$fechaInicio, $fechaFin])
+            ->groupBy('tipo_analisis')->selectRaw('tipo_analisis, count(*) as count')->get();
+
+        $analisisDoctores = Analisis::whereBetween('fecha', [$fechaInicio, $fechaFin])
+            ->join('doctores', 'doctores.id', '=', 'analisis.doctor_asignado')
+            ->groupBy('doctor_asignado')->selectRaw('concat(doctores.nombres, \' \', apellidos) as nombres, count(*) as count')->get();
+
+        $analisisCreadores = Analisis::whereBetween('fecha', [$fechaInicio, $fechaFin])
+            ->join('users', 'users.id', '=', 'analisis.user_id')
+            ->groupBy('user_id')->selectRaw('users.name, count(*) as count')->get();
+
+
+
+        return response()->json([
+            "analisisTipo" => $analisisType,
+            'analisisDoctores' => $analisisDoctores,
+            "analisisCreadores" => $analisisCreadores,
+            'usuarioWorks' => Analisis::reporteUserWork($fechaInicio, $fechaFin)]);
     }
 
     public function ajaxSetPrecio(Request $request){

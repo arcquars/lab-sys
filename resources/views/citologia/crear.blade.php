@@ -337,7 +337,7 @@ use \App\Helpers\HelperConfig;
                                         <input class="form-check-input" type="checkbox" value="SI" name="bethesda[sil-de-alto-grado]">
                                     @endif
                                     <span class="form-check-sign"></span>
-                                    LIS DE ALTO GRADO
+                                    SIL DE ALTO GRADO
                                 </label>
                             </div>
                         </div>

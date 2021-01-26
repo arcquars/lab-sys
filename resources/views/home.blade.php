@@ -17,6 +17,9 @@
                         </div>
                     @endif
                     <p>Bienvenido al Sistema de control de análisis</p>
+                        @can('manage-admin')
+                    @include('reportes.partials._graficos', ['dateI' =>$dateI, 'dateF' => $dateF])
+                            @endcan
                 </div>
             </div>
         </div>

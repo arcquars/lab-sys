@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/resources/views/clients/home.blade.php" line="318" />
+    <bookmark url="file://$PROJECT_DIR$/resources/views/clients/home.blade.php" line="323" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="1. El doctor check de activar firma.&#10;2. Arreglo de reportes excel y pdf con cero semanal">
-      <change afterPath="$PROJECT_DIR$/resources/views/liquidos/crear.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/liquidos/reporte.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/liquidos/view.blade.php" afterDir="false" />
+    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="Reporte de graficos">
+      <change afterPath="$PROJECT_DIR$/app/Http/Requests/GraficReportPost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/SaveTextoPost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/reportes/partials/_graficos.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Analisis.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Analisis.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_12_214444_create_liquidos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_12_214444_create_liquidos_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <ignored path="public/uploads/20200130022711.png" />
@@ -78,6 +79,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="clinica322: schema" type="76f4a085:MysqlImplModel$Schema" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="clinica322@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="clinica322: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="analisis: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -87,91 +95,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/citologia/crear.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="938" column="29" lean-forward="true" selection-start-line="938" selection-start-column="29" selection-end-line="938" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/liquidos/crear.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="33" column="71" lean-forward="true" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LiquidoController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/liquidos/reporte.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-              <folding>
-                <element signature="e#5064#5098#0#HTML" expanded="true" />
-                <element signature="e#5120#5152#0#HTML" expanded="true" />
-                <element signature="e#5274#5308#0#HTML" expanded="true" />
-                <element signature="e#5330#5362#0#HTML" expanded="true" />
-                <element signature="e#5488#5522#0#HTML" expanded="true" />
-                <element signature="e#5548#5580#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/liquidos/view.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
-              <folding>
-                <element signature="e#1782#1802#0#HTML" expanded="true" />
-                <element signature="e#1879#1905#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="8" />
+            <state relative-caret-position="10101">
+              <caret line="500" column="79" selection-start-line="500" selection-start-column="79" selection-end-line="500" selection-end-column="79" />
               <folding>
                 <element signature="e#40#57#0#PHP" expanded="true" />
               </folding>
@@ -182,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Analisis.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="137" column="38" lean-forward="true" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+            <state relative-caret-position="6384">
+              <caret line="305" column="26" selection-start-line="305" selection-start-column="26" selection-end-line="305" selection-end-column="26" />
               <folding>
                 <element signature="e#23#41#0#PHP" expanded="true" />
               </folding>
@@ -192,22 +119,73 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="308" column="53" lean-forward="true" selection-start-line="308" selection-start-column="53" selection-end-line="308" selection-end-column="66" />
-              <folding>
-                <element signature="e#40#57#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="1113">
+              <caret line="62" column="59" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/reportes/partials/_graficos.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="49" column="54" lean-forward="true" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="65" />
+            <state relative-caret-position="441">
+              <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1134">
+              <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/GraficReportPost.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="546">
+              <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1050">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/analisis/home.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7539">
+              <caret line="359" column="31" selection-start-line="359" selection-start-column="31" selection-end-line="359" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/edit.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -224,41 +202,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>niklasravnsborg</find>
-      <find>p-datos-12</find>
-      <find>body</find>
-      <find>Sansita</find>
-      <find>p-datos-13</find>
-      <find>ajaxGetPrecio</find>
-      <find>aSetPrecioByAnalisis</find>
-      <find>manage-users</find>
-      <find>manage-users-dr1</find>
-      <find>reporte-diario</find>
-      <find>reporteDiario</find>
-      <find>excelDiario(</find>
-      <find>reportediario(</find>
-      <find>reportediariop</find>
-      <find>reporteDiariopo</find>
-      <find>reporteDiario(</find>
-      <find>reporte-diario-pdf</find>
-      <find>pdfDiario(</find>
-      <find>tipoAnalisisModal</find>
-      <find>citologia.asettipo</find>
-      <find>ajaxSetTipo</find>
-      <find>crear</find>
-      <find>liqui</find>
-      <find>bethes</find>
-      <find>is_histopatologico</find>
-      <find>viewResultado</find>
-      <find>editarc</find>
-      <find>$biopsia</find>
-      <find>aGetCode</find>
-      <find>ajaxGetCode</find>
+      <find>clien</find>
+      <find>Textos Predefinidos</find>
+      <find>copyToClipboard</find>
+      <find>dupli</find>
+      <find>.table-clinica</find>
+      <find>10000</find>
+      <find>contadores_analisis</find>
+      <find>contadores_</find>
+      <find>formatoCodigo4Dig</find>
+      <find>duplic</find>
+      <find>redirec</find>
+      <find>processing</find>
+      <find>loadingRecords</find>
+      <find>nombres</find>
+      <find>HICHART</find>
+      <find>LIS DE BAJO GRADO</find>
+      <find>sil-de-bajo-grado</find>
+      <find>lis-de-bajo-grado</find>
+      <find>$seccBethesda</find>
+      <find>lis-de-alto-grado</find>
+      <find>LIS DE ALTO GRADO</find>
+      <find>.ajax</find>
+      <find>function printErrorMsg</find>
+      <find>$('.fcp_error_'</find>
+      <find>ajaxChageToCitologia</find>
+      <find>.load</find>
+      <find>chart_creadores_div</find>
+      <find>chart_div</find>
+      <find>chart_doctores_div</find>
+      <find>chart_usuario_trabajo</find>
     </findStrings>
     <replaceStrings>
-      <replace>font-weight: 600</replace>
-      <replace>font-weight: 500</replace>
-      <replace>font-weight: 400</replace>
       <replace>&lt;th style=&quot;background-color: #0B0D33; color: #FFF6ED; font-size: 10px; font-weight: 500;&quot;&gt;</replace>
       <replace>&lt;th style=&quot;background-color: #0B0D33; color: #FFF6ED; font-size: 9px; font-weight: 500;&quot;&gt;</replace>
       <replace>&lt;th style=&quot;background-color: #0B0D33; color: #FFF6ED; font-size: 9px; font-weight: 500;&quot;</replace>
@@ -286,6 +261,9 @@
       <replace>VALOR DE MADURACION (MV)</replace>
       <replace>editar_controles</replace>
       <replace>$liquido</replace>
+      <replace>30000</replace>
+      <replace>sil-de-bajo-grado</replace>
+      <replace>sil-de-alto-grado</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/public/light-bootstrap</dir>
@@ -299,14 +277,16 @@
       <dir>$PROJECT_DIR$/node_modules</dir>
       <dir>$PROJECT_DIR$/resources</dir>
       <dir>$PROJECT_DIR$/app/Http/Controllers</dir>
-      <dir>$PROJECT_DIR$/resources/views</dir>
       <dir>$PROJECT_DIR$/resources/views/citologia/partial</dir>
+      <dir>$PROJECT_DIR$/app/Http/Requests</dir>
+      <dir>$PROJECT_DIR$/resources/views</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="Angel Pedro Domingo &lt;arc.quars@gmail.com&gt;" />
+        <option value="Clinica" />
         <option value="pedro" />
         <option value="Pedro" />
       </list>
@@ -316,57 +296,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/includes/precio.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/aextendido.blade.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/493bc5ed-2835-45e7-aa0c-ff409d15da48/console.sql" />
-        <option value="$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php" />
-        <option value="$PROJECT_DIR$/config/clinica.php" />
-        <option value="$PROJECT_DIR$/app/Person.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_09_05_020651_create_impresion_controlestable.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_09_05_020939_create_editar_controles_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/lista_impresiones.blade.php" />
-        <option value="$PROJECT_DIR$/app/ImpresionControl.php" />
-        <option value="$PROJECT_DIR$/app/EditarControl.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/lista_cambios.blade.php" />
-        <option value="$PROJECT_DIR$/app/Biopsia.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diagnostico.blade.php" />
-        <option value="$PROJECT_DIR$/app/Helpers/HelperConfig.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_09_19_023347_alter_table_resultados_papanicolaou_clase2_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_12_11_013036_create_resultados_table.php" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/includes/action.blade.php" />
-        <option value="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" />
-        <option value="$PROJECT_DIR$/resources/views/analisis/home.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BethesdaController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php" />
-        <option value="$PROJECT_DIR$/resources/views/biopsia/crear.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/bethesda/crear.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteAdminConvenioDia.blade.php" />
+        <option value="$PROJECT_DIR$/storage/framework/views/dc5ef517273f6ded8341ef03a5c1580d2755a8bb.php" />
         <option value="$PROJECT_DIR$/resources/views/histo/crear.blade.php" />
-        <option value="$PROJECT_DIR$/config/pdf.php" />
-        <option value="$PROJECT_DIR$/app/Convenio.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
-        <option value="$PROJECT_DIR$/resources/views/histo/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_10_11_114318_add_firma_analisis_table.php" />
-        <option value="$PROJECT_DIR$/public/css/clinica.css" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/reporte-footer.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/histo/partial/marcador_modal.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_10_12_214444_create_liquidos_table.php" />
-        <option value="$PROJECT_DIR$/app/Liquidos.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php" />
+        <option value="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" />
+        <option value="$PROJECT_DIR$/storage/framework/views/3d31366fbebe306f8c92cef9c7d1cefd4beceb51.php" />
+        <option value="$PROJECT_DIR$/config/laratables.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/reporte-cerrados.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_12_13_230118_create_textos_predefinidos_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/app/TextoPredefinido.php" />
+        <option value="$PROJECT_DIR$/resources/views/institucion/home.blade.php" />
+        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
+        <option value="$PROJECT_DIR$/resources/views/textopredefinido/includes/texto-list.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/SaveTextoPost.php" />
+        <option value="$PROJECT_DIR$/resources/views/textopredefinido/crear.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/textopredefinido/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/textopredefinido/includes/action.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TextoPredefinidoController.php" />
+        <option value="$PROJECT_DIR$/resources/views/textopredefinido/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/clients/duplicados.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ClientController.php" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/dash.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/clients/home.blade.php" />
+        <option value="$PROJECT_DIR$/public/css/clinica.css" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/StoreBiopsiaPost.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/StoreHistoPost.php" />
+        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
+        <option value="$PROJECT_DIR$/config/clinica.php" />
+        <option value="$PROJECT_DIR$/app/Doctor.php" />
+        <option value="$PROJECT_DIR$/resources/views/analisis/home.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2021_01_10_211244_alter_unique_codigo_analisis_table.php" />
+        <option value="$PROJECT_DIR$/resources/views/analisis/aextendido.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/citologia/crear.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/liquidos/crear.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Requests/GraficReportPost.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Analisis.php" />
-        <option value="$PROJECT_DIR$/resources/views/liquidos/reporte.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/LiquidoController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" />
-        <option value="$PROJECT_DIR$/resources/views/liquidos/view.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/reportes/partials/_graficos.blade.php" />
       </list>
     </option>
   </component>
@@ -483,7 +463,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -502,24 +481,11 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="biopsia" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Clinica" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Clinica" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="liquidos" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -527,7 +493,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/liquidos" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/clients" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -537,15 +503,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/clients" />
+      <recent name="$PROJECT_DIR$/resources/views/textopredefinido" />
       <recent name="$PROJECT_DIR$/resources/views/liquidos" />
       <recent name="$PROJECT_DIR$/resources/fonts" />
       <recent name="$PROJECT_DIR$/resources/views/reportes" />
-      <recent name="$PROJECT_DIR$/resources/views/analisis" />
-      <recent name="$PROJECT_DIR$/resources/views/export-excel" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -753,112 +719,35 @@
       <workItem from="1601948492555" duration="3772000" />
       <workItem from="1602040811407" duration="532000" />
       <workItem from="1602425763564" duration="6459000" />
-      <workItem from="1602552765833" duration="7044000" />
-    </task>
-    <task id="LOCAL-00023" summary="datalless">
-      <created>1580786784646</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1580786784647</updated>
-    </task>
-    <task id="LOCAL-00024" summary="datalless">
-      <created>1580866718133</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1580866718133</updated>
-    </task>
-    <task id="LOCAL-00025" summary="excel admin diario">
-      <created>1580870768055</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1580870768055</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Cliente crear y buscar">
-      <created>1581048283047</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1581048283047</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Biopsia add imagenes 3">
-      <created>1581475852898</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1581475852898</updated>
-    </task>
-    <task id="LOCAL-00028" summary="borrar keditor">
-      <created>1581476201943</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1581476201943</updated>
-    </task>
-    <task id="LOCAL-00029" summary="analisis bethesda">
-      <created>1581476230389</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1581476230389</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Detalles">
-      <created>1581997204389</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1581997204390</updated>
-    </task>
-    <task id="LOCAL-00031" summary="facturas y otros">
-      <created>1582598743308</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1582598743308</updated>
-    </task>
-    <task id="LOCAL-00032" summary="analisis bethesda">
-      <created>1582852792220</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1582852792220</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Reporte diario correciones">
-      <created>1582858282666</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1582858282666</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Reporte diario exportar a pdf">
-      <created>1582860902517</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1582860902517</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Reporte diario exportar a pdf">
-      <created>1582989133427</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1582989133427</updated>
-    </task>
-    <task id="LOCAL-00036" summary="Reporte diario exportar a pdf 2">
-      <created>1583718012317</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1583718012317</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Reporte diario exportar a pdf 2">
-      <created>1583718032485</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1583718032485</updated>
+      <workItem from="1602552765833" duration="8059000" />
+      <workItem from="1602700759171" duration="926000" />
+      <workItem from="1602725615920" duration="3473000" />
+      <workItem from="1603070192842" duration="2035000" />
+      <workItem from="1603417597138" duration="4339000" />
+      <workItem from="1603849763454" duration="2105000" />
+      <workItem from="1604539860178" duration="4906000" />
+      <workItem from="1605492287987" duration="1674000" />
+      <workItem from="1605748310041" duration="3178000" />
+      <workItem from="1605925885870" duration="710000" />
+      <workItem from="1606093582589" duration="2213000" />
+      <workItem from="1607900915722" duration="14593000" />
+      <workItem from="1607993358987" duration="11460000" />
+      <workItem from="1608166000182" duration="10864000" />
+      <workItem from="1608689519318" duration="11708000" />
+      <workItem from="1608775717520" duration="4480000" />
+      <workItem from="1609162487504" duration="97000" />
+      <workItem from="1609421606108" duration="1228000" />
+      <workItem from="1609595266733" duration="3865000" />
+      <workItem from="1609854723508" duration="3448000" />
+      <workItem from="1609948899918" duration="825000" />
+      <workItem from="1610154607217" duration="2359000" />
+      <workItem from="1610326656006" duration="2370000" />
+      <workItem from="1610921124732" duration="4773000" />
+      <workItem from="1611350212513" duration="1056000" />
+      <workItem from="1611408710004" duration="3213000" />
+      <workItem from="1611443707039" duration="10202000" />
+      <workItem from="1611498762402" duration="7987000" />
+      <workItem from="1611624361283" duration="169000" />
     </task>
     <task id="LOCAL-00038" summary="Reporte diario exportar a pdf 2">
       <created>1583718053126</created>
@@ -1098,17 +987,131 @@
       <option name="project" value="LOCAL" />
       <updated>1602553609718</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Nuevo analisis Liquidos">
+      <created>1602560437393</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1602560437393</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Mejora reporte">
+      <created>1602725875056</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1602725875057</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Mejora reporte">
+      <created>1603070267711</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1603070267712</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Reportes corregir fechas eliminar 00:00:00 y dar permisos el medico de editar analisis">
+      <created>1603073578495</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1603073578495</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Exportar excel convenios segun pedido">
+      <created>1603423482118</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1603423482119</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Mejoras correcciones noviembre 1">
+      <created>1605749422687</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1605749422688</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Reporte quitar hora y ortografia">
+      <created>1605751826639</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1605751826639</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Cambios sobre observaciones pago noviembre">
+      <created>1606095878835</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1606095878836</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Exportar excel convenios segun pedido">
+      <created>1607901337347</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1607901337352</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Implementacion texto predefinido">
+      <created>1608691993281</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1608691993282</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Implementar texto predefinido">
+      <created>1608780501294</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1608780501294</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Cambio despues de navidad 2020">
+      <created>1609949040823</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1609949040824</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Aumentar filtro de doctores asignados en lista de analisis">
+      <created>1610157739355</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1610157739358</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Codigo unico, codigos modificados: C-20-6802, C-20-6875, C-21-0442">
+      <created>1610328740603</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1610328740604</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Citologia cambiar &#10;lis-de-alto-grado&#10;lis-de-bajo-grado&#10;por sis-..">
+      <created>1610924983915</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1610924983916</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1027134000" />
+    <option name="totallyTimeSpent" value="1148236000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="0" width="1368" height="741" extended-state="6" />
+    <frame x="-1" y="0" width="1922" height="1080" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49327356" visible="true" weight="0.23333333" />
-      <window_info id="Structure" order="1" sideWeight="0.50672644" side_tool="true" visible="true" weight="0.23333333" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49174917" visible="true" weight="0.35272145" />
+      <window_info id="Structure" order="1" sideWeight="0.50825083" side_tool="true" weight="0.23712121" />
       <window_info id="npm" order="2" sideWeight="0.50672644" side_tool="true" weight="0.23333333" />
       <window_info id="Favorites" order="3" sideWeight="0.50672644" side_tool="true" weight="0.23333333" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1119,18 +1122,18 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32838285" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="8" sideWeight="0.49848485" visible="true" weight="0.6320132" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49786553" weight="0.33015874" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.32956383" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50454545" side_tool="true" weight="0.32419354" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50213444" side_tool="true" weight="0.33015874" />
       <window_info anchor="bottom" id="Database Console" order="11" weight="0.3278867" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.49545455" weight="0.32838285" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.4941302" weight="0.32804233" />
       <window_info anchor="bottom" id="TypeScript" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.32956383" />
+      <window_info active="true" anchor="bottom" id="Messages" order="14" visible="true" weight="0.32804233" />
       <window_info anchor="bottom" id="SQL Generator" order="15" weight="0.32956383" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.26093918" />
+      <window_info anchor="right" id="Database" order="3" weight="0.26040554" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1275,20 +1278,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tecnica texto estatico" />
-    <MESSAGE value="Mejora antes" />
-    <MESSAGE value="Añadir marcadores y cambio de codigo" />
-    <MESSAGE value="Mejoras en imprimir" />
-    <MESSAGE value="1. Numero de paginas HECHO.&#10;2. Tamaño del código del estudio pdf HECHO.&#10;3. Adicionar la palabra años a la edad HECHO.&#10;4. Posibilidad de modificar el tamaño de las letras HECHO (NUEVO 50 Bs).&#10;5. Permitir tabulaciones y viñetas HECHO (NUEVO 50 Bs)." />
-    <MESSAGE value="Correcciones lapepe.doc" />
-    <MESSAGE value="Mejoras en pdf, textarea" />
-    <MESSAGE value="CAmbios" />
-    <MESSAGE value="Cambios pedidos.." />
-    <MESSAGE value="Cambios pedidos 2.." />
-    <MESSAGE value="Cambios pedidos datos doctro y mejora en pdf informe histo" />
-    <MESSAGE value="Lista de analisis diferencias en admin y medico columna estado" />
-    <MESSAGE value="Correcciones palabras citologia" />
-    <MESSAGE value="Cambios https://docs.google.com/document/d/1KUyk_D2wi0g2BNuZQpkLpIga1m5LliyLzSiE_1UFebc/edit?usp=sharing" />
     <MESSAGE value="Setear fecha de entrega cuando no tiene se pone la fecha de la primera impresion" />
     <MESSAGE value="Correcciones 12" />
     <MESSAGE value="1. Sobre eso de editar si era error mio&#10;2. Orden de como imprimir solo era cambiar el html.&#10;3. El icono de imprimir solo era comentarlo en el codigo.&#10;4. Cambio de tamaño es pedido tuyo no es error" />
@@ -1300,7 +1289,21 @@
     <MESSAGE value="Borrar espacios vacios" />
     <MESSAGE value="Primera parte https://docs.google.com/document/d/1qbwePd-jN9Ir1qjGaOe58djBF7qWFCeYnhzvFRO4GSo/edit" />
     <MESSAGE value="1. El doctor check de activar firma.&#10;2. Arreglo de reportes excel y pdf con cero semanal" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. El doctor check de activar firma.&#10;2. Arreglo de reportes excel y pdf con cero semanal" />
+    <MESSAGE value="Nuevo analisis Liquidos" />
+    <MESSAGE value="Mejora reporte" />
+    <MESSAGE value="Reportes corregir fechas eliminar 00:00:00 y dar permisos el medico de editar analisis" />
+    <MESSAGE value="Mejoras correcciones noviembre 1" />
+    <MESSAGE value="Reporte quitar hora y ortografia" />
+    <MESSAGE value="Cambios sobre observaciones pago noviembre" />
+    <MESSAGE value="Exportar excel convenios segun pedido" />
+    <MESSAGE value="Implementacion texto predefinido" />
+    <MESSAGE value="Implementar texto predefinido" />
+    <MESSAGE value="Cambio despues de navidad 2020" />
+    <MESSAGE value="Aumentar filtro de doctores asignados en lista de analisis" />
+    <MESSAGE value="Codigo unico, codigos modificados: C-20-6802, C-20-6875, C-21-0442" />
+    <MESSAGE value="Citologia cambiar &#10;lis-de-alto-grado&#10;lis-de-bajo-grado&#10;por sis-.." />
+    <MESSAGE value="Reporte de graficos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reporte de graficos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1314,402 +1317,381 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_02_08_154927_create_bethesta_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="35" column="54" selection-start-line="35" selection-start-column="54" selection-end-line="35" selection-end-column="54" />
+        <state relative-caret-position="693">
+          <caret line="35" column="11" selection-start-line="29" selection-start-column="8" selection-end-line="35" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/resultados">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_05_020651_create_impresion_controlestable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/navs/auth.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_13_230118_create_textos_predefinidos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Institucion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="23" column="5" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="23" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/institucion/includes/action.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/TextoPredefinido.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="22" column="42" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica322/table/textos_predefinidos">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="88d7c808-76d3-4a3a-a5dc-9df05a6e9ce9">
+        <state projectRestartId="2d715b64-ab09-4364-89db-95f932e1e003">
           <filtering />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_11_013036_create_resultados_table.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/institucion/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="19" column="69" selection-start-line="19" selection-start-column="69" selection-end-line="19" selection-end-column="69" />
+        <state relative-caret-position="2541">
+          <caret line="121" column="21" selection-start-line="117" selection-start-column="26" selection-end-line="121" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Helpers/HelperConfig.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/InstitucionController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+        <state relative-caret-position="924">
+          <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/reporte.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Providers/AppServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3381">
-          <caret line="161" column="16" selection-start-line="161" selection-start-column="16" selection-end-line="161" selection-end-column="16" />
+        <state relative-caret-position="420">
+          <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
+          <folding>
+            <element signature="e#33#58#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/analisis/home.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/includes/texto-list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7917">
-          <caret line="377" column="18" selection-start-line="377" selection-start-column="18" selection-end-line="377" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/EditarControl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/analisis/lista_cambios.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/InmunohistoquimicaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2940">
-          <caret line="147" column="23" selection-start-line="147" selection-start-column="23" selection-end-line="147" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/analisis/includes/action.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="19" />
+        <state relative-caret-position="172">
+          <caret line="11" column="26" lean-forward="true" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/biopsia/crear.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="236" column="74" selection-start-line="236" selection-start-column="74" selection-end-line="236" selection-end-column="74" />
+        <state relative-caret-position="168">
+          <caret line="194" column="22" lean-forward="true" selection-start-line="194" selection-start-column="22" selection-end-line="194" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/bethesda/crear.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/clients/crear_analisis.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="260" selection-start-line="260" selection-end-line="260" />
+        <state relative-caret-position="336">
+          <caret line="100" column="22" lean-forward="true" selection-start-line="100" selection-start-column="22" selection-end-line="100" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="63" selection-start-line="6" selection-start-column="63" selection-end-line="6" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/liquidos/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="81" column="20" selection-start-line="81" selection-start-column="20" selection-end-line="81" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/SaveTextoPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TextoPredefinidoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2919">
+          <caret line="144" column="23" selection-start-line="144" selection-start-column="23" selection-end-line="144" selection-end-column="23" />
+          <folding>
+            <element signature="e#40#76#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/includes/action.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/clients/duplicados.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="67" selection-start-line="19" selection-start-column="67" selection-end-line="19" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ClientController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5670">
+          <caret line="279" column="25" selection-start-line="279" selection-start-column="25" selection-end-line="279" selection-end-column="25" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/dash.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1806">
+          <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/histo/crear.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-head.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/biopsia/reporte.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="139" column="65" selection-start-line="139" selection-start-column="65" selection-end-line="139" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="234" column="32" selection-start-line="234" selection-start-column="17" selection-end-line="234" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/analisis">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="f828c63a-f608-43cf-8069-fcba6a6eb122">
-          <filtering>
-            <filter text="id=4385" />
-            <filter text="" />
-          </filtering>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BethesdaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1869">
-          <caret line="96" column="34" selection-start-line="96" selection-start-column="18" selection-end-line="96" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/pdf.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica/table/convenios">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="46032ffc-61f3-4942-9e2e-631f6042cc23">
-          <filtering />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Convenio.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreBiopsiaPost.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="27" column="52" selection-start-line="27" selection-start-column="52" selection-end-line="27" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-client.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-style.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="73" lean-forward="true" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_11_225816_add_signig_doctores_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/clinica.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="172" column="28" selection-start-line="172" selection-start-column="28" selection-end-line="172" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_10_11_114318_add_firma_analisis_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="16" column="29" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="43" />
+        <state relative-caret-position="714">
+          <caret line="34" column="16" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/cliente-head.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="75" column="26" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
+        <state relative-caret-position="2520">
+          <caret line="120" column="69" selection-start-line="120" selection-start-column="69" selection-end-line="120" selection-end-column="69" />
         </state>
       </provider>
     </entry>
-    <entry file="das://493bc5ed-2835-45e7-aa0c-ff409d15da48/schema/clinica322/table/analisis">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state projectRestartId="0f4b8df6-da7d-4a68-a788-69b32844e1e2">
-          <filtering />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/AuthServiceProvider.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/clients/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="42" column="38" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="38" />
+        <state relative-caret-position="1092">
+          <caret line="52" column="79" selection-start-line="52" selection-start-column="66" selection-end-line="52" selection-end-column="79" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/histo/reporte.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/css/clinica.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1638">
-          <caret line="78" column="21" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
+        <state relative-caret-position="1827">
+          <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/citologia/partial/reporte-footer.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5754">
-          <caret line="274" column="63" selection-start-line="274" selection-start-column="45" selection-end-line="274" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Exports/ReporteDiarioExport.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/export-excel/reporteDiario.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreBiopsiaPost.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReporteController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="599" column="178" selection-start-line="599" selection-start-column="178" selection-end-line="599" selection-end-column="178" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_12_27_152013_create_biopsias_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="26" column="63" lean-forward="true" selection-start-line="23" selection-start-column="12" selection-end-line="26" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Biopsia.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreHistoPost.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
-          <caret line="23" column="5" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="23" selection-end-column="5" />
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_10_12_214444_create_liquidos_table.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="1113">
+          <caret line="53" column="42" selection-start-line="49" selection-start-column="51" selection-end-line="53" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Liquido.php">
+    <entry file="file://$PROJECT_DIR$/config/clinica.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+        <state relative-caret-position="5607">
+          <caret line="267" column="22" selection-start-line="267" selection-start-column="22" selection-end-line="267" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Seccion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2021_01_10_211244_alter_unique_codigo_analisis_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/CitologiaController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="308" column="53" lean-forward="true" selection-start-line="308" selection-start-column="53" selection-end-line="308" selection-end-column="66" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="672">
+          <caret line="42" column="16" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/citologia/crear.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="938" column="29" lean-forward="true" selection-start-line="938" selection-start-column="29" selection-end-line="938" selection-end-column="29" />
+        <state relative-caret-position="7119">
+          <caret line="339" column="39" selection-start-line="339" selection-start-column="39" selection-end-line="339" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/analisis/aextendido.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="66" column="66" selection-start-line="66" selection-start-column="66" selection-end-line="66" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Doctor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/analisis/crear.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8505">
+          <caret line="405" column="8" selection-start-line="356" selection-end-line="405" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="13" column="20" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10101">
+          <caret line="500" column="79" selection-start-line="500" selection-start-column="79" selection-end-line="500" selection-end-column="79" />
+          <folding>
+            <element signature="e#40#57#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Analisis.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="137" column="38" lean-forward="true" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+        <state relative-caret-position="6384">
+          <caret line="305" column="26" selection-start-line="305" selection-start-column="26" selection-end-line="305" selection-end-column="26" />
           <folding>
             <element signature="e#23#41#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/liquidos/crear.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="33" column="71" lean-forward="true" selection-start-line="33" selection-start-column="71" selection-end-line="33" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/liquidos/reporte.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="51" lean-forward="true" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
-          <folding>
-            <element signature="e#5064#5098#0#HTML" expanded="true" />
-            <element signature="e#5120#5152#0#HTML" expanded="true" />
-            <element signature="e#5274#5308#0#HTML" expanded="true" />
-            <element signature="e#5330#5362#0#HTML" expanded="true" />
-            <element signature="e#5488#5522#0#HTML" expanded="true" />
-            <element signature="e#5548#5580#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BiopsiaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="8" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LiquidoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="49" column="54" lean-forward="true" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="65" />
+        <state relative-caret-position="1113">
+          <caret line="62" column="59" selection-start-line="62" selection-start-column="59" selection-end-line="62" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="319" column="71" selection-start-line="319" selection-start-column="71" selection-end-line="319" selection-end-column="71" />
-          <folding>
-            <element signature="e#40#57#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="441">
+          <caret line="21" column="35" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/liquidos/view.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/navbars/sidebar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
-          <folding>
-            <element signature="e#1782#1802#0#HTML" expanded="true" />
-            <element signature="e#1879#1905#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="1134">
+          <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/GraficReportPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="26" column="9" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Requests/StoreAnalisisPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/analisis/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7539">
+          <caret line="359" column="31" selection-start-line="359" selection-start-column="31" selection-end-line="359" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/textopredefinido/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/reportes/partials/_graficos.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
         </state>
       </provider>
     </entry>
