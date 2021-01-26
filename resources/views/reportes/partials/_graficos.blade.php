@@ -172,6 +172,7 @@
                     trH += "<th>" + res[3] + "</th>";
                     trH += "<th>" + res[4] + "</th>";
                     trH += "<th>" + res[5] + "</th>";
+                    trH += "<th>Totales</th>";
                     trH += "</tr>";
                 } else {
                     tr += "<tr>";
@@ -181,6 +182,7 @@
                     tr += "<td>" + res[3] + "</td>";
                     tr += "<td>" + res[4] + "</td>";
                     tr += "<td>" + res[5] + "</td>";
+                    tr += "<td>" + (res[1]+res[2]+res[3]+res[4]+res[5]) + "</td>";
                     tr += "</tr>";
                 }
 

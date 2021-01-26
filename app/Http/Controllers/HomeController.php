@@ -27,7 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $dateF = Carbon::now();
-        $dateI = Carbon::now()->subDays(30);
+//        $dateI = Carbon::now()->subDays(30);
+        $dateI = Carbon::now()->firstOfMonth();
         return view('home', compact('dateI', 'dateF'));
     }
 }
