@@ -488,7 +488,7 @@ class AnalisisController extends Controller
             ->join('doctores', 'doctores.id', '=', 'analisis.doctor_asignado')
             ->groupBy('doctor_asignado')->selectRaw('concat(doctores.nombres, \' \', apellidos) as nombres, count(*) as count')->get();
 
-        $analisisCreadores = Analisis::whereBetween('fecha', [$fechaInicio, $fechaFin])
+        $analisisCreadores = Analisis::whereBetween('analisis.created_at', [$fechaInicio, $fechaFin])
             ->join('users', 'users.id', '=', 'analisis.user_id')
             ->groupBy('user_id')->selectRaw('users.name, count(*) as count')->get();
 
