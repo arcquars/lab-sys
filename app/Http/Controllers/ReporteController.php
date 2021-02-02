@@ -454,7 +454,7 @@ class ReporteController extends Controller
         $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
 
         $procedencias = Institucion::all();
-        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+        $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini, $fecha_fin])->get();
 
 
         return view('reportes.reporte-cerrados', compact(
@@ -468,25 +468,24 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
-        $entregado = $request->post('entregados');
-        $cerrados = $request->post('cerrados');
+//        $entregado = $request->post('entregados');
+//        $cerrados = $request->post('cerrados');
         $procedencias = Institucion::all();
 
-        $addQuery = "";
-        if(isset($entregado)){
-            $addQuery = "AND fecha_entrega is not null ";
-        }
-        $addCerrados = '';
-        if(isset($cerrados)){
-            $addCerrados = 'AND fecha_cierre is not null ';
-        }
-        $addProcedencia = '';
+//        $addQuery = "";
+//        if(isset($entregado)){
+//            $addQuery = "AND fecha_entrega is not null ";
+//        }
+//        $addCerrados = '';
+//        if(isset($cerrados)){
+//            $addCerrados = 'AND fecha_cierre is not null ';
+//        }
+        $addQuery = '';
         if($procedenciaId != 0){
-//            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('fecha_entrega', $entregado)->get();
-            $addProcedencia = 'AND procedencia = '.$procedenciaId.' ';
+            $addQuery = 'AND procedencia = '.$procedenciaId.' ';
         }
 
-        $analisis = Analisis::query()->whereRaw('fecha between ? and ? '.$addQuery.$addCerrados.$addProcedencia, [$fecha_ini, $fecha_fin])->get();
+        $analisis = Analisis::query()->whereRaw('fecha_entrega between ? and ? '.$addQuery, [$fecha_ini, $fecha_fin])->get();
 
         return view('reportes.reporte-cerrados', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',

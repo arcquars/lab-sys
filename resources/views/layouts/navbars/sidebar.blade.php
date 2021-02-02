@@ -79,6 +79,12 @@ Tip 2: you can also add an image using data-image tag
                                     <p>Cobros x Dia</p>
                                 </a>
                             </li>
+                            <li class="nav-item @if($activePage == 'admin_reporte_diagnostico') active @endif">
+                                <a class="nav-link" href="{{route('reporte.reporte_diagnostico')}}">
+                                    <i class="fas fa-receipt"></i>
+                                    <p>Reporte de Diagnosticos</p>
+                                </a>
+                            </li>
                             @can('edit-users')
                                 <li class="nav-item @if($activePage == 'admin_reporte2') active @endif">
                                     <a class="nav-link" href="{{route('reporte.reporte2')}}">
@@ -101,19 +107,13 @@ Tip 2: you can also add an image using data-image tag
                                 <li class="nav-item @if($activePage == 'admin_reporte_cerrados') active @endif">
                                     <a class="nav-link" href="{{route('reporte.reporte_cerrados')}}">
                                         <i class="fas fa-receipt"></i>
-                                        <p>Reporte Cerrados</p>
+                                        <p>Reporte Entregados</p>
                                     </a>
                                 </li>
                                 <li class="nav-item @if($activePage == 'admin_reporte_facturado') active @endif">
                                     <a class="nav-link" href="{{route('reporte.reporte_facturacion')}}">
                                         <i class="fas fa-receipt"></i>
                                         <p>Reporte de Facturaciones</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item @if($activePage == 'admin_reporte_diagnostico') active @endif">
-                                    <a class="nav-link" href="{{route('reporte.reporte_diagnostico')}}">
-                                        <i class="fas fa-receipt"></i>
-                                        <p>Reporte de Diagnosticos</p>
                                     </a>
                                 </li>
                             @endcan

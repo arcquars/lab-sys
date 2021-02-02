@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'admin_reporte_cerrados', 'title' => 'Reporte Cerrados', 'navName' => 'Reporte Cerrados', 'activeButton' => 'reporteActiveButton'])
+@extends('layouts.dash', ['activePage' => 'admin_reporte_cerrados', 'title' => 'Reporte Cerrados', 'navName' => 'Reporte Entregados', 'activeButton' => 'reporteActiveButton'])
 
 @section('content')
 <nav aria-label="breadcrumb">
@@ -56,26 +56,6 @@
                     <input type="submit" value="Buscar" class="btn btn-info btn-block">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" name="entregados" type="checkbox" value="1" @if(isset($entregado)) checked @endif>
-                            <span class="form-check-sign"></span>
-                            Entregados
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="cerrados" value="1" @if(isset($cerrados)) checked @endif>
-                            <span class="form-check-sign"></span>
-                            Cerrados
-                        </label>
-                    </div>
-                </div>
-            </div>
         </form>
         <br>
         <table class="table table-bordered table-clinica">
@@ -88,20 +68,19 @@
                 <th scope="col">Institucion</th>
                 <th scope="col">Entregado a</th>
                 <th scope="col">Fecha Entrega</th>
-                <th scope="col">Fecha Cierre</th>
             </tr>
             </thead>
             <tbody>
             @foreach($analisis as $analisi)
             <tr>
-                <td>{{\Carbon\Carbon::parse($analisi->fecha)->format('yy-m-d')}}</td>
+                <td>{{\Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d')}}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->institucion->nombre}}</td>
                 <td>{{$analisi->persona_entrega}}</td>
-                <td>{{\Carbon\Carbon::parse($analisi->fecha_entrega)->format('yy-m-d')}}</td>
-                <td>{{\Carbon\Carbon::parse($analisi->fecha_cierre)->format('yy-m-d')}}</td>
+                <td>{{\Carbon\Carbon::parse($analisi->fecha_entrega)->format('Y-m-d')}}</td>
+{{--                <td>{{\Carbon\Carbon::parse($analisi->fecha_cierre)->format('yy-m-d')}}</td>--}}
             </tr>
             @endforeach
             </tbody>
