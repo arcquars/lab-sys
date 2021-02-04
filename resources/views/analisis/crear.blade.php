@@ -13,8 +13,8 @@
             <dl class="row row-citologia">
                 <dt class="col-md-3">Nombres y Apellidos:</dt>
                 <dd class="col-md-3">{{$persona->apellidos.' '.$persona->apellido_materno.', '.$persona->nombres}}</dd>
-                <dt class="col-md-3">Edad:</dt>
-                <dd class="col-md-3">{{$persona->edad}}</dd>
+                <dt class="col-md-3">Fecha nacimiento:</dt>
+                <dd class="col-md-3">{{($persona->f_nacimiento)? $persona->f_nacimiento : '--'}}</dd>
             </dl>
             <dl class="row row-citologia">
                 <dt class="col-md-3">Sexo:</dt>
@@ -27,7 +27,18 @@
                 <input type="hidden" name="person_id" value="{{$persona->id}}">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="edad">Edad cliente</label>
+                                <input type="number" name="edad"
+                                       class="form-control @error('edad') is-invalid @enderror"
+                                       value="{{old('edad')? old('edad') : $edad}}">
+                                @error('edad')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="doctor">Doctor que envia</label>
                                 <input type="text" name="doctor"
@@ -367,7 +378,7 @@
 
             $("#formAnalisis").submit(function (e) {
                 $("#btnSubmit").attr("disabled", true);
-                alert("xxx");
+                //alert("xxx");
             });
 
         });

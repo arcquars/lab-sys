@@ -34,7 +34,8 @@ class StorePersonPost extends FormRequest
             'ci' => $roleCi,
             'nombres' => $roleNombres,
             'apellidos' => 'required',
-            'edad' => 'required'
+            'f_nacimiento' => 'nullable|date',
+            'sexo' => 'required'
         ];
     }
 }

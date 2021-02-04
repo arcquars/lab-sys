@@ -57,8 +57,8 @@
                         <th>Nombres</th>
                         <th>Ape. Paterno</th>
                         <th>Ape. Materno</th>
-                        <th>Edad</th>
-                        <th>Fecha Creacion</th>
+                        <th>Fecha nacimiento</th>
+                        <th>Fecha creacion</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -125,10 +125,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="edad">Edad</label>--}}
+{{--                                    <input type="number" name="edad" class="form-control" onchange="searchClient(this);">--}}
+{{--                                    <div class="fcp_error_edad" style="display: none;"></div>--}}
+{{--                                </div>--}}
                                 <div class="form-group">
-                                    <label for="edad">Edad</label>
-                                    <input type="number" name="edad" class="form-control" onchange="searchClient(this);">
-                                    <div class="fcp_error_edad" style="display: none;"></div>
+                                    <label for="f_nacimiento">Fecha nacimiento</label>
+                                    <input type="date" name="f_nacimiento" class="form-control">
+                                    <div class="fcp_error_f_nacimiento" style="display: none;"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -141,6 +146,7 @@
                                     <input type="radio" id="sexo2" name="sexo" value="mujer" class="custom-control-input">
                                     <label class="custom-control-label" for="sexo2">Mujer</label>
                                 </div>
+                                <div class="fcp_error_sexo" style="display: none;"></div>
                             </div>
                         </div>
                     </div>
@@ -270,7 +276,7 @@
                     {name: 'nombres', orderable: false, searchable: true},
                     {name: 'apellidos'},
                     {name: 'apellido_materno'},
-                    {name: 'edad'},
+                    {name: 'f_nacimiento'},
                     {name: 'created_at', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false}
                 ],
@@ -333,6 +339,7 @@
                 var apellidos = $(this).find("input[name='apellidos']").val();
                 var apellido_materno = $(this).find("input[name='apellido_materno']").val();
                 var edad = $(this).find("input[name='edad']").val();
+                var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
                 var sexo = $(this).find("input[name='sexo']:checked").val();
 
                 $.ajax({
@@ -346,6 +353,7 @@
                         apellidos: apellidos,
                         apellido_materno: apellido_materno,
                         edad: edad,
+                        f_nacimiento: f_nacimiento,
                         sexo: sexo,
 
                     },
@@ -437,9 +445,10 @@
             $("#fcrearpersona").find("input[name='apellidos']").val(person.apellidos);
             $("#fcrearpersona").find("input[name='apellido_materno']").val(person.apellido_materno);
             $("#fcrearpersona").find("input[name='edad']").val(person.edad);
+            $("#fcrearpersona").find("input[name='f_nacimiento']").val(person.f_nacimiento);
             $("#fcrearpersona").find("input[name='sexo'][value="+person.sexo+"]").attr('checked', 'checked');
         }
-        
+
         function searchClient(input){
             var ci = $('#fcrearpersona').find("input[name='ci']").val();
             var nombres = $('#fcrearpersona').find("input[name='nombres']").val();

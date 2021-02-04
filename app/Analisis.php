@@ -34,6 +34,7 @@ class Analisis extends Model
         'fecha_entrega',
         'fecha_cierre',
         'nit',
+        'edad',
         'razon_social',
         'doctor_asignado'
     ];

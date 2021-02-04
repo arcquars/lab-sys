@@ -20,7 +20,7 @@ class ClientController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
 
     /**
      * Display a listing of the resource.
@@ -166,6 +166,7 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ajaxCreatePerson(StorePersonPost $request){
+//        dd($request->get('f_nacimiento'));
         $personId = $request->get('id');
         $valid = true;
         if(isset($personId)){
@@ -191,7 +192,7 @@ class ClientController extends Controller
         $person->nombres = $request->get('nombres');
         $person->apellidos = $request->get('apellidos');
         $person->apellido_materno = $request->get('apellido_materno');
-        $person->edad = $request->get('edad');
+        $person->f_nacimiento = $request->get('f_nacimiento');
         $person->sexo = $request->get('sexo');
 
         if($person->save()) {
@@ -206,7 +207,7 @@ class ClientController extends Controller
         $person->nombres = $request->get('nombres');
         $person->apellidos = $request->get('apellidos');
         $person->apellido_materno = $request->get('apellido_materno');
-        $person->edad = $request->get('edad');
+        $person->f_nacimiento = $request->get('f_nacimiento');
         $person->sexo = $request->get('sexo');
 
         if($person->update()) {

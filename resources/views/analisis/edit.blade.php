@@ -14,8 +14,8 @@
             <dl class="row row-citologia">
                 <dt class="col-md-3">Nombres y Apellidos:</dt>
                 <dd class="col-md-3">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</dd>
-                <dt class="col-md-3">Edad:</dt>
-                <dd class="col-md-3">{{$analisis->person->edad}}</dd>
+                <dt class="col-md-3">Fecha de nacimiento:</dt>
+                <dd class="col-md-3">{{($analisis->person->f_nacimiento)? $analisis->person->f_nacimiento : '--'}}</dd>
             </dl>
             <dl class="row row-citologia">
                 <dt class="col-md-3">Sexo:</dt>
@@ -28,7 +28,19 @@
                 @method('PUT')
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="edad">Edad cliente</label>
+                                <input type="number" name="edad"
+                                       class="form-control @error('edad') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
+                                       value="{{old('edad', $analisis->edad)}}">
+                                @error('edad')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="doctor">Doctor que envia</label>
                                 <input type="text" name="doctor"

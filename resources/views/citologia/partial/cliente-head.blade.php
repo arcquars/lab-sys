@@ -8,7 +8,7 @@
     <dt class="col-md-3">Procedencia:</dt>
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
     <dt class="col-md-3">Edad:</dt>
-    <dd class="col-md-3">{{$analisis->person->edad}} años</dd>
+    <dd class="col-md-3">{{$analisis->edad}} años</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Sexo:</dt>

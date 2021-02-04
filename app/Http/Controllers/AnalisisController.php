@@ -64,6 +64,7 @@ class AnalisisController extends Controller
     {
         $analisis = new Analisis();
         $analisis->person_id = $request->get('person_id');
+        $analisis->edad = ($request->get('edad'))? $request->get('edad') : 0;
         $analisis->doctor = $request->get('doctor');
         $analisis->fecha = $request->get('fecha');
         $analisis->doctor_asignado = $request->get('doctor_asignado');
@@ -186,12 +187,17 @@ class AnalisisController extends Controller
      */
     public function crearAnalisisForPersona($personId){
         $persona = Person::find($personId);
+        $edad = '';
+        if($persona->f_nacimiento){
+            $edad = Carbon::parse($persona->f_nacimiento)->age;
+        }
         $procedencias = Institucion::all();
         $doctores = Doctor::all();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         return view('analisis.crear', compact(
             'procedencias',
             'doctores',
+            'edad',
             'tipoAnalisis',
             'persona'));
     }

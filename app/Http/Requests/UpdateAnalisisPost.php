@@ -24,6 +24,7 @@ class UpdateAnalisisPost extends FormRequest
     public function rules()
     {
         return [
+            'edad' => 'nullable|numeric|min:0|max:110',
             'doctor' => 'required',
             'procedencia' => 'required',
             'telefono_referencia' => 'nullable|max:14|min:5',

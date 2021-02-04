@@ -3,7 +3,7 @@
         <td width="20%"><p class="p-datos-12"><b>Nombre y Apellido:</b></p></td>
         <td width="40%"><p class="p-datos-12" style="font-size: 12px;"><b>{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</b></p></td>
         <td width="20%" style="text-align: right;"><p class="p-datos-12"><b>Edad:</b></p></td>
-        <td width="20%"><p class="p-datos-12">{{$analisis->person->edad}} años</p></td>
+        <td width="20%"><p class="p-datos-12">{{$analisis->edad}} años</p></td>
     </tr>
     <tr>
         <td><p class="p-datos-12"><b>Procedencia:</b></p></td>
