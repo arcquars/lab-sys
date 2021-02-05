@@ -76,7 +76,7 @@
                 <tbody>
                 @foreach($convenios as $convenio)
                     <tr>
-                        <td>{{ \Carbon\Carbon::parse($convenio->analisis->fecha)->format('yy-m-d') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($convenio->analisis->fecha)->format('Y-m-d') }}</td>
                         <td>{{$convenio->analisis->codigo}}</td>
                         <td>{{$convenio->analisis->person->nombres}} {{$convenio->analisis->person->apellidos}} {{$convenio->analisis->person->apellido_materno}}</td>
                         <td>{{$convenio->analisis->person->edad}}</td>

@@ -41,7 +41,7 @@ foreach ($resultados as $analisi){
     @foreach($resultados as $analisi)
         <tr>
             <td style="color: #0B0D33; font-size: 10px;">{{$i++}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{ \Carbon\Carbon::parse($analisi->fecha)->format('yy-m-d') }}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->codigo}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->edad}}</td>

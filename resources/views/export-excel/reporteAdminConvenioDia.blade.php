@@ -55,7 +55,7 @@ foreach ($resultados as $convenio){
     @foreach($resultados as $convenio)
         <tr>
             <td style="color: #0B0D33; font-size: 10px;">{{$i++}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{\Carbon\Carbon::parse($convenio->analisis->fecha)->format('yy-m-d')}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{\Carbon\Carbon::parse($convenio->analisis->fecha)->format('Y-m-d')}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->nombres}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->apellidos}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->apellido_materno}}</td>
