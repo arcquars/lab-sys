@@ -59,7 +59,7 @@ foreach ($resultados as $convenio){
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->nombres}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->apellidos}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->apellido_materno}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->person->edad}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$convenio->analisis->edad}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaMatricula}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$convenio->bancaPreAfiliacion}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{($convenio->bancaActivoAsegurado)? 'SI' : ''}}</td>

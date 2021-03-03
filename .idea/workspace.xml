@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="Reporte de graficos">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminConvenioDia.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminConvenioDia.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario-convenio.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario-convenio.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-cerrados.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-cerrados.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-diagnostico.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-diagnostico.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-diario.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-facturacion.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-facturacion.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte1.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +53,7 @@
         <item name="clinica@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="clinica: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="persons: table" type="285a2a93:MysqlImplModel$Table" />
+        <item name="analisis: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -238,6 +233,21 @@
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@143ad709" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -472,13 +482,10 @@
       <workItem from="1612322549001" duration="150000" />
       <workItem from="1612358107003" duration="308000" />
       <workItem from="1612401046598" duration="2155000" />
-    </task>
-    <task id="LOCAL-00040" summary="Tamanio de texto y cambios en betesda">
-      <created>1583722851974</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1583722851974</updated>
+      <workItem from="1612489395484" duration="1417000" />
+      <workItem from="1612624926189" duration="1572000" />
+      <workItem from="1612811257857" duration="17000" />
+      <workItem from="1614738585769" duration="1247000" />
     </task>
     <task id="LOCAL-00041" summary="Reporte diario exportar a pdf 2">
       <created>1583891571429</created>
@@ -816,7 +823,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612402421786</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="Correccion formato de fechas en reportes.">
+      <created>1612489454881</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1612489454881</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TodoView">
@@ -933,7 +947,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="1. Sobre eso de editar si era error mio&#10;2. Orden de como imprimir solo era cambiar el html.&#10;3. El icono de imprimir solo era comentarlo en el codigo.&#10;4. Cambio de tamaño es pedido tuyo no es error" />
     <MESSAGE value="CAmbios en fechas y nuevas funcionalidad" />
     <MESSAGE value="cambio en fechas" />
     <MESSAGE value="Cambios en fechas" />
@@ -958,7 +971,8 @@
     <MESSAGE value="Reporte de graficos" />
     <MESSAGE value="Cambiar reporte terminados por entregados" />
     <MESSAGE value="Implementar edad en analisis y persona fecha de nacimiento" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementar edad en analisis y persona fecha de nacimiento" />
+    <MESSAGE value="Correccion formato de fechas en reportes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Correccion formato de fechas en reportes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -44,7 +44,7 @@ foreach ($resultados as $analisi){
             <td style="color: #0B0D33; font-size: 10px;">{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->codigo}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->edad}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->edad}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->doctor}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>

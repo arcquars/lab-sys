@@ -79,7 +79,7 @@
                         <td>{{ \Carbon\Carbon::parse($convenio->analisis->fecha)->format('Y-m-d') }}</td>
                         <td>{{$convenio->analisis->codigo}}</td>
                         <td>{{$convenio->analisis->person->nombres}} {{$convenio->analisis->person->apellidos}} {{$convenio->analisis->person->apellido_materno}}</td>
-                        <td>{{$convenio->analisis->person->edad}}</td>
+                        <td>{{$convenio->analisis->edad}}</td>
                         <td>{{$convenio->analisis->doctor}}</td>
                         <td>{{$convenio->analisis->region}}</td>
                         <td>{{$convenio->analisis->precio}}</td>

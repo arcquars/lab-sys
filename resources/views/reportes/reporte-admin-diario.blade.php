@@ -77,7 +77,7 @@
                 <td>{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
-                <td>{{$analisi->person->edad}}</td>
+                <td>{{$analisi->edad}}</td>
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->region}}</td>
                 <td>{{$analisi->precio}}</td>

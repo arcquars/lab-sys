@@ -67,7 +67,7 @@
             <tr>
                 <td>{{ \Carbon\Carbon::parse($biopsia->analisis->fecha)->format('Y-m-d') }}</td>
                 <td>{{ $biopsia->analisis->person->nombres . ' ' . $biopsia->analisis->person->apellidos }}</td>
-                <td>{{ $biopsia->analisis->person->edad }}</td>
+                <td>{{ $biopsia->analisis->edad }}</td>
                 <td>{{ $biopsia->analisis->person->sexo }}</td>
                 <td>{!! (strlen($biopsia->diagnostico) < 150)? strip_tags($biopsia->diagnostico) : substr(strip_tags($biopsia->diagnostico), 0, 150).'...' !!}</td>
                 <td style="text-align: center;">
