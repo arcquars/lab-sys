@@ -113,6 +113,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fecha_pago_efectuado">Fecha</label>
+                                    <input id="realizar_pago_fecha" min="{{$date7}}" max="{{$dateNow}}"  type="date" name="fecha_pago_efectuado" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -145,14 +153,23 @@
                             >
                             <div class="fcp_error_persona_entrega" style="display: none;"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="fecha_entrega">Fecha de entrega</label>
-                            <input type="date" name="fecha_entrega" class="form-control"
-                                   value="{{date('Y-m-d')}}"
-                                   min="{{date('Y-m-d', strtotime("-100 days"))}}"
-                                   max="{{date('Y-m-d', strtotime("5 days"))}}"
-                            >
-                            <div class="fcp_error_fecha_entrega" style="display: none;"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fecha_entrega">Fecha de entrega</label>
+                                    <input type="datetime-local" name="fecha_entrega" class="form-control"
+                                           value="{{date('Y-m-d')}}"
+                                           min="{{date('Y-m-d', strtotime("-100 days"))}}"
+                                           max="{{date('Y-m-d', strtotime("5 days"))}}"
+                                    >
+                                    <div class="fcp_error_fecha_entrega" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="hora_entrega">Hora</label>
+                                <input type="time" name="hora_entrega" class="form-control">
+                                <div class="fcp_error_hora_entrega" style="display: none;"></div>
+                            </div>
                         </div>
                         <span class="font-weight-bold text-success">Esta fecha es la que se imprime en el resultado del análisis</span>
                     </div>
@@ -340,10 +357,11 @@
             var analisisId = $('#i_analisis_id').val();
             var nit = $('#realizar_pago_nit').val();
             var razon_social = $('#realizar_pago_razon_social').val();
+            var fecha_pago = $('#realizar_pago_fecha').val();
             $.ajax({
                 url: "{{ route('analisis.aSavePago') }}",
                 type: 'POST',
-                data: {'analisis_id': analisisId, 'nit': nit, 'razon_social': razon_social},
+                data: {'analisis_id': analisisId, 'nit': nit, 'razon_social': razon_social, 'fecha_pago_efectuado': fecha_pago},
                 success: function (data) {
                     $('#pagoModal').modal('hide');
                     $('#tAnalisis').DataTable().ajax.reload();
@@ -439,12 +457,15 @@
             var analisisId = $('#f_fechaentrega input[name="analisis_id"]').val();
             var persona_entrega = $('#f_fechaentrega input[name="persona_entrega"]').val();
             var fecha_entrega = $('#f_fechaentrega input[name="fecha_entrega"]').val();
+            var hora_entrega = $('#f_fechaentrega input[name="hora_entrega"]').val();
             $.ajax({
                 url: "{{ route('analisis.aSaveFechaEntrega') }}",
                 type: 'POST',
                 data: {analisis_id: analisisId,
                     persona_entrega: persona_entrega,
-                    fecha_entrega: fecha_entrega},
+                    fecha_entrega: fecha_entrega,
+                    hora_entrega: hora_entrega
+                },
                 success: function (data) {
                     if(data.success == 1){
                         $('#fechaEntregaModal').modal('hide');

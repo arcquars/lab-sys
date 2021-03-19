@@ -38,10 +38,12 @@ class AnalisisController extends Controller
      */
     public function index()
     {
+        $dateNow = date('Y-m-d');
+        $date7 = date('Y-m-d', strtotime('-7 days'));
         $procedencias = Institucion::all();
         $doctores = Doctor::where(Doctor::DELETED, '=', 0)->get();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
-        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores'));
+        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7'));
     }
 
     /**
@@ -359,9 +361,11 @@ class AnalisisController extends Controller
         $analisisId = $request->get('analisis_id');
         $nit = $request->get('nit', '');
         $razon_social = $request->get('razon_social', '');
+        $fechaPago = $request->get('fecha_pago_efectuado', '');
         $analisis = Analisis::find($analisisId);
         $analisis->pago_efectuado = $analisis->precio - $analisis->acuenta;
-        $analisis->fecha_pago_efectuado = Carbon::now();
+        $analisis->fecha_pago_efectuado = $fechaPago;
+//        $analisis->fecha_pago_efectuado = Carbon::now();
         $analisis->pago_efectuado_user = auth()->id();
         $analisis->nit = $nit;
         $analisis->razon_social = $razon_social;
@@ -398,13 +402,15 @@ class AnalisisController extends Controller
             'analisis_id' => 'required',
             'persona_entrega' => 'required|min:10|max:180',
             'fecha_entrega' => 'required',
+            'hora_entrega' => 'required',
         ]);
 
         $analisis_id = $request->post('analisis_id');
         $persona_entrega = $request->post('persona_entrega');
         $fecha_entrega = $request->post('fecha_entrega');
+        $hora_entrega = $request->post('hora_entrega');
         if($validatedFechaEntrega){
-            if(Analisis::updatePersonaFechaEntrega($analisis_id, $persona_entrega, $fecha_entrega)){
+            if(Analisis::updatePersonaFechaHoraEntrega($analisis_id, $persona_entrega, $fecha_entrega, $hora_entrega)){
                 return response()->json(['success' => '1']);
             }
             return response()->json(['success' => '0']);

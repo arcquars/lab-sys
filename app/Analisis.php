@@ -219,6 +219,17 @@ class Analisis extends Model
         return false;
     }
 
+    public static function updatePersonaFechaHoraEntrega($analisisId, $personaEntrega, $fechaEntrega, $hora){
+        $analisis = Analisis::find($analisisId);
+        $analisis->persona_entrega = $personaEntrega;
+        $analisis->fecha_entrega = $fechaEntrega;
+        $analisis->hora_entrega = $hora;
+        if($analisis->update()){
+            return true;
+        }
+        return false;
+    }
+
     public static function updateFechaCierre($analisisId, $fechaCierre){
         $analisis = Analisis::find($analisisId);
         $analisis->fecha_cierre = $fechaCierre;

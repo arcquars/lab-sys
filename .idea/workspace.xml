@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b364cd20-cb33-4530-9abf-8482e0c10dc5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminConvenioDia.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminConvenioDia.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/export-excel/reporteAdminDia.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario-convenio.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario-convenio.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-admin-diario.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/reportes/reporte-diagnostico.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/reporte-diagnostico.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Analisis.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Analisis.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AnalisisController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/analisis/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/analisis/home.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -241,7 +239,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@143ad709" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@67d0f1c6" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+            </path>
+            <path>
+              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@67d0f1c6" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@2aaa058d" type="9fbbdea:ServiceModel$ServiceNode" />
             </path>
           </expand>
           <select />
@@ -485,14 +488,9 @@
       <workItem from="1612489395484" duration="1417000" />
       <workItem from="1612624926189" duration="1572000" />
       <workItem from="1612811257857" duration="17000" />
-      <workItem from="1614738585769" duration="1247000" />
-    </task>
-    <task id="LOCAL-00041" summary="Reporte diario exportar a pdf 2">
-      <created>1583891571429</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1583891571429</updated>
+      <workItem from="1614738585769" duration="2184000" />
+      <workItem from="1615255946154" duration="3005000" />
+      <workItem from="1615295944383" duration="187000" />
     </task>
     <task id="LOCAL-00042" summary="Actualizar views que traje del laboratorio por qu hice cambios ahi.">
       <created>1584219810007</created>
@@ -830,7 +828,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612489454881</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Reportes correccion de edad">
+      <created>1614740061197</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1614740061198</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView">
@@ -947,7 +952,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="CAmbios en fechas y nuevas funcionalidad" />
     <MESSAGE value="cambio en fechas" />
     <MESSAGE value="Cambios en fechas" />
     <MESSAGE value="Cambio de fecha de conclusion por registro de cambios" />
@@ -972,7 +976,8 @@
     <MESSAGE value="Cambiar reporte terminados por entregados" />
     <MESSAGE value="Implementar edad en analisis y persona fecha de nacimiento" />
     <MESSAGE value="Correccion formato de fechas en reportes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Correccion formato de fechas en reportes." />
+    <MESSAGE value="Reportes correccion de edad" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reportes correccion de edad" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
