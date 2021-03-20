@@ -361,11 +361,11 @@ class AnalisisController extends Controller
         $analisisId = $request->get('analisis_id');
         $nit = $request->get('nit', '');
         $razon_social = $request->get('razon_social', '');
-        $fechaPago = $request->get('fecha_pago_efectuado', '');
         $analisis = Analisis::find($analisisId);
-        $analisis->pago_efectuado = $analisis->precio - $analisis->acuenta;
-        $analisis->fecha_pago_efectuado = $fechaPago;
-//        $analisis->fecha_pago_efectuado = Carbon::now();
+        $pago = $analisis->pago_efectuado;
+        $analisis->pago_efectuado = $analisis->precio - ($analisis->acuenta + $pago);
+        $analisis->acuenta = $analisis->acuenta + $pago;
+        $analisis->fecha_pago_efectuado = Carbon::now();
         $analisis->pago_efectuado_user = auth()->id();
         $analisis->nit = $nit;
         $analisis->razon_social = $razon_social;
@@ -382,6 +382,7 @@ class AnalisisController extends Controller
             'cliente' => $analisis->person->nombres.' '.$analisis->person->apellidos,
             'doctor' => $analisis->doctor,
             'precio' => $analisis->precio,
+            'pago' => $analisis->pago_efectuado,
             'acuenta' => $analisis->acuenta,
             'nit' => $analisis->nit,
             'razon_social' => $analisis->razon_social,
@@ -517,13 +518,13 @@ class AnalisisController extends Controller
         $request->validate([
             'precio' => 'required|numeric|between:10,20000'
         ]);
-
         $analisisId = $request->post('analisis_id');
         $precio = $request->post('precio');
-
         $analisis = Analisis::find($analisisId);
 
         $analisis->precio = $precio;
+        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
+        $analisis->pago_efectuado = 0;
 
         return response()->json(['success' => $analisis->save()]);
     }

@@ -11,6 +11,8 @@ public/js/*
 .idea/Clinica.iml
 .idea/php.xml
 .idea/workspace.xml
+.idea/php.xml
+composer.lock
 .env
 .env.backup
 .phpunit.result.cache

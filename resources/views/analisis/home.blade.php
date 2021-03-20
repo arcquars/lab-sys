@@ -109,7 +109,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="razon_social">Razon Social</label>
-                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control" required>
+                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control" onkeyup="uppercaseInput(this);" required>
                                 </div>
                             </div>
                         </div>
@@ -343,7 +343,11 @@
                     $('#pago_doctor').empty().append(data.success.doctor);
                     $('#pago_precio').empty().append(data.success.precio);
                     $('#pago_acuenta').empty().append(data.success.acuenta);
-                    $('#pago_pago').empty().append(data.success.precio-data.success.acuenta);
+                    console.info(data.success.precio + " ||" + data.success.acuenta + "|| " + data.success.pago);
+                    var precio = parseFloat(data.success.precio);
+                    var acuenta = parseFloat(data.success.acuenta);
+                    var pago = parseFloat(data.success.pago);
+                    $('#pago_pago').empty().append(precio-(acuenta + pago));
                     $('#i_analisis_id').val(analisisId);
                     $('#realizar_pago_nit').val(data.success.nit);
                     $('#realizar_pago_razon_social').val(data.success.razon_social);
