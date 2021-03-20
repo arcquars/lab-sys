@@ -94,7 +94,17 @@
                     <div class="form-group">
                         <label for="precio">Precio de analisis (Bs)</label>
                         <input type="text" name="precio" id="" class="form-control">
-                        <div class="fcp_error_precio" style="display: none;"></div>
+                        <div class="fcp_error fcp_error_precio" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="acuenta">A cuenta (Bs)</label>
+                        <input type="text" name="acuenta" id="" class="form-control">
+                        <div class="fcp_error fcp_error_acuenta" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="pago_efectuado">Pago efectuado</label>
+                        <input type="text" name="pago_efectuado" id="" class="form-control">
+                        <div class="fcp_error fcp_error_pago_efectuado" style="display: none;"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -134,7 +144,9 @@
     $(document).ready(function () {
         var form = $('#mEditarCosto form');
         $(form).submit(function( event ) {
-            var precio = $('#mEditarCosto form input[name="precio"]').val();
+            let precio = $('#mEditarCosto form input[name="precio"]').val();
+            let acuenta = $('#mEditarCosto form input[name="acuenta"]').val();
+            let pago_efectuado = $('#mEditarCosto form input[name="pago_efectuado"]').val();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -143,12 +155,13 @@
             $.ajax({
                 url: "{{ route('analisis.aSetPrecioByAnalisis') }}",
                 type: 'POST',
-                data: {analisis_id: '{{$analisis->id}}', precio: precio},
+                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado},
                 success: function (data) {
                     $('#mEditarCosto').modal('hide');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     var response = JSON.parse(XMLHttpRequest.responseText);
+                    clearMsgErrors("#mEditarCosto form");
                     console.log(response.errors);
                     $.each(response.errors, function(key, value){
                         console.log(JSON.stringify(value));
@@ -169,6 +182,7 @@
     });
 
     $('#mEditarCosto').on('show.bs.modal', function (event) {
+        clearMsgErrors("#mEditarCosto form");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -180,6 +194,8 @@
             data: {analisis_id: '{{$analisis->id}}'},
             success: function (data) {
                 $('#mEditarCosto form input[name="precio"]').val(data.precio);
+                $('#mEditarCosto form input[name="acuenta"]').val(data.acuenta);
+                $('#mEditarCosto form input[name="pago_efectuado"]').val(data.pago_efectuado);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -235,6 +251,11 @@
 
             }
         });
+    }
+
+    function clearMsgErrors(form){
+        $(form).find('.fcp_error ').empty();
+        $(form).find("input").removeClass('is-invalid');
     }
 </script>
 @endpush

@@ -361,11 +361,12 @@ class AnalisisController extends Controller
         $analisisId = $request->get('analisis_id');
         $nit = $request->get('nit', '');
         $razon_social = $request->get('razon_social', '');
+        $pagoFecha = $request->get('fecha_pago_efectuado', '');
         $analisis = Analisis::find($analisisId);
         $pago = $analisis->pago_efectuado;
         $analisis->pago_efectuado = $analisis->precio - ($analisis->acuenta + $pago);
         $analisis->acuenta = $analisis->acuenta + $pago;
-        $analisis->fecha_pago_efectuado = Carbon::now();
+        $analisis->fecha_pago_efectuado = $pagoFecha;
         $analisis->pago_efectuado_user = auth()->id();
         $analisis->nit = $nit;
         $analisis->razon_social = $razon_social;
@@ -468,7 +469,11 @@ class AnalisisController extends Controller
         $analisisId = $request->post('analisis_id');
         $analisis = Analisis::find($analisisId);
 
-        return response()->json(['success' => '1', 'precio' => $analisis->precio]);
+        return response()->json([
+            'success' => '1',
+            'precio' => $analisis->precio,
+            'acuenta' => $analisis->acuenta,
+            'pago_efectuado' => $analisis->pago_efectuado]);
     }
 
     public function ajaxSetImprimirFirma(Request $request){
@@ -515,16 +520,24 @@ class AnalisisController extends Controller
     }
 
     public function ajaxSetPrecio(Request $request){
-        $request->validate([
-            'precio' => 'required|numeric|between:10,20000'
-        ]);
         $analisisId = $request->post('analisis_id');
         $precio = $request->post('precio');
+        $acuenta = $request->post('acuenta');
+        $pago_efectuado = $request->post('pago_efectuado');
+
+//        dd($precio-$acuenta);
+        $request->validate([
+            'precio' => 'required|numeric|between:10,20000',
+            'acuenta' => 'required|numeric|between:0,'.$precio,
+            'pago_efectuado' => 'required|numeric|min:0|max:'.($precio-$acuenta)
+        ]);
+
         $analisis = Analisis::find($analisisId);
 
         $analisis->precio = $precio;
-        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
-        $analisis->pago_efectuado = 0;
+        $analisis->acuenta = $acuenta;
+//        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
+        $analisis->pago_efectuado = $pago_efectuado;
 
         return response()->json(['success' => $analisis->save()]);
     }
