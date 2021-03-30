@@ -308,45 +308,48 @@ class Analisis extends Model
             ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
             ->join('users', 'users.id', '=', 'editar_controles.user_id')
             ->selectRaw('editar_controles.user_id, users.name')->groupBy('editar_controles.user_id')->get();
-        $worksUsers = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
-            ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
-            ->join('users', 'users.id', '=', 'editar_controles.user_id')
-            ->selectRaw('users.id, users.name, analisis.tipo_analisis, count(analisis.tipo_analisis) as count')
-            ->groupBy('users.id', 'analisis.tipo_analisis')->get();
-//            ->orderBy('users.name, analisis.tipo_analisis')->get();
+//        $worksUsers = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+//            ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+//            ->join('users', 'users.id', '=', 'editar_controles.user_id')
+//            ->selectRaw('users.id, users.name, analisis.tipo_analisis, count(analisis.tipo_analisis) as count')
+//            ->groupBy('users.id', 'analisis.tipo_analisis')->get();
 
         $resultWorks = [];
         array_push($resultWorks, ['Usuario', Analisis::CITOLOGIA, Analisis::BETHESDA, Analisis::LIQUIDOS, Analisis::BIOPSIA, Analisis::INMUNOHISTOQUIMICA]);
 
         foreach ($userWork as $us){
-            $name = '';
-            $bethesdaCount = 0;
-            $liquidosCount = 0;
-            $citologiaCount = 0;
-            $inmunoCount = 0;
-            $biopsiaCount = 0;
-            foreach ($worksUsers as $work){
-                $name = $work->name;
-                if($us->user_id == $work->id){
-                    switch ($work->tipo_analisis){
-                        case Analisis::CITOLOGIA:
-                            $citologiaCount = $work->count;
-                            break;
-                        case Analisis::BETHESDA:
-                            $bethesdaCount = $work->count;
-                            break;
-                        case Analisis::LIQUIDOS:
-                            $liquidosCount = $work->count;
-                            break;
-                        case Analisis::BIOPSIA:
-                            $biopsiaCount= $work->count;
-                            break;
-                        case Analisis::INMUNOHISTOQUIMICA:
-                            $inmunoCount = $work->count;
-                            break;
-                    }
-                }
-            }
+
+            $citologiaCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::CITOLOGIA)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+            ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+            ->join('users', 'users.id', '=', 'editar_controles.user_id')
+            ->selectRaw('count(distinct analisis.id) as count')->first()->count;
+
+            $bethesdaCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::BETHESDA)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+                ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+                ->join('users', 'users.id', '=', 'editar_controles.user_id')
+                ->selectRaw('count(distinct analisis.id) as count')->first()->count;
+            $liquidosCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::LIQUIDOS)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+                ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+                ->join('users', 'users.id', '=', 'editar_controles.user_id')
+                ->selectRaw('count(distinct analisis.id) as count')->first()->count;
+            $inmunoCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::INMUNOHISTOQUIMICA)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+                ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+                ->join('users', 'users.id', '=', 'editar_controles.user_id')
+                ->selectRaw('count(distinct analisis.id) as count')->first()->count;
+            $biopsiaCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::BIOPSIA)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+                ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+                ->join('users', 'users.id', '=', 'editar_controles.user_id')
+                ->selectRaw('count(distinct analisis.id) as count')->first()->count;
             array_push($resultWorks, [$us->name, $citologiaCount, $bethesdaCount, $liquidosCount, $biopsiaCount, $inmunoCount]);
         }
         return $resultWorks;

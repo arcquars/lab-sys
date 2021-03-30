@@ -473,7 +473,8 @@ class AnalisisController extends Controller
             'success' => '1',
             'precio' => $analisis->precio,
             'acuenta' => $analisis->acuenta,
-            'pago_efectuado' => $analisis->pago_efectuado]);
+            'pago_efectuado' => $analisis->pago_efectuado,
+            'fecha_pago_efectuado' => $analisis->fecha_pago_efectuado]);
     }
 
     public function ajaxSetImprimirFirma(Request $request){
@@ -524,12 +525,14 @@ class AnalisisController extends Controller
         $precio = $request->post('precio');
         $acuenta = $request->post('acuenta');
         $pago_efectuado = $request->post('pago_efectuado');
+        $fecha_pago_efectuado = $request->post('fecha_pago_efectuado');
 
 //        dd($precio-$acuenta);
         $request->validate([
             'precio' => 'required|numeric|between:10,20000',
             'acuenta' => 'required|numeric|between:0,'.$precio,
-            'pago_efectuado' => 'required|numeric|min:0|max:'.($precio-$acuenta)
+            'pago_efectuado' => 'required|numeric|min:0|max:'.($precio-$acuenta),
+            'fecha_pago_efectuado' => 'required'
         ]);
 
         $analisis = Analisis::find($analisisId);
@@ -538,6 +541,7 @@ class AnalisisController extends Controller
         $analisis->acuenta = $acuenta;
 //        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
         $analisis->pago_efectuado = $pago_efectuado;
+        $analisis->fecha_pago_efectuado = $fecha_pago_efectuado;
 
         return response()->json(['success' => $analisis->save()]);
     }

@@ -106,6 +106,11 @@
                         <input type="text" name="pago_efectuado" id="" class="form-control">
                         <div class="fcp_error fcp_error_pago_efectuado" style="display: none;"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="fecha_pago_efectuado">Fecha Pago efectuado</label>
+                        <input type="date" name="fecha_pago_efectuado" id="fecha_pago_efectuado" class="form-control">
+                        <div class="fcp_error fcp_error_fecha_pago_efectuado" style="display: none;"></div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -147,6 +152,7 @@
             let precio = $('#mEditarCosto form input[name="precio"]').val();
             let acuenta = $('#mEditarCosto form input[name="acuenta"]').val();
             let pago_efectuado = $('#mEditarCosto form input[name="pago_efectuado"]').val();
+            let fecha_pago_efectuado = $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -155,7 +161,7 @@
             $.ajax({
                 url: "{{ route('analisis.aSetPrecioByAnalisis') }}",
                 type: 'POST',
-                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado},
+                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado, fecha_pago_efectuado},
                 success: function (data) {
                     $('#mEditarCosto').modal('hide');
                 },
@@ -196,6 +202,7 @@
                 $('#mEditarCosto form input[name="precio"]').val(data.precio);
                 $('#mEditarCosto form input[name="acuenta"]').val(data.acuenta);
                 $('#mEditarCosto form input[name="pago_efectuado"]').val(data.pago_efectuado);
+                $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val(data.fecha_pago_efectuado);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
