@@ -404,15 +404,15 @@ class AnalisisController extends Controller
             'analisis_id' => 'required',
             'persona_entrega' => 'required|min:10|max:180',
             'fecha_entrega' => 'required',
-            'hora_entrega' => 'required',
+//            'hora_entrega' => 'required',
         ]);
 
         $analisis_id = $request->post('analisis_id');
         $persona_entrega = $request->post('persona_entrega');
         $fecha_entrega = $request->post('fecha_entrega');
-        $hora_entrega = $request->post('hora_entrega');
+//        $hora_entrega = $request->post('hora_entrega');
         if($validatedFechaEntrega){
-            if(Analisis::updatePersonaFechaHoraEntrega($analisis_id, $persona_entrega, $fecha_entrega, $hora_entrega)){
+            if(Analisis::updatePersonaFechaEntrega($analisis_id, $persona_entrega, $fecha_entrega)){
                 return response()->json(['success' => '1']);
             }
             return response()->json(['success' => '0']);
@@ -527,12 +527,11 @@ class AnalisisController extends Controller
         $pago_efectuado = $request->post('pago_efectuado');
         $fecha_pago_efectuado = $request->post('fecha_pago_efectuado');
 
-//        dd($precio-$acuenta);
         $request->validate([
             'precio' => 'required|numeric|between:10,20000',
             'acuenta' => 'required|numeric|between:0,'.$precio,
-            'pago_efectuado' => 'required|numeric|min:0|max:'.($precio-$acuenta),
-            'fecha_pago_efectuado' => 'required'
+            'pago_efectuado' => 'nullable|numeric|min:1|max:'.($precio-$acuenta),
+            'fecha_pago_efectuado' => 'required_with:pago_efectuado'
         ]);
 
         $analisis = Analisis::find($analisisId);
@@ -540,8 +539,8 @@ class AnalisisController extends Controller
         $analisis->precio = $precio;
         $analisis->acuenta = $acuenta;
 //        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
-        $analisis->pago_efectuado = $pago_efectuado;
-        $analisis->fecha_pago_efectuado = $fecha_pago_efectuado;
+        $analisis->pago_efectuado = isset($pago_efectuado)? $pago_efectuado : 0;
+        $analisis->fecha_pago_efectuado = isset($pago_efectuado)? $fecha_pago_efectuado : null;
 
         return response()->json(['success' => $analisis->save()]);
     }

@@ -201,7 +201,11 @@
             success: function (data) {
                 $('#mEditarCosto form input[name="precio"]').val(data.precio);
                 $('#mEditarCosto form input[name="acuenta"]').val(data.acuenta);
-                $('#mEditarCosto form input[name="pago_efectuado"]').val(data.pago_efectuado);
+                if(data.pago_efectuado === 0){
+                    $('#mEditarCosto form input[name="pago_efectuado"]').val('');
+                } else {
+                    $('#mEditarCosto form input[name="pago_efectuado"]').val(data.pago_efectuado);
+                }
                 $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val(data.fecha_pago_efectuado);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

@@ -157,7 +157,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="fecha_entrega">Fecha de entrega</label>
-                                    <input type="datetime-local" name="fecha_entrega" class="form-control"
+                                    <input type="date" name="fecha_entrega" class="form-control"
                                            value="{{date('Y-m-d')}}"
                                            min="{{date('Y-m-d', strtotime("-100 days"))}}"
                                            max="{{date('Y-m-d', strtotime("5 days"))}}"
@@ -165,11 +165,11 @@
                                     <div class="fcp_error_fecha_entrega" style="display: none;"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="hora_entrega">Hora</label>
-                                <input type="time" name="hora_entrega" class="form-control">
-                                <div class="fcp_error_hora_entrega" style="display: none;"></div>
-                            </div>
+{{--                            <div class="col-md-6">--}}
+{{--                                <label for="hora_entrega">Hora</label>--}}
+{{--                                <input type="time" name="hora_entrega" class="form-control">--}}
+{{--                                <div class="fcp_error_hora_entrega" style="display: none;"></div>--}}
+{{--                            </div>--}}
                         </div>
                         <span class="font-weight-bold text-success">Esta fecha es la que se imprime en el resultado del análisis</span>
                     </div>
@@ -461,14 +461,14 @@
             var analisisId = $('#f_fechaentrega input[name="analisis_id"]').val();
             var persona_entrega = $('#f_fechaentrega input[name="persona_entrega"]').val();
             var fecha_entrega = $('#f_fechaentrega input[name="fecha_entrega"]').val();
-            var hora_entrega = $('#f_fechaentrega input[name="hora_entrega"]').val();
+            // var hora_entrega = $('#f_fechaentrega input[name="hora_entrega"]').val();
             $.ajax({
                 url: "{{ route('analisis.aSaveFechaEntrega') }}",
                 type: 'POST',
                 data: {analisis_id: analisisId,
                     persona_entrega: persona_entrega,
                     fecha_entrega: fecha_entrega,
-                    hora_entrega: hora_entrega
+                    // hora_entrega: hora_entrega
                 },
                 success: function (data) {
                     if(data.success == 1){
