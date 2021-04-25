@@ -102,12 +102,12 @@
                         <div class="fcp_error fcp_error_acuenta" style="display: none;"></div>
                     </div>
                     <div class="form-group">
-                        <label for="pago_efectuado">Pago efectuado</label>
+                        <label for="pago_efectuado">Pago de Saldo</label>
                         <input type="text" name="pago_efectuado" id="" class="form-control">
                         <div class="fcp_error fcp_error_pago_efectuado" style="display: none;"></div>
                     </div>
                     <div class="form-group">
-                        <label for="fecha_pago_efectuado">Fecha Pago efectuado</label>
+                        <label for="fecha_pago_efectuado">Fecha Pago de Saldo</label>
                         <input type="date" name="fecha_pago_efectuado" id="fecha_pago_efectuado" class="form-control">
                         <div class="fcp_error fcp_error_fecha_pago_efectuado" style="display: none;"></div>
                     </div>

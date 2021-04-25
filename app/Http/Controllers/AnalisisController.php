@@ -14,6 +14,7 @@ use App\ImpresionControl;
 use App\Institucion;
 use App\Person;
 use App\Resultado;
+use App\Rules\Saldo;
 use App\Seccion;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
@@ -527,10 +528,11 @@ class AnalisisController extends Controller
         $pago_efectuado = $request->post('pago_efectuado');
         $fecha_pago_efectuado = $request->post('fecha_pago_efectuado');
 
+//        dd($fecha_pago_efectuado);
         $request->validate([
             'precio' => 'required|numeric|between:10,20000',
             'acuenta' => 'required|numeric|between:0,'.$precio,
-            'pago_efectuado' => 'nullable|numeric|min:1|max:'.($precio-$acuenta),
+            'pago_efectuado' => ['nullable', 'numeric', new Saldo($precio, $acuenta)],
             'fecha_pago_efectuado' => 'required_with:pago_efectuado'
         ]);
 

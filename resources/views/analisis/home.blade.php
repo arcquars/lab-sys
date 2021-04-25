@@ -117,7 +117,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="fecha_pago_efectuado">Fecha</label>
-                                    <input id="realizar_pago_fecha" min="{{$date7}}" max="{{$dateNow}}"  type="date" name="fecha_pago_efectuado" class="form-control" required>
+                                    <input id="realizar_pago_fecha" value="{{date('Y-m-d')}}" min="{{$date7}}" max="{{$dateNow}}"  type="date" name="fecha_pago_efectuado" class="form-control" required>
                                 </div>
                             </div>
                         </div>
