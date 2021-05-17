@@ -42,6 +42,6 @@ class Saldo implements Rule
      */
     public function message()
     {
-        return 'El saldo tiene que ser la diferencia del costo menos el deposito a cuenta: '.($this->coste-$this->acuenta);
+        return 'El saldo tiene que ser la diferencia del costo('.$this->coste.') menos el deposito a cuenta('.$this->acuenta.') = '.($this->coste-$this->acuenta);
     }
 }

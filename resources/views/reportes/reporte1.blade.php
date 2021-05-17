@@ -100,7 +100,7 @@
                 <tbody>
                 @foreach($analisisEfec as $analisi)
                     <tr>
-                        <td>{{\Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d')}}</td>
+                        <td>{{\Carbon\Carbon::parse($analisi->fecha_pago_efectuado)->format('Y-m-d')}}</td>
                         <td>{{$analisi->codigo}}</td>
                         <td>{{$analisi->person->nombres}} {{$analisi->apellidos}} {{$analisi->person->apellido_materno}}</td>
                         <td>{{$analisi->doctor}}</td>
