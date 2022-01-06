@@ -263,7 +263,7 @@ return [
 
     ],
     'contadores_analisis' =>[
-        'CITOLOGIA' => -2846,
+        'CITOLOGIA' => -23578,
         'BIOPSIA' => 3231,
         'INMUNOHISTOQUIMICA' => 222,
         'BETHESDA' => 200,

@@ -32,6 +32,7 @@ foreach ($resultados as $analisi){
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Region</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Tipo Estudio</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Precio</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Estado</th>
     </tr>
     </thead>
     <tbody>
@@ -49,6 +50,7 @@ foreach ($resultados as $analisi){
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{ ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? 'Cancelado' : 'Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)) }}</td>
         </tr>
     @endforeach
     </tbody>

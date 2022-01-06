@@ -152,7 +152,8 @@ class AnalisisController extends Controller
         $procedencias = Institucion::all();
         $analisis = Analisis::find($id);
         $doctores = Doctor::all();
-        return view('analisis.edit',compact('analisis', 'procedencias', 'doctores'));
+        $convenio = Convenio::where('analisis_id', $id)->first();
+        return view('analisis.edit',compact('analisis', 'procedencias', 'doctores', 'convenio'));
     }
 
     /**
@@ -165,8 +166,62 @@ class AnalisisController extends Controller
     public function update(UpdateAnalisisPost $request, $id)
     {
         $analisis = Analisis::find($id);
+
+        $convenios = explode(",",config('clinica.convenios_id'));
+
+        $valid1 = false;
+        foreach ($convenios as $con){
+            if($con == $analisis->procedencia){
+                $valid1 = true;
+            }
+        }
+        $valid2 = false;
+        foreach ($convenios as $con){
+            if($con == $request->post('procedencia')){
+                $valid2 = true;
+            }
+        }
+        if($valid1){
+            if(!$valid2){
+                // borrar registeo de la tabla convenios
+                Convenio::where('analisis_id', $id)->delete();
+            }
+        }
+
         $analisis->fill($request->all());
-        $analisis->update();
+        if($analisis->update()){
+            $convenios = explode(',', Config::get('clinica.convenios_id'));
+            if(count($convenios) == 0){
+                $convenios = array([Config::get('clinica.convenios_id')]);
+            }
+            for ($i=0; $i<count($convenios); $i++){
+                if($convenios[$i] == $analisis->procedencia){
+                    $convenio = Convenio::where('analisis_id', $id)->first();
+                    if($convenio == null){
+                        $convenio = new Convenio();
+                        $convenio->analisis_id = $analisis->id;
+                    }
+                    $convenio->bancaInstitucion = $request->get('bancaInstitucion');
+                    $convenio->bancaMatricula = $request->get('bancaMatricula');
+                    $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
+                    $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
+                    $convenio->bancaActivoExt = $request->get('bancaActivoExt');
+                    $convenio->bancaActivoResto = $request->get('bancaActivoResto');
+                    $convenio->bancaPasivoAsegurado = $request->get('bancaPasivoAsegurado');
+                    $convenio->bancaPasivoExt = $request->get('bancaPasivoExt');
+                    $convenio->bancaPasivoResto = $request->get('bancaPasivoResto');
+                    $convenio->bancaSecAsegurado = $request->get('bancaSecAsegurado');
+                    $convenio->bancaSecExt = $request->get('bancaSecExt');
+                    $convenio->bancaSecResto = $request->get('bancaSecResto');
+                    $convenio->bancaEspecialidad = $request->get('bancaEspecialidad');
+                    $convenio->bancaAmbulatorio = $request->get('bancaAmbulatorio');
+                    $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
+
+
+                    $convenio->save();
+                }
+            }
+        }
         return redirect()->action(
             'AnalisisController@index');
     }
@@ -197,12 +252,14 @@ class AnalisisController extends Controller
         $procedencias = Institucion::all();
         $doctores = Doctor::all();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $convenio = null;
         return view('analisis.crear', compact(
             'procedencias',
             'doctores',
             'edad',
             'tipoAnalisis',
-            'persona'));
+            'persona',
+        'convenio'));
     }
 
     /**
@@ -400,6 +457,48 @@ class AnalisisController extends Controller
         return response()->json(['success' => true, 'analisis' => Analisis::find($analisisId), 'bandera' => 1]);
     }
 
+    public function ajaxSearchPaciente(Request $request){
+        $search = $request->post('search');
+        if($search == ''){
+            $clientes = Person::orderby('nombres')->select('id', 'nombres', 'apellidos', 'apellido_materno', 'edad')->limit(10)->get();
+        } else {
+            $clientes = Person::orderby('nombres', 'asc')->select('id', 'nombres', 'apellidos', 'apellido_materno', 'edad')->where('apellidos', 'like', '%'.$search.'%')->get();
+        }
+        $response = array();
+        foreach($clientes as $cliente){
+            $response[] = array(
+                "id"=>$cliente->id,
+                "text"=>$cliente->nombres.' '.$cliente->apellidos.' '.$cliente->apellido_materno.' ('.$cliente->edad.')'
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function ajaxChangePaciente(Request $request){
+        $paciente_id = $request->post('paciente_id');
+        $analisis_id = $request->post('analisis_id');
+
+        $analisis = Analisis::find($analisis_id);
+        $analisis->person_id = $paciente_id;
+        $analisis->save();
+        $response = array('analisis' => $analisis);
+        session()->flash('success', 'Se cambio el paciente con exito!');
+        return response()->json($response);
+    }
+
+    public function ajaxSearchDoctor(Request $request){
+        $search = $request->get('search');
+        $anaDoctores = Analisis::where('doctor', 'like', '%'.$search.'%')->orderby('doctor')->distinct()->get('doctor');
+        $response = array();
+        foreach($anaDoctores as $doctor){
+            $response[] = array(
+                "id"=>$doctor->doctor,
+                "text"=>$doctor->doctor
+            );
+        }
+        return response()->json($response);
+    }
+
     public function ajaxRegistrarFechaEntrega(Request $request){
         $validatedFechaEntrega = $request->validate([
             'analisis_id' => 'required',
@@ -530,7 +629,7 @@ class AnalisisController extends Controller
 
 //        dd($fecha_pago_efectuado);
         $request->validate([
-            'precio' => 'required|numeric|between:10,20000',
+            'precio' => 'required|numeric|between:0,20000',
             'acuenta' => 'required|numeric|between:0,'.$precio,
             'pago_efectuado' => ['nullable', 'numeric', new Saldo($precio, $acuenta)],
             'fecha_pago_efectuado' => 'required_with:pago_efectuado'

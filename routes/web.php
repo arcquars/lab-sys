@@ -59,6 +59,9 @@ Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->nam
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
 Route::post('/analisis/change-to-citologia', 'AnalisisController@ajaxChageToCitologia')->name('analisis.aChangeToCitologia');
+Route::post('/analisis/aSearchPaciente', 'AnalisisController@ajaxSearchPaciente')->name('analisis.paciente.search');
+Route::post('/analisis/aChangePaciente', 'AnalisisController@ajaxChangePaciente')->name('analisis.paciente.achangepaciente');
+Route::post('/analisis/aSearchDoctor', 'AnalisisController@ajaxSearchDoctor')->name('analisis.doctor.asearchdoctor');
 
 Route::post('/analisis/grafic-report', 'AnalisisController@ajaxGraficReport')->name('analisis.aGraficReport');
 
@@ -100,7 +103,7 @@ Route::post('/reportes/reporte-diario', 'ReporteController@reporteDiarioPost')->
 Route::get('/reportes/reporte-diario-excel/{fechaIni}/{fechaFin}/{procedencia}/{tipo}', 'ReporteController@excelDiario')->name('reporte.reporte.diario.exceldiario');
 Route::get('/reportes/reporte-diario-pdf/{fechaIni}/{fechaFin}/{procedencia}/{tipo}', 'ReporteController@pdfDiario')->name('reporte.reporte.diario.pdfdiario');
 Route::get('/reportes/reporte-admin/{fechaIni}/{fechaFin}/{procedencia}', 'ReporteController@excelAdminDiario')->name('reporte.reporte.diario.excelAdmindiario');
-Route::get('/reportes/reporte-admin-diario/{fechaIni}/{fechaFin}/{procedencia}', 'ReporteController@excelAdmin')->name('reporte.reporte_admin');
+Route::get('/reportes/reporte-admin-diario/{fechaIni}/{fechaFin}/{procedencia}/{doctor?}', 'ReporteController@excelAdmin')->name('reporte.reporte_admin');
 
 
 Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.reporte2');

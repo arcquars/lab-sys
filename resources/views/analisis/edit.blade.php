@@ -1,6 +1,13 @@
-@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Editar Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container{
+            width: 100% !important;
+        }
+    </style>
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -23,6 +30,9 @@
             </dl>
         </div>
         <div class="card-body">
+            @can('manage-admin')
+            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#mcambiarpaciente">Cambiar paciente</button>
+            @endcan
             <form action="{{ route('analisis.update',$analisis->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -79,6 +89,7 @@
                             @enderror
                         </div>
                     </div>
+                    @include('analisis.includes.convenio')
                     <div class="row">
                         <div class="col-md-6">
                             <label for="telefono_referencia">Telefono Referencia</label>
@@ -160,14 +171,90 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal cambiar paciente -->
+    <div id="mcambiarpaciente" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="fcambiarpaciente" action="">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="mgasto_title" class="modal-title ">Cambiar paciente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="js-paciente-ajax-id">Paciente buscar por apellido:</label>
+                        <select class="js-data-example-ajax" id="js-paciente-ajax-id"></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Grabar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            // alert(CSRF_TOKEN);
+
             fntBanca($('#s_procedencia'));
 
+            $('.js-data-example-ajax').select2({
+                ajax: {
+                    url: '{{ route('analisis.paciente.search') }}',
+                    type: "post",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term // search term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+                }
+            });
+
+            $("#fcambiarpaciente").submit(function (event) {
+                event.preventDefault();
+                let selects = $('#js-paciente-ajax-id').select2('data');
+                if(selects.length > 0){
+                    // alert(JSON.stringify(selects[0].id));
+                    $.ajax({
+                        url: "{{ route('analisis.paciente.achangepaciente') }}",
+                        type: 'POST',
+                        data: {'paciente_id': selects[0].id, 'analisis_id': '{{$analisis->id}}'},
+                        success: function (data) {
+                            // alert(JSON.stringify(data.analisis));
+                            location.reload();
+                        }
+                    });
+                } else {
+                    alert('no valido');
+                }
+                // alert(JSON.stringify());
+            });
         });
+
         function fntBanca(select){
             var convenios = [{{ config('clinica.convenios_id', '10, 15') }}];
             for(var i=0; i<convenios.length; i++){

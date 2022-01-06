@@ -130,6 +130,8 @@ class ReporteController extends Controller
         $fecha_ini = $year.'-'.$mes.'-01';
         $fecha_fin = $year.'-'.$mes.'-'.$day_last;
 
+//        $doctores = DB::table('analisis')->distinct()->get();
+
         $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
 
         $procedencias = Institucion::all();
@@ -266,20 +268,31 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
+        $doctor = $request->post('doctor_refiere');
 
         $procedencias = Institucion::all();
 
         if($procedenciaId == 0){
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+            if(empty($doctor)){
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
+            } else {
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('doctor', $doctor)->get();
+            }
+
         } else {
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+            if(empty($doctor)){
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
+            } else {
+                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('doctor', $doctor)->get();
+            }
+
         }
 
 
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis',
-            'procedenciaId'
+            'procedenciaId', 'doctor'
         ));
     }
 
@@ -420,14 +433,25 @@ class ReporteController extends Controller
                 $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
     }
 
-    function excelAdmin($fechaIni, $fechaFin, $procedencia){
-
+    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor=''){
         $procedencias = Institucion::all();
 
         if($procedencia == 0){
-            $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+            if(empty($doctor)){
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
+            } else {
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('doctor', $doctor)->get();
+            }
+
         } else {
-            $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedencia)->get();
+            if(empty($doctor)){
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedencia)->get();
+            } else {
+                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])
+                    ->where('procedencia', $procedencia)
+                    ->where('doctor', $doctor)->get();
+            }
+
         }
 
         $procedenciaName = "Todos";
