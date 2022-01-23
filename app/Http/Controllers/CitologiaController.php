@@ -12,6 +12,7 @@ use App\Resultado;
 use App\Seccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Milon\Barcode\DNS2D;
 use PDF;
 
 class CitologiaController extends Controller
@@ -255,6 +256,9 @@ class CitologiaController extends Controller
     }
 
     function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
@@ -287,7 +291,7 @@ class CitologiaController extends Controller
             'seccionDesviaciones', 'reacInflaAusente', 'reacInflaLeve', 'reacInflaVagina',
             'reacInflaEndocervix', 'reacInflaModerada', 'reacInflaCervix', 'reacInflaOtros',
             'reacInflaAcentuada',
-            'seccionExtendidoCompatible'));
+            'seccionExtendidoCompatible', 'pathQr'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);

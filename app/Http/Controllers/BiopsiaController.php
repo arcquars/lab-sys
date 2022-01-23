@@ -8,6 +8,7 @@ use App\EditarControl;
 use App\Http\Requests\StoreBiopsiaPost;
 use App\ImpresionControl;
 use Illuminate\Support\Facades\Auth;
+use Milon\Barcode\DNS2D;
 use PDF;
 
 class BiopsiaController extends Controller
@@ -158,6 +159,10 @@ class BiopsiaController extends Controller
     }
 
     function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
@@ -165,7 +170,7 @@ class BiopsiaController extends Controller
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('biopsia.reporte', compact(
-            'analisis', 'biopsia'));
+            'analisis', 'biopsia', 'pathQr'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);

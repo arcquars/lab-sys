@@ -9,6 +9,7 @@ use App\Http\Requests\StoreBiopsiaPost;
 use App\ImpresionControl;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Milon\Barcode\DNS2D;
 use PDF;
 
 class BethesdaController extends Controller
@@ -92,6 +93,9 @@ class BethesdaController extends Controller
     }
 
     function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
         Analisis::saveFechaEntrega($analisis, Auth::user()->name);
@@ -103,7 +107,7 @@ class BethesdaController extends Controller
         $interpretaciones = json_decode($bethesda->interpretacion, true);
 
         $pdf = PDF::loadView('bethesda.reporte', compact(
-            'analisis', 'bethesda', 'celulasObservadas', 'interpretaciones'));
+            'analisis', 'bethesda', 'celulasObservadas', 'interpretaciones', 'pathQr'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);

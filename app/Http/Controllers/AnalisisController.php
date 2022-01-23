@@ -3,21 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Bethesda;
+use App\Biopsia;
 use App\Convenio;
 use App\Doctor;
 use App\EditarControl;
+use App\Histoquimica;
 use App\Http\Requests\GraficReportPost;
 use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Http\Requests\UpdateAnalisisPost;
 use App\ImpresionControl;
 use App\Institucion;
+use App\Liquido;
 use App\Person;
 use App\Resultado;
 use App\Rules\Saldo;
 use App\Seccion;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
 use PDF;
 use Illuminate\Support\Facades\Config;
@@ -29,7 +36,7 @@ class AnalisisController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('cerrarAnalisisForId', '');
     }
 
     /**
@@ -241,7 +248,7 @@ class AnalisisController extends Controller
      * formulario para crear un analisis para una persona.
      *
      * @param  integer personId
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function crearAnalisisForPersona($personId){
         $persona = Person::find($personId);
@@ -680,5 +687,34 @@ class AnalisisController extends Controller
                 break;
         }
         return $codigoDig;
+    }
+
+    /**
+     * Vista que actualiza la fecha de cierre
+     *
+     * @param  integer analisisId
+     * @return View
+     */
+    public function cerrarAnalisisForId($analisisId){
+        dd('eee');
+        if (!Auth::check())
+        {
+            dd('No esta con session!!');
+        }
+
+        $analisis = Analisis::find($analisisId);
+        if($analisis->fecha_cierre == null){
+            Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis.');
+            Session::flash('flash_type', 'success');
+            $analisis->fecha_cierre = Carbon::now();
+            $analisis->update();
+        } else {
+            Session::flash('flash_message', '<b>El analisis</b> ya se cerro en fecha: '. $analisis->fecha_cierre->format('d-m-Y'));
+            Session::flash('flash_type', 'info');
+        }
+
+//        dd('eee');
+        return redirect()->route('analisis.home');
+//        return view('analisis.cerrar_analisis');
     }
 }

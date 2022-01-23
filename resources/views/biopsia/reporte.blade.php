@@ -1,7 +1,7 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
 <h3 class="h4-cito-1" style='text-align: center;'>INFORME HISTOPATOLOGICO</h3>
-@include('citologia.partial.reporte-client', compact('analisis'))
+@include('citologia.partial.reporte-client', compact('analisis', 'pathQr'))
 
 <h4 class="h4-cito">ÓRGANO Y TEJIDO</h4>
 <hr style="padding: 0; margin: 1px;">

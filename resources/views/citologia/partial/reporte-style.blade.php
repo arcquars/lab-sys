@@ -66,6 +66,14 @@
         color: #012035;
     }
 
+    .p-datos-12-1 {
+        /*font-family: 'Sansita Swashed', cursive;*/
+        font-family: 'Times New Roman', cursive;
+        font-size: 11px;
+        color: #012035;
+        line-height: 8px;
+    }
+
     .t-extcompatible tr td{
         text-align: center;
         border: 1px solid;

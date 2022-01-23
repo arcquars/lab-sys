@@ -8,6 +8,7 @@ use App\ImpresionControl;
 use App\Liquido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Milon\Barcode\DNS2D;
 use PDF;
 
 class LiquidoController extends Controller
@@ -103,6 +104,9 @@ class LiquidoController extends Controller
     }
 
     function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
@@ -110,7 +114,7 @@ class LiquidoController extends Controller
         $liquido = Liquido::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('liquidos.reporte', compact(
-            'analisis', 'liquido'));
+            'analisis', 'liquido', 'pathQr'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);

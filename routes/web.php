@@ -15,6 +15,13 @@ Route::get('/', function () {
 //    return view('auth.login');
     return redirect('home');
 });
+//Route::middleware('guest')->get('/analisis/cerrar_analisis/{analisisId}')->uses('AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
+Route::middleware(['guest'])->group(function () {
+//    Route::get('/analisis/cerrar_analisis/{analisisId}', 'AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
+//    Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
+});
+Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
+Route::get('/analisis/open_resultado_pdf/{analisisId}', 'QrController@openResultadoPdf')->name('analisis.open.esultado.pdf');
 
 Auth::routes();
 
@@ -64,6 +71,8 @@ Route::post('/analisis/aChangePaciente', 'AnalisisController@ajaxChangePaciente'
 Route::post('/analisis/aSearchDoctor', 'AnalisisController@ajaxSearchDoctor')->name('analisis.doctor.asearchdoctor');
 
 Route::post('/analisis/grafic-report', 'AnalisisController@ajaxGraficReport')->name('analisis.aGraficReport');
+
+//Route::get('/analisis/cerrar_analisis/{analisisId}', 'AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
 
 Route::get('/analisis/lista/tecnico', 'AnalisisController@listaTec')->name('analisis.listatecnico');
 
