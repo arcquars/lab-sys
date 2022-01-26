@@ -215,6 +215,72 @@
         </div>
     </div>
 
+    <!-- Modal Enviar mensaja SMS Analisis -->
+    <div class="modal fade" id="enviarSmsAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarSmsAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_enviarsmsanalisis" onsubmit="sendSmsAnalisis(this);  return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="enviarSmsAnalisisModalLabel">Enviar SMS al paciente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="analisis_id">
+                        <dl>
+                            <dt>Paciente:</dt>
+                            <dd id="m_paciente_nombres"></dd>
+                            <dt>Codigo analisis</dt>
+                            <dd id="m_analisis_codigo"></dd>
+                        </dl>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Precio</dt>
+                                    <dd id="m_analisis_precio"></dd>
+                                </dl>
+
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Acuenta</dt>
+                                    <dd id="m_analisis_acuenta"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>P. efectuado</dt>
+                                    <dd id="m_analisis_pago_efectuado"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Estado</dt>
+                                    <dd id="m_analisis_estado"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="m_analisis_celular">Celular:</label>
+                            <input type="text" name="s_celular" id="m_analisis_celular" value="" class="form-control">
+                            <div class="fcp_error_s_celular" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="s_texto">Mensaje</label>
+                            <textarea name="s_texto" id="s_texto" class="form-control" style="resize: none;" rows="6"></textarea>
+                            <div class="fcp_error_s_texto" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push('js')
@@ -376,6 +442,7 @@
 
         function printErrorMsg(form, msg) {
             $.each(msg.errors, function (key, value) {
+                $('.fcp_error_' + key).empty();
                 $(form).find("input[name='" + key + "']").addClass('is-invalid');
                 var msgs = "<ul class='list-unstyled'>";
                 $.each(value, function (key1, value1) {
@@ -457,6 +524,53 @@
             });
         }
 
+        function openModalEnviarSmsAnalisis(link) {
+            $.ajax({
+                url: "{{ route('analisis.aGetAnalisisPacienteById') }}",
+                type: 'POST',
+                data: {analisis_id: $(link).data('id')},
+                success: function (data) {
+                    if(data.success == 1){
+                        $('#enviarSmsAnalisisModal').modal('show');
+                        $('#f_enviarsmsanalisis')[0].reset();
+                        $('#f_enviarsmsanalisis input[name="analisis_id"]').val($(link).data('id'));
+                        if(data.paciente.apellido_materno === null){
+                            $('#m_paciente_nombres').empty().append(data.paciente.nombres + ' ' + data.paciente.apellidos);
+                        } else {
+                            $('#m_paciente_nombres').empty().append(data.paciente.nombres + ' ' + data.paciente.apellidos + ' '+ data.paciente.apellido_materno);
+                        }
+
+                        $('#m_analisis_codigo').empty().append(data.analisis.codigo);
+                        $('#m_analisis_precio').empty().append(data.analisis.precio);
+                        $('#m_analisis_acuenta').empty().append(data.analisis.acuenta);
+                        $('#m_analisis_pago_efectuado').empty().append(data.analisis.pago_efectuado);
+                        const precioA = parseFloat(data.analisis.precio).toFixed(2);
+                        const acuentaA = parseFloat(data.analisis.acuenta).toFixed(2);
+                        const pagoEfectuadoA = parseFloat(data.analisis.pago_efectuado).toFixed(2);
+                        console.log(data.analisis.precio + ' | ' + data.analisis.acuenta + ' | ' + data.analisis.pago_efectuado);
+                        console.log(precioA + ' | ' + acuentaA + ' | ' + pagoEfectuadoA);
+                        console.log(acuentaA + pagoEfectuadoA);
+                        if(precioA == (parseFloat(acuentaA) + parseFloat(pagoEfectuadoA))){
+                            $('#m_analisis_estado').empty().append('Cancelado');
+                        } else{
+                            $('#m_analisis_estado').empty().append('Debe ' + (parseFloat(precioA)-(parseFloat(acuentaA) + parseFloat(pagoEfectuadoA))));
+                        }
+
+                        $('#m_analisis_celular').val(data.analisis.telefono_referencia);
+                        const textConSalto = data.texto_pre;
+                        const textConSalto1 = textConSalto.replaceAll('<br>', "\n");
+                        $('#s_texto').val(textConSalto1);
+
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
+        }
+
         function saveFechaEntrega(){
             var analisisId = $('#f_fechaentrega input[name="analisis_id"]').val();
             var persona_entrega = $('#f_fechaentrega input[name="persona_entrega"]').val();
@@ -502,6 +616,24 @@
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     printErrorMsg($("#f_cerraranalisis"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
+        }
+
+        function sendSmsAnalisis(form){
+            $.ajax({
+                url: "{{ route('analisis.asend.sms.paciente') }}",
+                type: 'POST',
+                data: $(form).serialize(),
+                success: function (data) {
+                    if(data.success == 1){
+                        alert('cccccc ggg');
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    printErrorMsg($("#f_enviarsmsanalisis"), JSON.parse(XMLHttpRequest.responseText));
                 }
             });
         }

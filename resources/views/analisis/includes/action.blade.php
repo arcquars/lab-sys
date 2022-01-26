@@ -21,6 +21,9 @@
     <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
         <i class="fas fa-file-pdf text-success"></i>
     </a>
+    <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
+        <i class="fas fa-sms"></i>
+    </a>
 @endif
 @if($precio != ($acuenta + $pago_efectuado))
     @can('manage-users')

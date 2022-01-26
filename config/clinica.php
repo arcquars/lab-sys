@@ -268,5 +268,6 @@ return [
         'INMUNOHISTOQUIMICA' => 222,
         'BETHESDA' => 200,
         'HISTOPATOLOGICO' => 300,
-    ]
+    ],
+    'sms_enviar_texto' => 'CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA <br>Usted puede descargar su analisis abriendo el siguiente link:<br> '
 ];

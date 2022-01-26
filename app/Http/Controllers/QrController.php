@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
+use Nexmo\Laravel\Facade\Nexmo;
 use PDF;
 
 class QrController
@@ -37,6 +38,12 @@ class QrController
 //        {
 //            dd('No esta con session!!');
 //        }
+
+//        Nexmo::message()->send([
+//            'to' => '59165700466',
+//            'from' => '59179346585',
+//            'text' => 'Prueba!!'
+//        ]);
 
         $analisis = Analisis::find($analisisId);
         if($analisis->fecha_cierre == null){

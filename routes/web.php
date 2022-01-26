@@ -59,9 +59,11 @@ Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('anal
 Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
 Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPago')->name('analisis.aGetAnalisisPago');
 Route::post('/analisis/agetanalisis', 'AnalisisController@ajaxGetAnalisisById')->name('analisis.aGetAnalisisById');
+Route::post('/analisis/agetanalisispaciente', 'AnalisisController@ajaxGetAnalisisPacienteById')->name('analisis.aGetAnalisisPacienteById');
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
+Route::post('/analisis/enviar-sms-paciente', 'AnalisisController@ajaxEnviarSmsPaciente')->name('analisis.asend.sms.paciente');
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');

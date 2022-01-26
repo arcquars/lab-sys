@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
+use Nexmo\Laravel\Facade\Nexmo;
 use PDF;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
@@ -464,6 +465,13 @@ class AnalisisController extends Controller
         return response()->json(['success' => true, 'analisis' => Analisis::find($analisisId), 'bandera' => 1]);
     }
 
+    public function ajaxGetAnalisisPacienteById(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $texto_pre = config('clinica.sms_enviar_texto') . route('analisis.open.esultado.pdf', ['analisisId' =>$analisisId]);
+        return response()->json(['success' => true, 'analisis' => $analisis, 'paciente' => $analisis->person,  'bandera' => 1, 'texto_pre' => $texto_pre]);
+    }
+
     public function ajaxSearchPaciente(Request $request){
         $search = $request->post('search');
         if($search == ''){
@@ -539,6 +547,30 @@ class AnalisisController extends Controller
                 return response()->json(['success' => '1']);
             }
             return response()->json(['success' => '0']);
+        }
+    }
+
+    public function ajaxEnviarSmsPaciente(Request $request){
+        $validatedSenSms = $request->validate([
+            'analisis_id' => 'required',
+            's_celular' => 'required|min:40000000|max:99999999|integer',
+            's_texto' => 'string|min:3|max:200|required',
+        ]);
+
+        $analisis_id = $request->post('analisis_id');
+        $celular = $request->post('s_celular');
+        $texto = $request->post('s_texto');
+        if($validatedSenSms){
+            $analisis = Analisis::find($analisis_id);
+            $analisis->telefono_referencia = $celular;
+            $analisis->update();
+            Nexmo::message()->send([
+                'to' => '59165700466',
+//                'to' => $celular,
+                'from' => '59179346585',
+                'text' => $texto
+            ]);
+            return response()->json(['success' => '1']);
         }
     }
 
