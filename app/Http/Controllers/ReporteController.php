@@ -120,7 +120,6 @@ class ReporteController extends Controller
 
     public function reporteAdminDiario()
     {
-
         $date = new \DateTime();
         $year = intval($date->format('Y'));
         $mes = $date->format('m');

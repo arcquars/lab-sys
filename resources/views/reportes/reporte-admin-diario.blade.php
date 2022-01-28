@@ -92,6 +92,7 @@
                 <th scope="col">Paciente</th>
                 <th scope="col">Edad</th>
                 <th scope="col">Doctor que Pidio</th>
+                <th scope="col">Institucion</th>
                 <th scope="col">Region</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Estado</th>
@@ -105,6 +106,7 @@
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->edad}}</td>
                 <td>{{$analisi->doctor}}</td>
+                <td>{{$analisi->institucion->nombre}}</td>
                 <td>{{$analisi->region}}</td>
                 <td>{{$analisi->precio}}</td>
                 <td>{{ ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? 'Cancelado' : 'Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)) }}</td>

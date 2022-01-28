@@ -21,7 +21,9 @@ Route::middleware(['guest'])->group(function () {
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
 });
 Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
+Route::get('/analisis-pdf/{analisisId}', 'QrController@index')->name('analisis.reporte.pdf.public');
 Route::get('/analisis/open_resultado_pdf/{analisisId}', 'QrController@openResultadoPdf')->name('analisis.open.esultado.pdf');
+Route::get('/analisis/resultado/{analisisId}', 'QrController@openResultadoPdf')->name('analisis.open.esultado.simple.pdf');
 
 Auth::routes();
 

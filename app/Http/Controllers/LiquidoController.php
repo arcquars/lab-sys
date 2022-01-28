@@ -106,7 +106,7 @@ class LiquidoController extends Controller
     function reporte($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);

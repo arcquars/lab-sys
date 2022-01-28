@@ -26,7 +26,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
-use Nexmo\Laravel\Facade\Nexmo;
+use Octopush\Client;
+use Octopush\Constant\TypeEnum;
+use Octopush\Request\SmsCampaign\SendSmsCampaignRequest;
 use PDF;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
@@ -468,7 +470,7 @@ class AnalisisController extends Controller
     public function ajaxGetAnalisisPacienteById(Request $request){
         $analisisId = $request->get('analisis_id');
         $analisis = Analisis::find($analisisId);
-        $texto_pre = config('clinica.sms_enviar_texto') . route('analisis.open.esultado.pdf', ['analisisId' =>$analisisId]);
+        $texto_pre = config('clinica.sms_enviar_texto') . route('analisis.open.esultado.simple.pdf', ['analisisId' =>$analisisId]);
         return response()->json(['success' => true, 'analisis' => $analisis, 'paciente' => $analisis->person,  'bandera' => 1, 'texto_pre' => $texto_pre]);
     }
 
@@ -548,6 +550,7 @@ class AnalisisController extends Controller
             }
             return response()->json(['success' => '0']);
         }
+        return response()->json(['success' => '0']);
     }
 
     public function ajaxEnviarSmsPaciente(Request $request){
@@ -564,14 +567,26 @@ class AnalisisController extends Controller
             $analisis = Analisis::find($analisis_id);
             $analisis->telefono_referencia = $celular;
             $analisis->update();
-            Nexmo::message()->send([
-                'to' => '59165700466',
-//                'to' => $celular,
-                'from' => '59179346585',
-                'text' => $texto
+
+            $octopushEmail = env('OCTOPUSH_EMAIL');
+            $octopushKey = env('OCTOPUSH_KEY');
+            $client = new Client($octopushEmail, $octopushKey);
+            $request = new SendSmsCampaignRequest();
+            $request->setRecipients([
+                [
+//                'phone_number' => '+591'.$celular,
+                    'phone_number' => '+59179346585',
+//                    'param1' => 'Alex',
+                ]
             ]);
-            return response()->json(['success' => '1']);
+            $request->setSender('+59179346585');
+//            $request->setText('Hello {param1}, HAPPY NEW YEAR');
+            $request->setText($texto);
+            $request->setType(TypeEnum::SMS_PREMIUM);
+            $content = $client->send($request);
+            return response()->json(['success' => '1', 'smsresult' => $content]);
         }
+        return response()->json(['success' => '0', 'message' => 'Ocurrio un error por favor contactese con el administrador.']);
     }
 
     function comprobante($analisisId) {

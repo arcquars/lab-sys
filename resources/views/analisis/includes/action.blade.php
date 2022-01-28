@@ -22,7 +22,7 @@
         <i class="fas fa-file-pdf text-success"></i>
     </a>
     <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
-        <i class="fas fa-sms"></i>
+        <i class="fas fa-sms text-info"></i>
     </a>
 @endif
 @if($precio != ($acuenta + $pago_efectuado))

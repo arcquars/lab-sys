@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
 use Nexmo\Laravel\Facade\Nexmo;
+
+use Octopush\Client;
+use Octopush\Request\SmsCampaign\SendSmsCampaignRequest;
+use Octopush\Constant\TypeEnum;
+
 use PDF;
 
 class QrController
@@ -38,13 +43,6 @@ class QrController
 //        {
 //            dd('No esta con session!!');
 //        }
-
-//        Nexmo::message()->send([
-//            'to' => '59165700466',
-//            'from' => '59179346585',
-//            'text' => 'Prueba!!'
-//        ]);
-
         $analisis = Analisis::find($analisisId);
         if($analisis->fecha_cierre == null){
             Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis.');
@@ -81,7 +79,7 @@ class QrController
     function reporteBiopsia($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
 
         $analisis = Analisis::find($analisisId);
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
@@ -98,7 +96,7 @@ class QrController
     function reporteCitologia($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
@@ -142,7 +140,7 @@ class QrController
     function reporteBethesta($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
         Analisis::saveFechaEntrega($analisis, Auth::user()->name);
@@ -165,7 +163,7 @@ class QrController
     function reporteLiquidos($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.cerraranalisis', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
