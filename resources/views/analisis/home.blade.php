@@ -274,7 +274,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button id="f_enviarsmsanalisis_submit" type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </form>
             </div>
@@ -621,16 +621,24 @@
         }
 
         function sendSmsAnalisis(form){
+            $("#f_enviarsmsanalisis_submit").prop('disabled', true);
             $.ajax({
                 url: "{{ route('analisis.asend.sms.paciente') }}",
                 type: 'POST',
                 data: $(form).serialize(),
                 success: function (data) {
-                    if(data.success == 1){
-                        alert('cccccc ggg');
-                    } else {
-                        alert("Ocurrio un error por favor contactese  con el administrador.");
-                    }
+                    $("#f_enviarsmsanalisis_submit").prop('disabled', false);
+                    // if(data.success == 1){
+                    //     if(data.smsresult.number_of_contacts >= 1){
+                    //         $('#enviarSmsAnalisisModal').modal('hide');
+                    //         alert("El mensaje se envio correctamente!");
+                    //     } else {
+                    //         $('#enviarSmsAnalisisModal').modal('hide');
+                    //         alert("Ocurrio el siguiente error al momento de enviar el sms: " + JSON.stringify(data));
+                    //     }
+                    // } else {
+                    //     alert("Ocurrio un error por favor contactese  con el administrador.");
+                    // }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     printErrorMsg($("#f_enviarsmsanalisis"), JSON.parse(XMLHttpRequest.responseText));

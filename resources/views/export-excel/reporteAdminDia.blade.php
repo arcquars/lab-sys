@@ -52,7 +52,7 @@ foreach ($resultados as $analisi){
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->institucion->nombre}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{ ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? 'Cancelado' : 'Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)) }}</td>
+            <td style="color: #0B0D33; font-size: 10px;"><p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? '<span class="badge badge-success">Cancelado</span>' : '<span class="badge badge-danger">Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)).'</span>' !!}</p></td>
         </tr>
     @endforeach
     </tbody>

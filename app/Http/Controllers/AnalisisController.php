@@ -574,16 +574,15 @@ class AnalisisController extends Controller
             $request = new SendSmsCampaignRequest();
             $request->setRecipients([
                 [
-//                'phone_number' => '+591'.$celular,
-                    'phone_number' => '+59179346585',
-//                    'param1' => 'Alex',
+                'phone_number' => '+591'.$celular,
                 ]
             ]);
             $request->setSender('+59179346585');
-//            $request->setText('Hello {param1}, HAPPY NEW YEAR');
             $request->setText($texto);
             $request->setType(TypeEnum::SMS_PREMIUM);
             $content = $client->send($request);
+
+//            $content = 'xxx';
             return response()->json(['success' => '1', 'smsresult' => $content]);
         }
         return response()->json(['success' => '0', 'message' => 'Ocurrio un error por favor contactese con el administrador.']);
