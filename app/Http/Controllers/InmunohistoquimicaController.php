@@ -9,6 +9,7 @@ use App\Http\Requests\StoreHistoPost;
 use App\ImpresionControl;
 use App\Marcador;
 use Illuminate\Support\Facades\Auth;
+use Milon\Barcode\DNS2D;
 use PDF;
 
 class InmunohistoquimicaController extends Controller
@@ -92,7 +93,7 @@ class InmunohistoquimicaController extends Controller
                 $files->move(public_path('uploads'), $profilefile);
 //                $histo->imagen1 = public_path('uploads').'/'.$profilefile;
                 $histo->imagen1 = 'uploads/'.$profilefile;
-            }   
+            }
             if ($files = $request->file('imagen2')) {
                 $profilefile = 'imagen2'.date('YmdHis') . "." . $files->getClientOriginalExtension();
                 $files->move(public_path('uploads'), $profilefile);
@@ -138,12 +139,15 @@ class InmunohistoquimicaController extends Controller
     }
 
     function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
         Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
         $pdf = PDF::loadView('histo.reporte', compact(
-            'analisis', 'histo'), [], ['marginTop' => 800]);
+            'analisis', 'histo', 'pathQr'), [], ['marginTop' => 800]);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }

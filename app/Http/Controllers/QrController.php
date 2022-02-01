@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Bethesda;
 use App\Biopsia;
+use App\Helpers\HelperCesar;
+use App\Histoquimica;
 use App\ImpresionControl;
 use App\Liquido;
 use App\Resultado;
@@ -16,7 +18,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
-use Nexmo\Laravel\Facade\Nexmo;
 
 use Octopush\Client;
 use Octopush\Request\SmsCampaign\SendSmsCampaignRequest;
@@ -43,7 +44,8 @@ class QrController
 //        {
 //            dd('No esta con session!!');
 //        }
-        $analisis = Analisis::find($analisisId);
+        $id = base64_decode($analisisId);
+        $analisis = Analisis::find($id);
         if($analisis->fecha_cierre == null){
             Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis.');
             Session::flash('flash_type', 'success');
@@ -57,20 +59,27 @@ class QrController
     }
 
     public function openResultadoPdf($analisisId){
-        $analisis = Analisis::find($analisisId);
+        $id = base64_decode($analisisId);
+        $analisis = Analisis::find($id);
 
+        if(!$analisis){
+            return redirect('/');
+        }
         switch ($analisis->tipo_analisis){
             case Analisis::CITOLOGIA:
-                return $this->reporteCitologia($analisisId);
+                return $this->reporteCitologia($id);
                 break;
             case Analisis::BETHESDA:
-                return $this->reporteBethesta($analisisId);
+                return $this->reporteBethesta($id);
                 break;
             case Analisis::LIQUIDOS:
-                return $this->reporteLiquidos($analisisId);
+                return $this->reporteLiquidos($id);
+                break;
+            case Analisis::INMUNOHISTOQUIMICA:
+                return $this->reporteInmu($id);
                 break;
             default:
-                return $this->reporteBiopsia($analisisId);
+                return $this->reporteBiopsia($id);
                 break;
         }
 
@@ -79,7 +88,7 @@ class QrController
     function reporteBiopsia($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
         $analisis = Analisis::find($analisisId);
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
@@ -96,12 +105,9 @@ class QrController
     function reporteCitologia($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
-
-        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $resultados = Resultado::where('analisis_id', $analisisId)->first();
         $seccionOMG = Seccion::getArraySeccionesByOMS($resultados->secciones);
         $seccionRichart = Seccion::getArraySeccionesByRichart($resultados->secciones);
@@ -140,10 +146,8 @@ class QrController
     function reporteBethesta($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
-        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
 
         $arr = json_decode($bethesda->celulas_observadas, true);
@@ -163,11 +167,9 @@ class QrController
     function reporteLiquidos($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => $analisisId]), "QRCODE");
-        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $liquido = Liquido::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('liquidos.reporte', compact(
@@ -175,6 +177,18 @@ class QrController
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
+    }
+
+    function reporteInmu($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+        $analisis = Analisis::find($analisisId);
+        $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+        $pdf = PDF::loadView('histo.reporte', compact(
+            'analisis', 'histo', 'pathQr'), [], ['marginTop' => 800]);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }

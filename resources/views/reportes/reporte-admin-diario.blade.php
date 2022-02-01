@@ -95,6 +95,7 @@
                 <th scope="col">Institucion</th>
                 <th scope="col">Region</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Entregado</th>
                 <th scope="col">Estado</th>
             </tr>
             </thead>
@@ -109,6 +110,7 @@
                 <td>{{$analisi->institucion->nombre}}</td>
                 <td>{{$analisi->region}}</td>
                 <td>{{$analisi->precio}}</td>
+                <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>".$analisi->fecha_entrega->format('d-m-Y')."</p>" : "<p style='color:red;'>No</p>" !!}</td>
                 <td style="color: #0B0D33; font-size: 10px;"><p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? '<span class="badge badge-success">Cancelado</span>' : '<span class="badge badge-danger">Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)).'</span>' !!}</p></td>
             </tr>
             @endforeach

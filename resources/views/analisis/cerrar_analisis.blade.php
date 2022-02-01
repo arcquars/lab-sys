@@ -39,7 +39,7 @@
     </div>
 
     <br>
-    <a href="{{ route('analisis.open.esultado.pdf', ['analisisId' => $analisis->id]) }}" class="btn btn-primary">Descargar Analisis!!</a>
+    <a href="{{ route('analisis.open.esultado.pdf', ['analisisId' => base64_encode($analisis->id)]) }}" class="btn btn-primary">Descargar Analisis!!</a>
 @endsection
 
 

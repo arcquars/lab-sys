@@ -470,7 +470,7 @@ class AnalisisController extends Controller
     public function ajaxGetAnalisisPacienteById(Request $request){
         $analisisId = $request->get('analisis_id');
         $analisis = Analisis::find($analisisId);
-        $texto_pre = config('clinica.sms_enviar_texto') . route('analisis.open.esultado.simple.pdf', ['analisisId' =>$analisisId]);
+        $texto_pre = config('clinica.sms_enviar_texto') . route('analisis.open.esultado.simple.pdf', ['analisisId' =>base64_encode($analisisId)]);
         return response()->json(['success' => true, 'analisis' => $analisis, 'paciente' => $analisis->person,  'bandera' => 1, 'texto_pre' => $texto_pre]);
     }
 

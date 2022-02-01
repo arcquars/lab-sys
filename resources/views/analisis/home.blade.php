@@ -511,7 +511,7 @@
                         if(data.analisis.fecha_cierre !== null){
                             $('#f_cerraranalisis input[name="fecha_cierre"]').val(data.analisis.fecha_cierre.split(' ')[0]);
                         } else {
-                            $('#f_cerraranalisis input[name="fecha_cierre"]').val('');
+                            $('#f_cerraranalisis input[name="fecha_cierre"]').val(date.toISOString().substring(0,10));
                         }
 
                     } else {
@@ -628,17 +628,17 @@
                 data: $(form).serialize(),
                 success: function (data) {
                     $("#f_enviarsmsanalisis_submit").prop('disabled', false);
-                    // if(data.success == 1){
-                    //     if(data.smsresult.number_of_contacts >= 1){
-                    //         $('#enviarSmsAnalisisModal').modal('hide');
-                    //         alert("El mensaje se envio correctamente!");
-                    //     } else {
-                    //         $('#enviarSmsAnalisisModal').modal('hide');
-                    //         alert("Ocurrio el siguiente error al momento de enviar el sms: " + JSON.stringify(data));
-                    //     }
-                    // } else {
-                    //     alert("Ocurrio un error por favor contactese  con el administrador.");
-                    // }
+                    if(data.success == 1){
+                        if(data.smsresult.number_of_contacts >= 1){
+                            $('#enviarSmsAnalisisModal').modal('hide');
+                            alert("El mensaje se envio correctamente!");
+                        } else {
+                            $('#enviarSmsAnalisisModal').modal('hide');
+                            alert("Ocurrio el siguiente error al momento de enviar el sms: " + JSON.stringify(data));
+                        }
+                    } else {
+                        alert("Ocurrio un error por favor contactese  con el administrador.");
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     printErrorMsg($("#f_enviarsmsanalisis"), JSON.parse(XMLHttpRequest.responseText));
