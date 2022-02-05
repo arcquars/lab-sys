@@ -566,6 +566,7 @@ class AnalisisController extends Controller
         if($validatedSenSms){
             $analisis = Analisis::find($analisis_id);
             $analisis->telefono_referencia = $celular;
+            $analisis->send_sms = 1;
             $analisis->update();
 
             $octopushEmail = env('OCTOPUSH_EMAIL');
@@ -742,7 +743,6 @@ class AnalisisController extends Controller
      * @return View
      */
     public function cerrarAnalisisForId($analisisId){
-        dd('eee');
         if (!Auth::check())
         {
             dd('No esta con session!!');

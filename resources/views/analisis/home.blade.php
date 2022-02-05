@@ -334,7 +334,8 @@
                     {name: 'precio1', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false},
                     {name: 'persona_entrega', visible: false},
-                    {name: 'fecha_cierre', visible: false}
+                    {name: 'fecha_cierre', visible: false},
+                    {name: 'send_sms', visible: false},
                 ],
                 // aoColumnDefs: [
                 //     {

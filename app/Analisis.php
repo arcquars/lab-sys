@@ -36,7 +36,8 @@ class Analisis extends Model
         'nit',
         'edad',
         'razon_social',
-        'doctor_asignado'
+        'doctor_asignado',
+        'send_sms'
     ];
 
     protected $dates = [
@@ -165,7 +166,8 @@ class Analisis extends Model
             'pago_efectuado' => $analisis->pago_efectuado,
 //            'entregado' => $analisis->persona_entrega
             'entregado' => $entregado,
-            'fechaCierre' => $analisis->fecha_cierre
+            'fechaCierre' => $analisis->fecha_cierre,
+            'send_sms' => $analisis->send_sms
             ))->render();
     }
 
