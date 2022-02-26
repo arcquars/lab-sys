@@ -30,6 +30,21 @@ class StorePersonPost extends FormRequest
         if(isset($id)){
             $roleCi = 'nullable|numeric|unique:persons,ci,'.$id.',id';
         }
+        if(strcmp($this->input('crear_analisis'), 'true') == 0){
+            return [
+                'ci' => $roleCi,
+                'nombres' => $roleNombres,
+                'apellidos' => 'required',
+                'f_nacimiento' => 'nullable|date',
+                'sexo' => 'required',
+
+                'tipo_analisis' => 'required',
+                'codigo' => 'required|unique:analisis,codigo',
+                'precio' => 'required|numeric|min:0|max:10000',
+                'acuenta' => 'lte:precio|nullable'
+            ];
+        }
+
         return [
             'ci' => $roleCi,
             'nombres' => $roleNombres,

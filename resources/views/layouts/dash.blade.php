@@ -146,6 +146,23 @@
             document.execCommand('copy');
             window.getSelection().removeAllRanges();
         }
+
+        function getCodigo(){
+            tipo = $('#s_tipoanalisis').val();
+            if(tipo != ''){
+                $.ajax({
+                    url: "{{ route('analisis.agetcode') }}",
+                    type: 'POST',
+                    data: {'tipo-analisis': tipo},
+                    success: function (data) {
+                        $('#i_codigo').val(data.success);
+                    }
+                });
+            } else {
+                $('#i_codigo').val('');
+            }
+
+        }
     </script>
 
     </body>

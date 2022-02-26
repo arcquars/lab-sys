@@ -7,6 +7,7 @@ use App\DataTables\PersonsDataTable;
 use App\Http\Requests\StorePersonPost;
 use App\Institucion;
 use App\Person;
+use Carbon\Carbon;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use DataTables;
@@ -166,7 +167,6 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ajaxCreatePerson(StorePersonPost $request){
-//        dd($request->get('f_nacimiento'));
         $personId = $request->get('id');
         $valid = true;
         if(isset($personId)){
@@ -174,6 +174,44 @@ class ClientController extends Controller
         } else {
             $valid = $this->createPerson($request);
         }
+
+        $analisisId = 0;
+        if(strcmp($request->get('crear_analisis'), 'true') == 0){
+            $analisis = new Analisis();
+            $analisis->person_id = $valid;
+            $analisis->edad = 0;
+            $analisis->doctor = '';
+            $analisis->fecha = Carbon::now();
+            $analisis->doctor_asignado = 1;
+            $analisis->tipo_analisis = $request->get('tipo_analisis');
+            $analisis->procedencia = 1;
+            $analisis->region = '';
+            $analisis->telefono_referencia = '';
+            $analisis->precio = $request->get('precio');
+            $analisis->codigo = $request->get('codigo');
+            $analisis->razon_social = '';
+            $analisis->nit = '';
+            $analisis->observaciones = 'Creado rapido';
+            $analisis->user_id = auth()->id();
+            if($request->get('acuenta')) {
+                if($request->get('acuenta') == $request->get('precio')){
+                    $analisis->pago_efectuado = $request->get('acuenta');
+                    $analisis->acuenta = 0;
+                    $analisis->fecha_pago_efectuado = Carbon::now();
+                    $analisis->pago_efectuado_user = auth()->id();
+                } else {
+                    $analisis->acuenta = $request->get('acuenta');
+                }
+            }else
+                $analisis->acuenta = 0;
+            $analisis->save();
+
+            return response()->json([
+                'success'=>true,
+                'url' => route('analisis.index'),
+                'url_print_recibo' => route('analisis.open.erecepcion.pdf', ['analisisId' => $analisis->id])]);
+        }
+
         if($valid) {
             return response()->json(['success'=>true, 'url' => route('analisis.crearanalisis', ['personId' => $valid])]);
         } else {
@@ -211,7 +249,7 @@ class ClientController extends Controller
         $person->sexo = $request->get('sexo');
 
         if($person->update()) {
-            return true;
+            return $person->id;
         }
         return false;
     }

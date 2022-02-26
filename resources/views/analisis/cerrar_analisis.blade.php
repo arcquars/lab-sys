@@ -39,7 +39,10 @@
     </div>
 
     <br>
-    <a href="{{ route('analisis.open.esultado.pdf', ['analisisId' => base64_encode($analisis->id)]) }}" class="btn btn-primary">Descargar Analisis!!</a>
+{{--    <a href="{{ route('analisis.open.esultado.pdf', ['analisisId' => base64_encode($analisis->id)]) }}" target="_blank" class="btn btn-primary @if($analisis->imprimir_firma == 0) disabled @endif">Descargar Analisis!!</a>--}}
+    @if($analisis->imprimir_firma == 0)
+{{--        <p class="text-danger">El analisis todavia no esta firmada por el doctor.</p>--}}
+    @endif
 @endsection
 
 

@@ -336,6 +336,7 @@
                     {name: 'persona_entrega', visible: false},
                     {name: 'fecha_cierre', visible: false},
                     {name: 'send_sms', visible: false},
+                    {name: 'imprimir_firma', visible: false},
                 ],
                 // aoColumnDefs: [
                 //     {

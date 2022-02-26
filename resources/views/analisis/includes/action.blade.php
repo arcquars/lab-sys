@@ -18,9 +18,16 @@
     <a href="{{route($routeView, ['analisisId' => $id])}}" class="btn btn-link float-right btn-clinica" title="Ver Resultados">
         <i class="far fa-eye"></i>
     </a>
-    <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
+    {{$imprimir_firma}}
+    @if($imprimir_firma)
+    <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante con firma del doctor">
         <i class="fas fa-file-pdf text-success"></i>
     </a>
+    @else
+        <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante sin firma del doctor">
+            <i class="fas fa-file-pdf text-danger"></i>
+        </a>
+    @endif
     @if($send_sms==0)
     <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
         <i class="fas fa-sms text-info"></i>

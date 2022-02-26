@@ -161,6 +161,7 @@ class Analisis extends Model
             'isHasResult' => $isHasResult,
             'routeView' => $routeView,
             'printAnalisis' => $printAnalisis,
+            'imprimir_firma' => $analisis->imprimir_firma,
             'acuenta' => $analisis->acuenta,
             'precio' => $analisis->precio,
             'pago_efectuado' => $analisis->pago_efectuado,

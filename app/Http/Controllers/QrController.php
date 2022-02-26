@@ -192,4 +192,25 @@ class QrController
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }
+
+    public function openRecepcionPdf($analisisId){
+        $analisis = Analisis::find($analisisId);
+
+        if(!$analisis){
+            return redirect('/');
+        }
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+
+        $analisis = Analisis::find($analisisId);
+        $pdf = PDF::loadView('analisis.recepcion_pdf', compact(
+            'analisis', 'pathQr'));
+
+        $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
+
+    }
 }

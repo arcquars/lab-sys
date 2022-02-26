@@ -90,7 +90,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Nombres</label>
+                                    <label for="exampleInputEmail1">Nombres <span class="text-danger">*</span></label>
                                     <input type="text" name="nombres"
                                            onkeyup="uppercaseInput(this);"
                                            onchange="searchClient(this);"
@@ -102,7 +102,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="apellidos">Apellido Paterno</label>
+                                    <label for="apellidos">Apellido Paterno <span class="text-danger">*</span></label>
                                     <input type="text" name="apellidos"
                                            class="form-control"
                                            onkeyup="uppercaseInput(this);"
@@ -137,7 +137,9 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <label for="sexo1">Sexo <span class="text-danger">*</span></label>
                                 <br>
+
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" id="sexo1" name="sexo" value="hombre" class="custom-control-input">
                                     <label class="custom-control-label" for="sexo1">Hombre</label>
@@ -149,6 +151,46 @@
                                 <div class="fcp_error_sexo" style="display: none;"></div>
                             </div>
                         </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" name="crear_analisis" onchange="showhideCrearAnalisis(this);" id="customControlValidation1" value="1" checked>
+                            <label class="custom-control-label" for="customControlValidation1">Crear Analisis</label>
+                        </div>
+                        <div id="d_crear_analisis" style="display: inline;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="tipo_analisis">Tipo Analisis <span class="text-danger">*</span></label>
+                                        <select name="tipo_analisis" id="s_tipoanalisis" onchange="getCodigo();" class="form-control">
+                                            <option value="">Elija un Analisis</option>
+                                            @foreach($tipoAnalisis as $analisis)
+                                                <option value="{{$analisis}}">{{$analisis}}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="fcp_error_tipo_analisis" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="tipo_analisis">Codigo</label>
+                                        <input type="text" name="codigo" id="i_codigo" class="form-control i-codigo" readonly>
+                                        <div class="fcp_error_codigo" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="precio">Precio <span class="text-danger">*</span></label>
+                                        <input type="text" name="precio" class="form-control">
+                                        <div class="fcp_error_precio" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="acuenta">Acuenta</label>
+                                    <input type="text" name="acuenta" class="form-control">
+                                    <div class="fcp_error_acuenta" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -324,14 +366,13 @@
             $("#mpersona").on('shown.bs.modal', function (event) {
                 $("#fcrearpersona")[0].reset();
                 $("#fcrearpersona").find("input[name='id']").val('');
+                $( "#d_crear_analisis" ).show();
                 clearErrorMsg();
             });
 
             $("#fcrearpersona").submit(function (event) {
                 event.preventDefault();
-
                 clearErrorMsg();
-
                 var _token = $(this).find("input[name='_token']").val();
                 var id = $(this).find("input[name='id']").val();
                 var ci = $(this).find("input[name='ci']").val();
@@ -341,6 +382,12 @@
                 var edad = $(this).find("input[name='edad']").val();
                 var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
                 var sexo = $(this).find("input[name='sexo']:checked").val();
+                // Datos para crear Analisis
+                var crear_analisis = $(this).find("input[name='crear_analisis']").is(':checked');
+                var tipo_analisis = $(this).find("select[name='tipo_analisis']").val();
+                var codigo = $(this).find("input[name='codigo']").val();
+                var precio = $(this).find("input[name='precio']").val();
+                var acuenta = $(this).find("input[name='acuenta']").val();
 
                 $.ajax({
                     url: "{{ route('client.createPerson') }}",
@@ -355,17 +402,27 @@
                         edad: edad,
                         f_nacimiento: f_nacimiento,
                         sexo: sexo,
-
+                        crear_analisis: crear_analisis,
+                        tipo_analisis: tipo_analisis,
+                        codigo: codigo,
+                        precio: precio,
+                        acuenta: acuenta
                     },
                     success: function (data) {
                         if (data.success) {
-                            if(id != ''){
+                            if(crear_analisis){
                                 $("#mpersona").modal("hide");
-                                $('#simple-datatable-example').DataTable().ajax.reload();
-                            } else {
+                                // alert(data.url_print_recibo);
+                                window.open(data.url_print_recibo, '_blank');
                                 window.location.href = data.url;
+                            }else{
+                                if(id !== ''){
+                                    $("#mpersona").modal("hide");
+                                    $('#simple-datatable-example').DataTable().ajax.reload();
+                                } else {
+                                    window.location.href = data.url;
+                                }
                             }
-
                         } else {
                             alert(data.errors);
                         }
@@ -397,10 +454,20 @@
             $('.fcp_error_apellidos').empty();
             $('.fcp_error_apellido_materno').empty();
 
+            $('.fcp_error_tipo_analisis').empty();
+            $('.fcp_error_codigo').empty();
+            $('.fcp_error_precio').empty();
+            $('.fcp_error_acuenta').empty();
+
             $("#fcrearpersona").find("input[name='ci']").removeClass('is-invalid');
             $("#fcrearpersona").find("input[name='nombres']").removeClass('is-invalid');
             $("#fcrearpersona").find("input[name='apellidos']").removeClass('is-invalid');
             $("#fcrearpersona").find("input[name='apellido_materno']").removeClass('is-invalid');
+
+            $("#fcrearpersona").find("select[name='tipo_analisis']").removeClass('is-invalid');
+            $("#fcrearpersona").find("input[name='codigo']").removeClass('is-invalid');
+            $("#fcrearpersona").find("input[name='precio']").removeClass('is-invalid');
+            $("#fcrearpersona").find("input[name='acuenta']").removeClass('is-invalid');
         }
 
         function openModelPerson() {
@@ -512,6 +579,15 @@
                $(input).val('');
             });
             return false;
+        }
+
+        function showhideCrearAnalisis(check){
+            if($(check).is(':checked')){
+                $( "#d_crear_analisis" ).show();
+            } else {
+                $( "#d_crear_analisis" ).hide();
+            }
+
         }
     </script>
 @endpush

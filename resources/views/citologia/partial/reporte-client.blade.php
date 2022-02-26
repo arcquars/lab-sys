@@ -67,7 +67,9 @@
             </table>
         </td>
         <td width="15%">
-            <img src="{{$pathQr}}" width="95">
+            @if($analisis->imprimir_firma)
+            <img src="{{$pathQr}}" width="80">
+            @endif
         </td>
     </tr>
 </table>
