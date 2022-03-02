@@ -48,6 +48,7 @@
                 <tr>
                     <td>
                         <p class="p-datos-12-1"><b>Fecha Conclusión:</b> {{ $analisis->lastControlEdition()? $analisis->lastControlEdition()->created_at->format('Y-m-d') : '--' }}</p>
+{{--                        <p class="p-datos-12-1"><b>Fecha Conclusión:</b> {{ $analisis->fecha_cierre? $analisis->fecha_cierre : '--' }}</p>--}}
                     </td>
                 </tr>
                 <tr>

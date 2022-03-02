@@ -28,15 +28,15 @@
             <i class="fas fa-file-pdf text-danger"></i>
         </a>
     @endif
-    @if($send_sms==0)
-    <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
-        <i class="fas fa-sms text-info"></i>
-    </a>
-    @else
-        <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
-            <i class="fas fa-sms text-danger"></i>
-        </a>
-    @endif
+{{--    @if($send_sms==0)--}}
+{{--    <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">--}}
+{{--        <i class="fas fa-sms text-info"></i>--}}
+{{--    </a>--}}
+{{--    @else--}}
+{{--        <a href="#" onclick="openModalEnviarSmsAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">--}}
+{{--            <i class="fas fa-sms text-danger"></i>--}}
+{{--        </a>--}}
+{{--    @endif--}}
 
 @endif
 @if($precio != ($acuenta + $pago_efectuado))

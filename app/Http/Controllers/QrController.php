@@ -40,10 +40,10 @@ class QrController
      */
     public function index($analisisId)
     {
-//        if (!Auth::check())
-//        {
-//            dd('No esta con session!!');
-//        }
+        if (!Auth::check())
+        {
+            return redirect('https://google.com');
+        }
         $id = base64_decode($analisisId);
         $analisis = Analisis::find($id);
         if($analisis->fecha_cierre == null){
