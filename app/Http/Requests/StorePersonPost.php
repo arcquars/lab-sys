@@ -39,6 +39,7 @@ class StorePersonPost extends FormRequest
                 'sexo' => 'required',
 
                 'tipo_analisis' => 'required',
+                'region' => 'required',
                 'codigo' => 'required|unique:analisis,codigo',
                 'precio' => 'required|numeric|min:0|max:10000',
                 'acuenta' => 'lte:precio|nullable'

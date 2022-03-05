@@ -4,7 +4,7 @@
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 100%;">
-                        <p class="p-datos-12-1"><b>Nombre y Apellido: <span style="font-size: 12px;">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</span></b></p>
+                        <p class="p-datos-12-1"><b>Paciente: <span style="font-size: 12px;">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</span></b></p>
                     </td>
                 </tr>
                 <tr>

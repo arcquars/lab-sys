@@ -18,7 +18,6 @@
     <a href="{{route($routeView, ['analisisId' => $id])}}" class="btn btn-link float-right btn-clinica" title="Ver Resultados">
         <i class="far fa-eye"></i>
     </a>
-    {{$imprimir_firma}}
     @if($imprimir_firma)
     <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante con firma del doctor">
         <i class="fas fa-file-pdf text-success"></i>

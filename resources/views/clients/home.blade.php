@@ -176,14 +176,23 @@
                                         <div class="fcp_error_codigo" style="display: none;"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="region">Region de analisis <span class="text-danger">*</span></label>
+                                        <input type="text" id="region" name="region" class="form-control">
+                                        <div class="fcp_error_region" style="display: none;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="precio">Precio <span class="text-danger">*</span></label>
                                         <input type="text" name="precio" class="form-control">
                                         <div class="fcp_error_precio" style="display: none;"></div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label for="acuenta">Acuenta</label>
                                     <input type="text" name="acuenta" class="form-control">
                                     <div class="fcp_error_acuenta" style="display: none;"></div>
@@ -388,6 +397,7 @@
                 var codigo = $(this).find("input[name='codigo']").val();
                 var precio = $(this).find("input[name='precio']").val();
                 var acuenta = $(this).find("input[name='acuenta']").val();
+                var region = $(this).find("input[name='region']").val();
 
                 $.ajax({
                     url: "{{ route('client.createPerson') }}",
@@ -405,6 +415,7 @@
                         crear_analisis: crear_analisis,
                         tipo_analisis: tipo_analisis,
                         codigo: codigo,
+                        region: region,
                         precio: precio,
                         acuenta: acuenta
                     },

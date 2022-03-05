@@ -185,7 +185,7 @@ class ClientController extends Controller
             $analisis->doctor_asignado = 1;
             $analisis->tipo_analisis = $request->get('tipo_analisis');
             $analisis->procedencia = 1;
-            $analisis->region = '';
+            $analisis->region = $request->get('region');
             $analisis->telefono_referencia = '';
             $analisis->precio = $request->get('precio');
             $analisis->codigo = $request->get('codigo');

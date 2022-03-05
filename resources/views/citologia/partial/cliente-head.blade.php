@@ -1,5 +1,5 @@
 <dl class="row row-citologia">
-    <dt class="col-md-3">Nombres y Apellidos:</dt>
+    <dt class="col-md-3">Paciente:</dt>
     <dd class="col-md-3">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</dd>
     <dt class="col-md-3">Enviado por (Doctor):</dt>
     <dd class="col-md-3">{{$analisis->doctor}}</dd>
