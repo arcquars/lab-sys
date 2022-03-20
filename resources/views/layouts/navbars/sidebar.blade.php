@@ -31,6 +31,12 @@ Tip 2: you can also add an image using data-image tag
                                 <p>Gestionar Usuarios</p>
                             </a>
                         </li>
+                        <li class="nav-item @if($activePage == 'invitados_admin_users') active @endif">
+                            <a class="nav-link" href="{{route('invitado.admin.index')}}">
+                                <i class="fas fa-user-ninja"></i>
+                                <p>Invitados</p>
+                            </a>
+                        </li>
 {{--                        <li class="nav-item @if($activePage == 'user-management') active @endif">--}}
 {{--                            <a class="nav-link" href="#">--}}
 {{--                                <i class="nc-icon nc-circle-09"></i>--}}
@@ -145,12 +151,22 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
             @endcan
+            @cannot('is-invitado')
             <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">
                 <a class="nav-link" href="{{route('texto-predefinido.index')}}">
                     <i class="far fa-file-word"></i>
                     <p>Texto Predefinido</p>
                 </a>
             </li>
+            @endcan
+            @can('is-invitado')
+                <li class="nav-item @if($activePage == 'invitado_index') active @endif">
+                    <a class="nav-link" href="{{route('invitado.index')}}">
+                        <i class="far fa-file-word"></i>
+                        <p>Analisis enviados</p>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </div>

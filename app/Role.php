@@ -10,6 +10,7 @@ class Role extends Model
     const SECRETARIA = 'secretaria';
     const TECNICO = 'tecnico';
     const MEDICO ='medico';
+    const INVITADO ='invitado';
 
     public function users(){
         return $this->belongsToMany('App\User');

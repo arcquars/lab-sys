@@ -70,6 +70,10 @@ class Analisis extends Model
         return $this->hasOne('App\Convenio', 'analisis_id', 'id');
     }
 
+    public function users(){
+        return $this->belongsToMany('App\User');
+    }
+
     public function hasHistory(){
         $count = Analisis::where('person_id', $this->person_id)->count();
         if($count > 1)

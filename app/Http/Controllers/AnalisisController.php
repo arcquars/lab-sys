@@ -589,6 +589,42 @@ class AnalisisController extends Controller
         return response()->json(['success' => '0', 'message' => 'Ocurrio un error por favor contactese con el administrador.']);
     }
 
+    public function ajaxEnviarWappPaciente(Request $request){
+        $validatedSenSms = $request->validate([
+            'analisis_id' => 'required',
+            's_celular' => 'required|min:40000000|max:99999999|integer',
+            's_texto' => 'string|min:3|max:200|required',
+        ]);
+
+        $analisis_id = $request->post('analisis_id');
+        $celular = $request->post('s_celular');
+        $texto = $request->post('s_texto');
+        if($validatedSenSms){
+            $analisis = Analisis::find($analisis_id);
+            $analisis->telefono_referencia = $celular;
+            $analisis->send_sms = 1;
+            $analisis->update();
+//
+//            $octopushEmail = env('OCTOPUSH_EMAIL');
+//            $octopushKey = env('OCTOPUSH_KEY');
+//            $client = new Client($octopushEmail, $octopushKey);
+//            $request = new SendSmsCampaignRequest();
+//            $request->setRecipients([
+//                [
+//                    'phone_number' => '+591'.$celular,
+//                ]
+//            ]);
+//            $request->setSender('+59179346585');
+//            $request->setText($texto);
+//            $request->setType(TypeEnum::SMS_PREMIUM);
+//            $content = $client->send($request);
+
+            $content = 'https://api.whatsapp.com/send?phone='.'+591'.$celular.'&text='.$texto;
+            return response()->json(['success' => '1', 'wappresult' => $content]);
+        }
+        return response()->json(['success' => '0', 'message' => 'Ocurrio un error por favor contactese con el administrador.']);
+    }
+
     function comprobante($analisisId) {
         $analisis = Analisis::find($analisisId);
 

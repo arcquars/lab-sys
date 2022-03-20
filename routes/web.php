@@ -55,7 +55,7 @@ Route::get('/analisis/lista_impresiones/{analisisId}', 'AnalisisController@lista
 Route::get('/analisis/lista_ediciones/{analisisId}', 'AnalisisController@listaEdicion')->name('analisis.lista.edicion');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
 Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crearTipoAnalisis')->name('analisis.analisisextendido');
-Route::get('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
+Route::post('/get-analisis/resultadosatatables-analisis', 'AnalisisController@getDatatablesData')->name('simple_datatables_analisis_data');
 Route::get('/analisis/datatables/analisis/tecnico', 'AnalisisController@getDatatablesTecnico')->name('analisis.datatables.tecnico');
 Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@getDatatablesDataByPersonId')->name('datatableAnalisisPerson');
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
@@ -67,6 +67,7 @@ Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->na
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
 Route::post('/analisis/enviar-sms-paciente', 'AnalisisController@ajaxEnviarSmsPaciente')->name('analisis.asend.sms.paciente');
+Route::post('/analisis/enviar-wapp-paciente', 'AnalisisController@ajaxEnviarWappPaciente')->name('analisis.asend.wapp.paciente');
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
@@ -162,3 +163,11 @@ Route::post('/texto-predefinido/ajax-crear-text','TextoPredefinidoController@aja
 Route::post('/texto-predefinido/ajax-delete-text','TextoPredefinidoController@ajaxDeleteTexto')->name('textopredefinido.adeletetexto');
 Route::get('/texto-predefinido/datatable', 'TextoPredefinidoController@getDatatablesData')->name('textopredefinido.datatablesTextopredefinidoData');
 Route::resource('/texto-predefinido', 'TextoPredefinidoController');
+
+Route::get('/invitado/index', 'InvitadoController@index')->name('invitado.index');
+
+Route::get('/invitado-admin/index', 'InvitadoAdminController@index')->name('invitado.admin.index');
+Route::post('/invitado-admin/ajaxSearchDr','InvitadoAdminController@ajaxSearcDr')->name('invitado.admin.searchdr');
+Route::post('/invitado-admin/ajaxAsignarAnalisis','InvitadoAdminController@ajaxAsignarAnalisis')->name('invitado.admin.asignaranalisis');
+Route::post('/invitado-admin/ajaxRetirarAnalisis','InvitadoAdminController@ajaxRetirarAnalisis')->name('invitado.admin.retiraranalisis');
+Route::get('/invitado-admin/analisis-asignado/{user_id}','InvitadoAdminController@analisisAsignado')->name('invitado.admin.analisis.asignado');

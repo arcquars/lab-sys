@@ -47,9 +47,11 @@ class QrController
         $id = base64_decode($analisisId);
         $analisis = Analisis::find($id);
         if($analisis->fecha_cierre == null){
-            Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis.');
+            Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis y se actualizo la fecha de entrega.');
             Session::flash('flash_type', 'success');
             $analisis->fecha_cierre = Carbon::now();
+            $analisis->fecha_entrega = Carbon::now();
+            $analisis->persona_entrega = 'Registrado por QR';
             $analisis->update();
         } else {
             Session::flash('flash_message', '<b>El analisis</b> ya se cerro en fecha: '. $analisis->fecha_cierre->format('d-m-Y'));
@@ -67,16 +69,28 @@ class QrController
         }
         switch ($analisis->tipo_analisis){
             case Analisis::CITOLOGIA:
-                return $this->reporteCitologia($id);
+                if(Resultado::where('analisis_id', $analisis->id)->count() > 0){
+                    return $this->reporteCitologia($id);
+                }
+                return 'Analisis no terminado';
                 break;
             case Analisis::BETHESDA:
-                return $this->reporteBethesta($id);
+                if(Bethesda::where('analisis_id', $analisis->id)->count() > 0){
+                    return $this->reporteBethesta($id);
+                }
+                return 'Analisis no terminado';
                 break;
             case Analisis::LIQUIDOS:
-                return $this->reporteLiquidos($id);
+                if(Liquido::where('analisis_id', $analisis->id)->count() > 0){
+                    return $this->reporteLiquidos($id);
+                }
+                return 'Analisis no terminado';
                 break;
             case Analisis::INMUNOHISTOQUIMICA:
-                return $this->reporteInmu($id);
+                if(Histoquimica::where('analisis_id', $analisis->id)->count() > 0){
+                    return $this->reporteInmu($id);
+                }
+                return 'Analisis no terminado';
                 break;
             default:
                 return $this->reporteBiopsia($id);

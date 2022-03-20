@@ -56,4 +56,8 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function analisis(){
+        return $this->belongsToMany('App\Analisis');
+    }
 }
