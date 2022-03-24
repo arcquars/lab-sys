@@ -263,7 +263,7 @@ class CitologiaController extends Controller
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
+//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $resultados = Resultado::where('analisis_id', $analisisId)->first();
         $seccionOMG = Seccion::getArraySeccionesByOMS($resultados->secciones);
         $seccionRichart = Seccion::getArraySeccionesByRichart($resultados->secciones);

@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Bethesda;
 use App\Biopsia;
-use App\Helpers\HelperCesar;
 use App\Histoquimica;
 use App\ImpresionControl;
 use App\Liquido;

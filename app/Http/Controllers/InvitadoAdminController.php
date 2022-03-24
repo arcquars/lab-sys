@@ -60,21 +60,26 @@ class InvitadoAdminController extends Controller
         foreach ($analisisAsignados as $aasig){
             array_push($aa, $aasig->analisis_id);
         }
-        $analisis = Analisis::where('doctor', 'like', '%'.$search.'%')->whereNotIn('id', $aa)->get();
+        $analisis = Analisis::where('doctor', 'like', '%'.$search.'%')->whereNotIn('id', $aa)->groupBy('doctor')->select('doctor')->get();
         return response()->json(['success'=>true, 'analisis' => $analisis]);
     }
 
     public function ajaxAsignarAnalisis(Request $request){
         $userId = $request->get('user_id');
-        $analisis = $request->get('analisis')? $request->get('analisis') : [];
+        $doctores= $request->get('doctores')? $request->get('doctores') : [];
 
-        if(count($analisis) > 0){
-            foreach ($analisis as $a){
-                DB::table('invitados_analisis')->insert(
-                    ['user_id' => $userId, 'analisis_id' => $a]
-                );
+        if(count($doctores) > 0){
+            foreach ($doctores as $doctor){
+                $analisis = Analisis::where('doctor', 'like', $doctor)->get();
+                foreach ($analisis as $ana){
+                    DB::table('invitados_analisis')->insert(
+                        ['user_id' => $userId, 'analisis_id' => $ana->id]
+                    );
+                }
+
             }
         }
+        die();
         return response()->json(['success'=>true]);
     }
 

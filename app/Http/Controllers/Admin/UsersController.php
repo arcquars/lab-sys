@@ -142,4 +142,21 @@ class UsersController extends Controller
 
         return redirect()->route('admin.users.index');
     }
+
+    public function aGetUser($userId){
+        $user = User::find($userId);
+        return response()->json(['success' => true, 'user' => $user]);
+    }
+
+    public function aActiveUser(Request $request){
+        $user = User::find($request->post('user_id'));
+        if($user->active){
+            $user->active = 0;
+        } else {
+            $user->active = 1;
+        }
+//        return response()->json(['success' => true, 'active' => $user->active]);
+        $user->save();
+        return response()->json(['success' => true]);
+    }
 }

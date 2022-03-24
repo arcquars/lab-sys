@@ -35,6 +35,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
 //    Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
     Route::resource('/users', 'UsersController');
+    Route::post('/users/a-get-user/{userId}', 'UsersController@aGetUser')->name('ajax.get.user');
+    Route::post('/users/a-set-active', 'UsersController@aActiveUser')->name('ajax.user.active');
 });
 
 Route::post('/clients/ajaxcreateperson','ClientController@ajaxCreatePerson')->name('client.createPerson');

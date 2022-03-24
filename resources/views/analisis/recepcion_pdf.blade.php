@@ -74,5 +74,5 @@
         </td>
     </tr>
 </table>
-<p>Usted puede escanear el codigo QR para ver el resultado de su analisis despues de 3 dias de la fecha de ingreso</p>
+<p>Usted puede escanear el código QR para ver el resultado de su análisis si se encuentra cancelado el costo total del análisis.</p>
 <br>

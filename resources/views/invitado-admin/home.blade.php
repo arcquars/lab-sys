@@ -72,8 +72,6 @@
                         <thead>
                         <tr>
                             <th>Nombres</th>
-                            <th>Codigo analisis</th>
-                            <th>Fecha</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -131,14 +129,14 @@
 
         function fAsignarDr(form){
             let checkedAry = [];
-            $.each($('#searchAnalisisModal input[name="analisis[]"]:checked'), function(index, check){
+            $.each($('#searchAnalisisModal input[name="doctores[]"]:checked'), function(index, check){
                 checkedAry.push($(check).val());
             });
             console.log(checkedAry);
             $.ajax({
                 url: "{{ route('invitado.admin.asignaranalisis') }}",
                 type: 'POST',
-                data: {user_id: $("#inputUserId").val(), analisis: checkedAry},
+                data: {user_id: $("#inputUserId").val(), doctores: checkedAry},
                 success: function (data) {
                     console.log(JSON.stringify(data));
                     $("#searchAnalisisModal").modal('hide');
@@ -153,9 +151,7 @@
             $.each(results, function(i, analisis){
                 html += '<tr>';
                 html += '<td>'+analisis.doctor+'</td>';
-                html += '<td>'+analisis.codigo+'</td>';
-                html += '<td>'+analisis.tipo_analisis+'</td>';
-                html += '<td><input type="checkbox" name="analisis[]" value="'+analisis.id+'"></td>';
+                html += '<td><input type="checkbox" name="doctores[]" value="'+analisis.doctor+'"></td>';
                 html += '</tr>';
             });
             return html;

@@ -98,7 +98,7 @@ class BethesdaController extends Controller
         $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
+//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
 
         $arr = json_decode($bethesda->celulas_observadas, true);

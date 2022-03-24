@@ -110,7 +110,7 @@ class LiquidoController extends Controller
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
-        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
+//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $liquido = Liquido::where('analisis_id', $analisisId)->first();
 
         $pdf = PDF::loadView('liquidos.reporte', compact(
