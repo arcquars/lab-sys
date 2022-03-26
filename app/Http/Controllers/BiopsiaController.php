@@ -37,6 +37,7 @@ class BiopsiaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreBiopsiaPost $request){
+        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         if (empty($request->post('biopsia_id'))){
             $biopsia = new Biopsia();
             $biopsia->analisis_id = $request->post('analisis_id');
@@ -179,7 +180,6 @@ class BiopsiaController extends Controller
     }
 
     private function updateBiopsia($request){
-        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         $biopsia = Biopsia::find($request->post('biopsia_id'));
         $biopsia->analisis_id = $request->post('analisis_id');
         $biopsia->organo_tejido = $request->post('organo_tejido');

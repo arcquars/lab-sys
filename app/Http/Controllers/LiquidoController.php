@@ -37,6 +37,7 @@ class LiquidoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        EditarControl::grabarEditar(Auth::user()->id, $request->input('analisis_id'));
         if (empty($request->post('liquido_id'))){
             $liquido = new Liquido();
             $liquido->analisis_id = $request->post('analisis_id');
@@ -80,7 +81,6 @@ class LiquidoController extends Controller
     }
 
     private function updateLiquido($request){
-        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'));
         $liquido = Liquido::find($request->post('liquido_id'));
         $liquido->analisis_id = $request->post('analisis_id');
         $liquido->organo_tejido = $request->post('organo_tejido');
