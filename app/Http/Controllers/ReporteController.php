@@ -297,10 +297,11 @@ class ReporteController extends Controller
 
     private function getResultReporte2($fecha, $dias, $procedenciaId){
         $rows = array();
-        for ($i=0; $i < $dias; $i++){
+        for ($i=0; $i <= $dias; $i++){
             $fechaIngrementado = new \DateTime($fecha->format('Y-m-d'));
             $fechaIngrementado->modify('+'.$i.' day');
 
+//            echo "ee: ".$fechaIngrementado->format('Y-m-d');
             if($procedenciaId == 0) {
                 $resultados = DB::table('analisis')
                     ->select(
@@ -343,6 +344,9 @@ class ReporteController extends Controller
                     case Analisis::BETHESDA:
                         $reporte2->setBethesdaTotal($resultado->contador);
                         break;
+                    case Analisis::HISTOPATOLOGICO:
+                        $reporte2->setHistopatologiaTotal($resultado->contador);
+                        break;
                 }
                 $t_precio += $resultado->t_precio;
                 $t_acuenta += $resultado->t_acuenta;
@@ -356,7 +360,8 @@ class ReporteController extends Controller
             if($reporte2->getBiopsiaTotal() > 0 ||
                 $reporte2->getCitologiaTotal() > 0 ||
                 $reporte2->getInmunoTotal() > 0 ||
-                $reporte2->getBethesdaTotal() > 0
+                $reporte2->getBethesdaTotal() > 0 ||
+                $reporte2->getHistoTotal() > 0
             )
                 array_push($rows, $reporte2);
         }
