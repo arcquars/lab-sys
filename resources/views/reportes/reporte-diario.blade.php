@@ -46,11 +46,11 @@
                     <div class="col-md-2">
                         <select name="tipo_analisis" class="form-control">
                             <option value="0">Todos</option>
-                            @foreach($tipoAnalisis as $tipo)
-                                @if(strcmp(old('tipo_analisis', $tipoId), $tipo) == 0)
-                                    <option value="{{$tipo}}" selected>{{$tipo}}</option>
+                            @foreach($tipoAnalisis as $key => $tipo)
+                                @if(strcmp(old('tipo_analisis', $tipoId), $key) == 0)
+                                    <option value="{{$key}}" selected>{{$tipo}}</option>
                                 @else
-                                    <option value="{{$tipo}}">{{$tipo}}</option>
+                                    <option value="{{$key}}">{{$tipo}}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -104,7 +104,7 @@
                                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                                 <td>{{$analisi->doctor}}</td>
                                 <td>{{$analisi->region}}</td>
-                                <td>{{$analisi->tipo_analisis}}</td>
+                                <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
                                 <td>{{$analisi->precio}}</td>
                                 <td>{{$analisi->acuenta}}</td>
                                 <td>{{$analisi->precio - $analisi->acuenta}}</td>
@@ -158,7 +158,7 @@
                         <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                         <td>{{$analisi->doctor}}</td>
                         <td>{{$analisi->region}}</td>
-                        <td>{{$analisi->tipo_analisis}}</td>
+                        <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
                         <td>{{$analisi->precio}}</td>
                         <td>{{$analisi->acuenta}}</td>
                         <td>{{$analisi->pago_efectuado}}</td>

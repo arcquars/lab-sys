@@ -163,7 +163,7 @@
                                         <select name="tipo_analisis" id="s_tipoanalisis" onchange="getCodigo();" class="form-control">
                                             <option value="">Elija un Analisis</option>
                                             @foreach($tipoAnalisis as $analisis)
-                                                <option value="{{$analisis}}">{{$analisis}}</option>
+                                                <option value="{{$analisis}}">{{ __('clinica_msg.'.$analisis) }}</option>
                                             @endforeach
                                         </select>
                                         <div class="fcp_error_tipo_analisis" style="display: none;"></div>

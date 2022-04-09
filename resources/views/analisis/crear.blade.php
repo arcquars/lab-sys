@@ -72,14 +72,14 @@
                                     @if(old('tipo_analisis'))
                                         @foreach($tipoAnalisis as $analisis)
                                             @if(strcmp(old('tipo_analisis'), $analisis) == 0)
-                                                <option value="{{$analisis}}" selected>{{$analisis}}</option>
+                                                <option value="{{$analisis}}" selected>{{ __('clinica_msg.'.$analisis) }}</option>
                                             @else
-                                                <option value="{{$analisis}}">{{$analisis}}</option>
+                                                <option value="{{$analisis}}">{{ __('clinica_msg.'.$analisis) }}</option>
                                             @endif
                                         @endforeach
                                     @else
                                         @foreach($tipoAnalisis as $analisis)
-                                            <option value="{{$analisis}}">{{$analisis}}</option>
+                                            <option value="{{$analisis}}">{{ __('clinica_msg.'.$analisis) }}</option>
                                         @endforeach
                                     @endif
                                 </select>

@@ -19,6 +19,13 @@ return [
         'HISTOPATOLOGICO'
 
     ],
+    'tipo_analisis_1' => [
+        'CITOLOGIA' => 'CITOLOGIA',
+        'BIOPSIA' => 'BIOPSIA',
+        'INMUNOHISTOQUIMICA' => 'INMUNOHISTOQUIMICA',
+        'HISTOPATOLOGICO' => 'BIOPSIA DE RIÑON'
+
+    ],
     'extendido_compatible' => [
         'EPITELIO NORMAL',
         'CERVICITIS',

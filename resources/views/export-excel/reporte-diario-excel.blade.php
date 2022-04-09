@@ -48,7 +48,7 @@
             <td>{{$analisi->codigo}}</td>
             <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td>{{$analisi->region}}</td>
-            <td>{{$analisi->tipo_analisis}}</td>
+            <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
             <td>{{$analisi->precio}}</td>
             <td>{{$analisi->acuenta}}</td>
             <td>{{$analisi->precio - $analisi->acuenta}}</td>
@@ -101,7 +101,7 @@
             <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td>{{$analisi->doctor}}</td>
             <td>{{$analisi->region}}</td>
-            <td>{{$analisi->tipo_analisis}}</td>
+            <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
             <td>{{$analisi->precio}}</td>
             <td>{{$analisi->acuenta}}</td>
             <td>{{$analisi->precio - $analisi->acuenta}}</td>

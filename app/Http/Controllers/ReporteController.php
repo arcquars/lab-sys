@@ -64,7 +64,7 @@ class ReporteController extends Controller
 
         $procedencias = Institucion::all();
 
-        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0)->get();
         $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->whereNotNull('fecha_pago_efectuado')->get();
@@ -186,7 +186,7 @@ class ReporteController extends Controller
         $tipoId = $request->post('tipo_analisis');
 
         $procedencias = Institucion::all();
-        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
         if($procedenciaId == 0){
             if(strcmp($tipoId, '0') == 0) {

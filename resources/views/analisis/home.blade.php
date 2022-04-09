@@ -383,7 +383,13 @@
                     {name: 'person.apellidos', orderable: false, visible: false},
                     {name: 'person.apellido_materno', orderable: false, visible: false},
                     {name: 'fecha', orderable: false, searchable: false},
-                    {name: 'tipo_analisis'},
+                    {name: 'tipo_analisis', "render": function ( data, type, row ) {
+                            if(data === '{{\App\Analisis::HISTOPATOLOGICO}}'){
+                                return '{{\App\Analisis::BIOPSIA_DE_RINON}}';
+                            } else {
+                                return data;
+                            }
+                        }},
                     {name: 'region', orderable: false},
                     {name: 'doctorasig.nombres', orderable: false},
                         @can('manage-users')

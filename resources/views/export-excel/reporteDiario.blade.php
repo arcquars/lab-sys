@@ -35,7 +35,7 @@
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->doctor}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->acuenta}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio - $analisi->acuenta}}</td>
@@ -95,7 +95,7 @@
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->doctor}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->acuenta}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio - $analisi->acuenta}}</td>

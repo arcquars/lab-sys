@@ -1,11 +1,11 @@
-@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Inmunohistoquimica', 'navName' => 'Inmunohistoquimica', 'activeButton' => 'analisisActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => \App\Analisis::BIOPSIA_DE_RINON, 'navName' => \App\Analisis::BIOPSIA_DE_RINON, 'activeButton' => 'analisisActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
-            <li class="breadcrumb-item">Crear Inmunohistoquimica</li>
+            <li class="breadcrumb-item">Crear {{\App\Analisis::BIOPSIA_DE_RINON}}</li>
 
         </ol>
     </nav>

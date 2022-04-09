@@ -11,7 +11,7 @@
     </nav>
     <div class="card">
         <div class="card-header">
-            <h5 class="h5-cito-titulo">INFORME INMUNOHISTOQUIMICA</h5>
+            <h5 class="h5-cito-titulo">INFORME {{\App\Analisis::BIOPSIA_DE_RINON}}</h5>
         </div>
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
