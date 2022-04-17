@@ -365,10 +365,10 @@ class AnalisisController extends Controller
     public function crearTipoAnalisis($analisisId){
         $analisis = Analisis::find($analisisId);
         switch ($analisis->tipo_analisis){
-            case Analisis::BIOPSIA:
+            case Analisis::BIOLOGIA_MOLECULAR:
                 return redirect()->action(
-                    'BiopsiaController@create',
-                    ['analisisId' => $analisisId, 'is_histopatologico' => 0]);
+                    'BiologiamolecularController@create',
+                    ['analisisId' => $analisisId]);
             case Analisis::INMUNOHISTOQUIMICA:
                 return redirect()->action(
                     'InmunohistoquimicaController@create',
@@ -389,6 +389,10 @@ class AnalisisController extends Controller
                 return redirect()->action(
                     'BiopsiaController@create',
                     ['analisisId' => $analisisId, 'is_histopatologico' => true]);
+            default:
+                return redirect()->action(
+                    'BiopsiaController@create',
+                    ['analisisId' => $analisisId, 'is_histopatologico' => 0]);
         }
     }
 
@@ -420,6 +424,10 @@ class AnalisisController extends Controller
             case Analisis::HISTOPATOLOGICO:
                 $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + config('clinica.contadores_analisis.BETHESDA'); // 300
                 $codigo = 'BH'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
+                break;
+            case Analisis::BIOLOGIA_MOLECULAR:
+                $num = Analisis::where('tipo_analisis', Analisis::BIOLOGIA_MOLECULAR)->count() + config('clinica.contadores_analisis.BIOLOGIA_MOLECULAR'); // 300
+                $codigo = 'BM'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
         }
         return response()->json(['success' => $codigo]);

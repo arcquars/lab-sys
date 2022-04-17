@@ -15,6 +15,7 @@ return [
         'CITOLOGIA',
         'BIOPSIA',
         'INMUNOHISTOQUIMICA',
+        'BIOLOGIA_MOLECULAR',
 //        'BETHESDA',
         'HISTOPATOLOGICO'
 
@@ -23,6 +24,7 @@ return [
         'CITOLOGIA' => 'CITOLOGIA',
         'BIOPSIA' => 'BIOPSIA',
         'INMUNOHISTOQUIMICA' => 'INMUNOHISTOQUIMICA',
+        'BIOLOGIA_MOLECULAR' => 'BIOLOGÍA MOLECULAR',
         'HISTOPATOLOGICO' => 'BIOPSIA DE RIÑON'
 
     ],
@@ -275,6 +277,7 @@ return [
         'INMUNOHISTOQUIMICA' => 222,
         'BETHESDA' => 200,
         'HISTOPATOLOGICO' => 300,
+        'BIOLOGIA_MOLECULAR' => 10,
     ],
     'sms_enviar_texto' => 'CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA <br>Usted puede descargar su analisis abriendo el siguiente link:<br> '
 ];

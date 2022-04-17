@@ -10,6 +10,7 @@ class Analisis extends Model
     const CITOLOGIA = 'CITOLOGIA';
     const BIOPSIA = 'BIOPSIA';
     const INMUNOHISTOQUIMICA = 'INMUNOHISTOQUIMICA';
+    const BIOLOGIA_MOLECULAR = 'BIOLOGIA_MOLECULAR'; // BIOLOGIA_MOLECULAR
     const BETHESDA = 'BETHESDA';
     const HISTOPATOLOGICO = 'HISTOPATOLOGICO';
     const LIQUIDOS = 'LIQUIDOS';
@@ -319,6 +320,7 @@ class Analisis extends Model
             Analisis::LIQUIDOS,
             Analisis::BIOPSIA,
             Analisis::INMUNOHISTOQUIMICA,
+            Analisis::BIOLOGIA_MOLECULAR,
             Analisis::BIOPSIA_DE_RINON]);
 
         foreach ($userWork as $us){
@@ -348,6 +350,12 @@ class Analisis extends Model
                 ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
                 ->join('users', 'users.id', '=', 'editar_controles.user_id')
                 ->selectRaw('count(distinct analisis.id) as count')->first()->count;
+            $biologiamCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
+                ->where('analisis.tipo_analisis', '=', Analisis::BIOLOGIA_MOLECULAR)
+                ->where('editar_controles.user_id', '=', $us->user_id)
+                ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
+                ->join('users', 'users.id', '=', 'editar_controles.user_id')
+                ->selectRaw('count(distinct analisis.id) as count')->first()->count;
             $biopsiaCount = EditarControl::whereBetween('analisis.fecha', [$fechaInicio, $fechaFin])
                 ->where('analisis.tipo_analisis', '=', Analisis::BIOPSIA)
                 ->where('editar_controles.user_id', '=', $us->user_id)
@@ -360,7 +368,7 @@ class Analisis extends Model
                 ->join('analisis', 'analisis.id', '=', 'editar_controles.analisis_id')
                 ->join('users', 'users.id', '=', 'editar_controles.user_id')
                 ->selectRaw('count(distinct analisis.id) as count')->first()->count;
-            array_push($resultWorks, [$us->name, $citologiaCount, $bethesdaCount, $liquidosCount, $biopsiaCount, $inmunoCount, $biopsiaRinonCount]);
+            array_push($resultWorks, [$us->name, $citologiaCount, $bethesdaCount, $liquidosCount, $biopsiaCount, $inmunoCount, $biologiamCount, $biopsiaRinonCount]);
         }
         return $resultWorks;
     }

@@ -113,6 +113,11 @@ Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.sa
 Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');
 Route::get('/histo/reporte/{analisisId}', 'InmunohistoquimicaController@reporte')->name('histo.reporte');
 
+Route::get('/biologia-molecular/crear/{analisisId}', 'BiologiamolecularController@create')->name('biologiam.crear');
+Route::post('/biologia-molecular/save', 'BiologiamolecularController@store')->name('biologiam.save');
+Route::get('/biologia-molecular/view/{analisisId}', 'BiologiamolecularController@viewResultado')->name('biologiam.viewResultado');
+Route::get('/biologia-molecular/reporte/{analisisId}', 'BiologiamolecularController@reporte')->name('biologiam.reporte');
+
 Route::get('/reportes/reporte1', 'ReporteController@reporte1')->name('reporte.reporte1');
 Route::post('/reportes/reporte1', 'ReporteController@reportePost')->name('reporte.reportepost');
 Route::get('/reportes/reporte-diario', 'ReporteController@reporteDiario')->name('reporte.reporte.diario');

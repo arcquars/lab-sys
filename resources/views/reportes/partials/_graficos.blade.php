@@ -153,8 +153,6 @@
 
         function drawBarWorkings(result) {
             // Create the data table.
-            console.log('wwwwwwwwwww');
-            console.log(JSON.stringify(result));
             const data = google.visualization.arrayToDataTable(result);
 
             // Set chart options
@@ -180,6 +178,7 @@
                     trH += "<th>" + res[4] + "</th>";
                     trH += "<th>" + res[5] + "</th>";
                     trH += "<th>" + res[6] + "</th>";
+                    trH += "<th>" + res[7] + "</th>";
                     trH += "<th>Totales</th>";
                     trH += "</tr>";
                 } else {
@@ -191,7 +190,8 @@
                     tr += "<td>" + res[4] + "</td>";
                     tr += "<td>" + res[5] + "</td>";
                     tr += "<td>" + res[6] + "</td>";
-                    tr += "<td>" + (res[1]+res[2]+res[3]+res[4]+res[5]+res[6]) + "</td>";
+                    tr += "<td>" + res[7] + "</td>";
+                    tr += "<td>" + (res[1]+res[2]+res[3]+res[4]+res[5]+res[6]+res[7]) + "</td>";
                     tr += "</tr>";
                 }
 
