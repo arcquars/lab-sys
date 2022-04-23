@@ -27,7 +27,7 @@
             <i class="fas fa-file-pdf text-danger"></i>
         </a>
     @endif
-    @if($precio == ($acuenta + $pago_efectuado))
+    @if($precio == ($acuenta + $pago_efectuado) && $imprimir_firma)
         @if($send_sms==0)
         <a href="#" onclick="openModalEnviarWappAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
             <i class="fab fa-whatsapp text-info"></i>

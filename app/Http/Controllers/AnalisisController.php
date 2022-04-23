@@ -659,7 +659,7 @@ class AnalisisController extends Controller
     public function getDatatablesTecnico()
     {
         return Laratables::recordsOf(Analisis::class, function($query){
-            return $query->where('tipo_analisis', Analisis::BIOPSIA)->orderBy('fecha', 'desc');
+            return $query->where('tipo_analisis', Analisis::BIOPSIA)->OrWhere('tipo_analisis', Analisis::HISTOPATOLOGICO)->orderBy('fecha', 'desc');
         });
     }
 

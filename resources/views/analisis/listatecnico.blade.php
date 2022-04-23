@@ -50,7 +50,13 @@
                     {name: 'codigo'},
                     {name: 'person.nombres', orderable: false},
                     {name: 'fecha', orderable: false},
-                    {name: 'tipo_analisis'},
+                    {name: 'tipo_analisis', "render": function ( data, type, row ) {
+                            if(data === '{{\App\Analisis::HISTOPATOLOGICO}}'){
+                                return '{{\App\Analisis::BIOPSIA_DE_RINON}}';
+                            } else {
+                                return data;
+                            }
+                        }},
                     // {name: 'doctor', orderable: false},
                     {name: 'doctorasig.nombres', orderable: false},
                     {name: 'actiontec', orderable: false, searchable: false},
