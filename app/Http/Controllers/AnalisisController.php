@@ -422,8 +422,8 @@ class AnalisisController extends Controller
                 $codigo = 'BTD'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::HISTOPATOLOGICO:
-                $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + config('clinica.contadores_analisis.BETHESDA'); // 300
-                $codigo = 'BH'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
+                $num = Analisis::where('tipo_analisis', Analisis::HISTOPATOLOGICO)->count() + config('clinica.contadores_analisis.HISTOPATOLOGICO'); // 300
+                $codigo = 'BR'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::BIOLOGIA_MOLECULAR:
                 $num = Analisis::where('tipo_analisis', Analisis::BIOLOGIA_MOLECULAR)->count() + config('clinica.contadores_analisis.BIOLOGIA_MOLECULAR'); // 300

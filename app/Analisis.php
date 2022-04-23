@@ -147,6 +147,13 @@ class Analisis extends Model
                     $isHasResult = true;
                 }
                 break;
+            case Analisis::BIOLOGIA_MOLECULAR:
+                if(BiologiaMolecular::where('analisis_id', $analisis->id)->count() > 0){
+                    $routeView = 'biologiam.viewResultado';
+                    $printAnalisis = 'biologiam.reporte';
+                    $isHasResult = true;
+                }
+                break;
             case Analisis::BETHESDA:
                 if(Bethesda::where('analisis_id', $analisis->id)->count() > 0){
                     $routeView = 'bethesda.viewResultado';

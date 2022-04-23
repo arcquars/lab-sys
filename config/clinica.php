@@ -275,7 +275,7 @@ return [
         'CITOLOGIA' => -23578,
         'BIOPSIA' => 3231,
         'INMUNOHISTOQUIMICA' => 222,
-        'BETHESDA' => 200,
+        'BETHESDA' => 220,
         'HISTOPATOLOGICO' => 300,
         'BIOLOGIA_MOLECULAR' => 10,
     ],
