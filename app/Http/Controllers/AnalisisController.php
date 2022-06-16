@@ -280,12 +280,13 @@ class AnalisisController extends Controller
     public function getDatatablesData(Request $request)
     {
         $columns = $request->get('columns');
+        $searchG = $request->get('search')['value'];
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
         $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
 
-        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId){
-            return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG){
+            return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
             {
                 $q->where('nombres', 'like', '%'.$searchNombres.'%')
                     ->where('apellidos', 'like', '%'.$searchApellidos.'%');
