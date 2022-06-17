@@ -657,10 +657,23 @@ class AnalisisController extends Controller
      *
      * @return Json
      */
-    public function getDatatablesTecnico()
+    public function getDatatablesTecnico(Request $request)
     {
-        return Laratables::recordsOf(Analisis::class, function($query){
-            return $query->where('tipo_analisis', Analisis::BIOPSIA)->OrWhere('tipo_analisis', Analisis::HISTOPATOLOGICO)->orderBy('fecha', 'desc');
+        $searchG = $request->get('search')['value'];
+        $columns = $request->get('columns');
+        $searchTipoAnalisis = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
+        return Laratables::recordsOf(Analisis::class, function($query) use ($searchG, $searchTipoAnalisis){
+            return $query->where('tipo_analisis', 'like', '%'.$searchTipoAnalisis.'%')
+                ->where(function ($query) {
+                    $query->where('tipo_analisis', Analisis::BIOPSIA)
+                        ->orWhere('tipo_analisis', Analisis::HISTOPATOLOGICO)
+                        ->orWhere('tipo_analisis', Analisis::LIQUIDOS);
+                })->whereHas('person', function($q) use ($searchG)
+                {
+                    $q->where('nombres', 'like', '%'.$searchG.'%')
+                        ->orWhere('apellidos', 'like', '%'.$searchG.'%');
+                })
+                ->orderBy('fecha', 'desc');
         });
     }
 

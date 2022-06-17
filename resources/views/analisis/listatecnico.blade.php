@@ -12,6 +12,12 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
+            <select class="form-control" name="tipo_analisis" id="s_tipo_analisis" onchange="reserchTest(this);">
+                <option value="">TODOS</option>
+                <option value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>
+                <option value="{{\App\Analisis::HISTOPATOLOGICO}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>
+                <option value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
+            </select>
             <div class="table-responsive">
                 <table id="tAnalisis" class="table table-bordered table-clinica">
                     <thead class="thead-dark">
@@ -40,7 +46,7 @@
                 }
             });
 
-            $('#tAnalisis').DataTable({
+            table = $('#tAnalisis').DataTable({
                 serverSide: true,
                 processing: true,
                 responsive: true,
@@ -56,6 +62,7 @@
                             } else {
                                 return data;
                             }
+                            // return data;
                         }},
                     // {name: 'doctor', orderable: false},
                     {name: 'doctorasig.nombres', orderable: false},
@@ -83,8 +90,13 @@
                 },
             });
 
+
         });
 
+        function reserchTest(select) {
+            var selectedValue=$(select).val();
+            table.columns(3).search( selectedValue, true, false ).draw();
+        }
 
     </script>
 @endpush
