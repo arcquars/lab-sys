@@ -126,12 +126,15 @@ Route::get('/reportes/reporte-diario-excel/{fechaIni}/{fechaFin}/{procedencia}/{
 Route::get('/reportes/reporte-diario-pdf/{fechaIni}/{fechaFin}/{procedencia}/{tipo}', 'ReporteController@pdfDiario')->name('reporte.reporte.diario.pdfdiario');
 Route::get('/reportes/reporte-admin/{fechaIni}/{fechaFin}/{procedencia}', 'ReporteController@excelAdminDiario')->name('reporte.reporte.diario.excelAdmindiario');
 Route::get('/reportes/reporte-admin-diario/{fechaIni}/{fechaFin}/{procedencia}/{doctor?}', 'ReporteController@excelAdmin')->name('reporte.reporte_admin');
-
+Route::get('/reportes/reporte-admin-desechos/{rango}', 'ReporteController@excelAdminDesechos')->name('reporte.reporte_admin_desecho');
 
 Route::get('/reportes/reporte2', 'ReporteController@reporte2')->name('reporte.reporte2');
 Route::post('/reportes/reporte2', 'ReporteController@reportePost2')->name('reporte.reportepost2');
 Route::get('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiario')->name('reporte.reporte_admin_diario');
 Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDiarioPost')->name('reporte.reporte_admin_diario_post');
+
+Route::get('/reportes/reporte-desechar', 'ReporteController@reporteAdminDesechos')->name('reporte.reporte_admin_desechar');
+Route::post('/reportes/reporte-desechar', 'ReporteController@reporteAdminDesechosPost')->name('reporte.reporte_admin_desechar_post');
 
 Route::get('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenio')->name('reporte.reporte_admin_diario_convenio');
 Route::post('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenioPost')->name('reporte.reporte_admin_diario_convenio_post');

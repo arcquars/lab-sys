@@ -6,6 +6,7 @@ use App\Analisis;
 use App\Biopsia;
 use App\ClinicaClass\Reporte2;
 use App\Convenio;
+use App\Exports\ReporteAdminDesechoExport;
 use App\Exports\ReporteAdminDiaConvenioExport;
 use App\Exports\ReporteAdminDiaExport;
 use App\Exports\ReporteAdminExport;
@@ -14,6 +15,7 @@ use App\Gasto;
 use App\Http\Requests\StoreReporte2Post;
 use App\Http\Requests\StoreReporteDiarioPost;
 use App\Institucion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -129,8 +131,6 @@ class ReporteController extends Controller
         $fecha_ini = $year.'-'.$mes.'-01';
         $fecha_fin = $year.'-'.$mes.'-'.$day_last;
 
-//        $doctores = DB::table('analisis')->distinct()->get();
-
         $year_old = intval(date_create(DB::table('analisis')->min('fecha'))->format('Y'));
 
         $procedencias = Institucion::all();
@@ -141,6 +141,40 @@ class ReporteController extends Controller
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis', 'year', 'year_old',
             'procedenciaId', 'day_last'
+        ));
+    }
+
+    public function reporteAdminDesechos()
+    {
+        $rango = 10;
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->where('imprimir_firma','=','1')
+            ->get();
+
+
+        return view('reportes.reporte-admin-desechar', compact(
+            'fecha_ini', 'fecha_fin',
+            'analisis', 'rango'
+        ));
+    }
+
+    public function reporteAdminDesechosPost(Request $request)
+    {
+        $rango = $request->post('rango', 10);
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->where('imprimir_firma','=','1')
+            ->get();
+
+
+        return view('reportes.reporte-admin-desechar', compact(
+            'fecha_ini', 'fecha_fin',
+            'analisis', 'rango'
         ));
     }
 
@@ -519,6 +553,19 @@ class ReporteController extends Controller
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis', 'procedenciaId', 'entregado', 'cerrados'
         ));
+    }
+
+    function excelAdminDesechos($rango){
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->where('imprimir_firma','=','1')
+            ->get();
+
+        return Excel::download(
+            new ReporteAdminDesechoExport(
+                $analisis, $rango, $fecha_ini, $fecha_fin), 'reporteadmindesecho'.date('Ymd').'.xlsx');
     }
 
     public function reporteFacturacion()

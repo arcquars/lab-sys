@@ -1,0 +1,110 @@
+@extends('layouts.dash', ['activePage' => 'admin_reporte_admin_desechar', 'title' => 'Reporte Desechar', 'navName' => 'Reporte Desechar', 'activeButton' => 'reporteActiveButton'])
+
+@section('content')
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
+        <li class="breadcrumb-item">Reportes</li>
+        <li class="breadcrumb-item">Desechar</li>
+
+    </ol>
+    </nav>
+<div class="card">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+        <form id="f_reporte_admin_desechar" method="post" action="/reportes/reporte-desechar">
+            {{ csrf_field() }}
+            <div class="row">
+                <div class="col-md-8">
+                    <label for="rango">Ultimos dias</label>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <select name="rango" class="form-control" required>
+                        <option {{old('rango',$rango)=="5"? 'selected':''}} value="5">5</option>
+                        <option {{old('rango',$rango)=="10"? 'selected':''}} value="10">10</option>
+                        <option {{old('rango',$rango)=="15"? 'selected':''}} value="15">15</option>
+                    </select>
+                    @error('rango')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" value="Buscar" class="btn btn-info">
+                    <a class="btn btn-warning" onclick="exportExcelReporteAdminDesecho(); return false;">Exportar</a>k
+                </div>
+            </div>
+        </form>
+        <br>
+        <table id="t_desechos" class="table table-bordered table-clinica">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Fecha Entrega</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Region</th>
+                <th scope="col">Firmado</th>
+                <th scope="col">Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($analisis as $analisi)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
+                <td>{{ \Carbon\Carbon::parse($analisi->fecha_entrega)->format('Y-m-d') }}</td>
+                <td>{{$analisi->codigo}}</td>
+                <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
+                <td>{{$analisi->region}}</td>
+{{--                <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>".$analisi->fecha_entrega->format('d-m-Y')."</p>" : "<p style='color:red;'>No</p>" !!}</td>--}}
+                <td style="text-align: center;">{{($analisi->imprimir_firma == 1)? 'SI' : 'NO'}}</td>
+                <td style="color: #0B0D33; font-size: 10px; text-align: center;">
+                    <p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? '<span class="badge badge-success">Cancelado</span>' : '<span class="badge badge-danger">Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)).'</span>' !!}</p>
+                    <p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->fecha_entrega)? "<span class='badge badge-success'>Entregado</span>" : "<p style='color:red;'>No</p>" !!}</p>
+                </td>
+            </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@endsection
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#t_desechos').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        });
+
+        function exportExcelReporteAdminDesecho(){
+            var rango = $("#f_reporte_admin_desechar select[name='rango']").val();
+            var url = '{{url("/")}}/reportes/reporte-admin-desechos/'+rango;
+            window.open(url, '_blank');
+        }
+    </script>
+@endpush
