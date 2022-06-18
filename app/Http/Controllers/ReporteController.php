@@ -147,34 +147,38 @@ class ReporteController extends Controller
     public function reporteAdminDesechos()
     {
         $rango = 10;
+        $tipo_analisis = '';
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
+            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
             ->get();
 
 
         return view('reportes.reporte-admin-desechar', compact(
             'fecha_ini', 'fecha_fin',
-            'analisis', 'rango'
+            'analisis', 'rango', 'tipo_analisis'
         ));
     }
 
     public function reporteAdminDesechosPost(Request $request)
     {
         $rango = $request->post('rango', 10);
+        $tipo_analisis = $request->post('tipo_analisis', 10);
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
+            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
             ->get();
 
 
         return view('reportes.reporte-admin-desechar', compact(
             'fecha_ini', 'fecha_fin',
-            'analisis', 'rango'
+            'analisis', 'rango', 'tipo_analisis'
         ));
     }
 
@@ -555,12 +559,13 @@ class ReporteController extends Controller
         ));
     }
 
-    function excelAdminDesechos($rango){
+    function excelAdminDesechos($rango, $tipo_analisis=''){
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
+            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
             ->get();
 
         return Excel::download(
