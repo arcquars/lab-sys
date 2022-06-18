@@ -146,7 +146,7 @@ class ReporteController extends Controller
 
     public function reporteAdminDesechos()
     {
-        $rango = 10;
+        $rango = 7;
         $tipo_analisis = '';
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
@@ -177,6 +177,45 @@ class ReporteController extends Controller
 
 
         return view('reportes.reporte-admin-desechar', compact(
+            'fecha_ini', 'fecha_fin',
+            'analisis', 'rango', 'tipo_analisis'
+        ));
+    }
+
+    public function reporteAdminSinterminar()
+    {
+        $rango = 7;
+        $tipo_analisis = '';
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->whereNull('fecha_entrega')
+            ->where('imprimir_firma', '=', '0')
+            ->where('tipo_analisis', 'like', '%'.$tipo_analisis.'%')
+            ->get();
+
+        return view('reportes.reporte-admin-sinfirmar', compact(
+            'fecha_ini', 'fecha_fin',
+            'analisis', 'rango', 'tipo_analisis'
+        ));
+    }
+
+    public function reporteAdminSinterminarPost(Request $request)
+    {
+        $rango = $request->post('rango', 10);
+        $tipo_analisis = $request->post('tipo_analisis', 10);
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->whereNull('fecha_entrega')
+            ->where('imprimir_firma', '=', '0')
+            ->where('tipo_analisis', 'like', '%'.$tipo_analisis.'%')
+            ->get();
+
+
+        return view('reportes.reporte-admin-sinfirmar', compact(
             'fecha_ini', 'fecha_fin',
             'analisis', 'rango', 'tipo_analisis'
         ));
@@ -571,6 +610,21 @@ class ReporteController extends Controller
         return Excel::download(
             new ReporteAdminDesechoExport(
                 $analisis, $rango, $fecha_ini, $fecha_fin), 'reporteadmindesecho'.date('Ymd').'.xlsx');
+    }
+
+    function excelAdminSinterminar($rango, $tipo_analisis=''){
+        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_fin = Carbon::now()->subDays(7);
+
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+            ->whereNull('fecha_entrega')
+            ->where('imprimir_firma', '=', '0')
+            ->where('tipo_analisis', 'like', '%'.$tipo_analisis.'%')
+            ->get();
+
+        return Excel::download(
+            new ReporteAdminDesechoExport(
+                $analisis, $rango, $fecha_ini, $fecha_fin), 'reporteadminsinterminar'.date('Ymd').'.xlsx');
     }
 
     public function reporteFacturacion()

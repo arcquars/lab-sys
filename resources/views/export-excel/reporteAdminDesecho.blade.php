@@ -4,7 +4,7 @@
     </tr>
     <tr>
         <td>Desde</td>
-        <td>{{ \Carbon\Carbon::parse($desde)->format('Y-m-d') }} }}</td>
+        <td>{{ \Carbon\Carbon::parse($desde)->format('Y-m-d') }}</td>
         <td>Hasta</td>
         <td>{{ \Carbon\Carbon::parse($hasta)->format('Y-m-d') }}</td>
     </tr>
@@ -30,7 +30,7 @@
         <tr>
             <td style="color: #0B0D33; font-size: 10px;">{{$i++}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{ \Carbon\Carbon::parse($analisi->fecha_entrega)->format('Y-m-d') }}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{ isset($analisi->fecha_entrega)? \Carbon\Carbon::parse($analisi->fecha_entrega)->format('Y-m-d') : '--' }}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->codigo}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>

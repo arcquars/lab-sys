@@ -136,6 +136,10 @@ Route::post('/reportes/reporte-admin-diario', 'ReporteController@reporteAdminDia
 Route::get('/reportes/reporte-desechar', 'ReporteController@reporteAdminDesechos')->name('reporte.reporte_admin_desechar');
 Route::post('/reportes/reporte-desechar', 'ReporteController@reporteAdminDesechosPost')->name('reporte.reporte_admin_desechar_post');
 
+Route::get('/reportes/reporte-sin-terminar', 'ReporteController@reporteAdminSinterminar')->name('reporte.reporte_admin_sinterminar');
+Route::post('/reportes/reporte-sin-terminar', 'ReporteController@reporteAdminSinterminarPost')->name('reporte.reporte_admin_sinterminar_post');
+Route::get('/reportes/reporte-admin-sinterminar/{rango}/{tipo_analisis?}', 'ReporteController@excelAdminSinterminar')->name('reporte.reporte_admin_sinterminarx');
+
 Route::get('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenio')->name('reporte.reporte_admin_diario_convenio');
 Route::post('/reportes/reporte-admin-diario-convenio', 'ReporteController@reporteAdminDiarioConvenioPost')->name('reporte.reporte_admin_diario_convenio_post');
 Route::get('/reportes/reporte-admin-diario-convenio/{fechaIni}/{fechaFin}', 'ReporteController@excelAdminConvenio')->name('reporte.reporte_admin_convenio');

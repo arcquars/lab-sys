@@ -1,11 +1,11 @@
-@extends('layouts.dash', ['activePage' => 'admin_reporte_admin_desechar', 'title' => 'Reporte Desechar', 'navName' => 'Reporte Desechar', 'activeButton' => 'reporteActiveButton'])
+@extends('layouts.dash', ['activePage' => 'admin_reporte_admin_sinterminar', 'title' => 'Reporte sin terminar', 'navName' => 'Reporte Sin terminar', 'activeButton' => 'reporteActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
         <li class="breadcrumb-item">Reportes</li>
-        <li class="breadcrumb-item">Desechar</li>
+        <li class="breadcrumb-item">Sin terminar</li>
 
     </ol>
     </nav>
@@ -13,7 +13,7 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <form id="f_reporte_admin_sinterminar" method="post" action="/reportes/reporte-desechar">
+        <form id="f_reporte_admin_sinterminar" method="post" action="/reportes/reporte-sin-terminar">
             {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-8">
@@ -23,7 +23,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <select name="tipo_analisis" class="form-control" required>
+                    <select name="tipo_analisis" class="form-control">
                         <option value="">TODOS</option>
                         <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA? 'selected':''}} value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>
                         <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA_DE_RINON? 'selected':''}} value="{{\App\Analisis::BIOPSIA_DE_RINON}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="submit" value="Buscar" class="btn btn-info">
-                    <a class="btn btn-warning" onclick="exportExcelReporteAdminSinterminar(); return false;">Exportar</a>
+                    <a class="btn btn-warning" onclick="exportExcelReporteAdminDesecho(); return false;">Exportar</a>
                 </div>
             </div>
         </form>
@@ -53,7 +53,6 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">Fecha</th>
-                <th scope="col">Fecha Entrega</th>
                 <th scope="col">Codigo</th>
                 <th scope="col">Tipo analisis</th>
                 <th scope="col">Paciente</th>
@@ -66,7 +65,6 @@
             @foreach($analisis as $analisi)
             <tr>
                 <td>{{ \Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d') }}</td>
-                <td>{{ \Carbon\Carbon::parse($analisi->fecha_entrega)->format('Y-m-d') }}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->tipo_analisis}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
@@ -74,7 +72,7 @@
 {{--                <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>".$analisi->fecha_entrega->format('d-m-Y')."</p>" : "<p style='color:red;'>No</p>" !!}</td>--}}
                 <td style="text-align: center;">{{($analisi->imprimir_firma == 1)? 'SI' : 'NO'}}</td>
                 <td style="color: #0B0D33; font-size: 10px; text-align: center;">
-                    <p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->fecha_entrega)? "<span class='badge badge-success'>Entregado</span>" : "<p style='color:red;'>No</p>" !!}</p>
+                    <p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->fecha_entrega)? "<span class='badge badge-success'>Entregado</span>" : "<p style='color:red;'>Sin Fecha de entrega</p>" !!}</p>
                 </td>
             </tr>
             @endforeach
@@ -112,10 +110,10 @@
             });
         });
 
-        function exportExcelReporteAdminSinterminar(){
+        function exportExcelReporteAdminDesecho(){
             var rango = $("#f_reporte_admin_sinterminar select[name='rango']").val();
             var tipo_analisis = $("#f_reporte_admin_sinterminar select[name='tipo_analisis']").val();
-            var url = '{{url("/")}}/reportes/reporte-admin-desechos/'+rango+'/'+tipo_analisis;
+            var url = '{{url("/")}}/reportes/reporte-admin-sinterminar/'+rango+'/'+tipo_analisis;
             window.open(url, '_blank');
         }
     </script>
