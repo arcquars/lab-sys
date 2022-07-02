@@ -16,22 +16,79 @@
         <form id="f_reporte_admin_sinterminar" method="post" action="/reportes/reporte-desechar">
             {{ csrf_field() }}
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
+                    <label for="rango">Analisis</label>
+                </div>
+                <div class="col-md-6">
                     <label for="rango">Ultimos dias</label>
                 </div>
-                <div class="col-md-4"></div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <select name="tipo_analisis" class="form-control" required>
-                        <option value="">TODOS</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA? 'selected':''}} value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA_DE_RINON? 'selected':''}} value="{{\App\Analisis::BIOPSIA_DE_RINON}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::LIQUIDOS? 'selected':''}} value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOLOGIA_MOLECULAR? 'selected':''}} value="{{\App\Analisis::BIOLOGIA_MOLECULAR}}">{{\App\Analisis::BIOLOGIA_MOLECULAR}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::INMUNOHISTOQUIMICA? 'selected':''}} value="{{\App\Analisis::INMUNOHISTOQUIMICA}}">{{\App\Analisis::INMUNOHISTOQUIMICA}}</option>
-                    </select>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::BIOPSIA}}"
+                        @if(in_array(\App\Analisis::BIOPSIA, old('tipo_analisis', $tipo_analisis))) checked @endif
+                               name="tipo_analisis[]" id="tipo_analisis1" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis1" style="padding-left: 0;">
+                            {{\App\Analisis::BIOPSIA}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::BIOPSIA_DE_RINON}}"
+                               @if(in_array(\App\Analisis::BIOPSIA_DE_RINON, old('tipo_analisis', $tipo_analisis))) checked @endif
+                        name="tipo_analisis[]" id="tipo_analisis2" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis2" style="padding-left: 0;">
+                            {{\App\Analisis::BIOPSIA_DE_RINON}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::LIQUIDOS}}"
+                               @if(in_array(\App\Analisis::LIQUIDOS, old('tipo_analisis', $tipo_analisis))) checked @endif
+                        name="tipo_analisis[]" id="tipo_analisis3" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis3" style="padding-left: 0;">
+                            {{\App\Analisis::LIQUIDOS}}
+                        </label>
+                    </div>
+                    @error('tipo_analisis')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::BIOLOGIA_MOLECULAR}}"
+                               @if(in_array(\App\Analisis::BIOLOGIA_MOLECULAR, old('tipo_analisis', $tipo_analisis))) checked @endif
+                        name="tipo_analisis[]" id="tipo_analisis4" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis4" style="padding-left: 0;">
+                            {{\App\Analisis::BIOLOGIA_MOLECULAR}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::INMUNOHISTOQUIMICA}}"
+                               @if(in_array(\App\Analisis::INMUNOHISTOQUIMICA, old('tipo_analisis', $tipo_analisis))) checked @endif
+                        name="tipo_analisis[]" id="tipo_analisis5" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis5" style="padding-left: 0;">
+                            {{\App\Analisis::INMUNOHISTOQUIMICA}}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{\App\Analisis::CITOLOGIA}}"
+                               @if(in_array(\App\Analisis::CITOLOGIA, old('tipo_analisis', $tipo_analisis))) checked @endif
+                               name="tipo_analisis[]" id="tipo_analisis5" style="opacity: initial; visibility: initial">
+                        <label class="form-check-label" for="tipo_analisis5" style="padding-left: 0;">
+                            {{\App\Analisis::CITOLOGIA}}
+                        </label>
+                    </div>
+                </div>
+{{--                <div class="col-md-6">--}}
+{{--                    <select name="tipo_analisis" class="form-control" required>--}}
+{{--                        <option value="">TODOS</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA? 'selected':''}} value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA_DE_RINON? 'selected':''}} value="{{\App\Analisis::BIOPSIA_DE_RINON}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::LIQUIDOS? 'selected':''}} value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOLOGIA_MOLECULAR? 'selected':''}} value="{{\App\Analisis::BIOLOGIA_MOLECULAR}}">{{\App\Analisis::BIOLOGIA_MOLECULAR}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::INMUNOHISTOQUIMICA? 'selected':''}} value="{{\App\Analisis::INMUNOHISTOQUIMICA}}">{{\App\Analisis::INMUNOHISTOQUIMICA}}</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div class="col-md-2">
                     <select name="rango" class="form-control" required>
                         <option {{old('rango',$rango)=="7"? 'selected':''}} value="7">7</option>
@@ -114,7 +171,11 @@
 
         function exportExcelReporteAdminSinterminar(){
             var rango = $("#f_reporte_admin_sinterminar select[name='rango']").val();
-            var tipo_analisis = $("#f_reporte_admin_sinterminar select[name='tipo_analisis']").val();
+            var tipo_analisis = "";
+            $("#f_reporte_admin_sinterminar input[name='tipo_analisis[]']:checked").each(function (i, ob) {
+                tipo_analisis += $(ob).val()+"|";
+            });
+            tipo_analisis = tipo_analisis.slice(0, -1)
             var url = '{{url("/")}}/reportes/reporte-admin-desechos/'+rango+'/'+tipo_analisis;
             window.open(url, '_blank');
         }

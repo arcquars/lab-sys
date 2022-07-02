@@ -147,13 +147,13 @@ class ReporteController extends Controller
     public function reporteAdminDesechos()
     {
         $rango = 7;
-        $tipo_analisis = '';
+        $tipo_analisis = [];
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
-            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
+//            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
             ->get();
 
 
@@ -165,14 +165,20 @@ class ReporteController extends Controller
 
     public function reporteAdminDesechosPost(Request $request)
     {
+        $validatedDesechos = $request->validate([
+            'tipo_analisis' => 'required',
+        ]);
+
         $rango = $request->post('rango', 10);
-        $tipo_analisis = $request->post('tipo_analisis', 10);
+        $tipo_analisis = $request->post('tipo_analisis', []);
+//        var_dump($tipo_analisis);
+//        die();
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
-            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
+            ->whereIn('tipo_analisis',$tipo_analisis)
             ->get();
 
 
@@ -204,7 +210,7 @@ class ReporteController extends Controller
     public function reporteAdminSinterminarPost(Request $request)
     {
         $rango = $request->post('rango', 10);
-        $tipo_analisis = $request->post('tipo_analisis', 10);
+        $tipo_analisis = $request->post('tipo_analisis','');
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
@@ -213,7 +219,6 @@ class ReporteController extends Controller
             ->where('imprimir_firma', '=', '0')
             ->where('tipo_analisis', 'like', '%'.$tipo_analisis.'%')
             ->get();
-
 
         return view('reportes.reporte-admin-sinfirmar', compact(
             'fecha_ini', 'fecha_fin',
@@ -602,9 +607,11 @@ class ReporteController extends Controller
         $fecha_ini = Carbon::now()->subDays(7+$rango);
         $fecha_fin = Carbon::now()->subDays(7);
 
+
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
-            ->where('tipo_analisis','like','%'.$tipo_analisis.'%')
+            //->where('tipo_analisis','like','%'.$tipo_analisis.'%')
+            ->whereIn('tipo_analisis',explode("|", $tipo_analisis))
             ->get();
 
         return Excel::download(
