@@ -146,10 +146,11 @@ class ReporteController extends Controller
 
     public function reporteAdminDesechos()
     {
-        $rango = 7;
+        $rango = 10;
         $tipo_analisis = [];
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+//        $fecha_ini = Carbon::now()->subDays(7+$rango);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
@@ -173,8 +174,8 @@ class ReporteController extends Controller
         $tipo_analisis = $request->post('tipo_analisis', []);
 //        var_dump($tipo_analisis);
 //        die();
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
         $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->where('imprimir_firma','=','1')
@@ -604,15 +605,22 @@ class ReporteController extends Controller
     }
 
     function excelAdminDesechos($rango, $tipo_analisis=''){
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
 
-        $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
-            ->where('imprimir_firma','=','1')
-            //->where('tipo_analisis','like','%'.$tipo_analisis.'%')
-            ->whereIn('tipo_analisis',explode("|", $tipo_analisis))
-            ->get();
+        if(strcmp($tipo_analisis, '') == 0){
+            $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+                ->where('imprimir_firma','=','1')
+                ->get();
+        } else {
+            $analisis = Analisis::whereBetween('fecha_entrega', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
+                ->where('imprimir_firma','=','1')
+                //->where('tipo_analisis','like','%'.$tipo_analisis.'%')
+                ->whereIn('tipo_analisis',explode("|", $tipo_analisis))
+                ->get();
+        }
+
 
         return Excel::download(
             new ReporteAdminDesechoExport(
