@@ -672,7 +672,7 @@ class AnalisisController extends Controller
                 {
                     $q->where('nombres', 'like', '%'.$searchG.'%')
                         ->orWhere('apellidos', 'like', '%'.$searchG.'%');
-                })
+                })->orWhere('codigo', 'like', '%'.$searchG.'%')
                 ->orderBy('fecha', 'desc');
         });
     }

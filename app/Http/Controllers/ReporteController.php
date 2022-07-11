@@ -191,10 +191,10 @@ class ReporteController extends Controller
 
     public function reporteAdminSinterminar()
     {
-        $rango = 7;
+        $rango = 10;
         $tipo_analisis = '';
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->whereNull('fecha_entrega')
@@ -212,8 +212,8 @@ class ReporteController extends Controller
     {
         $rango = $request->post('rango', 10);
         $tipo_analisis = $request->post('tipo_analisis','');
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->whereNull('fecha_entrega')
@@ -628,8 +628,8 @@ class ReporteController extends Controller
     }
 
     function excelAdminSinterminar($rango, $tipo_analisis=''){
-        $fecha_ini = Carbon::now()->subDays(7+$rango);
-        $fecha_fin = Carbon::now()->subDays(7);
+        $fecha_ini = Carbon::now()->subDays($rango);
+        $fecha_fin = Carbon::now();
 
         $analisis = Analisis::whereBetween('fecha', [$fecha_ini->format('Y-m-d'), $fecha_fin->format('Y-m-d')])
             ->whereNull('fecha_entrega')

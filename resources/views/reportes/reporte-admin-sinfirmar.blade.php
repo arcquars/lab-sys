@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-2">
                     <select name="rango" class="form-control" required>
-                        <option {{old('rango',$rango)=="7"? 'selected':''}} value="7">7</option>
+                        <option {{old('rango',$rango)=="10"? 'selected':''}} value="10">10</option>
                         <option {{old('rango',$rango)=="14"? 'selected':''}} value="14">14</option>
                         <option {{old('rango',$rango)=="21"? 'selected':''}} value="21">21</option>
                     </select>
