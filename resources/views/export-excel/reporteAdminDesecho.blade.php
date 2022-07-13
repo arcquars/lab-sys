@@ -18,6 +18,7 @@
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 16px;">Codigo</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Paciente</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Region</th>
+        <th scope="col">Dr. asignado</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Tipo analisis</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Firmado</th>
     </tr>
@@ -34,6 +35,7 @@
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->codigo}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
+            <td>{{$analisi->doctorasig->nombres}} {{$analisi->doctorasig->apellidos}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
             <td style="color: #0B0D33; font-size: 10px;"><p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->imprimir_firma == 1)? 'SI' : 'NO' !!}</p></td>
         </tr>

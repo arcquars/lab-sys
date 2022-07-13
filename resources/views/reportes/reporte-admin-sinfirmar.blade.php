@@ -57,6 +57,7 @@
                 <th scope="col">Tipo analisis</th>
                 <th scope="col">Paciente</th>
                 <th scope="col">Region</th>
+                <th scope="col">Dr. asignado</th>
                 <th scope="col">Firmado</th>
                 <th scope="col">Estado</th>
             </tr>
@@ -69,6 +70,7 @@
                 <td>{{$analisi->tipo_analisis}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->region}}</td>
+                <td>{{$analisi->doctorasig->nombres}} {{$analisi->doctorasig->apellidos}}</td>
 {{--                <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>".$analisi->fecha_entrega->format('d-m-Y')."</p>" : "<p style='color:red;'>No</p>" !!}</td>--}}
                 <td style="text-align: center;">{{($analisi->imprimir_firma == 1)? 'SI' : 'NO'}}</td>
                 <td style="color: #0B0D33; font-size: 10px; text-align: center;">
