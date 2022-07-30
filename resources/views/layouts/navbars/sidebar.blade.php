@@ -160,6 +160,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Reporte Desechar</p>
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'admin_reporte_admin_sinterminar') active @endif">
+                    <a class="nav-link" href="{{route('reporte.reporte_admin_sinterminar')}}">
+                        <i class="fas fa-receipt"></i>
+                        <p>Reporte sin terminar</p>
+                    </a>
+                </li>
 {{--                <li class="nav-item @if($activePage == 'admin_reporte_admin_sinterminar') active @endif">--}}
 {{--                    <a class="nav-link" href="{{route('reporte.reporte_admin_sinterminar')}}">--}}
 {{--                        <i class="fas fa-receipt"></i>--}}
