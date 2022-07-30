@@ -19,6 +19,8 @@ Route::get('/', function () {
 Route::middleware(['guest'])->group(function () {
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
+    Route::get('/guest/login', 'Guest\LoginController@index')->name('guest.login');
+    Route::post('/guest/post-login', 'Guest\LoginController@postLogin')->name('guest.postlogin');
 });
 Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
 Route::get('/analisis-pdf/{analisisId}', 'QrController@index')->name('analisis.reporte.pdf.public');

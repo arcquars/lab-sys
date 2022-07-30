@@ -35,6 +35,7 @@
 </head>
 
 <body>
+<div id="app"></div>
 <div class="container">
     @yield('content')
 </div>
