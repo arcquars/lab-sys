@@ -294,6 +294,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="analisis_id">
+                        <p class="text-success"><b>Convenio: </b><span class="m_paciente_convenio"></span></p>
                         <dl>
                             <dt>Paciente:</dt>
                             <dd class="m_paciente_nombres"></dd>
@@ -656,6 +657,15 @@
                         $('#enviarWappAnalisisModal').modal('show');
                         $('#f_enviarwappanalisis')[0].reset();
                         $('#f_enviarwappanalisis input[name="analisis_id"]').val($(link).data('id'));
+                        if(data.isConvenio){
+                            $('#f_enviarwappanalisis .m_paciente_convenio').parent().css('display', 'block');
+                            $('#f_enviarwappanalisis .m_paciente_convenio').empty().text(data.institucion.nombre);
+                            $('#f_enviarwappanalisis .m_analisis_celular').val(data.institucion.telefono);
+                        } else {
+                            $('#f_enviarwappanalisis .m_paciente_convenio').parent().css('display', 'none');
+                            $('#f_enviarwappanalisis .m_paciente_convenio').empty().text('');
+                            $('#f_enviarwappanalisis .m_analisis_celular').val(data.analisis.telefono_referencia);
+                        }
                         if(data.paciente.apellido_materno === null){
                             $('#f_enviarwappanalisis .m_paciente_nombres').empty().append(data.paciente.nombres + ' ' + data.paciente.apellidos);
                         } else {
@@ -678,7 +688,6 @@
                             $('#f_enviarwappanalisis .m_analisis_estado').empty().append('Debe ' + (parseFloat(precioA)-(parseFloat(acuentaA) + parseFloat(pagoEfectuadoA))));
                         }
 
-                        $('#f_enviarwappanalisis .m_analisis_celular').val(data.analisis.telefono_referencia);
                         const textConSalto = data.texto_pre;
                         const textConSalto1 = textConSalto.replaceAll('<br>', "\n");
                         $('#f_enviarwappanalisis .s_texto').val(textConSalto1);

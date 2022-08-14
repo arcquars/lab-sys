@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Config;
 
 class Analisis extends Model
 {
@@ -70,6 +71,18 @@ class Analisis extends Model
 
     public function convenio(){
         return $this->hasOne('App\Convenio', 'analisis_id', 'id');
+    }
+
+    public function isConvenio(){
+        $convenios = explode(',', Config::get('clinica.convenios_id'));
+
+        $valid = false;
+        foreach($convenios as $con){
+            if($this->procedencia == $con){
+                $valid = true;
+            }
+        }
+        return $valid;
     }
 
     public function users(){
@@ -178,7 +191,7 @@ class Analisis extends Model
             'acuenta' => $analisis->acuenta,
             'precio' => $analisis->precio,
             'pago_efectuado' => $analisis->pago_efectuado,
-//            'entregado' => $analisis->persona_entrega
+            'convenio' => $analisis->isConvenio(),
             'entregado' => $entregado,
             'fechaCierre' => $analisis->fecha_cierre,
             'send_sms' => $analisis->send_sms
