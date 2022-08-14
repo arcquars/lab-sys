@@ -20,12 +20,16 @@ class InvitadoController extends Controller
      */
     public function index()
     {
-//        return view('invitado.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7'));
+        $fecha_ini = date('Y-m-d', strtotime('-1 month'));
+        $fecha_fin = date('Y-m-d');
         $userId = auth()->id();
         $analisis = DB::table('invitados_analisis')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
             ->join('persons', 'analisis.person_id', '=', 'persons.id')
             ->where('invitados_analisis.user_id', $userId)
+            ->whereBetween('fecha', [$fecha_ini, $fecha_fin])
+            ->take(30)
+            ->orderBy('fecha', 'desc')
             ->select('analisis.id', 'analisis.codigo', 'analisis.tipo_analisis', 'analisis.fecha', 'persons.nombres', 'persons.apellidos', 'persons.apellido_materno')->get();
         return view('invitado.home', compact('analisis'));
     }
