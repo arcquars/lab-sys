@@ -12,6 +12,7 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
+            <button class="btn btn-success" data-toggle="modal" data-target="#crearAnalisisRangoModal">Crear rango de analisis</button>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -348,6 +349,62 @@
         </div>
     </div>
 
+    <!-- Modal Pago -->
+    <div class="modal fade" id="crearAnalisisRangoModal" tabindex="-1" role="dialog" aria-labelledby="crearAnalisisRangoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_crearrangoanalisis" onsubmit="sendCreateRangoAnalisis(this); return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="crearAnalisisRangoModalLabel">Crear rango de analisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="procedencia">Procedencia</label>
+                                <select name="procedencia" id="procedencia" class="form-control" required>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="analisis">Analisis</label>
+                                <select name="analisis" id="analisis" class="form-control" onchange="getCodigoAnalisis(this)" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="cantidad">Cantidad</label>
+                                <select name="cantidad" id="cantidad" class="form-control" required>
+{{--                                    <option value="1">1</option>--}}
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Codigo inicio</label>
+                                <input type="text" disabled class="form-control" value="" name="codigo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Realizar Pago</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -464,6 +521,27 @@
                 ).draw();
             } );
 
+            $("#crearAnalisisRangoModal").on('show.bs.modal', function (event) {
+                $.ajax({
+                    url: "{{ route('analisis.generar.rango.analisis') }}",
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        // f_crearrangoanalisis
+                        let optionsProcedencia = "<option value=''>Seleccione</option>";
+                        $.each(data.procedencia, function (index, value) {
+                            optionsProcedencia += "<option value='"+value.id+"'>"+value.nombre+"</option>";
+                        });
+                        $('#f_crearrangoanalisis select[name="procedencia"]').empty().append(optionsProcedencia);
+
+                        let optionsAnalisis = "<option value=''>Seleccione</option>";
+                        $.each(data.tipoAnalisis, function (index, value) {
+                            optionsAnalisis += "<option value='"+value+"'>"+value+"</option>";
+                        });
+                        $('#f_crearrangoanalisis select[name="analisis"]').empty().append(optionsAnalisis);
+                    },
+                });
+            })
         });
 
         function clearErrorMsg() {
@@ -797,6 +875,29 @@
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     printErrorMsg($("#f_enviarwappanalisis"), JSON.parse(XMLHttpRequest.responseText));
                 }
+            });
+        }
+
+        function getCodigoAnalisis(select) {
+            $.ajax({
+                url: "{{ route('analisis.agetcode') }}",
+                type: 'POST',
+                data: {'tipo-analisis': $(select).val()},
+                success: function (data) {
+                    $('#f_crearrangoanalisis input[name="codigo"]').val(data.success);
+                }
+            });
+        }
+
+        function sendCreateRangoAnalisis(form) {
+            $.ajax({
+                url: "{{ route('analisis.crear.generar.rango.analisis') }}",
+                type: 'POST',
+                data: $(form).serialize(),
+                success: function (data) {
+                    $('#tAnalisis').DataTable().ajax.reload();
+                    $("#crearAnalisisRangoModal").modal('hide');
+                },
             });
         }
     </script>

@@ -65,6 +65,8 @@ Route::get('/get-datatables-analisis-person/{personId}', 'AnalisisController@get
 Route::post('/analisis/resultados', 'AnalisisController@resultados')->name('analisis.resultados');
 Route::post('/analisis/aGetCode', 'AnalisisController@ajaxGetCode')->name('analisis.agetcode');
 Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPago')->name('analisis.aGetAnalisisPago');
+Route::post('/analisis/generar-rango-analisis', 'AnalisisController@ajaxGenerarRango')->name('analisis.generar.rango.analisis');
+Route::post('/analisis/crear-generar-rango-analisis', 'AnalisisController@ajaxCrearGenerarRango')->name('analisis.crear.generar.rango.analisis');
 Route::post('/analisis/agetanalisis', 'AnalisisController@ajaxGetAnalisisById')->name('analisis.aGetAnalisisById');
 Route::post('/analisis/agetanalisispaciente', 'AnalisisController@ajaxGetAnalisisPacienteById')->name('analisis.aGetAnalisisPacienteById');
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');

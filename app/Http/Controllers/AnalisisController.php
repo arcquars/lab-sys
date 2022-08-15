@@ -399,10 +399,14 @@ class AnalisisController extends Controller
 
     public function ajaxGetCode(Request $request){
         $tipoAnalisis = $request->get('tipo-analisis');
+        $codigo = $this->generarCodigo($tipoAnalisis);
+
+        return response()->json(['success' => $codigo]);
+    }
+
+    public function generarCodigo($tipoAnalisis){
         $codigo = '';
-//        $numeroFecha = '-'.date('y').date('m').date('d');
         $numeroFecha = '-'.date('y');
-//        $analisisIdNext = Analisis::max('id');
         switch ($tipoAnalisis){
             case Analisis::CITOLOGIA:
                 $num = Analisis::where('tipo_analisis', Analisis::BETHESDA)->count() +
@@ -431,7 +435,7 @@ class AnalisisController extends Controller
                 $codigo = 'BM'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
         }
-        return response()->json(['success' => $codigo]);
+        return $codigo;
     }
 
     public function ajaxRealizarPago(Request $request){
@@ -469,6 +473,69 @@ class AnalisisController extends Controller
         return response()->json(['success' => $resultado, 'bandera' => 1]);
         //$view = view('view.name', $arr)->render();
         //return response()->json(['status' => 200, 'view' => $view]);
+    }
+
+    public function ajaxGenerarRango(Request $request){
+        $convenios = explode(',', Config::get('clinica.convenios_id'));
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $procedencias = Institucion::whereIn('id', $convenios)->get();
+        return response()->json(['success' => '1', 'tipoAnalisis' => $tipoAnalisis, 'procedencia' => $procedencias]);
+    }
+
+    public function ajaxCrearGenerarRango(Request $request){
+        $analisisTipo = $request->post('analisis');
+        $procedencia = $request->post('procedencia');
+        $cantidad = $request->post('cantidad');
+
+        $ciPersonDefault = Config::get('clinica.ci_person_default');
+        $personaDefault = Person::where('ci', '=', $ciPersonDefault)->first();
+        $codigos = [];
+        for($i=0; $i<$cantidad; $i++){
+            $analisis = new Analisis();
+            $analisis->person_id = $personaDefault->id;
+            $analisis->edad = 0;
+            $analisis->doctor = "SIN DOCTOR";
+            $analisis->fecha = Carbon::now();
+            $analisis->doctor_asignado = 1;
+            $analisis->tipo_analisis = $analisisTipo;
+            $analisis->procedencia = $procedencia;
+            $analisis->region = "";
+            $analisis->telefono_referencia = "0";
+            $analisis->precio = 0;
+            $analisis->codigo = $this->generarCodigo($analisisTipo);
+            $analisis->razon_social = 0;
+            $analisis->nit = 0;
+            $analisis->acuenta = 0;
+            $analisis->user_id = auth()->id();
+
+            if($analisis->save()) {
+                $convenio = new Convenio();
+                $convenio->bancaInstitucion = "";
+                $convenio->bancaMatricula = "SIN MATRI";
+                $convenio->bancaPreAfiliacion = "";
+                $convenio->bancaActivoAsegurado = "";
+                $convenio->bancaActivoExt = "";
+                $convenio->bancaActivoResto = "";
+                $convenio->bancaPasivoAsegurado = "";
+                $convenio->bancaPasivoExt = "";
+                $convenio->bancaPasivoResto = "";
+                $convenio->bancaSecAsegurado = "";
+                $convenio->bancaSecExt = "";
+                $convenio->bancaSecResto = "";
+                $convenio->bancaEspecialidad = "";
+                $convenio->bancaAmbulatorio = "";
+                $convenio->bancaHospitalizado = "";
+                $convenio->analisis_id = $analisis->id;
+
+                $convenio->save();
+
+                array_push($codigos, $analisis->codigo);
+            } else {
+                dd('El analisis tiene errores!!!');
+            }
+        }
+
+        return response()->json(['success' => '1', 'codigos' => $codigos]);
     }
 
     public function ajaxGetAnalisisById(Request $request){
