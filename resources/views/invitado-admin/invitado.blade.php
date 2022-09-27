@@ -13,6 +13,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h4>Lista de analisis del usuario: <b>{{$user->name}}</b></h4>
+                    <p>Total Analsis: <span>{{ count($analisis) }}</span></p>
                 </div>
             </div>
         </div>

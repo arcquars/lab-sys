@@ -149,7 +149,7 @@
                                                     <input class="form-check-input" name="interpretaciones[]" type="checkbox" value="{{$key}}">
                                                 @endif
                                                 <span class="form-check-sign"></span>
-                                                {{$value}}
+                                                ({{$key}}) {{$value}}
                                             </label>
                                         </div>
                                     </div>

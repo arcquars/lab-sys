@@ -42,6 +42,8 @@ class InvitadoAdminController extends Controller
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
             ->join('persons', 'analisis.person_id', '=', 'persons.id')
             ->where('invitados_analisis.user_id', $user_id)
+            ->where('analisis.imprimir_firma', '=', 1)
+            ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
         ->select('analisis.id', 'analisis.codigo', 'analisis.tipo_analisis', 'analisis.fecha', 'persons.nombres', 'persons.apellidos', 'persons.apellido_materno')->get();
 
         return view('invitado-admin.invitado', compact('analisis', 'user_id', 'user'));

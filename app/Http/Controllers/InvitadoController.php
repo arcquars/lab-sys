@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Analisis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -28,6 +29,8 @@ class InvitadoController extends Controller
             ->join('persons', 'analisis.person_id', '=', 'persons.id')
             ->where('invitados_analisis.user_id', $userId)
             ->whereBetween('fecha', [$fecha_ini, $fecha_fin])
+            ->whereNotNull('analisis.persona_entrega')
+            ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
             ->take(30)
             ->orderBy('fecha', 'desc')
             ->select('analisis.id', 'analisis.codigo', 'analisis.tipo_analisis', 'analisis.fecha', 'persons.nombres', 'persons.apellidos', 'persons.apellido_materno')->get();

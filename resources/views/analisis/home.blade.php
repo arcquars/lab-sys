@@ -399,7 +399,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Realizar Pago</button>
+                        <button type="submit" class="btn btn-primary">Crear rango</button>
                     </div>
                 </form>
             </div>
@@ -522,6 +522,7 @@
             } );
 
             $("#crearAnalisisRangoModal").on('show.bs.modal', function (event) {
+                $('#f_crearrangoanalisis').trigger("reset");
                 $.ajax({
                     url: "{{ route('analisis.generar.rango.analisis') }}",
                     type: 'POST',
