@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h4>Lista de analisis del usuario: <b>{{$user->name}}</b></h4>
-                    <p>Total Analsis: <span>{{ count($analisis) }}</span></p>
+                    <p>Total Analisis: <span>{{ count($analisis) }}</span></p>
                 </div>
             </div>
         </div>
@@ -25,6 +25,8 @@
                         <th>Codigo</th>
                         <th>Tipo</th>
                         <th>Paciente</th>
+                        <th>Procedencia</th>
+                        <th>Imprimir Firma</th>
                         <th>Fecha</th>
                         <th>Acciones</th>
                     </tr>
@@ -35,6 +37,8 @@
                             <td>{{$a->codigo}}</td>
                             <td>{{$a->tipo_analisis}}</td>
                             <td>{{$a->nombres}} {{$a->apellidos}} {{$a->apellido_materno}}</td>
+                            <td>{{ $a->ins_nombre  }}</td>
+                            <td>{{ $a->imprimir_firma == 0? 'Con firma' : 'Sin firma'  }}</td>
                             <td>{{$a->fecha}}</td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm" title="Quitar asignacion"

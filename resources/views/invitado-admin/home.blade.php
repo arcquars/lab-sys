@@ -36,6 +36,7 @@
                             <td>
                                 <a href="{{route('invitado.admin.analisis.asignado', [$user->id])}}" class="btn btn-success btn-sm" title="Lista de analisis"><i class="fas fa-microscope"></i></a>&nbsp;
                                 <a href="#" class="btn btn-success btn-sm" onclick="openSearchAnalisis('{{$user->id}}', '{{$user->name}}')" title="Anadir analisis a invitado"><i class="fas fa-folder-plus"></i></a>
+                                <a href="#" class="btn btn-success btn-sm" onclick="openSearchAnalisisProcedencia('{{$user->id}}', '{{$user->name}}')" title="Anadir analisis de clinica a invidatos"><i class="far fa-hospital"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -87,6 +88,43 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal buscar analisis por clinica de procedencia -->
+    <div class="modal fade" id="searchAnalisisProcedenciaModal" tabindex="-1" aria-labelledby="searchAnaProModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form onsubmit="fAsignarClinicaDr(this); return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="searchAnaProModalLabel">Asignar analisis por clinica a <span id="mtitleNamePro"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="user_id">
+                        <div class="form-group">
+                            <select id="s_procedencia" name="procedencia" onchange="fntChangeProcedencia();" class="form-control @error('procedencia') is-invalid @enderror" required>
+                                <option value="">Seleccione clinica</option>
+                                @foreach($procedencias as $procedencia)
+                                    <option value="{{$procedencia->id}}">{{$procedencia->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div style="padding: 10px;">
+                            <p><b>Resumen:</b></p>
+                            <p>Total analisis asignados: <span class="badge badge-secondary taa"></span></p>
+                            <p>Total analisis de la clinica ya asignado: <span class="badge badge-secondary tacya"></span></p>
+                            <p>Total analisis de la clinica sin asignar: <span class="badge badge-success tacsa"></span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Asignar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -105,6 +143,17 @@
             $("#inputBuscarDr").val('');
             $("#tResultDr tbody").empty();
             $("#searchAnalisisModal input[name='user_id']").val(userId);
+        }
+
+        function openSearchAnalisisProcedencia(userId, name) {
+            $("#searchAnalisisProcedenciaModal").modal('show');
+            $("#mtitleNamePro").empty().text(name);
+            $("#searchAnalisisProcedenciaModal input[name='user_id']").val(userId);
+            $("#searchAnalisisProcedenciaModal select[name='procedencia']").val('');
+
+            $("#searchAnalisisProcedenciaModal .taa").text('0');
+            $("#searchAnalisisProcedenciaModal .tacya").text('0');
+            $("#searchAnalisisProcedenciaModal .tacsa").text('0');
         }
 
         function searchAnalisis() {
@@ -146,6 +195,22 @@
             });
         }
 
+        function fAsignarClinicaDr(){
+            let user_id = $("#searchAnalisisProcedenciaModal input[name='user_id']").val();
+            let procedencia = $("#searchAnalisisProcedenciaModal select[name='procedencia']").val();
+            $.ajax({
+                url: "{{ route('invitado.admin.asignaranalisis.procedencia') }}",
+                type: 'POST',
+                data: {user_id, procedencia},
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    $("#searchAnalisisProcedenciaModal").modal('hide');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
+
         function appendTableResult(results){
             let html = '';
             $.each(results, function(i, analisis){
@@ -155,6 +220,34 @@
                 html += '</tr>';
             });
             return html;
+        }
+
+        function fntChangeProcedencia() {
+            let userId = $("#searchAnalisisProcedenciaModal input[name='user_id']").val();
+            let procedencia = $("#searchAnalisisProcedenciaModal select[name='procedencia']").val();
+            // alert("eee: " + userId + ' || ' + procedencia);
+            $.ajax({
+                url: "{{ route('invitado.admin.obteneranalisis.asignados') }}",
+                type: 'POST',
+                data: {userId, procedencia},
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    // taa
+                    $("#searchAnalisisProcedenciaModal .taa").text(data.result.totalAnalisisAsignados);
+                    $("#searchAnalisisProcedenciaModal .tacya").text(data.result.totalAnalisisAsignadoAProcedencia);
+                    $("#searchAnalisisProcedenciaModal .tacsa").text(data.result.totalAnalisisPorProcedencia - data.result.totalAnalisisAsignadoAProcedencia);
+
+                    if(data.result.totalAnalisisPorProcedencia - data.result.totalAnalisisAsignadoAProcedencia > 0){
+                        $("#searchAnalisisProcedenciaModal button[type=submit]").attr('disabled', false);
+                    } else {
+                        $("#searchAnalisisProcedenciaModal button[type=submit]").attr('disabled', true);
+                    }
+
+                    // $("input[type=submit]",this)
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
         }
     </script>
 @endpush
