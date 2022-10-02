@@ -127,6 +127,9 @@ class ReporteController extends Controller
         $mes = $date->format('m');
         $day_last = $date->format('t');
         $procedenciaId = 0;
+        $sTipoAnalisis = '';
+
+        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
         $fecha_ini = $year.'-'.$mes.'-01';
         $fecha_fin = $year.'-'.$mes.'-'.$day_last;
@@ -140,7 +143,7 @@ class ReporteController extends Controller
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
             'analisis', 'year', 'year_old',
-            'procedenciaId', 'day_last'
+            'procedenciaId', 'tipoAnalisis', 'sTipoAnalisis', 'day_last'
         ));
     }
 
@@ -349,31 +352,31 @@ class ReporteController extends Controller
     {
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
-        $procedenciaId = $request->post('procedencia');
-        $doctor = $request->post('doctor_refiere');
+        $procedenciaId = $request->post('procedencia', '');
+        $doctor = $request->post('doctor_refiere', '');
+        $sTipoAnalisis = $request->post('tipo_analisis', '');
+
+        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
         $procedencias = Institucion::all();
 
-        if($procedenciaId == 0){
-            if(empty($doctor)){
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
-            } else {
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('doctor', $doctor)->get();
-            }
-
-        } else {
-            if(empty($doctor)){
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->get();
-            } else {
-                $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('procedencia', $procedenciaId)->where('doctor', $doctor)->get();
-            }
-
+        $analisisW = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+        if($procedenciaId != 0){
+            $analisisW = $analisisW->where('procedencia', $procedenciaId);
+        }
+        if(!empty($doctor)){
+            $analisisW = $analisisW->where('doctor', $doctor);
+        }
+//            dd($sTipoAnalisis);
+        if(!empty($sTipoAnalisis)){
+            $analisisW = $analisisW->where('tipo_analisis', $sTipoAnalisis);
         }
 
+        $analisis = $analisisW->get();
 
         return view('reportes.reporte-admin-diario', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis',
+            'analisis', 'tipoAnalisis', 'sTipoAnalisis',
             'procedenciaId', 'doctor'
         ));
     }
@@ -520,27 +523,22 @@ class ReporteController extends Controller
                 $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
     }
 
-    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor=''){
+    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis=''){
         $procedencias = Institucion::all();
 
-        if($procedencia == 0){
-            if(empty($doctor)){
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->get();
-            } else {
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('doctor', $doctor)->get();
-            }
-
-        } else {
-            if(empty($doctor)){
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('procedencia', $procedencia)->get();
-            } else {
-                $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])
-                    ->where('procedencia', $procedencia)
-                    ->where('doctor', $doctor)->get();
-            }
+        $analisisW = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin]);
+        if($procedencia != 0){
+            $analisisW = $analisisW->where('procedencia', $procedencia);
 
         }
+        if(!empty($doctor)){
+            $analisisW = $analisisW->where('doctor', $doctor);
+        }
+        if(!empty($tipoAnalisis)){
+            $analisisW = $analisisW->where('tipo_analisis', $tipoAnalisis);
+        }
 
+        $analisis = $analisisW->get();
         $procedenciaName = "Todos";
         if($procedencia != 0){
             $procedenciaName = Institucion::find($procedencia)->nombre;

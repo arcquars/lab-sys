@@ -32,12 +32,15 @@
                     <label for="fecha_fin">Fecha fin</label>
                 </div>
                 <div class="col-md-2">
+                    <label for="fecha_fin">T. analisis</label>
+                </div>
+                <div class="col-md-2">
                     <label for="fecha_ingreso">Doctor que pidio</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label for="fecha_ingreso">Institucion</label>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-2"></div>
             </div>
             <div class="row">
                 <div class="col-md-2">
@@ -53,6 +56,18 @@
                     @enderror
                 </div>
                 <div class="col-md-2">
+                    <select name="tipo_analisis" class="form-control">
+                        <option value="">Todos</option>
+                        @foreach($tipoAnalisis as $key => $tipo)
+                            @if(strcmp(old('tipo_analisis', $sTipoAnalisis), $key) == 0)
+                                <option value="{{$key}}" selected>{{$tipo}}</option>
+                            @else
+                                <option value="{{$key}}">{{$tipo}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <select class="form-control" name="doctor_refiere" id="js-doctor-ajax-id">
                         @if(!isset($doctor))
                             <option value="">Seleccion...</option>
@@ -64,7 +79,7 @@
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <select name="procedencia" class="form-control">
                         <option value="0">Todos</option>
                         @foreach($procedencias as $procedencia)
@@ -76,7 +91,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <input type="submit" value="Buscar" class="btn btn-info">
                     <a class="btn btn-warning" onclick="exportExcelReporteAdmin(); return false;">Exportar</a>
                     <a class="btn btn-default" href="{{route('reporte.reporte_admin_diario')}}">Limpiar</a>
@@ -91,6 +106,7 @@
                 <th scope="col">Codigo</th>
                 <th scope="col">Paciente</th>
                 <th scope="col">Edad</th>
+                <th scope="col">T. analisis</th>
                 <th scope="col">Doctor que Pidio</th>
                 <th scope="col">Institucion</th>
                 <th scope="col">Region</th>
@@ -106,6 +122,7 @@
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->edad}}</td>
+                <td>{{$analisi->tipo_analisis}}</td>
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->institucion->nombre}}</td>
                 <td>{{$analisi->region}}</td>
@@ -151,8 +168,9 @@
             var fechaIni = $("#f_reporte_admin_d input[name='fecha_ini']").val();
             var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
+            var tipoAnalisis = $("#f_reporte_admin_d select[name='tipo_analisis']").val();
             var doctor = $("#f_reporte_admin_d select[name='doctor_refiere']").val();
-            var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+doctor;
+            var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+doctor+'/'+tipoAnalisis;
 
             window.open(url, '_blank');
         }
