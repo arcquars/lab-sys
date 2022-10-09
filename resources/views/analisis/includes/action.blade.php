@@ -29,11 +29,11 @@
     @endif
     @if(($precio == ($acuenta + $pago_efectuado) && $imprimir_firma) || $convenio)
         @if($send_sms==0)
-        <a href="#" onclick="openModalEnviarWappAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
+        <a href="#" onclick="openModalEnviarWappAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Enviar analisis por whatsapp">
             <i class="fab fa-whatsapp text-info"></i>
         </a>
         @else
-            <a href="#" onclick="openModalEnviarWappAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">
+            <a href="#" onclick="openModalEnviarWappAnalisis(this); return false;" data-id="{{$id}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Enviar analisis por whatsapp">
                 <i class="fab fa-whatsapp text-danger"></i>
             </a>
         @endif

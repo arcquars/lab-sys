@@ -188,6 +188,8 @@ Route::get('/invitado-admin/index', 'InvitadoAdminController@index')->name('invi
 Route::post('/invitado-admin/ajaxSearchDr','InvitadoAdminController@ajaxSearcDr')->name('invitado.admin.searchdr');
 Route::post('/invitado-admin/ajaxAsignarAnalisis','InvitadoAdminController@ajaxAsignarAnalisis')->name('invitado.admin.asignaranalisis');
 Route::post('/invitado-admin/ajaxRetirarAnalisis','InvitadoAdminController@ajaxRetirarAnalisis')->name('invitado.admin.retiraranalisis');
+Route::post('/invitado-admin/ajaxGetDrByUser','InvitadoAdminController@ajaxGetDrByDoctor')->name('invitado.admin.getdrbyuser');
+Route::post('/invitado-admin/ajax-remove-analisis-doctor','InvitadoAdminController@ajaxRemoveByDoctor')->name('invitado.admin.removeAnalisisDoctor');
 Route::get('/invitado-admin/analisis-asignado/{user_id}','InvitadoAdminController@analisisAsignado')->name('invitado.admin.analisis.asignado');
 Route::post('/invitado-admin/ajaxObtenerAnalisisAsignados','InvitadoAdminController@ajaxObtenerAnalisisAsignado')->name('invitado.admin.obteneranalisis.asignados');
 Route::post('/invitado-admin/ajaxAsignarAnalisisProcedencia','InvitadoAdminController@ajaxAsignarAnalisisProcedencia')->name('invitado.admin.asignaranalisis.procedencia');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Institucion;
+use App\InvitadoAnalisis;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class InvitadoAdminController extends Controller
             'analisis.id', 'analisis.codigo', 'analisis.tipo_analisis',
             'analisis.fecha', 'persons.nombres', 'persons.apellidos',
             'persons.apellido_materno', 'analisis.imprimir_firma',
-            'instituciones.nombre as ins_nombre'
+            'instituciones.nombre as ins_nombre', 'analisis.doctor'
         )->get();
 
         return view('invitado-admin.invitado', compact('analisis', 'user_id', 'user'));
@@ -102,6 +103,37 @@ class InvitadoAdminController extends Controller
             ->where('user_id', '=', $userId)->delete();
 
         return response()->json(['success'=>$resultado]);
+    }
+
+    public function ajaxGetDrByDoctor(Request $request){
+        $userId = $request->post('user_id');
+
+        $doctoresAsignado = DB::table('invitados_analisis')
+            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+            ->where('invitados_analisis.user_id', '=', $userId)
+            ->distinct()->select('analisis.doctor')->get();
+
+        return response()->json(['success'=>true, 'doctores' => $doctoresAsignado]);
+    }
+
+    public function ajaxRemoveByDoctor(Request $request){
+        $userId = $request->post('user_id');
+        $doctor = $request->post('doctor');
+
+        $invitadoAnalisis = DB::table('invitados_analisis')
+            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+            ->where('invitados_analisis.user_id', '=', $userId)
+            ->where('analisis.doctor', '=', $doctor)
+            ->select('invitados_analisis.id')->get();
+
+        $ids = [];
+        foreach ($invitadoAnalisis as $ia){
+            array_push($ids, $ia->id);
+        }
+
+        InvitadoAnalisis::whereIn('id', $ids)->delete();
+
+        return response()->json(['success'=>true]);
     }
 
     public function ajaxObtenerAnalisisAsignado(Request $request){

@@ -15,6 +15,9 @@
                     <h4>Lista de analisis del usuario: <b>{{$user->name}}</b></h4>
                     <p>Total Analisis: <span>{{ count($analisis) }}</span></p>
                 </div>
+                <div class="col-md-6 text-right">
+                    <a href="#" class="btn btn-link text-danger" onclick="mOpenRemoveDr(); return false;">Quitar analisis por doctor</a>
+                </div>
             </div>
         </div>
         <div class="card-body">
@@ -25,6 +28,7 @@
                         <th>Codigo</th>
                         <th>Tipo</th>
                         <th>Paciente</th>
+                        <th>Doctor</th>
                         <th>Procedencia</th>
                         <th>Imprimir Firma</th>
                         <th>Fecha</th>
@@ -37,6 +41,7 @@
                             <td>{{$a->codigo}}</td>
                             <td>{{$a->tipo_analisis}}</td>
                             <td>{{$a->nombres}} {{$a->apellidos}} {{$a->apellido_materno}}</td>
+                            <td>{{$a->doctor}}</td>
                             <td>{{ $a->ins_nombre  }}</td>
                             <td>{{ $a->imprimir_firma == 0? 'Con firma' : 'Sin firma'  }}</td>
                             <td>{{$a->fecha}}</td>
@@ -73,6 +78,60 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Confirmar</button>
                 </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal quitar analisis por doctor -->
+    <div class="modal fade" id="removeAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="removeAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form onsubmit="openRemoveConfirmarDrModal(this); return false;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeAnalisisModalLabel">Quitar analisis por DOCTOR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Doctor</label>
+                        <select class="form-control" name="doctor" required>
+                            <option value="">Elija un doctor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-danger">Quitar doctor</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmacion quitar analisis por doctor -->
+    <div class="modal fade" id="removeConfirmacionAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="removeConfirmacionAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form onsubmit="removeAnalisisByDoctor(this); return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="removeConfirmacionAnalisisModalLabel">Quitar analisis por DOCTOR</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="doctor">
+                        <div class="alert alert-danger" role="alert">
+                            Esta seguro que desea quitar todos los analisis del doctor <b class="bDoctor"></b>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -119,6 +178,59 @@
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
+
+        function mOpenRemoveDr() {
+            $.ajax({
+                url: "{{ route('invitado.admin.getdrbyuser') }}",
+                type: 'POST',
+                data: {user_id: '{{$user->id}}'},
+                success: function (data) {
+                    if(data.success){
+                        $("#removeAnalisisModal").modal('show');
+                        // alert(JSON.stringify(data));
+                        let select = $('#removeAnalisisModal select[name="doctor"]');
+                        select.empty();
+                        let options = '<option value="">Elija un doctor</option>';
+                        $.each(data.doctores, function(index, doctor){
+                            options += '<option value="'+doctor.doctor+'">'+doctor.doctor+'</option>';
+                        });
+                        select.append(options);
+                    } else {
+                        alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
+
+        function openRemoveConfirmarDrModal(form) {
+            $("#removeAnalisisModal").modal('hide');
+            let doctor = $(form).find('select[name=doctor]').val();
+            $("#removeConfirmacionAnalisisModal").modal('show');
+            $("#removeConfirmacionAnalisisModal input[name='doctor']").val(doctor);
+            $("#removeConfirmacionAnalisisModal .bDoctor").text(doctor);
+        }
+
+        function removeAnalisisByDoctor(form){
+            let doctor = $(form).find('input[name="doctor"]').val();
+            $.ajax({
+                url: "{{ route('invitado.admin.removeAnalisisDoctor') }}",
+                type: 'POST',
+                data: {user_id: '{{$user->id}}', doctor: doctor},
+                success: function (data) {
+                    if(data.success){
+                        $("#removeConfirmacionAnalisisModal").modal('hide');
+                        location.reload();
+                    } else {
+                        alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
                 }
             });
         }
