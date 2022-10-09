@@ -1,6 +1,15 @@
 @extends('layouts.dash', ['activePage' => 'admin_reporte_diario', 'title' => 'Reporte por dia', 'navName' => 'Reporte por dia', 'activeButton' => 'reporteActiveButton'])
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 34px;
+        }
+    </style>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -25,10 +34,13 @@
                     <div class="col-md-2">
                         <label for="fecha_fin">Tipo analisis</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <label for="doctor_refiere">Doctor</label>
+                    </div>
+                    <div class="col-md-2">
                         <label for="tipo_analisis">Procedencia</label>
                     </div>
-                    <div class="col-md-3"></div>
+                    <div class="col-md-2"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
@@ -56,6 +68,18 @@
                         </select>
                     </div>
                     <div class="col-md-2">
+                        <select class="form-control" name="doctor_refiere" id="js-doctor-ajax-id">
+                            @if(!isset($doctor))
+                                <option value="">Seleccion...</option>
+                            @else
+                                <option value="{{ $doctor  }}">{{ $doctor  }}</option>
+                            @endif
+                        </select>
+                        @error('doctor_refiere')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-2">
                         <select name="procedencia" class="form-control">
                             <option value="0">Todos</option>
                             @foreach($procedencias as $procedencia)
@@ -67,7 +91,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <input type="submit" value="Buscar" class="btn btn-info">
                         <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar excel</a>
                         <a href="#" onclick="exportPdf(); return false;"  class="btn btn-warning">Exportar pdf</a>
@@ -252,9 +276,28 @@
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
-
+            const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#js-doctor-ajax-id').select2({
+                ajax: {
+                    url: '{{ route('analisis.doctor.asearchdoctor') }}',
+                    dataType: 'json',
+                    type: "post",
+                    data: function (params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term
+                        }
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response
+                        };
+                    },
+                }
+            });
         });
 
         function exportExcel(){
@@ -262,7 +305,8 @@
             var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
             var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
-            var url = '{{url("/")}}/reportes/reporte-diario-excel/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId;
+            var doctor = $("#f_reporte_diario select[name='doctor_refiere']").val();
+            var url = '{{url("/")}}/reportes/reporte-diario-excel/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId+'/'+doctor;
 
             window.open(url, '_blank');
         }
@@ -272,7 +316,8 @@
             var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
             var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
-            var url = '{{url("/")}}/reportes/reporte-diario-pdf/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId;
+            var doctor = $("#f_reporte_diario select[name='doctor_refiere']").val();
+            var url = '{{url("/")}}/reportes/reporte-diario-pdf/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId+'/'+doctor;
 
             window.open(url, '_blank');
         }
