@@ -10,7 +10,8 @@ class Institucion extends Model
 
     protected $fillable = [
         'nombre',
-        'telefono'
+        'telefono',
+        'is_convenio'
     ];
 
     /**

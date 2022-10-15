@@ -49,10 +49,14 @@ class InstitucionController extends Controller
         if(isset($institucionId)){
             $institucion = Institucion::find($institucionId);
             $institucion->nombre = $request->get('nombre');
-            $institucion->update();
+            $institucion->telefono = $request->get('telefono');
+            $institucion->is_convenio = (strcmp($request->get('is_convenio', 'false'), 'true') == 0)? 1: 0;
+            $valid = $institucion->update();
         } else {
             $institucion = new Institucion();
             $institucion->nombre = $request->get('nombre');
+            $institucion->telefono = $request->get('telefono');
+            $institucion->is_convenio = (strcmp($request->get('is_convenio', 'false'), 'true') == 0)? 1: 0;
             $valid = $institucion->save();
         }
         if($valid) {

@@ -30,7 +30,8 @@ class StoreInstitucionPost extends FormRequest
         }
 
         return [
-            'nombre' => $roleNombre
+            'nombre' => $roleNombre,
+            'telefono' => 'required|digits:8'
         ];
     }
 }

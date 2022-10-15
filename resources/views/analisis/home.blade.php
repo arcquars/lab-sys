@@ -736,7 +736,7 @@
                         $('#enviarWappAnalisisModal').modal('show');
                         $('#f_enviarwappanalisis')[0].reset();
                         $('#f_enviarwappanalisis input[name="analisis_id"]').val($(link).data('id'));
-                        if(data.isConvenio){
+                        if(data.institucion.is_convenio){
                             $('#f_enviarwappanalisis .m_paciente_convenio').parent().css('display', 'block');
                             $('#f_enviarwappanalisis .m_paciente_convenio').empty().text(data.institucion.nombre);
                             $('#f_enviarwappanalisis .m_analisis_celular').val(data.institucion.telefono);

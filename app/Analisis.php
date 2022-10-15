@@ -73,16 +73,24 @@ class Analisis extends Model
         return $this->hasOne('App\Convenio', 'analisis_id', 'id');
     }
 
-    public function isConvenio(){
-        $convenios = explode(',', Config::get('clinica.convenios_id'));
+//    public function isConvenio(){
+//        $convenios = explode(',', Config::get('clinica.convenios_id'));
+//
+//        $valid = false;
+//        foreach($convenios as $con){
+//            if($this->procedencia == $con){
+//                $valid = true;
+//            }
+//        }
+//        return $valid;
+//    }
 
-        $valid = false;
-        foreach($convenios as $con){
-            if($this->procedencia == $con){
-                $valid = true;
-            }
+    public function isConvenio(){
+        $isConvenio = false;
+        if($this->institucion->is_convenio == 1){
+            $isConvenio = true;
         }
-        return $valid;
+        return $isConvenio;
     }
 
     public function users(){

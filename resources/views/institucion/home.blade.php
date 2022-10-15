@@ -21,6 +21,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>Telefono</th>
                     <th>Accion</th>
                 </tr>
                 </thead>
@@ -46,12 +47,25 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="ci">Nombre de la Institucion</label>
+                                    <label>Nombre de la Institucion</label>
                                     <input type="text" name="nombre" class="form-control"
                                            placeholder="Nombre de la institucion"
                                            onkeyup="uppercaseInput(this);"
                                     >
                                     <div class="fcp_error_nombre" style="display: none;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefono</label>
+                                    <input type="text" name="telefono" class="form-control">
+                                    <div class="fcp_error_telefono" style="display: none;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="form-check-input" type="checkbox" value="1" id="is_convenio" name="is_convenio">
+                                        <label class="form-check-label" for="is_convenio">
+                                            Convenio
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -78,6 +92,7 @@
                 columns: [
                     {name: 'id'},
                     {name: 'nombre'},
+                    {name: 'telefono'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 language: {
@@ -111,6 +126,8 @@
                 var _token = $(this).find("input[name='_token']").val();
                 var id = $(this).find("input[name='id']").val();
                 var nombre = $(this).find("input[name='nombre']").val();
+                var telefono = $(this).find("input[name='telefono']").val();
+                var is_convenio = $(this).find("input[name='is_convenio']").is(':checked');
 
                 $.ajax({
                     url: "{{ route('institucion.createInstitucion') }}",
@@ -118,7 +135,9 @@
                     data: {
                         _token: _token,
                         id: id,
-                        nombre: nombre
+                        nombre: nombre,
+                        telefono,
+                        is_convenio
                     },
                     success: function (data) {
                         if (data.success) {
@@ -137,6 +156,7 @@
         });
 
         function openModelInstitucion() {
+            clearErrorMsg();
             $('#minstitucion').modal('show');
             $("#fcrearinstitucion").find("input[name='id']").val('');
             $("#fcrearinstitucion").find("input[name='nombre']").val('');
@@ -145,6 +165,7 @@
 
         function editInstitucionAjax(institucionId){
             var _token = $("#fcrearinstitucion").find("input[name='_token']").val();
+            clearErrorMsg();
             $.ajax({
                 url: "{{ route('institucion.getInstitucion') }}",
                 type: 'POST',
@@ -154,6 +175,12 @@
                         $("#minstitucion").modal("show");
                         $('#minstitucion_title').empty().text('Editar Institucion');
                         $("#fcrearinstitucion").find("input[name='nombre']").val(data.institucion.nombre);
+                        $("#fcrearinstitucion").find("input[name='telefono']").val(data.institucion.telefono);
+                        if(data.institucion.is_convenio == 1){
+                            $("#fcrearinstitucion").find("input[name='is_convenio']").prop('checked', true);
+                        } else {
+                            $("#fcrearinstitucion").find("input[name='is_convenio']").prop('checked', false);
+                        }
                         $("#fcrearinstitucion").find("input[name='id']").val(data.institucion.id);
                     } else {
                         alert(data.errors);
@@ -164,8 +191,10 @@
 
         function clearErrorMsg() {
             $('.fcp_error_nombre').empty();
+            $('.fcp_error_telefono').empty();
 
             $("#fcrearinstitucion").find("input[name='nombre']").removeClass('is-invalid');
+            $("#fcrearinstitucion").find("input[name='telefono']").removeClass('is-invalid');
         }
 
         function printErrorMsg(form, msg) {
