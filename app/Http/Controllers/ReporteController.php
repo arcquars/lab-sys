@@ -570,7 +570,7 @@ class ReporteController extends Controller
             $analisisW = $analisisW->where('procedencia', $procedencia);
 
         }
-        if(!empty($doctor)){
+        if(!empty($doctor) && strcmp($doctor, 'ALL') != 0){
             $analisisW = $analisisW->where('doctor', $doctor);
         }
         if(!empty($tipoAnalisis)){

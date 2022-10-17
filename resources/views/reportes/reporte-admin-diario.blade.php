@@ -169,9 +169,10 @@
             var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
             var tipoAnalisis = $("#f_reporte_admin_d select[name='tipo_analisis']").val();
-            var doctor = $("#f_reporte_admin_d select[name='doctor_refiere']").val();
+            var doctorSelect = $("#f_reporte_admin_d select[name='doctor_refiere']").val();
+            var doctor = (doctorSelect.length !== 0)? doctorSelect : 'ALL';
             var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+doctor+'/'+tipoAnalisis;
-
+            // alert(url);
             window.open(url, '_blank');
         }
     </script>
