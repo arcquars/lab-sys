@@ -257,7 +257,7 @@ class ClientController extends Controller
     /**
      * Display a listing of the ajaxSearchPerson.
      *
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function ajaxSearchPerson(Request $request){
         $ci = $request->post('ci');
@@ -286,6 +286,71 @@ class ClientController extends Controller
         $query .= " 1=1 ";
         $persons = Person::query()->whereRaw($query, [])->limit(5)->get();
         return response()->json(['success'=>true, 'persons' => $persons]);
+    }
+
+    /**
+     * Display a listing of the ajaxSearchPerson.
+     *
+     * @return string
+     */
+    public function ajaxSetPersonAnalisis(Request $request){
+        $analisisId = $request->post('analisisId');
+        $personId = $request->post('personId');
+
+        $analisis = Analisis::find($analisisId);
+        $analisis->person_id = $personId;
+        $analisis->save();
+//        $persons = Person::query()->whereRaw($query, [])->limit(5)->get();
+        return response()->json(['success'=>true]);
+    }
+
+    /**
+     * Display a listing of the ajaxSearchPerson.
+     *
+     * @return string
+     */
+    public function ajaxCreatePersonSetAnalisis(Request $request){
+        $analisisId = $request->post('analisisId');
+        $nombres = strtoupper($request->post('personaNombre'));
+        $aPaterno = strtoupper($request->post('personaApPaterno'));
+        $aMaterno = strtoupper($request->post('personaApMaterno'));
+        $sexo = $request->post('personaSexo');
+
+        $person = new Person();
+//        $person->ci = $request->get('ci');
+        $person->nombres = $nombres;
+        $person->apellidos = $aPaterno;
+        $person->apellido_materno = $aMaterno;
+//        $person->f_nacimiento = $request->get('f_nacimiento');
+        $person->sexo = 'mujer';
+        if(strcmp($sexo, 'H') == 0){
+            $person->sexo = 'hombre';
+        }
+
+
+        if($person->save()) {
+        $analisis = Analisis::find($analisisId);
+        $analisis->person_id = $person->id;
+        $analisis->save();
+        }
+
+        return response()->json(['success'=>true]);
+    }
+
+    /**
+     * Display a listing of the ajaxSearchPerson.
+     *
+     * @return string
+     */
+    public function ajaxSetDoctorAnalisis(Request $request){
+        $analisisId = $request->post('analisisId');
+        $doctor = strtoupper($request->post('doctor'));
+
+        $analisis = Analisis::find($analisisId);
+        $analisis->doctor = $doctor;
+        $analisis->save();
+
+        return response()->json(['success'=>true]);
     }
 
     public function deleteDuplicados()

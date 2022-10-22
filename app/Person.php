@@ -83,6 +83,14 @@ class Person extends Model
         return $this->active ? 'Active' : 'Inactive';
     }
 
+    public function isSisNombreApellido(){
+        $isPersonaSinNombre = false;
+        if(strcmp($this->nombres, 'Sin nombre') == 0 &&
+            strcmp($this->apellidos, 'Sin apellido') == 0){
+            $isPersonaSinNombre = true;
+        }
+        return $isPersonaSinNombre;
+    }
 
 
 }

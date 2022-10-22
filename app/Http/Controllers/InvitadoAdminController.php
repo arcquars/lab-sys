@@ -26,8 +26,10 @@ class InvitadoAdminController extends Controller
     public function index()
     {
         $procedencias = Institucion::all();
+
+        $rol = Role::where('name', Role::INVITADO)->first();
         $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
-            ->where('role_user.role_id', 5)->select('users.id', 'users.name', 'users.email')->get();
+            ->where('role_user.role_id', $rol->id)->select('users.id', 'users.name', 'users.email')->get();
 //        return view('invitado.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7'));
         return view('invitado-admin.home', compact('users', 'procedencias'));
     }
@@ -53,7 +55,7 @@ class InvitadoAdminController extends Controller
             'analisis.fecha', 'persons.nombres', 'persons.apellidos',
             'persons.apellido_materno', 'analisis.imprimir_firma',
             'instituciones.nombre as ins_nombre', 'analisis.doctor'
-        )->get();
+        )->orderBy('analisis.fecha', 'desc')->get();
 
         return view('invitado-admin.invitado', compact('analisis', 'user_id', 'user'));
     }

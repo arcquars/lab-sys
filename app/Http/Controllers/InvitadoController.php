@@ -21,7 +21,7 @@ class InvitadoController extends Controller
      */
     public function index()
     {
-        $fecha_ini = date('Y-m-d', strtotime('-1 month'));
+        $fecha_ini = date('Y-m-d', strtotime('-20 days'));
         $fecha_fin = date('Y-m-d');
         $userId = auth()->id();
         $analisis = DB::table('invitados_analisis')
@@ -29,7 +29,8 @@ class InvitadoController extends Controller
             ->join('persons', 'analisis.person_id', '=', 'persons.id')
             ->where('invitados_analisis.user_id', $userId)
             ->whereBetween('fecha', [$fecha_ini, $fecha_fin])
-            ->whereNotNull('analisis.persona_entrega')
+            ->where('analisis.imprimir_firma', '=',1)
+//            ->whereNotNull('analisis.persona_entrega')
             ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
             ->take(30)
             ->orderBy('fecha', 'desc')

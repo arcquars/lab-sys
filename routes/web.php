@@ -44,6 +44,9 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 Route::post('/clients/ajaxcreateperson','ClientController@ajaxCreatePerson')->name('client.createPerson');
 Route::post('/clients/ajaxgetperson','ClientController@ajaxGetPerson')->name('client.getPerson');
 Route::post('/clients/ajax-search-person','ClientController@ajaxSearchPerson')->name('client.searchAjaxPerson');
+Route::post('/clients/ajax-set-analisis-person','ClientController@ajaxSetPersonAnalisis')->name('client.ajaxSetPersonAnalisis');
+Route::post('/clients/ajax-create-person-analisis','ClientController@ajaxCreatePersonSetAnalisis')->name('client.ajaxCreatePersonSetAnalisis');
+Route::post('/clients/ajax-set-doctor-analisis','ClientController@ajaxSetDoctorAnalisis')->name('client.ajaxSetDoctorAnalisis');
 Route::get('/clients/delete-duplicados', 'ClientController@deleteDuplicados')->name('client.deleteDuplicados');
 Route::post('/clients/delete-duplicados', 'ClientController@pDeleteDuplicados')->name('client.pdeleteDuplicados');
 Route::resource('clients', 'ClientController');

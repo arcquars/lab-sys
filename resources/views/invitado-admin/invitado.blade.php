@@ -43,7 +43,7 @@
                             <td>{{$a->nombres}} {{$a->apellidos}} {{$a->apellido_materno}}</td>
                             <td>{{$a->doctor}}</td>
                             <td>{{ $a->ins_nombre  }}</td>
-                            <td>{{ $a->imprimir_firma == 0? 'Con firma' : 'Sin firma'  }}</td>
+                            <td>{{ $a->imprimir_firma == 1? 'Con firma' : 'Sin firma'  }}</td>
                             <td>{{$a->fecha}}</td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm" title="Quitar asignacion"
