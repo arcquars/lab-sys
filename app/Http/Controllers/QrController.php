@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\Bethesda;
+use App\BiologiaMolecular;
 use App\Biopsia;
 use App\Histoquimica;
 use App\ImpresionControl;
@@ -91,6 +92,12 @@ class QrController
                 }
                 return 'Analisis no terminado';
                 break;
+            case Analisis::BIOLOGIA_MOLECULAR:
+                if(BiologiaMolecular::where('analisis_id', $analisis->id)->count() > 0){
+                    return $this->reporteBmolecular($id);
+                }
+                return 'Analisis no terminado';
+                break;
             default:
                 return $this->reporteBiopsia($id);
                 break;
@@ -111,6 +118,20 @@ class QrController
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
+    }
+
+    function reporteBmolecular($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        $analisis = Analisis::find($analisisId);
+//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
+        $biologia = BiologiaMolecular::where('analisis_id', $analisisId)->first();
+        $pdf = PDF::loadView('biologia-molecular.reporte', compact(
+            'analisis', 'biologia', 'pathQr'), [], ['marginTop' => 800]);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }

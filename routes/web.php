@@ -186,6 +186,7 @@ Route::get('/texto-predefinido/datatable', 'TextoPredefinidoController@getDatata
 Route::resource('/texto-predefinido', 'TextoPredefinidoController');
 
 Route::get('/invitado/index', 'InvitadoController@index')->name('invitado.index');
+Route::post('/invitado/resultados-atatables-analisis', 'InvitadoController@getDatatablesData')->name('invitado.simple.datatables.analisis.data');
 
 Route::get('/invitado-admin/index', 'InvitadoAdminController@index')->name('invitado.admin.index');
 Route::post('/invitado-admin/ajaxSearchDr','InvitadoAdminController@ajaxSearcDr')->name('invitado.admin.searchdr');
