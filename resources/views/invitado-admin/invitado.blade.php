@@ -13,7 +13,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <h4>Lista de analisis del usuario: <b>{{$user->name}}</b></h4>
-                    <p>Total Analisis: <span>{{ count($analisis) }}</span></p>
                 </div>
                 <div class="col-md-6 text-right">
                     <a href="#" class="btn btn-link text-danger" onclick="mOpenRemoveDr(); return false;">Quitar analisis por doctor</a>
@@ -22,37 +21,22 @@
         </div>
         <div class="card-body">
             <div class="table-full-width table-responsive">
-                <table id="tAnalisisAsignados" class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Codigo</th>
-                        <th>Tipo</th>
-                        <th>Paciente</th>
-                        <th>Doctor</th>
-                        <th>Procedencia</th>
-                        <th>Imprimir Firma</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($analisis as $a)
-                        <tr data-id="{{$a->id}}">
-                            <td>{{$a->codigo}}</td>
-                            <td>{{$a->tipo_analisis}}</td>
-                            <td>{{$a->nombres}} {{$a->apellidos}} {{$a->apellido_materno}}</td>
-                            <td>{{$a->doctor}}</td>
-                            <td>{{ $a->ins_nombre  }}</td>
-                            <td>{{ $a->imprimir_firma == 1? 'Con firma' : 'Sin firma'  }}</td>
-                            <td>{{$a->fecha}}</td>
-                            <td>
-                                <a href="#" class="btn btn-danger btn-sm" title="Quitar asignacion"
-                                   onclick="mConfirmar('{{$a->id}}', '{{$a->codigo}}');"><i class="fas fa-trash"></i></a>
-                            </td>
+                <div class="table-responsive">
+                    <table id="tAnalisisInvitadosAdmin" class="table table-clinica">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Tipo</th>
+                            <th>Paciente</th>
+                            <th>Doctor</th>
+                            <th>Procedencia</th>
+                            <th>Imprimir Firma</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -146,6 +130,68 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+
+            var table = $('#tAnalisisInvitadosAdmin').DataTable({
+                serverSide: true,
+                processing: true,
+                responsive: true,
+                // deferRender: true,
+                ajax: {
+                    url: "{{ route('invitadoadmin.simple.datatables.analisis.data') }}",
+                    data: function ( d ) {
+                        d.user_id = "{{ $user_id  }}";
+                    },
+                    type: 'post',
+                    beforeSend: function(){
+                        // Here, manually add the loading message.
+                        $('#tAnalisisInvitadosAdmin > tbody').html(
+                            '<tr class="odd">' +
+                            '<td valign="top" colspan="6" class="dataTables_empty">Loading&hellip;</td>' +
+                            '</tr>'
+                        );
+                    }
+                },
+                columns: [
+                    {name: 'codigo'},
+                    {name: 'tipo_analisis'},
+                    {name: 'nombres'},
+                    {name: 'doctor'},
+                    {name: 'nombre'},
+                    {name: 'imprimir_firma', render: function (data, type, row, meta) {
+                            return (data === 0)? 'Sin Firma': 'Con Firma';
+                        }},
+
+                    {name: 'fecha'},
+                    {name: 'actionAdmin', orderable: false, searchable: false},
+
+                ],
+                "pagingType": "full_numbers",
+                "order": [[ 3, "desc" ]],
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+            });
+
+
+
         });
 
         function mConfirmar(analisisId, codigo){
@@ -163,15 +209,7 @@
                 data: {user_id, analisis_id},
                 success: function (data) {
                     if(data.success){
-                        let trs = $("#tAnalisisAsignados tbody tr");
-                        let trRemove = null;
-                        // buscar tr para quitar de la tabla
-                        $.each(trs, function(i, tr){
-                            if($(tr).attr('data-id') === analisis_id){
-                                trRemove = tr;
-                            }
-                        });
-                        $(trRemove).remove();
+                        $('#tAnalisisInvitadosAdmin').DataTable().ajax.reload();
                         $("#mRetiroAnalisisModal").modal('hide');
                     } else {
                         alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
@@ -224,7 +262,7 @@
                 success: function (data) {
                     if(data.success){
                         $("#removeConfirmacionAnalisisModal").modal('hide');
-                        location.reload();
+                        $('#tAnalisisInvitadosAdmin').DataTable().ajax.reload();
                     } else {
                         alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
                     }

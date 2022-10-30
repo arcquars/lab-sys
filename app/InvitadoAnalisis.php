@@ -24,8 +24,13 @@ class InvitadoAnalisis extends Model
     {
         return $query->
         join('analisis', 'analisis.id', 'invitados_analisis.analisis_id')->
+        join('instituciones', 'analisis.procedencia', '=', 'instituciones.id')->
         join('persons', 'analisis.person_id', '=', 'persons.id')->
-        select('analisis.id', 'analisis.codigo', 'analisis.tipo_analisis', 'analisis.fecha', 'persons.nombres', 'persons.apellidos', 'persons.apellido_materno');
+        select(
+            'analisis.id', 'analisis.codigo', 'analisis.tipo_analisis',
+            'analisis.fecha', 'persons.nombres', 'persons.apellidos',
+            'persons.apellido_materno', 'analisis.imprimir_firma',
+            'instituciones.nombre', 'analisis.doctor');
     }
 
     /**
@@ -47,6 +52,19 @@ class InvitadoAnalisis extends Model
     public static function laratablesCustomAction($invitadoAnalisis)
     {
         return view('invitado.includes.action')->with(array(
+            'invitadoAnalisis' => $invitadoAnalisis
+        ))->render();
+    }
+
+    /**
+     * Returns the action column html for datatables.
+     *
+     * @param \App\InvitadoAnalisis $invitadoAnalisis
+     * @return string
+     */
+    public static function laratablesCustomActionAdmin($invitadoAnalisis)
+    {
+        return view('invitado-admin.includes.action_admin')->with(array(
             'invitadoAnalisis' => $invitadoAnalisis
         ))->render();
     }

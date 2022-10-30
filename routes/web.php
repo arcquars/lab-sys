@@ -197,3 +197,4 @@ Route::post('/invitado-admin/ajax-remove-analisis-doctor','InvitadoAdminControll
 Route::get('/invitado-admin/analisis-asignado/{user_id}','InvitadoAdminController@analisisAsignado')->name('invitado.admin.analisis.asignado');
 Route::post('/invitado-admin/ajaxObtenerAnalisisAsignados','InvitadoAdminController@ajaxObtenerAnalisisAsignado')->name('invitado.admin.obteneranalisis.asignados');
 Route::post('/invitado-admin/ajaxAsignarAnalisisProcedencia','InvitadoAdminController@ajaxAsignarAnalisisProcedencia')->name('invitado.admin.asignaranalisis.procedencia');
+Route::post('/invitado-admin/resultados-atables-analisis', 'InvitadoAdminController@getDatatablesData')->name('invitadoadmin.simple.datatables.analisis.data');

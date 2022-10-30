@@ -7,6 +7,7 @@ use App\Institucion;
 use App\InvitadoAnalisis;
 use App\Role;
 use App\User;
+use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -43,21 +44,22 @@ class InvitadoAdminController extends Controller
     {
 //        $user_id = 100;
         $user = User::find($user_id);
-        $analisis = DB::table('invitados_analisis')
-            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-            ->join('instituciones', 'analisis.procedencia', '=', 'instituciones.id')
-            ->join('persons', 'analisis.person_id', '=', 'persons.id')
-            ->where('invitados_analisis.user_id', $user_id)
-//            ->where('analisis.imprimir_firma', '=', 1)
-            ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
-        ->select(
-            'analisis.id', 'analisis.codigo', 'analisis.tipo_analisis',
-            'analisis.fecha', 'persons.nombres', 'persons.apellidos',
-            'persons.apellido_materno', 'analisis.imprimir_firma',
-            'instituciones.nombre as ins_nombre', 'analisis.doctor'
-        )->orderBy('analisis.fecha', 'desc')->get();
+        return view('invitado-admin.invitado', compact( 'user_id', 'user'));
+    }
 
-        return view('invitado-admin.invitado', compact('analisis', 'user_id', 'user'));
+    /**
+     * return data of the simple datatables.
+     *
+     * @return Json
+     */
+    public function getDatatablesData(Request $request)
+    {
+        $userId = $columns = $request->post('user_id');
+
+        return Laratables::recordsOf(InvitadoAnalisis::class, function($query) use ($userId){
+            return $query->where('invitados_analisis.user_id', $userId)
+                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA);
+        });
     }
 
     /**
