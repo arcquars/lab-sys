@@ -23,6 +23,8 @@ class InvitadoController extends Controller
      */
     public function index()
     {
+        $userId = auth()->id();
+        InvitadoAnalisis::refreshAnalisisDoctor($userId);
         return view('invitado.home');
     }
 

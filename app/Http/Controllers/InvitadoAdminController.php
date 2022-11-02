@@ -7,6 +7,7 @@ use App\Institucion;
 use App\InvitadoAnalisis;
 use App\Role;
 use App\User;
+use Carbon\Carbon;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class InvitadoAdminController extends Controller
      */
     public function index()
     {
-        $procedencias = Institucion::all();
+        $procedencias = Institucion::where('is_convenio', '=', 1)->get();
 
         $rol = Role::where('name', Role::INVITADO)->first();
         $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
@@ -44,6 +45,7 @@ class InvitadoAdminController extends Controller
     {
 //        $user_id = 100;
         $user = User::find($user_id);
+        InvitadoAnalisis::refreshAnalisisDoctor($user_id);
         return view('invitado-admin.invitado', compact( 'user_id', 'user'));
     }
 
@@ -83,9 +85,14 @@ class InvitadoAdminController extends Controller
         $userId = $request->get('user_id');
         $doctores= $request->get('doctores')? $request->get('doctores') : [];
 
+        $fechaI = Carbon::parse('Now -30 days');
+        $fechaF = Carbon::now();
+
         if(count($doctores) > 0){
             foreach ($doctores as $doctor){
-                $analisis = Analisis::where('doctor', 'like', $doctor)->get();
+                $analisis = Analisis::where('doctor', 'like', $doctor)
+                    ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
+                    ->get();
                 foreach ($analisis as $ana){
                     DB::table('invitados_analisis')->insert(
                         ['user_id' => $userId, 'analisis_id' => $ana->id]
@@ -115,8 +122,7 @@ class InvitadoAdminController extends Controller
         $doctoresAsignado = DB::table('invitados_analisis')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
             ->where('invitados_analisis.user_id', '=', $userId)
-            ->distinct()->select('analisis.doctor')->get();
-
+            ->distinct()->select('analisis.doctor')->orderBy('analisis.doctor')->get();
         return response()->json(['success'=>true, 'doctores' => $doctoresAsignado]);
     }
 
@@ -169,6 +175,9 @@ class InvitadoAdminController extends Controller
         $userId = $request->get('user_id');
         $procedencia = $request->post('procedencia');
 
+        $fechaI = Carbon::parse('Now -30 days');
+        $fechaF = Carbon::now();
+
         $analisisAsignadoAProcedencia = DB::table('invitados_analisis')
             ->select('analisis.id as analisis_id')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
@@ -182,7 +191,9 @@ class InvitadoAdminController extends Controller
 
 //        $analisis = Analisis::whereNotIn('id', $ids)->get();
         $analisis = Analisis::whereNotIn('id', $ids)->where('procedencia', '=', $procedencia)
-            ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)->get();
+            ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+            ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
+            ->get();
 
         $analisisAsignado = 0;
         foreach ($analisis as $ana) {
