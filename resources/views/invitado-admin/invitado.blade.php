@@ -15,7 +15,7 @@
                     <h4>Lista de analisis del usuario: <b>{{$user->name}}</b></h4>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="#" class="btn btn-link text-danger" onclick="mOpenRemoveDr(); return false;">Quitar analisis por doctor</a>
+                    <a href="#" class="btn btn-link text-danger" onclick="mOpenRemoveDr(); return false;">Quitar analisis asignados</a>
                 </div>
             </div>
         </div>
@@ -27,7 +27,8 @@
                         <tr>
                             <th>Codigo</th>
                             <th>Tipo</th>
-                            <th>Paciente</th>
+                            <th>Paciente Nombres</th>
+                            <th>Paciente Apellido</th>
                             <th>Doctor</th>
                             <th>Procedencia</th>
                             <th>Imprimir Firma</th>
@@ -67,22 +68,22 @@
         </div>
     </div>
 
-    <!-- Modal quitar analisis por doctor -->
+    <!-- Modal quitar analisis asignado -->
     <div class="modal fade" id="removeAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="removeAnalisisModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form onsubmit="openRemoveConfirmarDrModal(this); return false;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="removeAnalisisModalLabel">Quitar analisis por DOCTOR</h5>
+                    <h5 class="modal-title" id="removeAnalisisModalLabel">Quitar analisis asignado</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Doctor</label>
-                        <select class="form-control" name="doctor" required>
-                            <option value="">Elija un doctor</option>
+                        <label>Asignado</label>
+                        <select class="form-control" name="asignado" required>
+                            <option value="">Elija un doctor/institucion</option>
                         </select>
                     </div>
                 </div>
@@ -107,7 +108,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name="doctor">
+                        <input type="hidden" name="asignado">
                         <div class="alert alert-danger" role="alert">
                             Esta seguro que desea quitar todos los analisis del doctor <b class="bDoctor"></b>
                         </div>
@@ -156,6 +157,7 @@
                     {name: 'codigo'},
                     {name: 'tipo_analisis'},
                     {name: 'nombres'},
+                    {name: 'apellidos'},
                     {name: 'doctor'},
                     {name: 'nombre'},
                     {name: 'imprimir_firma', render: function (data, type, row, meta) {
@@ -227,15 +229,15 @@
                 data: {user_id: '{{$user->id}}'},
                 success: function (data) {
                     if(data.success){
-                        $("#removeAnalisisModal").modal('show');
-                        // alert(JSON.stringify(data));
-                        let select = $('#removeAnalisisModal select[name="doctor"]');
+                        let select = $('#removeAnalisisModal select[name="asignado"]');
                         select.empty();
-                        let options = '<option value="">Elija un doctor</option>';
-                        $.each(data.doctores, function(index, doctor){
-                            options += '<option value="'+doctor.doctor+'">'+doctor.doctor+'</option>';
+                        let options = '<option value="">Elija un doctor/institucion</option>';
+                        $.each(data.asignados, function(index, asignado){
+                            options += '<option value="'+asignado.invitado_asignacion_id+'">'+asignado.nombre+'</option>';
                         });
                         select.append(options);
+
+                        $("#removeAnalisisModal").modal('show');
                     } else {
                         alert('Ocurrió algo inesperado en el servidor por favor contáctese con el administrador.');
                     }
@@ -247,18 +249,18 @@
 
         function openRemoveConfirmarDrModal(form) {
             $("#removeAnalisisModal").modal('hide');
-            let doctor = $(form).find('select[name=doctor]').val();
+            let doctor = $(form).find('select[name=asignado]').val();
             $("#removeConfirmacionAnalisisModal").modal('show');
-            $("#removeConfirmacionAnalisisModal input[name='doctor']").val(doctor);
+            $("#removeConfirmacionAnalisisModal input[name='asignado']").val(doctor);
             $("#removeConfirmacionAnalisisModal .bDoctor").text(doctor);
         }
 
         function removeAnalisisByDoctor(form){
-            let doctor = $(form).find('input[name="doctor"]').val();
+            let asignado = $(form).find('input[name="asignado"]').val();
             $.ajax({
                 url: "{{ route('invitado.admin.removeAnalisisDoctor') }}",
                 type: 'POST',
-                data: {user_id: '{{$user->id}}', doctor: doctor},
+                data: {user_id: '{{$user->id}}', asignado},
                 success: function (data) {
                     if(data.success){
                         $("#removeConfirmacionAnalisisModal").modal('hide');

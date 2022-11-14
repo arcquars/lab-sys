@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\Institucion;
 use App\InvitadoAnalisis;
+use App\InvitadoAsignaciones;
 use App\Role;
 use App\User;
 use Carbon\Carbon;
@@ -72,25 +73,45 @@ class InvitadoAdminController extends Controller
         $userId = $request->get('user_id');
         $search = $request->get('search');
 
-        $analisisAsignados = DB::table('invitados_analisis')->select('analisis_id')->where('user_id', $userId)->get();
-        $aa = [];
-        foreach ($analisisAsignados as $aasig){
-            array_push($aa, $aasig->analisis_id);
+        $invitadoAsignaciones = InvitadoAsignaciones::where('user_id', $userId)->where('tipo', InvitadoAsignaciones::TIPO_PERSONA)->get();
+        $doctoresAsig = [];
+        foreach ($invitadoAsignaciones as $ia){
+            $doctoresAsig[] = $ia->valor;
         }
-        $analisis = Analisis::where('doctor', 'like', '%'.$search.'%')->whereNotIn('id', $aa)->groupBy('doctor')->select('doctor')->get();
+
+        $analisis = Analisis::where('doctor', 'like', '%'.$search.'%')->whereNotIn('doctor', $doctoresAsig)->groupBy('doctor')->select('doctor')->get();
         return response()->json(['success'=>true, 'analisis' => $analisis]);
     }
 
     public function ajaxAsignarAnalisis(Request $request){
         $userId = $request->get('user_id');
-        $doctores= $request->get('doctores')? $request->get('doctores') : [];
+        $doctores = $request->get('doctores')? $request->get('doctores') : [];
 
         $fechaI = Carbon::parse('Now -30 days');
         $fechaF = Carbon::now();
 
+        $procedencia = Institucion::where('nombre', 'PERSONA PARTICULAR')->first();
+        $particularId = $procedencia->id;
+
         if(count($doctores) > 0){
             foreach ($doctores as $doctor){
+                $doctorExist = InvitadoAsignaciones::where('user_id',$userId)->where('valor', $doctor)->first();
+                if(!$doctorExist){
+                    $invitadoAsignaciones = new InvitadoAsignaciones();
+                    $invitadoAsignaciones->fill(
+                        [
+                            'user_id' => $userId,
+                            'tipo' => InvitadoAsignaciones::TIPO_PERSONA,
+                            'valor' => $doctor
+
+                        ]
+                    );
+                    $invitadoAsignaciones->save();
+                }
+
                 $analisis = Analisis::where('doctor', 'like', $doctor)
+                    ->where('doctor', 'like', $doctor)
+                    ->where('procedencia', '=', $particularId)
                     ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
                     ->get();
                 foreach ($analisis as $ana){
@@ -98,7 +119,6 @@ class InvitadoAdminController extends Controller
                         ['user_id' => $userId, 'analisis_id' => $ana->id]
                     );
                 }
-
             }
         }
 //        die();
@@ -119,22 +139,52 @@ class InvitadoAdminController extends Controller
     public function ajaxGetDrByDoctor(Request $request){
         $userId = $request->post('user_id');
 
+        $invitadosAsignadosPersona = InvitadoAsignaciones::where('user_id', '=', $userId)
+            ->where('tipo', '=', InvitadoAsignaciones::TIPO_PERSONA)->get();
+        $invitadosAsignadosInstitucion = InvitadoAsignaciones::where('user_id', '=', $userId)
+            ->where('tipo', '=', InvitadoAsignaciones::TIPO_INSTITUCION)->get();
+
+
+        $asignados = [];
+        foreach ($invitadosAsignadosPersona as $asigPersona){
+            array_push($asignados, ['invitado_asignacion_id' => $asigPersona->id, 'nombre' => $asigPersona->tipo.' - '.$asigPersona->valor]);
+        }
+
+        foreach ($invitadosAsignadosInstitucion as $iaInstitucion){
+            $institucion = Institucion::where('id', '=', $iaInstitucion->valor)->first();
+            array_push($asignados, ['invitado_asignacion_id' => $iaInstitucion->id, 'nombre' => $iaInstitucion->tipo.' - '.$institucion->nombre]);
+        }
+
+
         $doctoresAsignado = DB::table('invitados_analisis')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
             ->where('invitados_analisis.user_id', '=', $userId)
             ->distinct()->select('analisis.doctor')->orderBy('analisis.doctor')->get();
-        return response()->json(['success'=>true, 'doctores' => $doctoresAsignado]);
+
+        return response()->json(['success'=>true, 'doctores' => $doctoresAsignado, 'asignados' => $asignados]);
     }
 
     public function ajaxRemoveByDoctor(Request $request){
         $userId = $request->post('user_id');
-        $doctor = $request->post('doctor');
+        $asignado = $request->post('asignado');
 
-        $invitadoAnalisis = DB::table('invitados_analisis')
-            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-            ->where('invitados_analisis.user_id', '=', $userId)
-            ->where('analisis.doctor', '=', $doctor)
-            ->select('invitados_analisis.id')->get();
+        $invitadoAsignado = InvitadoAsignaciones::where('id', $asignado)->first();
+        $invitadoAnalisis = null;
+        if(strcmp($invitadoAsignado->tipo, InvitadoAsignaciones::TIPO_PERSONA) == 0){
+            $procedencia = Institucion::where('nombre', 'PERSONA PARTICULAR')->first();
+            $invitadoAnalisis = DB::table('invitados_analisis')
+                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                ->where('invitados_analisis.user_id', '=', $userId)
+                ->where('analisis.doctor', '=', $invitadoAsignado->valor)
+                ->where('analisis.procedencia', '=', $procedencia->id)
+                ->select('invitados_analisis.id')->get();
+        } else {
+            $invitadoAnalisis = DB::table('invitados_analisis')
+                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                ->where('invitados_analisis.user_id', '=', $userId)
+                ->where('analisis.procedencia', '=', $invitadoAsignado->valor)
+                ->select('invitados_analisis.id')->get();
+        }
 
         $ids = [];
         foreach ($invitadoAnalisis as $ia){
@@ -142,6 +192,7 @@ class InvitadoAdminController extends Controller
         }
 
         InvitadoAnalisis::whereIn('id', $ids)->delete();
+        InvitadoAsignaciones::where('id', $asignado)->delete();
 
         return response()->json(['success'=>true]);
     }
@@ -149,6 +200,9 @@ class InvitadoAdminController extends Controller
     public function ajaxObtenerAnalisisAsignado(Request $request){
         $userId = $request->post('userId');
         $procedencia = $request->post('procedencia');
+
+//        $fechaI = Carbon::parse('Now -30 days');
+//        $fechaF = Carbon::now();
 
         $analisisAsignado = DB::table('invitados_analisis')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
@@ -161,6 +215,7 @@ class InvitadoAdminController extends Controller
             ->where('analisis.procedencia', '=', $procedencia)->count();
 
         $analisisPorProcedencia = Analisis::where('procedencia', '=', $procedencia)
+//            ->whereBetween('fecha', [$fechaI, $fechaF])
             ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)->count();
 
         return response()->json(['success'=>true,
@@ -178,30 +233,47 @@ class InvitadoAdminController extends Controller
         $fechaI = Carbon::parse('Now -30 days');
         $fechaF = Carbon::now();
 
-        $analisisAsignadoAProcedencia = DB::table('invitados_analisis')
-            ->select('analisis.id as analisis_id')
-            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-            ->where('invitados_analisis.user_id', '=', $userId)
-            ->where('analisis.procedencia', '=', $procedencia)->get();
 
-        $ids = [];
-        foreach ($analisisAsignadoAProcedencia as $aaap){
-            array_push($ids, $aaap->analisis_id);
-        }
-
-//        $analisis = Analisis::whereNotIn('id', $ids)->get();
-        $analisis = Analisis::whereNotIn('id', $ids)->where('procedencia', '=', $procedencia)
-            ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
-            ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
-            ->get();
+        $exist = InvitadoAsignaciones::where('valor', '=', $procedencia)->first();
 
         $analisisAsignado = 0;
-        foreach ($analisis as $ana) {
-            DB::table('invitados_analisis')->insert(
-                ['user_id' => $userId, 'analisis_id' => $ana->id]
+        if(!$exist){
+            $invitadoAsignaciones = new InvitadoAsignaciones();
+            $invitadoAsignaciones->fill(
+                [
+                    'user_id' => $userId,
+                    'tipo' => InvitadoAsignaciones::TIPO_INSTITUCION,
+                    'valor' => $procedencia
+                ]
             );
-            $analisisAsignado++;
+            $invitadoAsignaciones->save();
+
+            $analisisAsignadoAProcedencia = DB::table('invitados_analisis')
+                ->select('analisis.id as analisis_id')
+                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                ->where('invitados_analisis.user_id', '=', $userId)
+                ->where('analisis.procedencia', '=', $procedencia)->get();
+
+            $ids = [];
+            foreach ($analisisAsignadoAProcedencia as $aaap){
+                array_push($ids, $aaap->analisis_id);
+            }
+
+//        $analisis = Analisis::whereNotIn('id', $ids)->get();
+            $analisis = Analisis::whereNotIn('id', $ids)->where('procedencia', '=', $procedencia)
+                ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+                ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
+                ->get();
+
+
+            foreach ($analisis as $ana) {
+                DB::table('invitados_analisis')->insert(
+                    ['user_id' => $userId, 'analisis_id' => $ana->id]
+                );
+                $analisisAsignado++;
+            }
         }
+
         return response()->json(['success'=>true, 'result' => [
             'totalAnalisisAsignados' => $analisisAsignado
         ]]);

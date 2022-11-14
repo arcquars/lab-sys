@@ -77,31 +77,95 @@ class InvitadoAnalisis extends Model
             ->where('invitados_analisis.user_id', '=', $userId)
             ->distinct()->select('analisis.doctor')->orderBy('analisis.doctor')->get();
 
-        foreach ($doctoresAsignado as $da){
-            // Obtener analisis ya asignados
-            $invitadoAnalisis = DB::table('invitados_analisis')
-                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                ->where('invitados_analisis.user_id', '=', $userId)
-                ->where('analisis.doctor', '=', $da->doctor)
-                ->select('analisis.id')->get();
+        $fechaActual = Carbon::now();
+//        foreach ($doctoresAsignado as $da){
+//            // Obtener analisis ya asignados
+//            $invitadoAnalisis = DB::table('invitados_analisis')
+//                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+//                ->where('invitados_analisis.user_id', '=', $userId)
+//                ->where('analisis.doctor', '=', $da->doctor)
+//                ->select('analisis.id')->get();
+//            $anaId = [];
+//            foreach ($invitadoAnalisis as $as){
+//                $anaId[] = $as->id;
+//            }
+//            // Obtener fecha maxima asignado a un doctor
+//            $analisisMaxFecha = DB::table('invitados_analisis')
+//                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+//                ->where('invitados_analisis.user_id', '=', $userId)
+//                ->where('analisis.doctor', '=', $da->doctor)
+//                ->max('analisis.fecha');
+//
+//
+////            echo $analisisMaxFecha . ' || ' . $fechaActual->format('Y-m-d').' || ';
+//            $analisis = Analisis::where('doctor', 'like', $da->doctor)
+//                ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
+//                ->whereNotIn('id', $anaId)
+//                ->get();
+//
+//            foreach ($analisis as $a){
+//                DB::table('invitados_analisis')->insert(
+//                    ['user_id' => $userId, 'analisis_id' => $a->id]
+//                );
+//            }
+//        }
+
+        $invitadoAsignados = InvitadoAsignaciones::where('user_id', '=', $userId)->get();
+        foreach ($invitadoAsignados as $ia) {
+            $invitadoAnalisis = null;
+            $analisisMaxFecha = null;
+            $analisis = null;
+
             $anaId = [];
-            foreach ($invitadoAnalisis as $as){
-                $anaId[] = $as->id;
+            if(strcmp($ia->tipo, InvitadoAsignaciones::TIPO_PERSONA) == 0){
+                $procedencia = Institucion::where('nombre', 'PERSONA PARTICULAR')->first();
+                $invitadoAnalisis = DB::table('invitados_analisis')
+                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                    ->where('invitados_analisis.user_id', '=', $userId)
+                    ->where('analisis.procedencia', '=', $procedencia->id)
+                    ->where('analisis.doctor', '=', $ia->valor)
+                    ->select('analisis.id')->get();
+
+                $analisisMaxFecha = DB::table('invitados_analisis')
+                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                    ->where('invitados_analisis.user_id', '=', $userId)
+                    ->where('analisis.procedencia', '=', $procedencia->id)
+                    ->where('analisis.doctor', '=', $ia->valor)
+                    ->max('analisis.fecha');
+
+                foreach ($invitadoAnalisis as $as){
+                    $anaId[] = $as->id;
+                }
+
+                $analisis = Analisis::where('doctor', 'like', $ia->valor)
+                    ->where('procedencia', '=', $procedencia->id)
+                    ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
+                    ->whereNotIn('id', $anaId)
+                    ->get();
+
+            } else {
+                $invitadoAnalisis = DB::table('invitados_analisis')
+                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                    ->where('invitados_analisis.user_id', '=', $userId)
+                    ->where('analisis.procedencia', '=', $ia->valor)
+                    ->select('analisis.id')->get();
+
+                $analisisMaxFecha = DB::table('invitados_analisis')
+                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
+                    ->where('invitados_analisis.user_id', '=', $userId)
+                    ->where('analisis.procedencia', '=', $ia->valor)
+                    ->max('analisis.fecha');
+
+                foreach ($invitadoAnalisis as $as){
+                    $anaId[] = $as->id;
+                }
+
+//                dd($anaId);
+                $analisis = Analisis::where('procedencia', '=', $ia->valor)
+                    ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
+                    ->whereNotIn('id', $anaId)
+                    ->get();
             }
-            // Obtener fecha maxima asignado a un doctor
-            $analisisMaxFecha = DB::table('invitados_analisis')
-                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                ->where('invitados_analisis.user_id', '=', $userId)
-                ->where('analisis.doctor', '=', $da->doctor)
-                ->max('analisis.fecha');
-
-            $fechaActual = Carbon::now();
-//            echo $analisisMaxFecha . ' || ' . $fechaActual->format('Y-m-d').' || ';
-            $analisis = Analisis::where('doctor', 'like', $da->doctor)
-                ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
-                ->whereNotIn('id', $anaId)
-                ->get();
-
             foreach ($analisis as $a){
                 DB::table('invitados_analisis')->insert(
                     ['user_id' => $userId, 'analisis_id' => $a->id]

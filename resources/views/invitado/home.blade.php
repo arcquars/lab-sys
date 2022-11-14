@@ -20,7 +20,9 @@
                         <tr>
                             <th>Codigo</th>
                             <th>Tipo</th>
-                            <th>Paciente</th>
+                            <th>Paciente Nombres</th>
+                            <th>Paciente Apellido</th>
+                            <th>Procedencia</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
@@ -97,6 +99,8 @@
                     {name: 'codigo'},
                     {name: 'tipo_analisis'},
                     {name: 'nombres'},
+                    {name: 'apellidos'},
+                    {name: 'nombre'},
                     {name: 'fecha'},
                     {name: 'action', orderable: false, searchable: false},
 
