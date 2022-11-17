@@ -24,6 +24,7 @@
                             <th>Paciente Apellido</th>
                             <th>Procedencia</th>
                             <th>Fecha</th>
+                            <th>Fecha Conclucion</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -102,11 +103,12 @@
                     {name: 'apellidos'},
                     {name: 'nombre'},
                     {name: 'fecha'},
+                    {name: 'fecha_conclucion'},
                     {name: 'action', orderable: false, searchable: false},
 
                 ],
                 "pagingType": "full_numbers",
-                "order": [[ 3, "desc" ]],
+                "order": [[ 5, "desc" ]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

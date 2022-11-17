@@ -33,6 +33,7 @@
                             <th>Procedencia</th>
                             <th>Imprimir Firma</th>
                             <th>Fecha</th>
+                            <th>Fecha Conclucion</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -165,11 +166,12 @@
                         }},
 
                     {name: 'fecha'},
+                    {name: 'fecha_conclucion'},
                     {name: 'actionAdmin', orderable: false, searchable: false},
 
                 ],
                 "pagingType": "full_numbers",
-                "order": [[ 3, "desc" ]],
+                "order": [[ 7, "desc" ]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

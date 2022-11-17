@@ -27,12 +27,14 @@ class InvitadoAnalisis extends Model
         return $query->
         join('analisis', 'analisis.id', 'invitados_analisis.analisis_id')->
         join('instituciones', 'analisis.procedencia', '=', 'instituciones.id')->
-        join('persons', 'analisis.person_id', '=', 'persons.id')->
-        select(
-            'analisis.id', 'analisis.codigo', 'analisis.tipo_analisis',
-            'analisis.fecha', 'persons.nombres', 'persons.apellidos',
-            'persons.apellido_materno', 'analisis.imprimir_firma',
-            'instituciones.nombre', 'analisis.doctor');
+        join('persons', 'analisis.person_id', '=', 'persons.id')
+            ->select(\DB::raw('analisis.id, analisis.codigo, analisis.tipo_analisis, analisis.fecha, persons.nombres, persons.apellidos, persons.apellido_materno, analisis.imprimir_firma, instituciones.nombre, analisis.doctor, (select DATE_FORMAT(MAX(ec.created_at), \'%Y-%m-%d\') from editar_controles ec where ec.analisis_id=analisis.id) as fecha_conclucion'));
+//        select(
+//            'analisis.id', 'analisis.codigo', 'analisis.tipo_analisis',
+//            'analisis.fecha', 'persons.nombres', 'persons.apellidos',
+//            'persons.apellido_materno', 'analisis.imprimir_firma',
+//            'instituciones.nombre', 'analisis.doctor',
+//            '(select MAX(ec.created_at) from editar_controles ec where ec.analisis_id=analisis.id) as fecha_conclucion');
     }
 
     /**
