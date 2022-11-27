@@ -20,6 +20,24 @@
             </div>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="s_nombres">Nombres</label>
+                        <input type="text" name="s_nombres" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="apellido_pa">Apellido Paterno</label>
+                        <input type="text" name="apellidos_pa" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
             <div class="table-full-width table-responsive">
                 <div class="table-responsive">
                     <table id="tAnalisisInvitadosAdmin" class="table table-clinica">
@@ -157,8 +175,8 @@
                 columns: [
                     {name: 'codigo'},
                     {name: 'tipo_analisis'},
-                    {name: 'nombres'},
-                    {name: 'apellidos'},
+                    {name: 'nombres', searchable: true},
+                    {name: 'apellidos', searchable: true},
                     {name: 'doctor'},
                     {name: 'nombre'},
                     {name: 'imprimir_firma', render: function (data, type, row, meta) {
@@ -195,6 +213,17 @@
             });
 
 
+            $('input[name="s_nombres"]').on( 'keyup', function () {
+                table.column(2).search(
+                    $(this).val()
+                ).draw();
+            } );
+
+            $('input[name="apellidos_pa"]').on( 'keyup', function () {
+                table.column(3).search(
+                    $(this).val()
+                ).draw();
+            } );
 
         });
 

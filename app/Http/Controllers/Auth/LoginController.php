@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
@@ -42,9 +43,14 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        $urlExternal = false;
+        if(Auth::user()->hasAnyRoles(['invitado'])){
+            $urlExternal = true;
+        }
         $this->guard()->logout();
-
         $request->session()->invalidate();
+        if($urlExternal)
+            return redirect()->away('https://laboratorio-cdcc.online/');
 
         return $this->loggedOut($request) ?: redirect('/login');
     }

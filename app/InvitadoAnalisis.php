@@ -15,6 +15,10 @@ class InvitadoAnalisis extends Model
         'analisis_id'
     ];
 
+    public function analisis(){
+        return $this->belongsTo('App\Analisis');
+    }
+
     /**
      * Join roles to base users table.
      * Assumes roles -> users is a one-to-many relationship

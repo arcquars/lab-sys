@@ -57,11 +57,26 @@ class InvitadoAdminController extends Controller
      */
     public function getDatatablesData(Request $request)
     {
-        $userId = $columns = $request->post('user_id');
+        $userId = $request->post('user_id');
+        $columns = $request->post('columns');
 
-        return Laratables::recordsOf(InvitadoAnalisis::class, function($query) use ($userId){
+        $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
+        $searchApellido = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
+
+//        dd($searchNombres);
+//        die();
+        return Laratables::recordsOf(InvitadoAnalisis::class, function($query) use ($userId, $searchNombres, $searchApellido){
             return $query->where('invitados_analisis.user_id', $userId)
-                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA);
+                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+                ->whereHas('analisis', function($q) use ($searchNombres, $searchApellido)
+                {
+                    $q->whereHas('person', function($q1) use ($searchNombres, $searchApellido)
+                    {
+                        $q1->where('nombres', 'like', '%'.$searchNombres.'%')
+                            ->where('apellidos', 'like', '%'.$searchApellido.'%');
+//                        $q1->orWhere('apellidos', 'like', '%'.$searchApellido.'%');
+                    });
+                });
         });
     }
 
