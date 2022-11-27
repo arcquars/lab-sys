@@ -319,6 +319,7 @@
                 serverSide: true,
                 // processing: true,
                 responsive: true,
+                bFilter: false,
                 // deferRender: true,
                 // bFilter: false,
                 ajax: "{{ route('simple_datatables_persons_data') }}",

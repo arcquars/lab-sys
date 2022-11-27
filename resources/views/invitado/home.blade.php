@@ -12,7 +12,24 @@
             </div>
         </div>
         <div class="card-body">
-
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="s_nombres">Nombres</label>
+                        <input type="text" name="s_nombres" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="apellido_pa">Apellido Paterno</label>
+                        <input type="text" name="apellidos_pa" class="form-control form-control-sm">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                </div>
+            </div>
             <div class="table-full-width table-responsive">
                 <div class="table-responsive">
                     <table id="tAnalisisInvitados" class="table table-clinica">
@@ -33,38 +50,6 @@
             </div>
             <hr>
 
-
-
-
-
-{{--            <div class="table-full-width table-responsive">--}}
-{{--                <table id="tAnalisisInvitadosB" class="table table-hover">--}}
-{{--                    <thead>--}}
-{{--                    <tr>--}}
-{{--                        <th>Codigo</th>--}}
-{{--                        <th>Tipo</th>--}}
-{{--                        <th>Paciente</th>--}}
-{{--                        <th>Fecha</th>--}}
-{{--                        <th>Acciones</th>--}}
-{{--                    </tr>--}}
-{{--                    </thead>--}}
-{{--                    <tbody>--}}
-{{--                    @foreach ($analisis as $a)--}}
-{{--                        <tr data-id="{{$a->id}}">--}}
-{{--                            <td>{{$a->codigo}}</td>--}}
-{{--                            <td>{{$a->tipo_analisis}}</td>--}}
-{{--                            <td>{{$a->nombres}} {{$a->apellidos}} {{$a->apellido_materno}}</td>--}}
-{{--                            <td>{{$a->fecha}}</td>--}}
-{{--                            <td>--}}
-{{--                                <a href="{{route('analisis.open.esultado.pdf', array('analisisId' => base64_encode($a->id)))}}"--}}
-{{--                                   class="btn btn-primary btn-sm" title="Archivo pdf" target="_blank"--}}
-{{--                                   ><i class="fas fa-file-pdf"></i></a>--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                    @endforeach--}}
-{{--                    </tbody>--}}
-{{--                </table>--}}
-{{--            </div>--}}
         </div>
     </div>
 </div>
@@ -99,11 +84,11 @@
                 columns: [
                     {name: 'codigo'},
                     {name: 'tipo_analisis'},
-                    {name: 'nombres'},
-                    {name: 'apellidos'},
+                    {name: 'nombres', searchable: true},
+                    {name: 'apellidos', searchable: true},
                     {name: 'nombre'},
                     {name: 'fecha'},
-                    {name: 'fecha_conclucion'},
+                    {name: 'fecha_conclucion', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false},
 
                 ],
@@ -130,6 +115,19 @@
                     }
                 },
             });
+
+
+            $('input[name="s_nombres"]').on( 'keyup', function () {
+                table.column(2).search(
+                    $(this).val()
+                ).draw();
+            } );
+
+            $('input[name="apellidos_pa"]').on( 'keyup', function () {
+                table.column(3).search(
+                    $(this).val()
+                ).draw();
+            } );
         });
     </script>
 @endpush
