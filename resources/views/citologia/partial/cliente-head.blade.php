@@ -8,9 +8,6 @@
     </dd>
     <dt class="col-md-3">Enviado por (Doctor):</dt>
     <dd class="col-md-3">{{$analisis->doctor}}
-        @if(strcmp($analisis->doctor, 'SIN DOCTOR') == 0)
-            <a href="#" onclick="openModalChangeDoctor()" class="btn btn-link text-success"><i class="fas fa-user-secret fa-2x"></i></a>
-        @endif</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Procedencia:</dt>
@@ -165,6 +162,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <p class="text-success">Este análisis esta sin un paciente asignado. Por favor asigne o cree uno.</p>
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label>Nombres <span class="text-danger">*</span></label>
@@ -269,6 +267,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        @if($analisis->person->isSisNombreApellido())
+        openModalChangePasiente('{{$analisis->id}}');
+        @endif
 
         var form = $('#mEditarCosto form');
         $(form).submit(function( event ) {
@@ -463,7 +465,8 @@
             },
             success: function (data) {
                 if (data.success) {
-                    location.reload();
+                    // location.reload();
+                    window.location.replace("{{ route('analisis.edit', $analisis) }}");
                 } else {
                     alert(data.errors);
                 }
@@ -491,7 +494,8 @@
                 },
                 success: function (data) {
                     if (data.success) {
-                        location.reload();
+                        // location.reload();
+                        window.location.replace("{{ route('analisis.edit', $analisis) }}");
                     } else {
                         alert(data.errors);
                     }

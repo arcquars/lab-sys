@@ -156,7 +156,7 @@
                 serverSide: true,
                 processing: true,
                 responsive: true,
-                bFilter: false,
+                // bFilter: false,
                 // deferRender: true,
                 ajax: {
                     url: "{{ route('invitadoadmin.simple.datatables.analisis.data') }}",
@@ -211,6 +211,9 @@
                         "previous": "Anterior"
                     }
                 },
+                "initComplete": function (settings) {
+                    $('.dataTables_filter').css('visibility', 'hidden');
+                }
             });
 
 

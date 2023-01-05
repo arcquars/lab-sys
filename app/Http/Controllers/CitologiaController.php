@@ -310,6 +310,18 @@ class CitologiaController extends Controller
         $analisis->tipo_analisis = $tipo;
         $analisis->save();
 
+        $resultados = Resultado::where('analisis_id', $analisisId)->first();
+        if(strcmp($tipo, Analisis::CITOLOGIA) == 0 && !isset($resultados)){
+            $resultado = new Resultado();
+            $resultado->papanicolaou_clase1 = "";
+            $resultado->papanicolaou_clase2 = "";
+            $resultado->observaciones1 = "";
+            $resultado->observaciones2 = "";
+            $resultado->analisis_id = $analisisId;
+            $resultado->user_id = auth()->id();
+            $resultado->save();
+        }
+
         return response()->json(['success' => true, 'tipo_analisis' => $analisis->tipo_analisis]);
     }
 }

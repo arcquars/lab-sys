@@ -869,7 +869,7 @@ use \App\Helpers\HelperConfig;
     @if ($nuevoAnalisis)
         <!-- Modal Elegir tipo de analisis -->
         <div class="modal" id="tipoAnalisisModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <form id="tipoAnalisisForm">
                         <div class="modal-header">
@@ -904,6 +904,10 @@ use \App\Helpers\HelperConfig;
     <script>
         $(document).ready(function () {
             @if ($nuevoAnalisis)
+            if($('#mCambiarPaciente').hasClass('show')){
+                $('#mCambiarPaciente').modal('hide');
+            }
+
             $("#tipoAnalisisModal").modal("show");
             @endif
 
@@ -919,39 +923,36 @@ use \App\Helpers\HelperConfig;
 
             $("#tipoAnalisisForm").submit(function (event) {
                 event.preventDefault();
-                var riKey = $("#tipoAnalisisForm select[name=tipo]");
-                if($(riKey).val() === '{{\App\Analisis::CITOLOGIA}}') {
-                    $('#tipoAnalisisModal').modal('hide');
-                } else {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('citologia.asettipo') }}",
+                    type: 'POST',
+                    dataType : 'json',
+                    data: $('#tipoAnalisisForm').serialize(),
+                    success: function (data) {
+                        // alert(data.tipo_analisis);
+                        if(data.tipo_analisis === '{{ \App\Analisis::LIQUIDOS }}'){
+                            window.location.href = "{{ url('/liquidos/crear/'.$analisis->id) }}";
+                        } else if(data.tipo_analisis === '{{ \App\Analisis::BETHESDA }}') {
+                            window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
+                        } else {
+                            window.location.href = "{{ url('/citologia/crear/'.$analisis->id) }}";
                         }
-                    });
-                    $.ajax({
-                        url: "{{ route('citologia.asettipo') }}",
-                        type: 'POST',
-                        dataType : 'json',
-                        data: $('#tipoAnalisisForm').serialize(),
-                        success: function (data) {
-                            // alert(data.tipo_analisis);
-                            if(data.tipo_analisis === '{{ \App\Analisis::LIQUIDOS }}'){
-                                window.location.href = "{{ url('/liquidos/crear/'.$analisis->id) }}";
-                            } else {
-                                window.location.href = "{{ url('/bethesda/crear/'.$analisis->id) }}";
-                            }
-                        },
-                        beforeSend: function(xhr, status){
-                         // Handle the beforeSend event
-                        },
-                        complete: function(xhr, status){
-                         // Handle the complete event
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            printErrorMsg($("#fcrearinstitucion"), JSON.parse(XMLHttpRequest.responseText));
-                        }
-                    });
-                }
+                    },
+                    beforeSend: function(xhr, status){
+                        // Handle the beforeSend event
+                    },
+                    complete: function(xhr, status){
+                        // Handle the complete event
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        printErrorMsg($("#fcrearinstitucion"), JSON.parse(XMLHttpRequest.responseText));
+                    }
+                });
             });
 
             $("#reacInflaForm").submit(function (event) {

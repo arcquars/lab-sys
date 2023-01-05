@@ -477,8 +477,10 @@ class AnalisisController extends Controller
 
     public function ajaxGenerarRango(Request $request){
         $convenios = explode(',', Config::get('clinica.convenios_id'));
+        $institucionParticular = Institucion::where('nombre', 'PERSONA PARTICULAR')->first();
+        $convenios[] = $institucionParticular->id;
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
-        $procedencias = Institucion::whereIn('id', $convenios)->get();
+        $procedencias = Institucion::whereNotIn('id', $convenios)->get();
         return response()->json(['success' => '1', 'tipoAnalisis' => $tipoAnalisis, 'procedencia' => $procedencias]);
     }
 

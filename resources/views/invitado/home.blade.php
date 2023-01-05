@@ -114,6 +114,9 @@
                         "previous": "Anterior"
                     }
                 },
+                "initComplete": function (settings) {
+                    $('.dataTables_filter').css('visibility', 'hidden');
+                }
             });
 
 

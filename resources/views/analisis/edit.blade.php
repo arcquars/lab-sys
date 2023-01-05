@@ -50,19 +50,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="doctor">Doctor que envia</label>
-                                <input type="text" name="doctor"
-                                       class="form-control @error('doctor') is-invalid @enderror"
-                                       onkeyup="uppercaseInput(this);"
-                                       value="{{old('doctor', $analisis->doctor)}}">
-                                @error('doctor')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <label for="procedencia">Procedencia</label>
                             <select id="s_procedencia" name="procedencia" onchange="fntBanca(this);" class="form-control @error('procedencia') is-invalid @enderror">
                                 @if(old('procedencia'))
@@ -87,6 +75,30 @@
                             @error('procedencia')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="doctor">Doctor que envia</label>
+                                <input type="text" name="doctor"
+                                       class="form-control @error('doctor') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
+                                       value="{{old('doctor', $analisis->doctor)}}">
+                                @error('doctor')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="region">Region de analisis</label>
+                                <input type="text" name="region"
+                                       class="form-control @error('region') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
+                                       value="{{@old('region', $analisis->region)}}">
+                                @error('region')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     @include('analisis.includes.convenio')
@@ -147,6 +159,30 @@
                                    value="{{@old('nit', $analisis->nit)}}"
                             >
                             @error('nit')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="precio">Precio</label>
+                                <input type="number" name="precio" class="form-control @error('precio') is-invalid @enderror"
+                                       value="{{@old('precio', $analisis->precio)}}"
+                                       min="0" max="10000"
+                                >
+                                @error('precio')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="acuenta">Acuenta</label>
+                            <input type="number" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
+                                   value="{{@old('acuenta', $analisis->acuenta)}}"
+                                   min="0" max="10000"
+                            >
+                            @error('acuenta')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
