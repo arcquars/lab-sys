@@ -866,37 +866,6 @@ use \App\Helpers\HelperConfig;
         </div>
     </div>
 
-    @if ($nuevoAnalisis)
-        <!-- Modal Elegir tipo de analisis -->
-        <div class="modal" id="tipoAnalisisModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <form id="tipoAnalisisForm">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="tipoAModalLabel">Establecer Tipo de analisis</h5>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <select class="form-control" name="tipo" required>
-                                        <option value="">Seleccione ...</option>
-                                        <option value="{{\App\Analisis::CITOLOGIA}}">{{\App\Analisis::CITOLOGIA}}</option>
-                                        <option value="{{\App\Analisis::BETHESDA}}">{{\App\Analisis::BETHESDA}}</option>
-                                        <option value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary align-right">Establecer</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endif
 @endsection
 
 @push('js')

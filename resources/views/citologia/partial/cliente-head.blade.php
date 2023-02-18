@@ -58,7 +58,12 @@
 <div class="row">
     <div class="col-md-12">
         @can('manage-users')
-        <button type="button"
+            @if(strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::LIQUIDOS) == 0)
+            <button type="button"
+                    class="btn btn-outline-info" data-toggle="modal"
+                    data-target="#tipoAnalisisModal">Tipo de análisis</button>
+            @endif
+            <button type="button"
                 class="btn btn-outline-info" data-toggle="modal"
                 data-target="#mEditarCosto">Editar Precio</button>
         <a href="{{ route('analisis.lista.impresion', $analisis) }}"
@@ -253,6 +258,37 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">Grabar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Elegir tipo de analisis -->
+<div class="modal" id="tipoAnalisisModal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="tipoAnalisisForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tipoAModalLabel">Establecer Tipo de analisis</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" value="{{$analisis->id}}" name="analisis_id">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control" name="tipo" required>
+                                <option value="">Seleccione ...</option>
+                                <option value="{{\App\Analisis::CITOLOGIA}}">{{\App\Analisis::CITOLOGIA}}</option>
+                                <option value="{{\App\Analisis::BETHESDA}}">{{\App\Analisis::BETHESDA}}</option>
+                                <option value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ url()->previous() }}" class="btn btn-dark">Atras</a>
+                    <button type="submit" class="btn btn-primary align-right">Establecer</button>
                 </div>
             </form>
         </div>
