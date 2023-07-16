@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserPost;
+use App\InvitadoAnalisis;
+use App\InvitadoAsignaciones;
 use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Gate;
@@ -136,6 +138,10 @@ class UsersController extends Controller
         if(Gate::denies('delete-users')){
             return redirect(route('admin.users.index'));
         }
+
+        InvitadoAnalisis::where('user_id', $id)->delete();
+        InvitadoAsignaciones::where('user_id', $id)->delete();
+
         $user = User::find($id);
         $user->roles()->detach();
         $user->delete();

@@ -324,4 +324,54 @@ class CitologiaController extends Controller
 
         return response()->json(['success' => true, 'tipo_analisis' => $analisis->tipo_analisis]);
     }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function ajaxGetSubtitulo(Request $request){
+        $analisisId = $request->post('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $subTitulo = false;
+        if(strcmp($analisis->tipo_analisis, Analisis::CITOLOGIA) == 0){
+            $resultado = Resultado::where('analisis_id', $analisisId)->first();
+            if(isset($resultado)){
+                $subTitulo = $resultado->subtitulo;
+            }
+        } else {
+            $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
+            if(isset($bethesda)){
+                $subTitulo = $bethesda->subtitulo;
+            }
+        }
+        return response()->json(['success' => true, 'subtitulo' => $subTitulo]);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function ajaxSetSubtitulo(Request $request){
+        $analisisId = $request->post('analisis_id');
+        $subtitulo = $request->post('subtitulo');
+        $analisis = Analisis::find($analisisId);
+
+        if(strcmp($analisis->tipo_analisis, Analisis::CITOLOGIA) == 0){
+            $resultado = Resultado::where('analisis_id', $analisisId)->first();
+            if(strcmp($subtitulo, "true") == 0){
+                $resultado->subtitulo = true;
+            } else {
+                $resultado->subtitulo = false;
+            }
+            $resultado->save();
+        } else {
+            $bethesda = Bethesda::where('analisis_id', $analisisId)->first();
+            if(strcmp($subtitulo, "true") == 0){
+                $bethesda->subtitulo = true;
+            } else {
+                $bethesda->subtitulo = false;
+            }
+            $bethesda->save();
+        }
+
+        return response()->json(['success' => true]);
+    }
 }

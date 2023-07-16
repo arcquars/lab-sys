@@ -1,6 +1,9 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
 <h3 class="h4-cito-1" style="text-align: center;">INFORME CITOLOGICO</h3>
+@if($resultados->subtitulo)
+    <h4 style="color: #012035; text-align: center; padding: 0; margin: 0;">{{ \App\Resultado::SUBTITULO }}</h4>
+@endif
 <div style="height: 4px;"></div>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>

@@ -88,6 +88,15 @@
                         </label>
                     </div>
         @endcan
+            @if(strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0)
+                <div class="form-check" style="display: inline;">
+                    <label class="form-check-label">
+                        <input id="iCitoSubtitulo" name="citoSubtitulo" class="form-check-input" type="checkbox" value="1"  onchange="setCitoSubtitulo(this);">
+                        <span class="form-check-sign form-check-sign-black" ></span>
+                        Subtítulo
+                    </label>
+                </div>
+            @endif
     </div>
 </div>
 <div id="mEditarCosto" class="modal" tabindex="-1" role="dialog">
@@ -307,7 +316,10 @@
         @if($analisis->person->isSisNombreApellido())
         openModalChangePasiente('{{$analisis->id}}');
         @endif
-
+            @if(strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0)
+            // pdm implementar aqui cito subtitulo
+        getCitoSubtitulo();
+            @endif
         var form = $('#mEditarCosto form');
         $(form).submit(function( event ) {
             let precio = $('#mEditarCosto form input[name="precio"]').val();
@@ -556,6 +568,52 @@
                 } else {
                     alert(data.errors);
                 }
+            }
+        });
+    }
+
+    function getCitoSubtitulo(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('citologia.agetsubtitulo') }}",
+            type: 'POST',
+            data: {analisis_id: '{{$analisis->id}}'},
+            success: function (data) {
+                if(data.subtitulo){
+                    $("#iCitoSubtitulo").prop("checked", true)
+                } else {
+                    $("#iCitoSubtitulo").prop("checked", false)
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+    function setCitoSubtitulo(check){
+        subtitulo = $(check).is(':checked');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('citologia.asetsubtitulo') }}",
+            type: 'POST',
+            data: {
+                analisis_id: '{{$analisis->id}}',
+                subtitulo
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
             }
         });
     }

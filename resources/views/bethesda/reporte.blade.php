@@ -1,6 +1,9 @@
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
 <h3 class="h4-cito" style='text-align: center;'>INFORME CITOLOGICO - SISTEMA BETHESDA</h3>
+@if($bethesda->subtitulo)
+    <h4 style="color: #012035; text-align: center; padding: 0; margin: 0;">{{ \App\Resultado::SUBTITULO }}</h4>
+@endif
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
 <h4 class="h4-cito">CELULAS OBSERVADAS</h4>

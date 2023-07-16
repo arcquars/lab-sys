@@ -78,43 +78,7 @@ class InvitadoAnalisis extends Model
     }
 
     public static function refreshAnalisisDoctor($userId){
-        $doctoresAsignado = DB::table('invitados_analisis')
-            ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-            ->where('invitados_analisis.user_id', '=', $userId)
-            ->distinct()->select('analisis.doctor')->orderBy('analisis.doctor')->get();
-
         $fechaActual = Carbon::now();
-//        foreach ($doctoresAsignado as $da){
-//            // Obtener analisis ya asignados
-//            $invitadoAnalisis = DB::table('invitados_analisis')
-//                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-//                ->where('invitados_analisis.user_id', '=', $userId)
-//                ->where('analisis.doctor', '=', $da->doctor)
-//                ->select('analisis.id')->get();
-//            $anaId = [];
-//            foreach ($invitadoAnalisis as $as){
-//                $anaId[] = $as->id;
-//            }
-//            // Obtener fecha maxima asignado a un doctor
-//            $analisisMaxFecha = DB::table('invitados_analisis')
-//                ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-//                ->where('invitados_analisis.user_id', '=', $userId)
-//                ->where('analisis.doctor', '=', $da->doctor)
-//                ->max('analisis.fecha');
-//
-//
-////            echo $analisisMaxFecha . ' || ' . $fechaActual->format('Y-m-d').' || ';
-//            $analisis = Analisis::where('doctor', 'like', $da->doctor)
-//                ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
-//                ->whereNotIn('id', $anaId)
-//                ->get();
-//
-//            foreach ($analisis as $a){
-//                DB::table('invitados_analisis')->insert(
-//                    ['user_id' => $userId, 'analisis_id' => $a->id]
-//                );
-//            }
-//        }
 
         $invitadoAsignados = InvitadoAsignaciones::where('user_id', '=', $userId)->get();
         foreach ($invitadoAsignados as $ia) {

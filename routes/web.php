@@ -99,6 +99,8 @@ Route::post('/citologia/resultadosedit', 'CitologiaController@resultadosEdit')->
 Route::get('/citologia/view/{analisisId}', 'CitologiaController@viewResultado')->name('citologia.viewResultado');
 Route::get('/citologia/reporte/{analisisId}', 'CitologiaController@reporte')->name('citologia.reporte');
 Route::post('/citologia/setTipo', 'CitologiaController@ajaxSetTipo')->name('citologia.asettipo');
+Route::post('/citologia/get-subtitulo', 'CitologiaController@ajaxGetSubtitulo')->name('citologia.agetsubtitulo');
+Route::post('/citologia/set-subtitulo', 'CitologiaController@ajaxSetSubtitulo')->name('citologia.asetsubtitulo');
 
 Route::get('/biopsia/crear/{analisisId}/{is_histopatologico}', 'BiopsiaController@create')->name('biopsia.crear');
 Route::post('/biopsia/save', 'BiopsiaController@store')->name('biopsia.save');

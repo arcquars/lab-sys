@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resultado extends Model
 {
+    const SUBTITULO = "TÉCNICA: BASE LÍQUIDA";
     protected $table = 'resultados';
 
     protected $fillable = [
