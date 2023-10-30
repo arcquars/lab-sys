@@ -22,6 +22,11 @@
     <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante con firma del doctor">
         <i class="fas fa-file-pdf text-success"></i>
     </a>
+
+    <a href="#" class="btn btn-link float-right btn-clinica" onclick="openModalFechaCierre({{$id}}); return false;" title="Cerrar análisis y actualizar la fecha de entrega">
+        <i class="far @if(isset($fechaCierre)) fa-check-square @else fa-square @endif" ></i>
+    </a>
+
     @else
         <a href="{{route($printAnalisis, ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante sin firma del doctor">
             <i class="fas fa-file-pdf text-danger"></i>

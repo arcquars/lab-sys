@@ -90,14 +90,14 @@
     <tr>
         <td width="25%"><p class="p-datos">{!! $reacInflaAusente !!}</p></td>
         <td width="25%"><p class="p-datos">{!! $reacInflaLeve !!}</p></td>
-        <td width="25%"><p class="p-datos">{!! $reacInflaVagina !!}</p></td>
-        <td width="25%"><p class="p-datos">{!! $reacInflaEndocervix !!}</p></td>
+{{--        <td width="25%"><p class="p-datos">{!! $reacInflaVagina !!}</p></td>--}}
+{{--        <td width="25%"><p class="p-datos">{!! $reacInflaEndocervix !!}</p></td>--}}
     </tr>
     <tr>
         <td width="25%"></td>
         <td width="25%"><p class="p-datos">{!! $reacInflaModerada !!}</p></td>
-        <td width="25%"><p class="p-datos">{!! $reacInflaCervix !!}</p></td>
-        <td width="25%"><p class="p-datos">{!! $reacInflaOtros !!}</p></td>
+{{--        <td width="25%"><p class="p-datos">{!! $reacInflaCervix !!}</p></td>--}}
+{{--        <td width="25%"><p class="p-datos">{!! $reacInflaOtros !!}</p></td>--}}
     </tr>
     <tr>
         <td width="25%"></td>

@@ -12,6 +12,7 @@ use App\Resultado;
 use App\Seccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Milon\Barcode\DNS2D;
 use PDF;
 
@@ -259,6 +260,8 @@ class CitologiaController extends Controller
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
         $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+//        $pathQr = null;
+        Log::info('PDM '.__METHOD__." :: ".$pathQr);
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
@@ -295,6 +298,7 @@ class CitologiaController extends Controller
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
         $pdf->mpdf->WriteHTML($stylesheet,1);
+        $pdf->mpdf->curlAllowUnsafeSslRequests = true;
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }

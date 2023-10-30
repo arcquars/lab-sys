@@ -47,7 +47,7 @@ class QrController
         $id = base64_decode($analisisId);
         $analisis = Analisis::find($id);
         if($analisis->fecha_cierre == null){
-            Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis y se actualizo la fecha de entrega.');
+            Session::flash('flash_message', '<b>Actualizacíon!</b> se cerro el analisis y se actualizo la fecha de entrega.');
             Session::flash('flash_type', 'success');
             $analisis->fecha_cierre = Carbon::now();
             $analisis->fecha_entrega = Carbon::now();

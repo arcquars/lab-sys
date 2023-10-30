@@ -884,7 +884,7 @@ class AnalisisController extends Controller
 
         $analisis = Analisis::find($analisisId);
         if($analisis->fecha_cierre == null){
-            Session::flash('flash_message', '<b>Acualizo!</b> se cerro el analisis.');
+            Session::flash('flash_message', '<b>Actualizo!</b> se cerro el analisis.');
             Session::flash('flash_type', 'success');
             $analisis->fecha_cierre = Carbon::now();
             $analisis->update();
@@ -893,8 +893,27 @@ class AnalisisController extends Controller
             Session::flash('flash_type', 'info');
         }
 
-//        dd('eee');
         return redirect()->route('analisis.home');
-//        return view('analisis.cerrar_analisis');
+    }
+
+    public function ajaxFormFechaCierre(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $update = false;
+        if($analisis->fecha_cierre == null){
+            $update = true;
+        }
+        return response()->view('analisis._form_fecha_cierre', compact('analisis', 'update'));
+    }
+
+    public function ajaxSaveFechaCierre(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $update = false;
+        $analisis->fecha_cierre = Carbon::now();
+        $analisis->fecha_entrega = Carbon::now();
+        $analisis->persona_entrega = 'Registrado por QR';
+        $analisis->update();
+        return response()->json(['success' => true]);
     }
 }

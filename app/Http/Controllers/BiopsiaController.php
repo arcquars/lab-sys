@@ -162,7 +162,8 @@ class BiopsiaController extends Controller
     function reporte($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+//        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+        $pathQr = null;
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 

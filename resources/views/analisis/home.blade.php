@@ -12,7 +12,9 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
+            @can('manage-users')
             <button class="btn btn-success" data-toggle="modal" data-target="#crearAnalisisRangoModal">Crear rango de analisis</button>
+            @endcan
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -402,6 +404,23 @@
                         <button type="submit" class="btn btn-primary">Crear rango</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cerrar Analisis -->
+    <div class="modal fade" id="fechaCierreModal" tabindex="-1" role="dialog" aria-labelledby="fcModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fcModalLabel">Cerrar análisis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
             </div>
         </div>
     </div>
@@ -898,6 +917,30 @@
                 success: function (data) {
                     $('#tAnalisis').DataTable().ajax.reload();
                     $("#crearAnalisisRangoModal").modal('hide');
+                },
+            });
+        }
+
+        function openModalFechaCierre(analisisId){
+            $.ajax({
+                url: "{{ route('analisis.model.fecha.cierre') }}",
+                type: 'POST',
+                data: {analisis_id: analisisId},
+                success: function (data) {
+                    $("#fechaCierreModal .modal-body").empty().append(data);
+                    $("#fechaCierreModal").modal('show');
+                },
+            });
+        }
+
+        function saveFechaCierre(analisisId){
+            $.ajax({
+                url: "{{ route('analisis.save.fecha.cierre') }}",
+                type: 'POST',
+                data: {analisis_id: analisisId},
+                success: function (data) {
+                    $("#fechaCierreModal").modal('hide');
+                    $('#tAnalisis').DataTable().ajax.reload();
                 },
             });
         }

@@ -42,11 +42,11 @@ return [
     'reac_inflamatoria' => [
         'AUSENTE',
         'LEVE',
-        'VAGINA',
-        'ENDOCERVIX',
+//        'VAGINA',
+//        'ENDOCERVIX',
         'MODERADA',
-        'CERVIX',
-        'OTROS',
+//        'CERVIX',
+//        'OTROS',
         'ACENTUADA',
     ],
     'estudio_microbiologico' => [
