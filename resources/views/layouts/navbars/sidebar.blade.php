@@ -146,6 +146,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Analisis</p>
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'marcadores') active @endif">
+                    <a class="nav-link" href="{{route('marcador.index')}}">
+                        <i class="fas fa-highlighter fa-lg"></i>
+                        <p>Marcadores</p>
+                    </a>
+                </li>
             @endcan
             @cannot('manage-users-no-tecnico')
             <li class="nav-item @if($activePage == 'reportetecnico') active @endif">

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -180,8 +180,13 @@ Route::get('/gastos/index', 'GastoController@index')->name('gastos.home');
 Route::post('/gastos/ajaxcreategasto','GastoController@ajaxCreateGasto')->name('gastos.createGasto');
 Route::get('/gastos/datatables-gastos', 'GastoController@getDatatablesGasto')->name('gasto.datatables_gastos');
 
-Route::resource('marcador', 'MarcadorController');
+Route::resource('/marcador', 'MarcadorController');
 Route::post('/marcador/ajaxsave','DoctorController@ajaxSave')->name('marcador.ajaxsave');
+Route::post('/marcador/store-marker','MarcadorController@aStore')->name('marcador.astore');
+Route::post('/marcador/delete-marker','MarcadorController@aDelete')->name('marcador.adelete');
+Route::get('/market/datatables-marcadores', 'MarcadorController@getDatatablesMarkets')->name('marcador.datatables_marcadores');
+Route::post('/marcador/ajaxgetmarker','MarcadorController@ajaxGetMarker')->name('marcador.getmarket');
+Route::post('/marcador/aSearchMarker', 'MarcadorController@ajaxSearchMarker')->name('marker.asearch');
 
 Route::post('/texto-predefinido/ajaxgettexto','TextoPredefinidoController@ajaxGetTexto')->name('textopredefinido.agettexto');
 Route::post('/texto-predefinido/ajax-crear-text','TextoPredefinidoController@ajaxCreateTexto')->name('textopredefinido.acreatetexto');

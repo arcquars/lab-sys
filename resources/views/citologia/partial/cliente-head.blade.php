@@ -18,7 +18,7 @@
 <dl class="row row-citologia">
     <dt class="col-md-3">Sexo:</dt>
     <dd class="col-md-3">{{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</dd>
-    <dt class="col-md-3">Codigo:</dt>
+    <dt class="col-md-3">Código:</dt>
     <dd class="col-md-3">{{$analisis->codigo}}</dd>
 </dl>
 <dl class="row row-citologia">

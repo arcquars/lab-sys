@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHistoPost extends FormRequest
+class StoreMarkerPost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,14 @@ class StoreHistoPost extends FormRequest
      */
     public function rules()
     {
+        $id = $this->input('id');
+        $roleName = 'required|min:5|max:200|unique:markers,name';
+        if(isset($id)){
+            $roleName = 'required|min:5|max:200|unique:markers,name,'.$id.',id';
+        }
         return [
-            'interpretacion' => 'nullable|string|max:30000',
-            'tecnica' => 'nullable|string|max:30000',
-            'bibliografia' => 'nullable|string|max:30000',
-            'region' => 'required'
+            'name' => $roleName,
+            'description' => 'nullable|min:5',
         ];
     }
 }

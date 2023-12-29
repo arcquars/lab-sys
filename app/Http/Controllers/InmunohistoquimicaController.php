@@ -8,6 +8,7 @@ use App\Histoquimica;
 use App\Http\Requests\StoreHistoPost;
 use App\ImpresionControl;
 use App\Marcador;
+use App\Marker;
 use Illuminate\Support\Facades\Auth;
 use Milon\Barcode\DNS2D;
 use PDF;
@@ -27,12 +28,15 @@ class InmunohistoquimicaController extends Controller
     public function create($analisisId)
     {
         $analisis = Analisis::find($analisisId);
+
+        $markers = Marker::where('deleted', 0)->get();
+
         if (strcmp($analisis->tipo_analisis, Analisis::INMUNOHISTOQUIMICA) != 0) {
             return redirect()->action('AnalisisController@index');
         }
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
 
-        return view('histo.crear', compact('analisis', 'histo'));
+        return view('histo.crear', compact('analisis', 'histo', 'markers'));
     }
 
     public function store(StoreHistoPost $request){
@@ -43,7 +47,12 @@ class InmunohistoquimicaController extends Controller
             $histo->interpretacion = $request->post('interpretacion');
             $histo->tecnica = $request->post('tecnica');
             $histo->bibliografia = $request->post('bibliografia');
+            $histo->size_texto_marcadores = $request->post('size_texto_marcadores');
             $histo->user_id = auth()->id();
+
+            $analisis = Analisis::find($request->post('analisis_id'));
+            $analisis->region = $request->post('region');
+            $analisis->save();
 
             if ($files = $request->file('imagen1')) {
                 $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
@@ -86,7 +95,12 @@ class InmunohistoquimicaController extends Controller
             $histo->interpretacion = $request->post('interpretacion');
             $histo->tecnica = $request->post('tecnica');
             $histo->bibliografia = $request->post('bibliografia');
+            $histo->size_texto_marcadores = $request->post('size_texto_marcadores');
             $histo->user_id = auth()->id();
+
+            $analisis = Analisis::find($request->post('analisis_id'));
+            $analisis->region = $request->post('region');
+            $analisis->save();
 
             if ($files = $request->file('imagen1')) {
                 $profilefile = 'imagen1'.date('YmdHis') . "." . $files->getClientOriginalExtension();
@@ -141,11 +155,9 @@ class InmunohistoquimicaController extends Controller
     function reporte($analisisId) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-//        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         $pathQr = null;
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
-//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
         $pdf = PDF::loadView('histo.reporte', compact(
             'analisis', 'histo', 'pathQr'), [], ['marginTop' => 800]);

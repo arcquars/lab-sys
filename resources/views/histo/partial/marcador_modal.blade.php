@@ -13,10 +13,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <select name="marcador" class="form-control">
-                                @foreach(config('clinica.marcadores') as $value)
-                                    <option value="{{$value}}">{{$value}}</option>
-                                @endforeach
+                            <select class="js-example-basic-single js-states form-control" name="marcador" id="js-marker-ajax-id" required  >
+                                @if(!isset($doctor))
+                                    <option value="">Seleccion...</option>
+                                @else
+                                    <option value="{{ $doctor  }}">{{ $doctor  }}</option>
+                                @endif
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -38,11 +40,33 @@
         var form = $('#mdl_marcador form');
         $(form).submit(function( event ) {
             $("#list_marcadores").append(addMarcadorHtml(
-                $(form).find('select[name="marcador"]').val(),
+                // $(form).find('select[name="marcador"]').val(),
+                $('#js-marker-ajax-id').select2('data')[0].text,
                 $(form).find('input[name="resultado"]').val(),
             ));
             $("#mdl_marcador").modal("hide");
             event.preventDefault();
+        });
+
+        const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#js-marker-ajax-id').select2({
+            ajax: {
+                url: '{{ route('marker.asearch') }}',
+                dataType: 'json',
+                type: "post",
+                data: function (params) {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term
+                    }
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+            },
+            width: '100%'
         });
     });
     function addMarcadorHtml(marcador, resultado){

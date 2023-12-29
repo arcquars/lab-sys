@@ -1,6 +1,15 @@
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => \App\Analisis::BIOPSIA_DE_RINON, 'navName' => \App\Analisis::BIOPSIA_DE_RINON, 'activeButton' => 'analisisActiveButton'])
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+        .select2-container--default .select2-selection--single .select2-selection__rendered{
+            line-height: 34px;
+        }
+    </style>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -24,12 +33,19 @@
                 @foreach ($errors->get('bibliografia') as $error)
                     <li>{{ $error }}</li>
                 @endforeach
+                    @foreach ($errors->get('region') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
             </ul>
             <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data" target="_blank">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
 
+                <div class="form-group">
+                    <label for="organo_tejido">Región <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" name="region" id="ta-region" value="{{@old('region', $analisis ? $analisis->region : '')}}">
+                </div>
 
                 <div class="row">
                     <div class="col-md-3 form-group">
@@ -87,7 +103,28 @@
                     <label for="bibliografia">Bibliografia</label>
                     <textarea name="bibliografia" id="ta-bibliografia" class="form-control">{{@old('bibliografia', $histo ? $histo->bibliografia : '')}}</textarea>
                 </div>
-                <label>Añadir Marcado <a href="#" onclick="openMdlMarcador(); return false;"><i class="fas fa-plus-circle"></i></a></label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Añadir Marcado
+                            <a href="#" onclick="openMdlMarcador(); return false;">
+                                <i class="fas fa-plus-circle"></i>
+                            </a>
+                        </label>
+                    </div>
+                    <div class="col-md-6 form-inline d-flex flex-row-reverse">
+                        <div class="form-group ">
+                            <label for="ta-sizetexto">Tamaño Texto&nbsp;</label>
+                            <select name="size_texto_marcadores" id="ta-sizetexto" class="form-control form-control-sm">
+                                <option value="10" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 10) ? 'selected' : '')}}>10</option>
+                                <option value="12" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 12) ? 'selected' : '')}}>12</option>
+                                <option value="14" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 14) ? 'selected' : '')}}>14</option>
+                                <option value="16" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 16) ? 'selected' : '')}}>16</option>
+                                <option value="18" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 18) ? 'selected' : '')}}>18</option>
+                                <option value="20" {{@old('size_texto_marcadores', ($histo && $histo->size_texto_marcadores == 20) ? 'selected' : '')}}>20</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <ul id="list_marcadores">
                 </ul>
                 <br>
@@ -104,11 +141,12 @@
         </div>
     </div>
 
-    @include('histo.partial.marcador_modal')
+    @include('histo.partial.marcador_modal', ['markers' => $markers])
 
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         @if ($histo)

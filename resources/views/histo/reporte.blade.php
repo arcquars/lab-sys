@@ -3,6 +3,8 @@
 <h3 class="h4-cito" style='text-align: center;'>INFORME INMUNOHISTOQUIMICA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
+<h4 class="h4-cito">{{$analisis->region}}</h4>
+<div style="height: 6px;"></div>
 <h4 class="h4-cito" style="text-transform: uppercase;">Interpretación</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
@@ -71,19 +73,30 @@
 <h4 class="h4-cito">MARCADORES UTILIZADOS (clones entre paréntesis) Y RESULTADOS OBTENIDOS:</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
-    <table>
+    <table class="histo_table">
+        <thead>
+        <tr>
+            <th>Marcador</th>
+            <th>Resultado</th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach($histo->marcadores as $marcador)
             <tr>
-                <td style="width: 40%;">
-                    <p style="font-size: 10px; font-weight: 700;">{{$marcador->nombre}}:</p>
+                <td style="width: 50%;">
+                    <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px; font-weight: 700;">{{$marcador->nombre}}:</p>
                 </td>
-                <td style="width: 60%;">
-                    <p style="font-size: 9px;">{{$marcador->resultado}}</p>
+                <td style="width: 50%;">
+                    <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px;">{{$marcador->resultado}}</p>
                 </td>
             </tr>
         @endforeach
+        </tbody>
+
     </table>
 </div>
+<br>
+<br>
 @endif
 <h4 class="h4-cito" style="text-transform: uppercase;">Bibliografía</h4>
 <hr style="margin: 2px 4px;">

@@ -11,7 +11,8 @@ class Histoquimica extends Model
     protected $fillable = [
         'interpretacion',
         'tecnica',
-        'bibliografia'
+        'bibliografia',
+        'size_texto_marcadores'
     ];
 
     public function marcadores(){

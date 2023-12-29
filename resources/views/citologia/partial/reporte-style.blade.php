@@ -159,4 +159,27 @@
     .t_images_4_p{
         font-size: 8px;
     }
+
+    .histo_table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    .histo_table thead tr th {
+        padding: 4px 6px;
+        font-size: 10px !important;
+        background: #AAAAAA;
+    }
+
+    .histo_table tbody tr td {
+        text-align: left;
+        padding: 6px;
+    }
+
+    .histo_table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
 </style>
