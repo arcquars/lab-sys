@@ -23,3 +23,4 @@ yarn-error.log
 /public/temp/*
 /public/img/*
 public/font-awesome/*
+rest-test/*
