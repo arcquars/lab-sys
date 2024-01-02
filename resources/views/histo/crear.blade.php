@@ -44,7 +44,8 @@
 
                 <div class="form-group">
                     <label for="organo_tejido">Región <span style="color: red">*</span></label>
-                    <input type="text" class="form-control" name="region" id="ta-region" value="{{@old('region', $analisis ? $analisis->region : '')}}">
+{{--                    <input type="text" class="form-control" name="region" id="ta-region" value="{{@old('region', $analisis ? $analisis->region : '')}}">--}}
+                    <textarea name="region" id="ta-region" class="form-control">{{@old('region', $analisis ? $analisis->region : '')}}</textarea>
                 </div>
 
                 <div class="row">
@@ -155,6 +156,15 @@
         var numMarcadores = 0;
         @endif
         $(document).ready(function () {
+            tinymce.init({
+                selector: '#ta-region',
+                plugins: "lists autoresize",
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
+                @cannot('manage-users-all') readonly : 1 @endcannot
+            });
             tinymce.init({
                 selector: '#ta-interpretacion',
                 plugins: "lists autoresize",

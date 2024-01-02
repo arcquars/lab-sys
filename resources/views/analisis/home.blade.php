@@ -467,7 +467,25 @@
                                 return data;
                             }
                         }},
-                    {name: 'region', orderable: false},
+                    {name: 'region', orderable: false, "render": function ( data, type, row ) {
+
+                            if(typeof data === "string" &&  data.length === 0){
+                                return '';
+                            } else {
+                                try{
+                                    if($(data).text().length > 19){
+                                        return $(data).text().slice(0, 20) + "...";
+                                    } else {
+                                        return $(data).text();
+                                    }
+                                } catch(err) {
+                                    return data;
+                                }
+
+
+                            }
+                            return data;
+                        }},
                     {name: 'doctorasig.nombres', orderable: false},
                         @can('manage-users')
                     {name: 'institucion.nombre'},

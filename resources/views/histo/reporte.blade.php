@@ -3,11 +3,11 @@
 <h3 class="h4-cito" style='text-align: center;'>INFORME INMUNOHISTOQUIMICA</h3>
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-<h4 class="h4-cito">{{$analisis->region}}</h4>
+<h4 class="h4-cito">{!! $analisis->region !!}</h4>
 <div style="height: 6px;"></div>
 <h4 class="h4-cito" style="text-transform: uppercase;">Interpretación</h4>
 <hr style="margin: 2px 4px;">
-<div class="div-campo">
+<div class="aa">
     {!! $histo->interpretacion !!}
 </div>
 <table style="width: 100%;">

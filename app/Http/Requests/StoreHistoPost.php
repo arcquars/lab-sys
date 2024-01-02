@@ -27,7 +27,7 @@ class StoreHistoPost extends FormRequest
             'interpretacion' => 'nullable|string|max:30000',
             'tecnica' => 'nullable|string|max:30000',
             'bibliografia' => 'nullable|string|max:30000',
-            'region' => 'required'
+            'region' => 'required|max:255   '
         ];
     }
 }

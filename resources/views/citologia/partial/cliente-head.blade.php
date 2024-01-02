@@ -20,7 +20,7 @@
     <dd class="col-md-3">{{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</dd>
     <dt class="col-md-3">Código:</dt>
     <dd class="col-md-3">{{$analisis->codigo}}</dd>
-</dl>
+</dl>markers
 <dl class="row row-citologia">
     <dt class="col-md-3">Fecha de Registro:</dt>
     <dd class="col-md-3">{{(isset($analisis->fecha)? $analisis->fecha->format('Y-m-d'): '--')}}</dd>
@@ -36,7 +36,7 @@
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Región:</dt>
-    <dd class="col-md-3">{{$analisis->region}}</dd>
+    <dd class="col-md-3">{{ strip_tags($analisis->region) }}</dd>
     <dt class="col-md-3">Teléfono de referencia:</dt>
     <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>
 </dl>
