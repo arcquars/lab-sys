@@ -12,6 +12,7 @@ use App\Marker;
 use Illuminate\Support\Facades\Auth;
 use Milon\Barcode\DNS2D;
 use PDF;
+use Illuminate\Http\Request;
 
 class InmunohistoquimicaController extends Controller
 {
@@ -81,7 +82,7 @@ class InmunohistoquimicaController extends Controller
             $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->save()){
-                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
+//                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
                 if($request->has('grabar-imprimir')){
                     return redirect('/histo/reporte/'.$histo->analisis_id);
                 }
@@ -129,7 +130,7 @@ class InmunohistoquimicaController extends Controller
             $histo->titulo_4 = $request->post('titulo_4');
 
             if($histo->update()){
-                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
+//                Marcador::saveMarcadorsByHistoquimicaId($histo->id, $request->post('marcadores'));
                 if($request->has('grabar-imprimir')){
                     return redirect('/histo/reporte/'.$histo->analisis_id);
                 }
@@ -158,10 +159,56 @@ class InmunohistoquimicaController extends Controller
         $pathQr = null;
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
+        /** @var Histoquimica $histo */
         $histo = Histoquimica::where('analisis_id', $analisisId)->first();
+
+
+        $hasImage = false;
+        $hasIntensidad = false;
+        /** @var Marcador $marcador */
+        foreach ($histo->marcadores as $marcador){
+            if($marcador->intensidad){
+                $hasIntensidad = true;
+            }
+            if($marcador->path_image){
+                $hasImage = true;
+            }
+        }
+
+
+
         $pdf = PDF::loadView('histo.reporte', compact(
-            'analisis', 'histo', 'pathQr'), [], ['marginTop' => 800]);
+            'analisis', 'histo', 'pathQr', 'hasIntensidad', 'hasImage'), [], ['marginTop' => 800]);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
+    }
+
+    public function aCreateMarker(Request $request){
+        $this->validate($request, [
+            'marcador' => 'required',
+            'resultado' => 'required',
+            'marker_image' => 'mimes:jpeg,bmp,png',
+        ]);
+
+        $analisisId = $request->post('analisis_id');
+        $intensidad = $request->post('intensidad');
+
+        $markerfile = '';
+        if ($files = $request->file('marker_image')) {
+            $markerfile = $analisisId.'_marker_'.date('YmdHis') . "." . $files->getClientOriginalExtension();
+            $files->move(public_path(Marcador::PATH_IMAGE), $markerfile);
+        }
+
+        $marker = Marker::where('id', $request->post('marcador'))->first();
+        $marcador = new Marcador();
+        $marcador->nombre = $marker->name;
+        $marcador->resultado = $request->post('resultado');
+        $marcador->intensidad = $request->post('intensidad');
+        $marcador->path_image = $markerfile;
+        $marcador->histoquimica_id = Histoquimica::where('analisis_id', '=', $analisisId)->first()->id;
+
+        $marcador->save();
+
+        return response()->json(['success' => '0', 'markerfile' => $markerfile]);
     }
 }

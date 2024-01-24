@@ -172,3 +172,8 @@
 .form-check-sign-black:after {
     color: #ffc107 !important;
 }
+
+.histo-marcador-paragram > p {
+    margin: 0;
+    padding: 0;
+}

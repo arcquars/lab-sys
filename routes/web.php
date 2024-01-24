@@ -123,6 +123,7 @@ Route::get('/histo/crear/{analisisId}', 'InmunohistoquimicaController@create')->
 Route::post('/histo/save', 'InmunohistoquimicaController@store')->name('histo.save');
 Route::get('/histo/view/{analisisId}', 'InmunohistoquimicaController@viewResultado')->name('histo.viewResultado');
 Route::get('/histo/reporte/{analisisId}', 'InmunohistoquimicaController@reporte')->name('histo.reporte');
+Route::post('/histo/marcador/create-ajax', 'InmunohistoquimicaController@aCreateMarker')->name('histo.marker.acreate');
 
 Route::get('/biologia-molecular/crear/{analisisId}', 'BiologiamolecularController@create')->name('biologiam.crear');
 Route::post('/biologia-molecular/save', 'BiologiamolecularController@store')->name('biologiam.save');
@@ -187,6 +188,8 @@ Route::post('/marcador/delete-marker','MarcadorController@aDelete')->name('marca
 Route::get('/market/datatables-marcadores', 'MarcadorController@getDatatablesMarkets')->name('marcador.datatables_marcadores');
 Route::post('/marcador/ajaxgetmarker','MarcadorController@ajaxGetMarker')->name('marcador.getmarket');
 Route::post('/marcador/aSearchMarker', 'MarcadorController@ajaxSearchMarker')->name('marker.asearch');
+Route::post('/marcador/a-marker-delete', 'MarcadorController@ajaxDeleteMarker')->name('marcador.ajax.delete');
+Route::post('/marcador/a-get-markers', 'MarcadorController@ajaxGetMarkers')->name('marcador.ajax.get.markers');
 
 Route::post('/texto-predefinido/ajaxgettexto','TextoPredefinidoController@ajaxGetTexto')->name('textopredefinido.agettexto');
 Route::post('/texto-predefinido/ajax-crear-text','TextoPredefinidoController@ajaxCreateTexto')->name('textopredefinido.acreatetexto');

@@ -4,7 +4,7 @@
         footer: page-footer;
 
         margin-header: 13mm;
-        margin-top: 4.5cm;
+        margin-top: 4.2cm;
     }
 
     body {
@@ -38,6 +38,10 @@
         font-size: 14px;
         margin: 0;
         padding: 0;
+    }
+    .h4-cito p {
+        padding-bottom: 2px;
+        margin-bottom: 0;
     }
     .td-p-datos{
         font-size: 12px;

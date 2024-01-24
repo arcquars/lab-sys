@@ -17,5 +17,4 @@
     <div style="width: 100%; text-align: center">
         <p style="font-size: 10px;">- {PAGENO} de {nbpg} -</p>
     </div>
-
 </htmlpagefooter>

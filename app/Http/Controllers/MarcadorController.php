@@ -143,4 +143,25 @@ class MarcadorController extends Controller
         }
         return response()->json($response);
     }
+
+    public function ajaxDeleteMarker(Request $request){
+        $marcadorId = $request->post('marcadorId');
+        $path_image = Marcador::find($marcadorId)->path_image;
+
+        $filename = public_path(Marcador::PATH_IMAGE) . DIRECTORY_SEPARATOR . $path_image;
+
+        if(!is_dir($filename))
+        {
+            unlink($filename);
+//            echo 'The file '.$filename.' has been deleted';
+        }
+        $result = Marcador::where('id', '=', $marcadorId)->delete();
+        return response()->json(['result' => $result]);
+    }
+
+    public function ajaxGetMarkers(Request $request){
+        $histoId = $request->post('histo_id');
+        $result = Marcador::where('histoquimica_id', '=', $histoId)->get();
+        return response()->json(['result' => true, 'marcadores' => $result]);
+    }
 }

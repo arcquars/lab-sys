@@ -89,20 +89,35 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-12">
+                <ul class="col-md-12">
                     <label>Marcadores:</label>
-                    <div>
+                    <ul id="list_marcadores" style="padding-left: 0;">
                         @foreach($histo->marcadores as $marcador)
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <p class="text-primary" style="font-size: 12px;">{{$marcador->nombre}}</p>
+                            <li class="ui-state-default" style="list-style-type: none;">
+                                <div class="table-bordered" style="padding: 4px;">
+                                    <h6 class="text-primary">
+                                        {{$marcador->nombre}}
+                                    </h6>
+                                    <div style="height: 5px;"></div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            @if(!empty($marcador->path_image))
+                                                <img src="{{ asset(\App\Marcador::PATH_IMAGE) . DIRECTORY_SEPARATOR . $marcador->path_image }}" class="img-fluid" alt="Responsive image">
+                                            @endif
+                                        </div>
+                                        <div class="col-md-5 histo-marcador-paragram">
+                                            <h7 class="text-success">Resultado</h7>
+                                            {!! $marcador->resultado !!}
+                                        </div>
+                                        <div class="col-md-5">
+                                            <h7 class="text-success">Intensidad</h7>
+                                            {!! $marcador->intensidad !!}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <p class="text-muted">{{$marcador->resultado}}</p>
-                                </div>
-                            </div>
+                            </li>
                         @endforeach
-                    </div>
+                    </ul>
                 </div>
             </div>
             <div style="height: 8px;"></div>
