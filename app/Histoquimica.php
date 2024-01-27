@@ -16,6 +16,6 @@ class Histoquimica extends Model
     ];
 
     public function marcadores(){
-        return $this->hasMany('App\Marcador');
+        return $this->hasMany('App\Marcador')->orderBy('sort', 'desc');
     }
 }

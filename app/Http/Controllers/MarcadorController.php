@@ -164,4 +164,17 @@ class MarcadorController extends Controller
         $result = Marcador::where('histoquimica_id', '=', $histoId)->get();
         return response()->json(['result' => true, 'marcadores' => $result]);
     }
+
+    public function ajaxSortMarkers(Request $request){
+        $ids = $request->post('ids');
+        $result = true;
+        foreach ($ids as $i => $id){
+            $marcador = Marcador::where('id', $id["id"])->first();
+            $marcador->sort = count($ids) - $i;
+            if(!$marcador->update()){
+                $result = false;
+            }
+        }
+        return response()->json(['result' => $result]);
+    }
 }

@@ -190,6 +190,7 @@ Route::post('/marcador/ajaxgetmarker','MarcadorController@ajaxGetMarker')->name(
 Route::post('/marcador/aSearchMarker', 'MarcadorController@ajaxSearchMarker')->name('marker.asearch');
 Route::post('/marcador/a-marker-delete', 'MarcadorController@ajaxDeleteMarker')->name('marcador.ajax.delete');
 Route::post('/marcador/a-get-markers', 'MarcadorController@ajaxGetMarkers')->name('marcador.ajax.get.markers');
+Route::post('/marcador/a-sort-markers', 'MarcadorController@ajaxSortMarkers')->name('marcador.ajax.sort.markers');
 
 Route::post('/texto-predefinido/ajaxgettexto','TextoPredefinidoController@ajaxGetTexto')->name('textopredefinido.agettexto');
 Route::post('/texto-predefinido/ajax-crear-text','TextoPredefinidoController@ajaxCreateTexto')->name('textopredefinido.acreatetexto');

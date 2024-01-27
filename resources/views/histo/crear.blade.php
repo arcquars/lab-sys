@@ -134,7 +134,7 @@
                 <ul id="list_marcadores" style="padding-left: 0;">
                     @if(isset($histo->marcadores))
                     @foreach($histo->marcadores as $marcador)
-                        <li class="ui-state-default" style="list-style-type: none;">
+                        <li class="ui-state-default" style="list-style-type: none;" data-id="{{$marcador->id}}">
                             <div class="table-bordered" style="padding: 4px;">
                                 <h6 class="text-primary">
                                     <a class="text-danger" href="#" onclick="removeMarcador(this, '{{$marcador->id}}');"><i class="far fa-trash-alt"></i></a>
@@ -263,7 +263,15 @@
             @endforeach
             @endif
 
-            $( "#list_marcadores" ).sortable();
+            $( "#list_marcadores" ).sortable({
+                update: function (event, ui){
+                    let sortIds = [];
+                    $.each($("#list_marcadores li"), function(index, item){
+                        sortIds[index] = {'id': $(item).attr('data-id')}
+                    });
+                    sortMarcadores(sortIds);
+                }
+            });
             $( "#list_marcadores" ).disableSelection();
         });
 
@@ -299,6 +307,27 @@
                 success: function (data) {
                     if(data.result){
                         reloadMarcadores();
+                    } else {
+                        alert("Ocurrio un problema al eliminar el marcador, por favor contactece con el administrador.");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.responseJSON.errors);
+                }
+            });
+        }
+
+        function sortMarcadores(ids){
+            $.ajax({
+                url: "{{ route('marcador.ajax.sort.markers') }}",
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {ids: ids},
+                success: function (data) {
+                    if(data.result){
+                        // alert("se ordeno correctamente...");
                     } else {
                         alert("Ocurrio un problema al eliminar el marcador, por favor contactece con el administrador.");
                     }

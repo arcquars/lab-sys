@@ -15,7 +15,8 @@ class Marcador extends Model
         'resultado',
         'intensidad',
         'path_image',
-        'histoquimica_id'
+        'histoquimica_id',
+        'sort'
     ];
 
     protected $appends = ['path_url', 'path'];

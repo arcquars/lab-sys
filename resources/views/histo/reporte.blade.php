@@ -8,9 +8,10 @@
 <div style="height: 5px;"></div>
 <h4 class="h4-cito" style="text-transform: uppercase;">Interpretación</h4>
 <hr style="margin: 2px 4px;">
-<div class="aa">
+<div class="aa" style="padding-bottom: 0; margin-bottom: 0;">
     {!! $histo->interpretacion !!}
 </div>
+@if(isset($histo->imagen1) || isset($histo->imagen2) || isset($histo->imagen3) || isset($histo->imagen4))
 <table style="width: 100%;">
     <tr>
         <td style="width: 25%;">
@@ -36,6 +37,8 @@
         </td>
     </tr>
 </table>
+@endif
+@if(isset($histo->titulo_1) || isset($histo->titulo_2) || isset($histo->titulo_3) || isset($histo->titulo_4))
 <table style="width: 100%;">
     <tr>
         <td style="width: 25%; text-align: center;">
@@ -61,6 +64,7 @@
 
     </tr>
 </table>
+@endif
 <h4 class="h4-cito" style="text-transform: uppercase;">Técnica</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
@@ -70,7 +74,7 @@
                 <img src="{{public_path('img/tecnica-image-default.png')}}" width="150">
             </td>
             <td style="width: 85%; text-align: justify; text-justify: inter-word;">
-                <p>{!! config('clinica.tecnica') !!}</p>
+                <p style="font-size: 11px;">{!! config('clinica.tecnica') !!}</p>
 {{--                @if($histo->tecnica)--}}
 {{--                    {!! $histo->tecnica !!}--}}
 {{--                @else--}}
@@ -138,11 +142,9 @@
 
     </table>
 </div>
-<br>
-<br>
 @endif
 <h4 class="h4-cito" style="text-transform: uppercase;">Bibliografía</h4>
-<hr style="margin: 2px 4px;">
+<hr style="margin: 2px;">
 <div class="div-campo">
     {!! $histo->bibliografia !!}
 </div>
