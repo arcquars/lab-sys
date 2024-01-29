@@ -185,7 +185,7 @@
     <script>
         var markertTemplate = _.template(
             `<% _.forEach(marcadores, function(marcador) { %>` +
-            `<li class="ui-state-default" style="list-style-type: none;">` +
+            `<li class="ui-state-default" style="list-style-type: none;" data-id="<%= marcador.id %>">` +
             `<div class="table-bordered" style="padding: 4px;">` +
             `<h6 class='text-primary'>` +
             `<a class='text-danger' href='#' onclick="removeMarcador(this, '<%= marcador.id %>');"><i class='far fa-trash-alt'></i></a>` +

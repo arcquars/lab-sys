@@ -161,7 +161,7 @@ class MarcadorController extends Controller
 
     public function ajaxGetMarkers(Request $request){
         $histoId = $request->post('histo_id');
-        $result = Marcador::where('histoquimica_id', '=', $histoId)->get();
+        $result = Marcador::where('histoquimica_id', '=', $histoId)->orderBy('sort', 'desc')->get();
         return response()->json(['result' => true, 'marcadores' => $result]);
     }
 

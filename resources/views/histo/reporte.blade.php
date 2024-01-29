@@ -111,27 +111,27 @@
             <tr>
                 @if($hasIntensidad)
                     @if($hasImage)
-                <td style="width: 20%;">
-                    @if($marcador->path_image)
-                        <img src="{{$marcador->path }}" width="120">
+                        <td style="width: 15%;">
+                            @if($marcador->path_image)
+                                <img src="{{$marcador->path }}" width="120">
+                            @endif
+                        </td>
                     @endif
-                </td>
-                    @endif
-                <td style="width: @if($hasImage) 65%; @else 85%; @endif vertical-align: top; text-align: justify; text-justify: inter-word; padding-right: 10px;">
-                    <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px; font-weight: 700;"><b>{{$marcador->nombre}}:</b> {{$marcador->resultado}}</p>
-                </td>
-                <td style="width: 15%; vertical-align: top; text-align: center;  text-justify: inter-word;">
-                    <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px;">{{$marcador->intensidad}}</p>
-                </td>
+                    <td style="width: @if($hasImage) 70%; @else 85%; @endif vertical-align: top; text-align: justify; text-justify: inter-word; padding-right: 10px;">
+                        <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px; font-weight: 700;"><b>{{$marcador->nombre}}:</b> {{$marcador->resultado}}</p>
+                    </td>
+                    <td style="width: 15%; vertical-align: top; text-align: center;  text-justify: inter-word;">
+                        <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px;">{{$marcador->intensidad}}</p>
+                    </td>
                 @else
                     @if($hasImage)
-                    <td style="width: 20%;">
-                        @if($marcador->path_image)
-                            <img src="{{$marcador->path }}" width="120">
-                        @endif
-                    </td>
+                        <td style="width: 15%;">
+                            @if($marcador->path_image)
+                                <img src="{{$marcador->path }}" width="120">
+                            @endif
+                        </td>
                     @endif
-                    <td style="width: @if($hasImage) 80%; @else 100%; @endif vertical-align: top; text-align: justify; text-justify: inter-word; padding-right: 10px;">
+                    <td style="width: @if($hasImage) 85%; @else 100%; @endif vertical-align: top; text-align: justify; text-justify: inter-word; padding-right: 10px;">
                         <p style="font-size: {{ $histo->size_texto_marcadores? $histo->size_texto_marcadores : 10 }}px; font-weight: 700;"><b>{{$marcador->nombre}}:</b> {{$marcador->resultado}}</p>
                     </td>
                 @endif
