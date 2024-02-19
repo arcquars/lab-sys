@@ -152,7 +152,7 @@
                             </div>
                         </div>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" name="crear_analisis" onchange="showhideCrearAnalisis(this);" id="customControlValidation1" value="1" checked>
+                            <input type="checkbox" class="custom-control-input" name="crear_analisis" onchange="showhideCrearAnalisis(this);" id="customControlValidation1" value="1">
                             <label class="custom-control-label" for="customControlValidation1">Crear Analisis</label>
                         </div>
                         <div id="d_crear_analisis" style="display: inline;">

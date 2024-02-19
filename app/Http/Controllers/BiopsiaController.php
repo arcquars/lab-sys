@@ -25,9 +25,10 @@ class BiopsiaController extends Controller
      */
     public function create($analisisId, $is_histopatologico)
     {
+        $tipoBiopsia = Biopsia::TIPO_BIOPSIAS;
         $analisis = Analisis::find($analisisId);
         $biopsia = Biopsia::where('analisis_id', $analisisId)->first();
-        return view('biopsia.crear', compact('analisis', 'biopsia', 'is_histopatologico'));
+        return view('biopsia.crear', compact('analisis', 'biopsia', 'is_histopatologico', 'tipoBiopsia'));
     }
 
     /**
@@ -46,6 +47,7 @@ class BiopsiaController extends Controller
             $biopsia->microscopia = $request->post('microscopia');
             $biopsia->diagnostico = $request->post('diagnostico');
             $biopsia->is_histopatologico = $request->post('is_histopatologico');
+            $biopsia->tipo_biopsia = $request->post('tipo_biopsia', null);
             $biopsia->user_id = auth()->id();
 
             $analisis = Analisis::find($request->post('analisis_id'));
@@ -187,6 +189,7 @@ class BiopsiaController extends Controller
         $biopsia->macroscopia = $request->post('macroscopia');
         $biopsia->microscopia = $request->post('microscopia');
         $biopsia->diagnostico = $request->post('diagnostico');
+        $biopsia->tipo_biopsia = $request->post('tipo_biopsia');
         $biopsia->user_id = auth()->id();
 
         $analisis = Analisis::find($request->post('analisis_id'));

@@ -463,6 +463,7 @@
                     {name: 'tipo_analisis', "render": function ( data, type, row ) {
                             if(data === '{{\App\Analisis::HISTOPATOLOGICO}}'){
                                 return '{{\App\Analisis::BIOPSIA_DE_RINON}}';
+{{--                                return '{{\App\Analisis::BIOPSIA}}';--}}
                             } else {
                                 return data;
                             }

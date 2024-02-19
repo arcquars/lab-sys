@@ -6,11 +6,15 @@
 <h4 class="h4-cito">ÓRGANO Y TEJIDO</h4>
 <hr style="padding: 0; margin: 1px;">
 <div class="div-campo" style="padding-left: 15px;">
-    @if($analisis->id == 102695)
-        {!! $biopsia->organo_tejido !!}
-    @else
-        {!! ($biopsia->is_histopatologico == 1)? 'BIOPSIAS DE RIÑON' : $biopsia->organo_tejido !!}
-    @endif
+{{--    @if($analisis->id == 102695 || $analisis->id == 105482)--}}
+{{--        {!! $biopsia->organo_tejido !!}--}}
+{{--    @elseif($analisis->id == 106438)--}}
+{{--        {!! ($biopsia->is_histopatologico == 1)? 'BIOPSIA DE PIEL' : $biopsia->organo_tejido !!}--}}
+{{--    @else--}}
+{{--        {!! ($biopsia->is_histopatologico == 1)? 'BIOPSIA DE RIÑON' : $biopsia->organo_tejido !!}--}}
+{{--    @endif--}}
+
+        {!! ($biopsia->is_histopatologico == 1)? $biopsia->title_biopsia : $biopsia->organo_tejido !!}
 </div>
 <br>
 <table class="t_images_4" style="width: 100%; border-collapse:collapse;">

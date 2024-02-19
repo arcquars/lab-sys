@@ -18,18 +18,30 @@
                 @foreach ($errors->get('organo_tejido') as $error)
                     <li>{{ $error }}</li>
                 @endforeach
-                    @foreach ($errors->get('macroscopia') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('microscopia') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('diagnostico') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
+                @foreach ($errors->get('macroscopia') as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                @foreach ($errors->get('microscopia') as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                @foreach ($errors->get('diagnostico') as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             </ul>
             <form action="{{url('/biopsia/save')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                @if($is_histopatologico)
+                    <div class="form-group">
+                        <label for="ralaisis">Tipo de biopsia</label>
+                        <select name="tipo_biopsia" id="ralaisis" class="form-control">
+                            <option value="">Tipo biopsia</option>
+                            @foreach($tipoBiopsia as $tb)
+                                <option value="{{$tb}}" @if($biopsia && strcmp($biopsia->title_biopsia, $tb) == 0) selected @endif>{{$tb}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
+
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="biopsia_id" value="{{$biopsia ? $biopsia->id : ''}}">
                 <input type="hidden" name="is_histopatologico" value="{{$is_histopatologico}}">
@@ -82,7 +94,7 @@
 
                 @if ($is_histopatologico)
                     <hr>
-                <h5>Imagenes Histopatologicos</h5>
+                    <h5>Imagenes Histopatologicos</h5>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -198,7 +210,7 @@
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
                         <div class="float-right">
                             @can('manage-users')
-                            <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir">
+                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir" onclick="this.form.target='_blank';return true;">
                             @endcan
                             <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
                         </div>

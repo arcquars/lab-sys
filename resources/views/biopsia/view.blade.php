@@ -16,6 +16,13 @@
         <div class="card-body">
             @include('citologia.partial.cliente-head', ['analisis' => $analisis])
             <hr>
+            @if($biopsia->is_histopatologico == 1)
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Tipo biopsia: <span>{{$biopsia->tipo_biopsia}}</span></h4>
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-md-3">
                     @if (isset($biopsia->imagen1))
@@ -153,7 +160,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')
-                    <a href="{{route('biopsia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
+                        <a href="{{route('biopsia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
                     <a href="{{route('biopsia.crear', ['analisisId' => $analisis->id, 'is_histopatologico' => $biopsia->is_histopatologico])}}" class="btn btn-primary">Editar</a>
                     <a href="{{url()->previous()}}" class="btn btn-dark">Atras</a>
