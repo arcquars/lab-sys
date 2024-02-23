@@ -67,7 +67,7 @@ class InvitadoAdminController extends Controller
 //        die();
         return Laratables::recordsOf(InvitadoAnalisis::class, function($query) use ($userId, $searchNombres, $searchApellido){
             return $query->where('invitados_analisis.user_id', $userId)
-                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+//                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
                 ->whereHas('analisis', function($q) use ($searchNombres, $searchApellido)
                 {
                     $q->whereHas('person', function($q1) use ($searchNombres, $searchApellido)
@@ -221,7 +221,7 @@ class InvitadoAdminController extends Controller
 
         $analisisAsignado = DB::table('invitados_analisis')
             ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-            ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+//            ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
             ->where('invitados_analisis.user_id', '=', $userId)->count();
 
         $analisisAsignadoAProcedencia = DB::table('invitados_analisis')
@@ -231,7 +231,8 @@ class InvitadoAdminController extends Controller
 
         $analisisPorProcedencia = Analisis::where('procedencia', '=', $procedencia)
 //            ->whereBetween('fecha', [$fechaI, $fechaF])
-            ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)->count();
+//            ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+            ->count();
 
         return response()->json(['success'=>true,
             'result' => [
@@ -276,7 +277,7 @@ class InvitadoAdminController extends Controller
 
 //        $analisis = Analisis::whereNotIn('id', $ids)->get();
             $analisis = Analisis::whereNotIn('id', $ids)->where('procedencia', '=', $procedencia)
-                ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+//                ->where("tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
                 ->whereBetween('analisis.fecha', [$fechaI, $fechaF])
                 ->get();
 

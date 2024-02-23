@@ -49,7 +49,7 @@ class InvitadoController extends Controller
             return $query->where('invitados_analisis.user_id', $userId)
                 ->whereBetween('fecha', [$fecha_ini, $fecha_fin])
                 ->where('analisis.imprimir_firma', '=',1)
-                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
+//                ->where("analisis.tipo_analisis", 'not like', Analisis::INMUNOHISTOQUIMICA)
                 ->whereHas('analisis', function($q) use ($searchNombres, $searchApellido)
                 {
                     $q->whereHas('person', function($q1) use ($searchNombres, $searchApellido)
