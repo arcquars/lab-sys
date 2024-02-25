@@ -20,6 +20,7 @@ use App\Person;
 use App\Resultado;
 use App\Rules\Saldo;
 use App\Seccion;
+use App\User;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -845,9 +846,11 @@ class AnalisisController extends Controller
     public function listaEdicion($analisisId){
         /** @var EditarControl $editarControl */
         $editarControl = EditarControl::where('analisis_id',$analisisId)->orderBy('created_at', 'desc')->get();
+        $analisis = Analisis::findOrFail($analisisId);
+        $user = User::findOrFail($analisis->user_id);
 
         return view('analisis.lista_cambios', compact(
-            'editarControl'));
+            'editarControl', 'analisis', 'user'));
     }
 
     public function formatoCodigo4Dig($num){

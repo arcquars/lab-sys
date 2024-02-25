@@ -13,6 +13,20 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="pl-3">
+                        <dt>Análisis creado por:</dt>
+                        <dd>{{ $user->name }} ({{ $user->email }})</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="pl-3">
+                        <dt>Código de analisis:</dt>
+                        <dd>{{ $analisis->codigo }}</dd>
+                    </dl>
+                </div>
+            </div>
             <table class="table table-bordered">
                 <thead>
                 <tr>
