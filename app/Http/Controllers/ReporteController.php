@@ -562,10 +562,13 @@ class ReporteController extends Controller
                 $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
     }
 
-    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis=''){
+    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis='', Request $request){
+        $tipo_pago_acuenta = $request->get('tipo_pago_acuenta', null);
+        $tipo_pago_efectuado = $request->get('tipo_pago_efectuado', null);
+        $f_pago = $request->get('f_pago', 'fecha');
         $procedencias = Institucion::all();
 
-        $analisisW = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin]);
+        $analisisW = Analisis::whereBetween($f_pago, [$fechaIni, $fechaFin]);
         if($procedencia != 0){
             $analisisW = $analisisW->where('procedencia', $procedencia);
 
@@ -575,6 +578,13 @@ class ReporteController extends Controller
         }
         if(!empty($tipoAnalisis)){
             $analisisW = $analisisW->where('tipo_analisis', $tipoAnalisis);
+        }
+
+        if($tipo_pago_acuenta){
+            $analisisW = $analisisW->where('tipo_pago_acuenta', $tipo_pago_acuenta);
+        }
+        if($tipo_pago_efectuado){
+            $analisisW = $analisisW->where('tipo_pago_efectuado', $tipo_pago_efectuado);
         }
 
         $analisis = $analisisW->get();
@@ -705,22 +715,34 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
+        $tipo_pago_acuenta = $request->post('tipo_pago_acuenta');
+        $tipo_pago_efectuado = $request->post('tipo_pago_efectuado');
+        $fecha_pago = $request->post('f_pago', 'fecha');
 
         $facturados = $request->post('facturados', 0);
 
         $procedencias = Institucion::all();
 
+        $query = Analisis::query();
         if($procedenciaId == 0){
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->orderBy('fecha', 'desc')->get();
+//            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->orderBy('fecha', 'desc')->get();
+            $query = $query->whereBetween($fecha_pago, [$fecha_ini, $fecha_fin])->where('facturado', $facturados);
+            if($tipo_pago_acuenta){
+                $query = $query->where('tipo_pago_acuenta', $tipo_pago_acuenta);
+            }
+            if($tipo_pago_efectuado){
+                $query = $query->where('tipo_pago_efectuado', $tipo_pago_efectuado);
+            }
+            $analisis = $query->orderBy($fecha_pago, 'desc')->get();
         } else {
-            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->where('procedencia', $procedenciaId)->orderBy('fecha', 'desc')->get();
+            $analisis = Analisis::whereBetween($fecha_pago, [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->where('procedencia', $procedenciaId)->orderBy($fecha_pago, 'desc')->get();
         }
 
 
         return view('reportes.reporte-facturacion', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis', 'meses', 'year', 'facturados',
-            'procedenciaId'
+            'analisis', 'facturados', 'tipo_pago_acuenta', 'tipo_pago_efectuado',
+            'procedenciaId', 'fecha_pago'
         ));
     }
 

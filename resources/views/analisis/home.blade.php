@@ -102,6 +102,17 @@
                                 <p style="color: #FF9500; font-size: 1rem;"><b>PAGO: </b> <span id="pago_pago"></span></p>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label>Tipo de pago</label>
+                            <br>
+                            @foreach($tipoPagoEfectuado as $i => $tipo_pago)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                           id="tipo_pago_efectuado_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
+                                    <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_efectuado_{{$i}}">{{$tipo_pago}}</label>
+                                </div>
+                            @endforeach
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -621,10 +632,11 @@
             var nit = $('#realizar_pago_nit').val();
             var razon_social = $('#realizar_pago_razon_social').val();
             var fecha_pago = $('#realizar_pago_fecha').val();
+            var tipo_pago_efectuado = $('#f_realizarpago input[name="tipo_pago_efectuado"]:checked').val();
             $.ajax({
                 url: "{{ route('analisis.aSavePago') }}",
                 type: 'POST',
-                data: {'analisis_id': analisisId, 'nit': nit, 'razon_social': razon_social, 'fecha_pago_efectuado': fecha_pago},
+                data: {'analisis_id': analisisId, nit, razon_social, 'fecha_pago_efectuado': fecha_pago, tipo_pago_efectuado},
                 success: function (data) {
                     $('#pagoModal').modal('hide');
                     $('#tAnalisis').DataTable().ajax.reload();

@@ -1,3 +1,4 @@
+/** @var [] $tipoPagoAcuenta */
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
@@ -195,7 +196,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="precio">Precio</label>
                                 <input type="number" name="precio" class="form-control @error('precio') is-invalid @enderror"
@@ -207,13 +208,28 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="acuenta">Acuenta</label>
                             <input type="number" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
                                    value="{{@old('acuenta')}}"
                                    min="0" max="10000"
                             >
                             @error('acuenta')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="acuenta">Tipo de pago Acuenta</label>
+                            <br>
+                            @foreach($tipoPagoAcuenta as $i => $tipo_pago)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
+                                           id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
+                                    <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
+                                </div>
+                            @endforeach
+
+                            @error('tipo_pago_acuenta')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

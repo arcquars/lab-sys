@@ -55,7 +55,8 @@ class AnalisisController extends Controller
         $procedencias = Institucion::all();
         $doctores = Doctor::where(Doctor::DELETED, '=', 0)->get();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
-        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7'));
+        $tipoPagoEfectuado = Analisis::TIPO_PAGO_EFECTUADO;
+        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7', 'tipoPagoEfectuado'));
     }
 
     /**
@@ -91,6 +92,7 @@ class AnalisisController extends Controller
 
         $analisis->razon_social = $request->get('razon_social');
         $analisis->nit = $request->get('nit');
+        $analisis->tipo_pago_acuenta = $request->get('tipo_pago_acuenta', Analisis::TIPO_PAGO_ACUENTA[0]);
 
         if($request->get('acuenta')) {
             if($request->get('acuenta') == $request->get('precio')){
@@ -262,12 +264,13 @@ class AnalisisController extends Controller
         }
         $procedencias = Institucion::all();
         $doctores = Doctor::all();
+        $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         $convenio = null;
         return view('analisis.crear', compact(
             'procedencias',
             'doctores',
-            'edad',
+            'edad', 'tipoPagoAcuenta',
             'tipoAnalisis',
             'persona',
         'convenio'));
@@ -444,12 +447,14 @@ class AnalisisController extends Controller
         $nit = $request->get('nit', '');
         $razon_social = $request->get('razon_social', '');
         $pagoFecha = $request->get('fecha_pago_efectuado', '');
+        $tipo_pago_efectuado = $request->get('tipo_pago_efectuado', Analisis::TIPO_PAGO_EFECTUADO[0]);
         $analisis = Analisis::find($analisisId);
         $pago = $analisis->pago_efectuado;
         $analisis->pago_efectuado = $analisis->precio - ($analisis->acuenta + $pago);
         $analisis->acuenta = $analisis->acuenta + $pago;
         $analisis->fecha_pago_efectuado = $pagoFecha;
         $analisis->pago_efectuado_user = auth()->id();
+        $analisis->tipo_pago_efectuado = $tipo_pago_efectuado;
         $analisis->nit = $nit;
         $analisis->razon_social = $razon_social;
 
@@ -815,6 +820,8 @@ class AnalisisController extends Controller
         $acuenta = $request->post('acuenta');
         $pago_efectuado = $request->post('pago_efectuado');
         $fecha_pago_efectuado = $request->post('fecha_pago_efectuado');
+        $tipo_pago_acuenta = $request->post('tipo_pago_acuenta', Analisis::TIPO_PAGO_ACUENTA);
+        $tipo_pago_efectuado = $request->post('tipo_pago_efectuado', Analisis::TIPO_PAGO_EFECTUADO);
 
 //        dd($fecha_pago_efectuado);
         $request->validate([
@@ -831,6 +838,9 @@ class AnalisisController extends Controller
 //        $analisis->acuenta = $analisis->acuenta + $analisis->pago_efectuado;
         $analisis->pago_efectuado = isset($pago_efectuado)? $pago_efectuado : 0;
         $analisis->fecha_pago_efectuado = isset($pago_efectuado)? $fecha_pago_efectuado : null;
+
+        $analisis->tipo_pago_acuenta = $tipo_pago_acuenta;
+        $analisis->tipo_pago_efectuado = $tipo_pago_efectuado;
 
         return response()->json(['success' => $analisis->save()]);
     }

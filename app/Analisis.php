@@ -17,6 +17,9 @@ class Analisis extends Model
     const LIQUIDOS = 'LIQUIDOS';
     const BIOPSIA_DE_RINON = 'BIOPSIA DE RIÑON';
 
+    const TIPO_PAGO_ACUENTA = ['EFECTIVO', 'TRANSFERENCIA'];
+    const TIPO_PAGO_EFECTUADO = ['EFECTIVO', 'TRANSFERENCIA'];
+
     protected $table = 'analisis';
 
     protected $fillable = [
@@ -40,7 +43,9 @@ class Analisis extends Model
         'edad',
         'razon_social',
         'doctor_asignado',
-        'send_sms'
+        'send_sms',
+        'tipo_pago_acuenta',
+        'tipo_pago_efectuado'
     ];
 
     protected $dates = [

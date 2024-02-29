@@ -67,17 +67,72 @@
                     <a class="btn btn-warning" onclick="exportExcelReporteAdmin(); return false;">Exportar</a>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="acuenta">Por fecha</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="f_pago"
+                               id="f_pago_1" value="fecha" checked>
+                        <label class="form-check-label" style="padding-left: 2px !important;" for="f_pago_1">A cuenta</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="f_pago"
+                               {{ (isset($fecha_pago) && strcmp($fecha_pago, 'fecha_pago_efectuado') == 0)? 'checked' : '' }}
+                               id="f_pago_2" value="fecha_pago_efectuado">
+                        <label class="form-check-label" style="padding-left: 2px !important;" for="f_pago_2">Saldo</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="acuenta">Tipo de pago a cuenta</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
+                               id="tipo_pago_acuenta_c" value="" checked>
+                        <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_c">TODOS</label>
+                    </div>
+                    @foreach(\App\Analisis::TIPO_PAGO_ACUENTA as $i => $tipo_pago)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
+                                   id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{ (isset($tipo_pago_acuenta) && strcmp($tipo_pago_acuenta, $tipo_pago) == 0)? 'checked' : '' }} >
+                            <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="asaldo">Tipo de pago saldo</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                               id="tipo_pago_saldo_c" value="" checked>
+                        <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_c">TODOS</label>
+                    </div>
+                    @foreach(\App\Analisis::TIPO_PAGO_EFECTUADO as $i => $tipo_pago_e)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                   id="tipo_pago_saldo_{{$i}}" value="{{$tipo_pago_e}}"
+                                {{ (isset($tipo_pago_efectuado) && strcmp($tipo_pago_efectuado, $tipo_pago_e) == 0)? 'checked' : '' }}>
+                            <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_{{$i}}">{{$tipo_pago_e}}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </form>
         <br>
         <table class="table table-bordered table-clinica">
             <thead class="thead-dark">
             <tr>
-                <th scope="col">Fecha</th>
+                <th scope="col">Fecha a cuenta</th>
+                <th scope="col">Fecha saldo</th>
                 <th scope="col">Codigo</th>
                 <th scope="col">Paciente</th>
                 <th scope="col">Razon social</th>
                 <th scope="col">NIT</th>
                 <th scope="col">Precio</th>
+                <th scope="col">A cuenta</th>
+                <th scope="col">Tipo pago a cuenta</th>
+                <th scope="col">Pago saldo</th>
+                <th scope="col">Tipo pago saldo</th>
                 <th scope="col">Facturado</th>
             </tr>
             </thead>
@@ -85,11 +140,16 @@
             @foreach($analisis as $analisi)
             <tr>
                 <td>{{\Carbon\Carbon::parse($analisi->fecha)->format('Y-m-d')}}</td>
+                <td>{{ ($analisi->fecha_pago_efectuado)? \Carbon\Carbon::parse($analisi->fecha_pago_efectuado)->format('Y-m-d') : '--'}}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                 <td>{{$analisi->razon_social}}</td>
                 <td>{{$analisi->nit}}</td>
                 <td>{{$analisi->precio}}</td>
+                <td>{{$analisi->acuenta}}</td>
+                <td>{{$analisi->tipo_pago_acuenta}}</td>
+                <td>{{$analisi->pago_efectuado}}</td>
+                <td>{{$analisi->tipo_pago_efectuado}}</td>
                 <td>{{($analisi->facturado == 1)? 'Si' : 'No'}}</td>
 
             </tr>
@@ -111,7 +171,18 @@
         var fechaIni = $("#f_reporte_admin_d input[name='fecha_ini']").val();
         var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
         var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
-        var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia;
+        var tipo_pago_acuenta = $("#f_reporte_admin_d input[name='tipo_pago_acuenta']:checked").val();
+        var tipo_pago_efectuado = $("#f_reporte_admin_d input[name='tipo_pago_efectuado']:checked").val();
+        var f_pago = $("#f_reporte_admin_d input[name='f_pago']:checked").val();
+        var parametros = "?";
+        if(tipo_pago_acuenta !== ''){
+            parametros += 'tipo_pago_acuenta='+tipo_pago_acuenta+'&';
+        }
+        if(tipo_pago_efectuado !== ''){
+            parametros += 'tipo_pago_efectuado='+tipo_pago_efectuado+'&';
+        }
+        parametros += "f_pago=" + f_pago;
+        var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+parametros;
 
         window.open(url, '_blank');
     }

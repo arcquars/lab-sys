@@ -121,9 +121,31 @@
                         <div class="fcp_error fcp_error_acuenta" style="display: none;"></div>
                     </div>
                     <div class="form-group">
+                        <label for="acuenta">Tipo de pago a cuenta</label>
+                        <br>
+                        @foreach(\App\Analisis::TIPO_PAGO_ACUENTA as $i => $tipo_pago)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
+                                       id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{(strcmp($tipo_pago, $analisis->tipo_pago_acuenta) == 0)? 'checked' : ''}}>
+                                <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
                         <label for="pago_efectuado">Pago de Saldo</label>
                         <input type="text" name="pago_efectuado" id="" class="form-control">
                         <div class="fcp_error fcp_error_pago_efectuado" style="display: none;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="asaldo">Tipo de pago saldo</label>
+                        <br>
+                        @foreach(\App\Analisis::TIPO_PAGO_EFECTUADO as $i => $tipo_pago_e)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                       id="tipo_pago_saldo_{{$i}}" value="{{$tipo_pago_e}}" {{(strcmp($tipo_pago_e, $analisis->tipo_pago_efectuado) == 0)? 'checked' : ''}}>
+                                <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_{{$i}}">{{$tipo_pago_e}}</label>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="form-group">
                         <label for="fecha_pago_efectuado">Fecha Pago de Saldo</label>
@@ -326,11 +348,13 @@
             let acuenta = $('#mEditarCosto form input[name="acuenta"]').val();
             let pago_efectuado = $('#mEditarCosto form input[name="pago_efectuado"]').val();
             let fecha_pago_efectuado = $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val();
+            let tipo_pago_acuenta = $('#mEditarCosto form input[name="tipo_pago_acuenta"]:checked').val();
+            let tipo_pago_efectuado = $('#mEditarCosto form input[name="tipo_pago_efectuado"]:checked').val();
 
             $.ajax({
                 url: "{{ route('analisis.aSetPrecioByAnalisis') }}",
                 type: 'POST',
-                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado, fecha_pago_efectuado},
+                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado, fecha_pago_efectuado, tipo_pago_acuenta, tipo_pago_efectuado},
                 success: function (data) {
                     $('#mEditarCosto').modal('hide');
                 },
