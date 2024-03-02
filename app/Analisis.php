@@ -45,7 +45,11 @@ class Analisis extends Model
         'doctor_asignado',
         'send_sms',
         'tipo_pago_acuenta',
-        'tipo_pago_efectuado'
+        'tipo_pago_efectuado',
+        'acuenta_numero_tarjeta',
+        'acuenta_banco',
+        'saldo_numero_tarjeta',
+        'saldo_banco'
     ];
 
     protected $dates = [

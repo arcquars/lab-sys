@@ -1,4 +1,6 @@
+@php
 /** @var [] $tipoPagoAcuenta */
+@endphp
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
@@ -196,7 +198,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="precio">Precio</label>
                                 <input type="number" name="precio" class="form-control @error('precio') is-invalid @enderror"
@@ -208,7 +210,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="acuenta">Acuenta</label>
                             <input type="number" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
                                    value="{{@old('acuenta')}}"
@@ -218,13 +220,16 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="acuenta">Tipo de pago Acuenta</label>
                             <br>
                             @foreach($tipoPagoAcuenta as $i => $tipo_pago)
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
-                                           id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
+                                           onchange="changeTipoPago(this);"
+                                           id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}"
+                                        @if(old('tipo_pago_acuenta') && strcmp(old('tipo_pago_acuenta'), $tipo_pago) == 0) checked @elseif(!old('tipo_pago_acuenta') && $i==0) checked  @endif
+                                    >
                                     <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
                                 </div>
                             @endforeach
@@ -232,6 +237,22 @@
                             @error('tipo_pago_acuenta')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
+                            <div class="row acuenta-tarjeta @if(!old('tipo_pago_acuenta')) fade @elseif(old('tipo_pago_acuenta') && strcmp(old('tipo_pago_acuenta'), 'EFECTIVO') == 0) fade @endif">
+                                <div class="col-md-6">
+                                    <label for="acuenta_numero_tarjeta">Numero de cuenta</label>
+                                    <input type="text" name="acuenta_numero_tarjeta" id="acuenta_numero_tarjeta"
+                                           class="form-control @error('acuenta_numero_tarjeta') is-invalid @enderror"
+                                           value="{{@old('acuenta_numero_tarjeta')}}"
+                                    >
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="acuenta_banco">Banco</label>
+                                    <input type="text" name="acuenta_banco" id="acuenta_banco"
+                                           class="form-control @error('acuenta_banco') is-invalid @enderror"
+                                           value="{{@old('acuenta_banco')}}"
+                                    >
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -287,5 +308,14 @@
 
     }
 
+    function changeTipoPago(radio){
+        $("#formAnalisis input[name='acuenta_numero_tarjeta']").val('');
+        $("#formAnalisis input[name='acuenta_banco']").val('');
+        if($(radio).val() === "TRANSFERENCIA"){
+            $(".acuenta-tarjeta").removeClass("fade");
+        } else {
+            $(".acuenta-tarjeta").addClass("fade");
+        }
+    }
     </script>
 @endpush

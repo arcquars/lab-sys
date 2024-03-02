@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'admin_reporte_facturado', 'title' => 'Reporte Facturacion', 'navName' => 'Reporte Facturacion', 'activeButton' => 'reporteActiveButton'])
+@extends('layouts.dash', ['activePage' => 'admin_reporte_facturado', 'title' => 'Reporte Facturacion', 'navName' => 'Reporte Transacciones', 'activeButton' => 'reporteActiveButton'])
 
 @section('content')
 <nav aria-label="breadcrumb">
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <label for="acuenta">Por fecha</label>
                     <br>
                     <div class="form-check form-check-inline">
@@ -82,39 +82,6 @@
                                id="f_pago_2" value="fecha_pago_efectuado">
                         <label class="form-check-label" style="padding-left: 2px !important;" for="f_pago_2">Saldo</label>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <label for="acuenta">Tipo de pago a cuenta</label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
-                               id="tipo_pago_acuenta_c" value="" checked>
-                        <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_c">TODOS</label>
-                    </div>
-                    @foreach(\App\Analisis::TIPO_PAGO_ACUENTA as $i => $tipo_pago)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
-                                   id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{ (isset($tipo_pago_acuenta) && strcmp($tipo_pago_acuenta, $tipo_pago) == 0)? 'checked' : '' }} >
-                            <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="col-md-4 form-group">
-                    <label for="asaldo">Tipo de pago saldo</label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
-                               id="tipo_pago_saldo_c" value="" checked>
-                        <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_c">TODOS</label>
-                    </div>
-                    @foreach(\App\Analisis::TIPO_PAGO_EFECTUADO as $i => $tipo_pago_e)
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
-                                   id="tipo_pago_saldo_{{$i}}" value="{{$tipo_pago_e}}"
-                                {{ (isset($tipo_pago_efectuado) && strcmp($tipo_pago_efectuado, $tipo_pago_e) == 0)? 'checked' : '' }}>
-                            <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_{{$i}}">{{$tipo_pago_e}}</label>
-                        </div>
-                    @endforeach
                 </div>
             </div>
         </form>
@@ -171,16 +138,8 @@
         var fechaIni = $("#f_reporte_admin_d input[name='fecha_ini']").val();
         var fechaFin = $("#f_reporte_admin_d input[name='fecha_fin']").val();
         var procedencia = $("#f_reporte_admin_d select[name='procedencia']").val();
-        var tipo_pago_acuenta = $("#f_reporte_admin_d input[name='tipo_pago_acuenta']:checked").val();
-        var tipo_pago_efectuado = $("#f_reporte_admin_d input[name='tipo_pago_efectuado']:checked").val();
         var f_pago = $("#f_reporte_admin_d input[name='f_pago']:checked").val();
         var parametros = "?";
-        if(tipo_pago_acuenta !== ''){
-            parametros += 'tipo_pago_acuenta='+tipo_pago_acuenta+'&';
-        }
-        if(tipo_pago_efectuado !== ''){
-            parametros += 'tipo_pago_efectuado='+tipo_pago_efectuado+'&';
-        }
         parametros += "f_pago=" + f_pago;
         var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+parametros;
 

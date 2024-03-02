@@ -102,6 +102,10 @@ class AnalisisController extends Controller
                 $analisis->pago_efectuado_user = auth()->id();
             } else {
                 $analisis->acuenta = $request->get('acuenta');
+                if(strcmp($analisis->tipo_pago_acuenta, 'TRANSFERENCIA') == 0){
+                    $analisis->acuenta_numero_tarjeta =  $request->get('acuenta_numero_tarjeta', null);
+                    $analisis->acuenta_banco = $request->get('acuenta_banco', null);
+                }
             }
         }else
             $analisis->acuenta = 0;
@@ -448,6 +452,9 @@ class AnalisisController extends Controller
         $razon_social = $request->get('razon_social', '');
         $pagoFecha = $request->get('fecha_pago_efectuado', '');
         $tipo_pago_efectuado = $request->get('tipo_pago_efectuado', Analisis::TIPO_PAGO_EFECTUADO[0]);
+        $saldo_numero_tarjeta = $request->get('saldo_numero_tarjeta', null);
+        $saldo_banco = $request->get('saldo_banco', null);
+
         $analisis = Analisis::find($analisisId);
         $pago = $analisis->pago_efectuado;
         $analisis->pago_efectuado = $analisis->precio - ($analisis->acuenta + $pago);
@@ -457,6 +464,8 @@ class AnalisisController extends Controller
         $analisis->tipo_pago_efectuado = $tipo_pago_efectuado;
         $analisis->nit = $nit;
         $analisis->razon_social = $razon_social;
+        $analisis->saldo_numero_tarjeta = $saldo_numero_tarjeta;
+        $analisis->saldo_banco = $saldo_banco;
 
         if($analisis->update())
             return response()->json(['success' => '1']);
@@ -768,7 +777,15 @@ class AnalisisController extends Controller
             'precio' => $analisis->precio,
             'acuenta' => $analisis->acuenta,
             'pago_efectuado' => $analisis->pago_efectuado,
-            'fecha_pago_efectuado' => $analisis->fecha_pago_efectuado]);
+            'fecha_pago_efectuado' => $analisis->fecha_pago_efectuado,
+            'tipo_pago_acuenta' => $analisis->tipo_pago_acuenta,
+            'tipo_pago_efectuado' => $analisis->tipo_pago_efectuado,
+            'acuenta_numero_tarjeta' => $analisis->acuenta_numero_tarjeta,
+            'acuenta_banco' => $analisis->acuenta_banco,
+            'saldo_numero_tarjeta' => $analisis->saldo_numero_tarjeta,
+            'saldo_banco' => $analisis->saldo_banco
+
+        ]);
     }
 
     public function ajaxSetImprimirFirma(Request $request){
@@ -823,6 +840,13 @@ class AnalisisController extends Controller
         $tipo_pago_acuenta = $request->post('tipo_pago_acuenta', Analisis::TIPO_PAGO_ACUENTA);
         $tipo_pago_efectuado = $request->post('tipo_pago_efectuado', Analisis::TIPO_PAGO_EFECTUADO);
 
+        // acuenta_numero_tarjeta
+        $acuenta_numero_tarjeta = $request->post('acuenta_numero_tarjeta', null);
+        $acuenta_banco = $request->post('acuenta_banco', null);
+        $saldo_numero_tarjeta = $request->post('saldo_numero_tarjeta', null);
+        $saldo_banco = $request->post('saldo_banco', null);
+
+
 //        dd($fecha_pago_efectuado);
         $request->validate([
             'precio' => 'required|numeric|between:0,20000',
@@ -841,6 +865,15 @@ class AnalisisController extends Controller
 
         $analisis->tipo_pago_acuenta = $tipo_pago_acuenta;
         $analisis->tipo_pago_efectuado = $tipo_pago_efectuado;
+
+        if(strcmp($tipo_pago_acuenta, Analisis::TIPO_PAGO_ACUENTA[1]) == 0){
+            $analisis->acuenta_numero_tarjeta = $acuenta_numero_tarjeta;
+            $analisis->acuenta_banco = $acuenta_banco;
+        }
+        if(strcmp($tipo_pago_efectuado, Analisis::TIPO_PAGO_EFECTUADO[1]) == 0){
+            $analisis->saldo_numero_tarjeta = $saldo_numero_tarjeta;
+            $analisis->saldo_banco = $saldo_banco;
+        }
 
         return response()->json(['success' => $analisis->save()]);
     }

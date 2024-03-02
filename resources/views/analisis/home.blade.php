@@ -108,10 +108,27 @@
                             @foreach($tipoPagoEfectuado as $i => $tipo_pago)
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                           onchange="changeTipoPagoSaldo(this);"
                                            id="tipo_pago_efectuado_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
                                     <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_efectuado_{{$i}}">{{$tipo_pago}}</label>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row saldo-tarjeta d-none">
+                            <div class="col-md-6">
+                                <label for="saldo_numero_tarjeta">Numero de cuenta</label>
+                                <input type="text" name="saldo_numero_tarjeta" id="saldo_numero_tarjeta"
+                                       class="form-control"
+                                       value=""
+                                >
+                            </div>
+                            <div class="col-md-6">
+                                <label for="saldo_banco">Banco</label>
+                                <input type="text" name="saldo_banco" id="saldo_banco"
+                                       class="form-control"
+                                       value=""
+                                >
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -621,6 +638,8 @@
                     $('#i_analisis_id').val(analisisId);
                     $('#realizar_pago_nit').val(data.success.nit);
                     $('#realizar_pago_razon_social').val(data.success.razon_social);
+                    $("#f_realizarpago input:radio[name='tipo_pago_efectuado'][value='EFECTIVO']").prop('checked', true);
+                    $(".saldo-tarjeta").addClass("d-none");
 
                     $('#pagoModal').modal('show');
                 },
@@ -633,10 +652,20 @@
             var razon_social = $('#realizar_pago_razon_social').val();
             var fecha_pago = $('#realizar_pago_fecha').val();
             var tipo_pago_efectuado = $('#f_realizarpago input[name="tipo_pago_efectuado"]:checked').val();
+            // f_realizarpago
+            var parameters = {'analisis_id': analisisId, nit, razon_social, 'fecha_pago_efectuado': fecha_pago, tipo_pago_efectuado}
+            if(!$(".saldo-tarjeta").hasClass('d-none')){
+                if($("#f_realizarpago input[name='saldo_numero_tarjeta']").val() !== ''){
+                    parameters.saldo_numero_tarjeta = $("#f_realizarpago input[name='saldo_numero_tarjeta']").val();
+                }
+                if($("#f_realizarpago input[name='saldo_banco']").val() !== ''){
+                    parameters.saldo_banco = $("#f_realizarpago input[name='saldo_banco']").val();
+                }
+            }
             $.ajax({
                 url: "{{ route('analisis.aSavePago') }}",
                 type: 'POST',
-                data: {'analisis_id': analisisId, nit, razon_social, 'fecha_pago_efectuado': fecha_pago, tipo_pago_efectuado},
+                data: parameters,
                 success: function (data) {
                     $('#pagoModal').modal('hide');
                     $('#tAnalisis').DataTable().ajax.reload();
@@ -974,6 +1003,16 @@
                     $('#tAnalisis').DataTable().ajax.reload();
                 },
             });
+        }
+
+        function changeTipoPagoSaldo(radio) {
+            $("#f_realizarpago input[name='saldo_numero_tarjeta']").val('');
+            $("#f_realizarpago input[name='saldo_banco']").val('');
+            if($(radio).val() === "TRANSFERENCIA"){
+                $(".saldo-tarjeta").removeClass("d-none");
+            } else {
+                $(".saldo-tarjeta").addClass("d-none");
+            }
         }
     </script>
 @endpush

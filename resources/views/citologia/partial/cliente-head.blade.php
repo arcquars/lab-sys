@@ -126,13 +126,28 @@
                         @foreach(\App\Analisis::TIPO_PAGO_ACUENTA as $i => $tipo_pago)
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="tipo_pago_acuenta"
+                                       onchange="changeTipoPagoAcuenta(this);"
                                        id="tipo_pago_acuenta_{{$i}}" value="{{$tipo_pago}}" {{(strcmp($tipo_pago, $analisis->tipo_pago_acuenta) == 0)? 'checked' : ''}}>
                                 <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
                             </div>
                         @endforeach
                     </div>
+                    <div class="row acuenta-tarjeta">
+                        <div class="col-md-6">
+                            <label for="acuenta_numero_tarjeta">Numero de cuenta</label>
+                            <input type="text" name="acuenta_numero_tarjeta" id="acuenta_numero_tarjeta"
+                                   class="form-control"
+                            >
+                        </div>
+                        <div class="col-md-6">
+                            <label for="acuenta_banco">Banco</label>
+                            <input type="text" name="acuenta_banco" id="acuenta_banco"
+                                   class="form-control"
+                            >
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="pago_efectuado">Pago de Saldo</label>
+                        <label for="pago_efectuado">Pago de Saldo (Bs)</label>
                         <input type="text" name="pago_efectuado" id="" class="form-control">
                         <div class="fcp_error fcp_error_pago_efectuado" style="display: none;"></div>
                     </div>
@@ -142,10 +157,25 @@
                         @foreach(\App\Analisis::TIPO_PAGO_EFECTUADO as $i => $tipo_pago_e)
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                       onchange="changeTipoPagoSaldo(this);"
                                        id="tipo_pago_saldo_{{$i}}" value="{{$tipo_pago_e}}" {{(strcmp($tipo_pago_e, $analisis->tipo_pago_efectuado) == 0)? 'checked' : ''}}>
                                 <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_saldo_{{$i}}">{{$tipo_pago_e}}</label>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="row saldo-tarjeta">
+                        <div class="col-md-6">
+                            <label for="saldo_numero_tarjeta">Numero de cuenta</label>
+                            <input type="text" name="saldo_numero_tarjeta" id="saldo_numero_tarjeta"
+                                   class="form-control"
+                            >
+                        </div>
+                        <div class="col-md-6">
+                            <label for="saldo_banco">Banco</label>
+                            <input type="text" name="saldo_banco" id="saldo_banco"
+                                   class="form-control"
+                            >
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="fecha_pago_efectuado">Fecha Pago de Saldo</label>
@@ -350,11 +380,16 @@
             let fecha_pago_efectuado = $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val();
             let tipo_pago_acuenta = $('#mEditarCosto form input[name="tipo_pago_acuenta"]:checked').val();
             let tipo_pago_efectuado = $('#mEditarCosto form input[name="tipo_pago_efectuado"]:checked').val();
+            let acuenta_numero_tarjeta = $('#mEditarCosto form input[name="acuenta_numero_tarjeta"]').val();
+            let acuenta_banco = $('#mEditarCosto form input[name="acuenta_banco"]').val();
+            let saldo_numero_tarjeta = $('#mEditarCosto form input[name="saldo_numero_tarjeta"]').val();
+            let saldo_banco = $('#mEditarCosto form input[name="saldo_banco"]').val();
 
             $.ajax({
                 url: "{{ route('analisis.aSetPrecioByAnalisis') }}",
                 type: 'POST',
-                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado, fecha_pago_efectuado, tipo_pago_acuenta, tipo_pago_efectuado},
+                data: {analisis_id: '{{$analisis->id}}', precio, acuenta, pago_efectuado, fecha_pago_efectuado,
+                    tipo_pago_acuenta, tipo_pago_efectuado, acuenta_numero_tarjeta, acuenta_banco, saldo_numero_tarjeta, saldo_banco},
                 success: function (data) {
                     $('#mEditarCosto').modal('hide');
                 },
@@ -400,6 +435,43 @@
                     $('#mEditarCosto form input[name="pago_efectuado"]').val(data.pago_efectuado);
                 }
                 $('#mEditarCosto form input[name="fecha_pago_efectuado"]').val(data.fecha_pago_efectuado);
+
+                var radiosAcuentas = $('#mEditarCosto form input:radio[name="tipo_pago_acuenta"]');
+                $.each(radiosAcuentas, function (key, value) {
+                    if($(value).val() === data.tipo_pago_acuenta){
+                        value.checked = true;
+                    } else {
+                        value.checked = false;
+                    }
+                });
+                var radiosSaldos = $('#mEditarCosto form input:radio[name="tipo_pago_efectuado"]');
+                $.each(radiosSaldos, function (key, value) {
+                    if($(value).val() === data.tipo_pago_efectuado){
+                        value.checked = true;
+                    } else {
+                        value.checked = false;
+                    }
+                });
+
+                // $('#mEditarCosto input[name="tipo_pago_acuenta"]').val(data.tipo_pago_acuenta);
+                if(data.tipo_pago_acuenta === 'EFECTIVO'){
+                    $(".acuenta-tarjeta").addClass('d-none');
+                    $('#mEditarCosto form input[name="acuenta_numero_tarjeta"]').val('');
+                    $('#mEditarCosto form input[name="acuenta_banco"]').val('');
+                } else {
+                    $(".acuenta-tarjeta").removeClass('d-none');
+                    $('#mEditarCosto form input[name="acuenta_numero_tarjeta"]').val(data.acuenta_numero_tarjeta);
+                    $('#mEditarCosto form input[name="acuenta_banco"]').val(data.acuenta_banco);
+                }
+                if(data.tipo_pago_efectuado === 'EFECTIVO'){
+                    $(".saldo-tarjeta").addClass('d-none');
+                    $('#mEditarCosto form input[name="saldo_numero_tarjeta"]').val('');
+                    $('#mEditarCosto form input[name="saldo_banco"]').val('');
+                } else {
+                    $(".saldo-tarjeta").removeClass('d-none');
+                    $('#mEditarCosto form input[name="saldo_numero_tarjeta"]').val(data.saldo_numero_tarjeta);
+                    $('#mEditarCosto form input[name="saldo_banco"]').val(data.saldo_banco);
+                }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -640,6 +712,22 @@
 
             }
         });
+    }
+
+    function changeTipoPagoAcuenta(radio) {
+        if($(radio).val() === "TRANSFERENCIA"){
+            $(".acuenta-tarjeta").removeClass("d-none");
+        } else {
+            $(".acuenta-tarjeta").addClass("d-none");
+        }
+    }
+
+    function changeTipoPagoSaldo(radio) {
+        if($(radio).val() === "TRANSFERENCIA"){
+            $(".saldo-tarjeta").removeClass("d-none");
+        } else {
+            $(".saldo-tarjeta").addClass("d-none");
+        }
     }
 </script>
 @endpush
