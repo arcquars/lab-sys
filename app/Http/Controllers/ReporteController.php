@@ -661,9 +661,11 @@ class ReporteController extends Controller
         $fecha_ini = $year.'-'.$mes.'-01';
         $fecha_fin = $year.'-'.$mes.'-'.$day_last;
 
+//        dd($fecha_ini . ' || ' . $fecha_fin);
         $procedencias = Institucion::all();
-        $analisis = Analisis::where ('tipo_pago_acuenta', 'like', Analisis::TIPO_PAGO_ACUENTA[1])
-            ->orWhere ('tipo_pago_efectuado', 'like', Analisis::TIPO_PAGO_EFECTUADO[1])
+        $analisis = Analisis::where (function($query){
+            $query->where ('tipo_pago_acuenta', 'like', Analisis::TIPO_PAGO_ACUENTA[1]);
+            $query->orWhere ('tipo_pago_efectuado', 'like', Analisis::TIPO_PAGO_EFECTUADO[1]); })
             ->whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha', 'desc')
             ->get();
 
@@ -689,13 +691,12 @@ class ReporteController extends Controller
         if($procedenciaId == 0){
 //            $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('facturado', $facturados)->orderBy('fecha', 'desc')->get();
             $query = $query
-                ->whereBetween($fecha_pago, [$fecha_ini, $fecha_fin])->where('facturado', $facturados)
                 ->where(
                     function($query){
                         $query->where ('tipo_pago_acuenta', 'like', Analisis::TIPO_PAGO_ACUENTA[1]);
                         $query->orWhere ('tipo_pago_efectuado', 'like', Analisis::TIPO_PAGO_EFECTUADO[1]);
                     }
-                );
+                )->whereBetween($fecha_pago, [$fecha_ini, $fecha_fin])->where('facturado', $facturados);
             $analisis = $query->orderBy($fecha_pago, 'desc')->get();
         } else {
             $analisis = Analisis::where(

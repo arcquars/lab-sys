@@ -93,14 +93,16 @@
                 <th scope="col">Fecha saldo</th>
                 <th scope="col">Codigo</th>
                 <th scope="col">Paciente</th>
-                <th scope="col">Razon social</th>
-                <th scope="col">NIT</th>
                 <th scope="col">Precio</th>
                 <th scope="col">A cuenta</th>
                 <th scope="col">Tipo pago a cuenta</th>
+                <th scope="col">N. cuenta a cuenta</th>
+                <th scope="col">Banco a cuenta</th>
                 <th scope="col">Pago saldo</th>
                 <th scope="col">Tipo pago saldo</th>
-                <th scope="col">Facturado</th>
+                <th scope="col">N. cuenta saldo</th>
+                <th scope="col">Banco saldo</th>
+{{--                <th scope="col">Facturado</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -110,14 +112,16 @@
                 <td>{{ ($analisi->fecha_pago_efectuado)? \Carbon\Carbon::parse($analisi->fecha_pago_efectuado)->format('Y-m-d') : '--'}}</td>
                 <td>{{$analisi->codigo}}</td>
                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
-                <td>{{$analisi->razon_social}}</td>
-                <td>{{$analisi->nit}}</td>
                 <td>{{$analisi->precio}}</td>
                 <td>{{$analisi->acuenta}}</td>
                 <td>{{$analisi->tipo_pago_acuenta}}</td>
+                <td>{{ (strcmp($analisi->tipo_pago_acuenta,  'EFECTIVO') != 0)? $analisi->acuenta_numero_tarjeta : ''}}</td>
+                <td>{{ (strcmp($analisi->tipo_pago_acuenta,  'EFECTIVO') != 0)? $analisi->acuenta_banco : ''}}</td>
                 <td>{{$analisi->pago_efectuado}}</td>
-                <td>{{$analisi->tipo_pago_efectuado}}</td>
-                <td>{{($analisi->facturado == 1)? 'Si' : 'No'}}</td>
+                <td>{{ $analisi->tipo_pago_efectuado }}</td>
+                <td>{{ (strcmp($analisi->tipo_pago_efectuado,  'EFECTIVO') != 0)? $analisi->saldo_numero_tarjeta : '' }}</td>
+                <td>{{ (strcmp($analisi->tipo_pago_efectuado,  'EFECTIVO') != 0)? $analisi->saldo_banco : ''}}</td>
+{{--                <td>{{($analisi->facturado == 1)? 'Si' : 'No'}}</td>--}}
 
             </tr>
             @endforeach

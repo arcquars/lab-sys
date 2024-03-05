@@ -505,7 +505,7 @@
                                     if($(data).text().length > 19){
                                         return $(data).text().slice(0, 20) + "...";
                                     } else {
-                                        return $(data).text();
+                                        return data;
                                     }
                                 } catch(err) {
                                     return data;
