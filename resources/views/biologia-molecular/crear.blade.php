@@ -25,7 +25,7 @@
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
-            <form action="{{url('/biologia-molecular/save')}}" method="post" enctype="multipart/form-data" target="_blank">
+            <form action="{{url('/biologia-molecular/save')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="biologiam_id" value="{{$biologia ? $biologia->id : ''}}">

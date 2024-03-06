@@ -537,6 +537,7 @@ class ReporteController extends Controller
             }
         )
         ->whereBetween($f_pago, [$fechaIni, $fechaFin]);
+        dd($analisisW->get());
         if($procedencia != 0){
             $analisisW = $analisisW->where('procedencia', $procedencia);
 

@@ -18,9 +18,9 @@ use \App\Helpers\HelperConfig;
         </div>
         <div class="card-body">
             @if (isset($resultados))
-                <form method="post" action="/citologia/resultadosedit" target="_blank">
+                <form method="post" action="/citologia/resultadosedit">
             @else
-                <form method="post" action="/citologia/resultados" target="_blank">
+                <form method="post" action="/citologia/resultados">
             @endif
 
                 {{ csrf_field() }}

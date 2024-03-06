@@ -42,7 +42,7 @@
                         <li>{{ $error }}</li>
                     @endforeach
             </ul>
-            <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data" target="_blank">
+            <form action="{{url('/histo/save')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
                 <input type="hidden" name="histo_id" value="{{$histo ? $histo->id : ''}}">
