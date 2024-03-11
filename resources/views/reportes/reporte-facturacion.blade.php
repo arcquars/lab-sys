@@ -145,7 +145,7 @@
         var f_pago = $("#f_reporte_admin_d input[name='f_pago']:checked").val();
         var parametros = "?";
         parametros += "f_pago=" + f_pago;
-        var url = '{{url("/")}}/reportes/reporte-admin-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+parametros;
+        var url = '{{url("/")}}/reportes/reporte-facturacion-diario/'+fechaIni+'/'+fechaFin+'/'+procedencia+parametros;
 
         window.open(url, '_blank');
     }

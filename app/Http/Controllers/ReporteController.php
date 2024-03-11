@@ -526,7 +526,7 @@ class ReporteController extends Controller
                 $reporte_2, $procedencia), 'reporteadmin'.date('Ymd').'.xlsx');
     }
 
-    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis='', Request $request){
+    function excelFacturacion($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis='', Request $request){
         $f_pago = $request->get('f_pago', 'fecha');
         $procedencias = Institucion::all();
 
@@ -536,8 +536,30 @@ class ReporteController extends Controller
                 $query->orWhere ('tipo_pago_efectuado', 'like', Analisis::TIPO_PAGO_EFECTUADO[1]);
             }
         )
-        ->whereBetween($f_pago, [$fechaIni, $fechaFin]);
-        dd($analisisW->get());
+            ->whereBetween($f_pago, [$fechaIni, $fechaFin]);
+//        dd($analisisW->get());
+        if($procedencia != 0){
+            $analisisW = $analisisW->where('procedencia', $procedencia);
+
+        }
+
+        $analisis = $analisisW->get();
+        $procedenciaName = "Todos";
+        if($procedencia != 0){
+            $procedenciaName = Institucion::find($procedencia)->nombre;
+        }
+
+        return Excel::download(
+            new ReporteAdminDiaExport(
+                $analisis, $fechaIni, $fechaFin, $procedenciaName), 'reporteadmindia'.date('Ymd').'.xlsx');
+    }
+
+    function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis='', Request $request){
+        $f_pago = $request->get('f_pago', 'fecha');
+        $procedencias = Institucion::all();
+
+        $analisisW = Analisis::whereBetween($f_pago, [$fechaIni, $fechaFin]);
+//        dd($analisisW->get());
         if($procedencia != 0){
             $analisisW = $analisisW->where('procedencia', $procedencia);
 
