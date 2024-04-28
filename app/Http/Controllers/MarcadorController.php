@@ -150,10 +150,10 @@ class MarcadorController extends Controller
 
         $filename = public_path(Marcador::PATH_IMAGE) . DIRECTORY_SEPARATOR . $path_image;
 
-        if(!is_dir($filename))
+        if(!is_dir($filename) && file_exists($filename))
         {
-            unlink($filename);
-//            echo 'The file '.$filename.' has been deleted';
+            if(unlink($filename)) {
+            }
         }
         $result = Marcador::where('id', '=', $marcadorId)->delete();
         return response()->json(['result' => $result]);

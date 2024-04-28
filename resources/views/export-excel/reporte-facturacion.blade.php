@@ -29,11 +29,14 @@ foreach ($resultados as $analisi){
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Paciente</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Edad</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Doctor que Pidio</th>
-        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 20px;">Doctor asignado</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Region</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Institucion</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 10px; font-weight: 500; width: 14px;">Tipo Estudio</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Precio</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">A cuenta</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Tipo de pago a cuenta</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Saldo</th>
+        <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Tipo de pago Saldo</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Entregado</th>
         <th style="background-color: #FFF6ED; color: #0B0D33; font-size: 9px; font-weight: 500;">Estado</th>
     </tr>
@@ -50,11 +53,14 @@ foreach ($resultados as $analisi){
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->edad}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->doctor}}</td>
-            <td style="color: #0B0D33; font-size: 10px;">{{ $analisi->doctorasig->nombres }} {{ $analisi->doctorasig->apellidos }}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->region}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->institucion->nombre}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_analisis}}</td>
             <td style="color: #0B0D33; font-size: 10px;">{{$analisi->precio}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->acuenta}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_pago_acuenta}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->pago_efectuado}}</td>
+            <td style="color: #0B0D33; font-size: 10px;">{{$analisi->tipo_pago_efectuado}}</td>
             <td style="text-align: center;">{!! ($analisi->fecha_entrega)? $analisi->fecha_entrega->format('d-m-Y') : "No" !!}</td>
             <td style="color: #0B0D33; font-size: 10px;"><p style="font-size: 16px; margin-bottom: 2px;">{!! ($analisi->precio == ($analisi->acuenta + $analisi->pago_efectuado))? 'Cancelado' : 'Debe: '.($analisi->precio -($analisi->acuenta + $analisi->pago_efectuado)) !!}</p></td>
         </tr>

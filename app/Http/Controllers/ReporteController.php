@@ -11,6 +11,7 @@ use App\Exports\ReporteAdminDiaConvenioExport;
 use App\Exports\ReporteAdminDiaExport;
 use App\Exports\ReporteAdminExport;
 use App\Exports\ReporteDiarioExport;
+use App\Exports\ReporteFacturacionExport;
 use App\Gasto;
 use App\Http\Requests\StoreReporte2Post;
 use App\Http\Requests\StoreReporteDiarioPost;
@@ -550,8 +551,8 @@ class ReporteController extends Controller
         }
 
         return Excel::download(
-            new ReporteAdminDiaExport(
-                $analisis, $fechaIni, $fechaFin, $procedenciaName), 'reporteadmindia'.date('Ymd').'.xlsx');
+            new ReporteFacturacionExport(
+                $analisis, $fechaIni, $fechaFin, $procedenciaName), 'reporte-facturacion-'.date('Ymd').'.xlsx');
     }
 
     function excelAdmin($fechaIni, $fechaFin, $procedencia, $doctor='', $tipoAnalisis='', Request $request){
