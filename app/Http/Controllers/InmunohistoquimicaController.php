@@ -47,6 +47,7 @@ class InmunohistoquimicaController extends Controller
             $histo->analisis_id = $request->post('analisis_id');
             $histo->interpretacion = $request->post('interpretacion');
             $histo->tecnica = $request->post('tecnica');
+            $histo->tecnica_text_num = $request->post('tecnica_text_num', 1);
             $histo->bibliografia = $request->post('bibliografia');
             $histo->size_texto_marcadores = $request->post('size_texto_marcadores');
             $histo->user_id = auth()->id();
@@ -95,6 +96,7 @@ class InmunohistoquimicaController extends Controller
             $histo = Histoquimica::find($request->post('histo_id'));
             $histo->interpretacion = $request->post('interpretacion');
             $histo->tecnica = $request->post('tecnica');
+            $histo->tecnica_text_num = $request->post('tecnica_text_num', 1);
             $histo->bibliografia = $request->post('bibliografia');
             $histo->size_texto_marcadores = $request->post('size_texto_marcadores');
             $histo->user_id = auth()->id();

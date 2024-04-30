@@ -149,7 +149,8 @@ return [
         '10' => 'Tricomonas',
         '11' => 'Virus'
     ],
-    'tecnica' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con calor húmedo con tampón de recuperación universal. Detección a base polímero libres de biotina y revelados con sistema cromogénico DAB, mediante equipo semi-automatizado Montage 360 y automatizada BenchMark-GT.</br>Controles positivos internos y externos demuestran la fidelidad de las reacciones.',
+    'tecnica' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con calor húmedo con tampón de recuperación universal. Detección a base polímero libres de biotina y revelados con sistema cromogénico DAB, mediante equipo semi-automatizado Montage 360 y automatizada BenchMark-GT.<p>Controles positivos internos y externos demuestran la fidelidad de las reacciones.</p>',
+    'tecnica-1' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con equipo automatizado BenchMark-GT. <p>Controles positivos internos y externos demuestran la fidelidad de las reacciones.</p>',
     'marcadores' => [
         'ACTINA MUSCULO ESPECÍFICO - MSA (HHF35)',
         'ACTINA MUSCULO LISO - SMA (1A4)',

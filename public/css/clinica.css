@@ -177,3 +177,7 @@
     margin: 0;
     padding: 0;
 }
+
+.toggle.clinica-toggle > .toggle-group > label {
+    color: white;
+}

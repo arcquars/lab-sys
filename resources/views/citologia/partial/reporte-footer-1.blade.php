@@ -20,7 +20,7 @@
                 <small style="font-size: 9px;">Calle Lanza N° 0261, esq. Ecuador, Edificio Alba IV, Planta Baja</small>
             </td>
             <td style="width: 50%; text-align: right;">
-                <small style="font-size: 9px;">Telfs: 4-4255172 – 4-4520344 – 67509705 E-Mail:
+                <small style="font-size: 9px;">Telfs: 4-4255172 – 4-4520344 – 75474614 E-Mail:
                     citopatologico@hotmail.com</small>
             </td>
         </tr>

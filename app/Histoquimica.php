@@ -12,7 +12,8 @@ class Histoquimica extends Model
         'interpretacion',
         'tecnica',
         'bibliografia',
-        'size_texto_marcadores'
+        'size_texto_marcadores',
+        'tecnica_text_num'
     ];
 
     public function marcadores(){

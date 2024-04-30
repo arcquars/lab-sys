@@ -102,7 +102,20 @@
                     <textarea name="interpretacion" id="ta-interpretacion" class="form-control">{{@old('interpretacion', $histo ? $histo->interpretacion : '')}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="tecnica">Técnica</label>
+                    <label for="tecnica">
+                        Técnica
+                        <input id="toggle-clinica-tecnica" type="checkbox"
+                               @if(isset($histo) )
+                                   @if($histo->tecnica_text_num == 0)
+                                    checked
+                                   @endif
+                               @else
+                                   checked
+                               @endif
+                                   name="tecnica_text_num"
+                               value="0"
+                               data-toggle="toggle" data-style="clinica-toggle" data-on="Con imagen" data-off="Sin imagen" data-onstyle="success" data-offstyle="info">
+                    </label>
                     <textarea name="tecnica" id="ta-tecnica" class="form-control">{{@old('tecnica', $histo ? $histo->tecnica : config('clinica.tecnica'))}}</textarea>
                 </div>
                 <div class="form-group">
@@ -273,6 +286,15 @@
                 }
             });
             $( "#list_marcadores" ).disableSelection();
+
+            $('#toggle-clinica-tecnica').change(function() {
+                console.log('Toggle: ' + $(this).prop('checked'));
+                if($(this).prop('checked')){
+                    tinymce.get("ta-tecnica").setContent("{!!config('clinica.tecnica')!!}");
+                } else {
+                    tinymce.get("ta-tecnica").setContent("{!!config('clinica.tecnica-1')!!}");
+                }
+            });
         });
 
         function reloadMarcadores(){

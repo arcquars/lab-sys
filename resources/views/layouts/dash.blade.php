@@ -43,6 +43,9 @@
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('light-bootstrap/css/demo.css') }}" rel="stylesheet" />
+
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/jdtpaginate.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('css/clinica.css') }}" rel="stylesheet" />
@@ -113,6 +116,7 @@
 
     <script src="{{ asset('light-bootstrap/js/plugins/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
     @stack('js')
     <script>

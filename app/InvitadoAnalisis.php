@@ -78,69 +78,33 @@ class InvitadoAnalisis extends Model
     }
 
     public static function refreshAnalisisDoctor($userId){
-        $fechaActual = Carbon::now();
+        // INSTITUCIONES
+        $anaIds = DB::table('analisis')
+            ->whereRaw(
+                "procedencia in (select valor from invitado_asignaciones where user_id=".$userId." AND tipo like 'INSTITUCION') and id not in (select analisis_id from invitados_analisis where user_id=".$userId.')'
+            )
+            ->select('id')
+            ->get();
 
-        $invitadoAsignados = InvitadoAsignaciones::where('user_id', '=', $userId)->get();
-        foreach ($invitadoAsignados as $ia) {
-            $invitadoAnalisis = null;
-            $analisisMaxFecha = null;
-            $analisis = null;
 
-            $anaId = [];
-            if(strcmp($ia->tipo, InvitadoAsignaciones::TIPO_PERSONA) == 0){
-                $procedencia = Institucion::where('nombre', 'PERSONA PARTICULAR')->first();
-                $invitadoAnalisis = DB::table('invitados_analisis')
-                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                    ->where('invitados_analisis.user_id', '=', $userId)
-                    ->where('analisis.procedencia', '=', $procedencia->id)
-                    ->where('analisis.doctor', '=', $ia->valor)
-                    ->select('analisis.id')->get();
+        foreach ($anaIds as $a){
+            DB::table('invitados_analisis')->insert(
+                ['user_id' => $userId, 'analisis_id' => $a->id]
+            );
 
-                $analisisMaxFecha = DB::table('invitados_analisis')
-                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                    ->where('invitados_analisis.user_id', '=', $userId)
-                    ->where('analisis.procedencia', '=', $procedencia->id)
-                    ->where('analisis.doctor', '=', $ia->valor)
-                    ->max('analisis.fecha');
-
-                foreach ($invitadoAnalisis as $as){
-                    $anaId[] = $as->id;
-                }
-
-                $analisis = Analisis::where('doctor', 'like', $ia->valor)
-                    ->where('procedencia', '=', $procedencia->id)
-                    ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
-                    ->whereNotIn('id', $anaId)
-                    ->get();
-
-            } else {
-                $invitadoAnalisis = DB::table('invitados_analisis')
-                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                    ->where('invitados_analisis.user_id', '=', $userId)
-                    ->where('analisis.procedencia', '=', $ia->valor)
-                    ->select('analisis.id')->get();
-
-                $analisisMaxFecha = DB::table('invitados_analisis')
-                    ->join('analisis', 'invitados_analisis.analisis_id', '=', 'analisis.id')
-                    ->where('invitados_analisis.user_id', '=', $userId)
-                    ->where('analisis.procedencia', '=', $ia->valor)
-                    ->max('analisis.fecha');
-
-                foreach ($invitadoAnalisis as $as){
-                    $anaId[] = $as->id;
-                }
-
-//                dd($anaId);
-                $analisis = Analisis::where('procedencia', '=', $ia->valor)
-                    ->whereBetween('analisis.fecha', [$analisisMaxFecha, $fechaActual])
-                    ->whereNotIn('id', $anaId)
-                    ->get();
-            }
-            foreach ($analisis as $a){
-                DB::table('invitados_analisis')->insert(
-                    ['user_id' => $userId, 'analisis_id' => $a->id]
-                );
-            }
         }
+        // PERSONAS
+        $anaIds = DB::table('analisis')
+            ->whereRaw(
+                "procedencia = (SELECT id from instituciones where nombre like 'PERSONA PARTICULAR')  AND doctor in (select valor from invitado_asignaciones where user_id=".$userId." AND tipo not like 'INSTITUCION') and id not in (select analisis_id from invitados_analisis where user_id=".$userId.")"
+            )
+            ->select('id')
+            ->get();
+        foreach ($anaIds as $a){
+            DB::table('invitados_analisis')->insert(
+                ['user_id' => $userId, 'analisis_id' => $a->id]
+            );
+        }
+
     }
 }

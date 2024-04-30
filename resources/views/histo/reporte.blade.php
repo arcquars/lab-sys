@@ -68,6 +68,7 @@
 <h4 class="h4-cito" style="text-transform: uppercase;">Técnica</h4>
 <hr style="margin: 2px 4px;">
 <div class="div-campo">
+    @if($histo->tecnica_text_num == 0)
     <table style="width: 100%">
         <tr>
             <td style="width: 25%; vertical-align: top; ">
@@ -83,6 +84,9 @@
             </td>
         </tr>
     </table>
+    @else
+        <p style="font-size: 11px;">{!! config('clinica.tecnica-1') !!}</p>
+    @endif
 </div>
 @if(count($histo->marcadores) > 0)
 <h4 class="h4-cito">MARCADORES UTILIZADOS (clones entre paréntesis) Y RESULTADOS OBTENIDOS:</h4>

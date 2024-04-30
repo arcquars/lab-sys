@@ -770,10 +770,6 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
 
-//        $biopsias = Biopsia::with(['analisis' => function($q) use($fecha_ini, $fecha_fin){
-//            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin])->orderBy('fecha', 'desc');
-//        }])->where('diagnostico', 'like', "%".$diagnostico."%")->with('analisis')->get();
-
         $biopsias = Biopsia::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
             $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
             $q->orderBy('analisis.fecha', 'desc');
