@@ -17,6 +17,10 @@ class Bethesda extends Model
         'observaciones',
     ];
 
+    public function analisis(){
+        return $this->belongsTo('App\Analisis', 'analisis_id', 'id');
+    }
+
     public function getCalidadMuestraId(){
         return array_search($this->calidad_muestra, Config::get('clinica.bethesda_calidad_muestra'));
     }
@@ -62,8 +66,16 @@ class Bethesda extends Model
 
     public function getInterpretacionesArray(){
         $arr = json_decode($this->interpretacion);
-//        if(!is_array($arr))
-//            return [];
         return $arr;
+    }
+
+    public function showInterpretaciones(){
+        $interpretaciones = json_decode($this->interpretacion);
+        $html = "<p>" ;
+        foreach ($interpretaciones as $key => $interpretacion){
+            $html .= "<b>".$key.":</b> " . $interpretacion . ", ";
+        }
+        $html .= "</p>";
+        return $html;
     }
 }

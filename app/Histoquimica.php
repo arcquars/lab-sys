@@ -19,4 +19,8 @@ class Histoquimica extends Model
     public function marcadores(){
         return $this->hasMany('App\Marcador')->orderBy('sort', 'desc');
     }
+
+    public function analisis(){
+        return $this->belongsTo('App\Analisis', 'analisis_id', 'id');
+    }
 }

@@ -7,7 +7,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header" style="text-align: center;">
-                    <h4>CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA</h4>
+                    <h4>{{ config('clinica.nombre') }}</h4>
                 </div>
 
                 <div class="card-body" style="text-align: center;">

@@ -23,4 +23,14 @@ class Resultado extends Model
     public function secciones(){
         return $this->hasMany('App\Seccion');
     }
+
+    public function showSeccionByType($seccion){
+        $secciones = $this->secciones()->where('seccion', 'like', $seccion)->get();
+        $results = array();
+        foreach ($secciones as $seccion){
+            $results[] = $seccion->key;
+        }
+
+        return implode(", ", $results);
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 return [
-    'nombre' => 'CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA',
+    'nombre' => 'LABORATORIO DE ANALISIS CLINICO PDM',
     'procedencia' => [
         'ADRIATICA',
         'AIQUILE',
@@ -150,7 +150,7 @@ return [
         '11' => 'Virus'
     ],
     'tecnica' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con calor húmedo con tampón de recuperación universal. Detección a base polímero libres de biotina y revelados con sistema cromogénico DAB, mediante equipo semi-automatizado Montage 360 y automatizada BenchMark-GT.<p>Controles positivos internos y externos demuestran la fidelidad de las reacciones.</p>',
-    'tecnica-1' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con equipo automatizado BenchMark-GT. <p>Controles positivos internos y externos demuestran la fidelidad de las reacciones.</p>',
+    'tecnica-1' => 'Fijación y obtención de secciones histológicas a partir del bloque de parafina en láminas silanizadas, sometidas a técnica de inmunoperoxidasa, con recuperación antigénica con tampón de recuperación universal, detección a base de polímero libres de biotina y revelados con sistema cromogénico DAB, mediante equipo automatizado BenchMark-GT <p>Controles positivos internos y externos demuestran la fidelidad de las reacciones.</p>',
     'marcadores' => [
         'ACTINA MUSCULO ESPECÍFICO - MSA (HHF35)',
         'ACTINA MUSCULO LISO - SMA (1A4)',

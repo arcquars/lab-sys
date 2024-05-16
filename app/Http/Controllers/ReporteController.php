@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\Bethesda;
 use App\Biopsia;
 use App\ClinicaClass\Reporte2;
 use App\Convenio;
@@ -13,9 +14,12 @@ use App\Exports\ReporteAdminExport;
 use App\Exports\ReporteDiarioExport;
 use App\Exports\ReporteFacturacionExport;
 use App\Gasto;
+use App\Histoquimica;
 use App\Http\Requests\StoreReporte2Post;
 use App\Http\Requests\StoreReporteDiarioPost;
 use App\Institucion;
+use App\Liquido;
+use App\Resultado;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -632,7 +636,7 @@ class ReporteController extends Controller
 
         return view('reportes.reporte-cerrados', compact(
             'procedencias', 'fecha_ini', 'fecha_fin',
-            'analisis', 'procedenciaId', 'entregado', 'cerrados'
+            'analisis', 'procedenciaId'
         ));
     }
 
@@ -757,15 +761,40 @@ class ReporteController extends Controller
             $q->orderBy('analisis.fecha', 'desc');
         })->orderBy('id', 'desc')->get();
 
+        $histoquimicas = Histoquimica::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->orderBy('id', 'desc')->get();
+
+        $liquidos = Liquido::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->orderBy('id', 'desc')->get();
+
+        $bethesdas = Bethesda::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->orderBy('id', 'desc')->get();
+
+        $citologias = Resultado::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->orderBy('id', 'desc')->get();
+
         $diagnostico = '';
         return view('reportes.reporte-diagnostico', compact(
             'fecha_ini', 'fecha_fin',
-            'biopsias', 'diagnostico'
+            'biopsias', 'diagnostico', 'histoquimicas', 'liquidos',
+            'bethesdas', 'citologias'
         ));
     }
 
     public function reporteDiagnosticoPost(Request $request)
     {
+        $validateFecha = $request->validate([
+            'fecha_ini' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_ini',
+        ]);
         $diagnostico = $request->post('diagnostico');
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
@@ -775,9 +804,34 @@ class ReporteController extends Controller
             $q->orderBy('analisis.fecha', 'desc');
         })->where('diagnostico', 'like', "%".$diagnostico."%")->orderBy('id', 'desc')->get();
 
+        $histoquimicas = Histoquimica::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->where('interpretacion', 'like', "%".$diagnostico."%")->orderBy('id', 'desc')->get();
+
+        $liquidos = Liquido::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->where('diagnostico', 'like', "%".$diagnostico."%")->orderBy('id', 'desc')->get();
+
+        $bethesdas = Bethesda::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->where('interpretacion', 'like', "%".$diagnostico."%")->orderBy('id', 'desc')->get();
+
+        $citologias = Resultado::whereHas('analisis', function($q) use($fecha_ini, $fecha_fin){
+            $q->whereBetween('fecha', [$fecha_ini, $fecha_fin]);
+            $q->orderBy('analisis.fecha', 'desc');
+        })->whereHas('secciones', function($q) use($diagnostico){
+            $q->where('seccion', 'like', 'EXTENDIDO COMPATIBLE CON LOS DIAGNOSTICOS')
+                ->where('key', 'like', '%'.$diagnostico."%");
+            $q->groupBy('id');
+        })->orderBy('id', 'desc')->get();
+
         return view('reportes.reporte-diagnostico', compact(
             'fecha_ini', 'fecha_fin',
-            'biopsias', 'diagnostico'
+            'biopsias', 'diagnostico', 'histoquimicas', 'liquidos',
+            'bethesdas', 'citologias'
         ));
     }
 
