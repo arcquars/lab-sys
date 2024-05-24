@@ -293,13 +293,30 @@ class AnalisisController extends Controller
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
         $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
 
-        return Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG){
-            return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
-            {
-                $q->where('nombres', 'like', '%'.$searchNombres.'%')
-                    ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+//        auth()->id()
+        $user = User::find(auth()->id());
+        $results = null;
+        if($user->person){
+            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG, $user){
+                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')
+                    ->where('doctor_asignado', '=', $user->person)
+                    ->where('codigo', 'like', '%'.$searchG.'%')
+                    ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+                {
+                    $q->where('nombres', 'like', '%'.$searchNombres.'%')
+                        ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                });
             });
-        });
+        } else {
+            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG){
+                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+                {
+                    $q->where('nombres', 'like', '%'.$searchNombres.'%')
+                        ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                });
+            });
+        }
+        return $results;
     }
 
     /**

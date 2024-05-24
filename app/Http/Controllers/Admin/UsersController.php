@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Doctor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserPost;
 use App\InvitadoAnalisis;
@@ -46,9 +47,14 @@ class UsersController extends Controller
         $user = null;
         $roles = Role::all();
 
+        $rolDoctor = Role::where('name', 'like', 'medico')->first();
+        $doctores = Doctor::where('deleted', 0)->get();
+
         return view('admin.users.edit')->with([
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
+            'doctores' => $doctores,
+            'rolDoctor' => $rolDoctor
         ]);
     }
 
@@ -64,6 +70,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->person = $request->post('person', null);
 //        dd($user);
         $user->save();
         $user->roles()->sync($request->roles);
@@ -97,9 +104,14 @@ class UsersController extends Controller
         $user = User::find($id);
         $roles = Role::all();
 
+        $rolDoctor = Role::where('name', 'like', 'medico')->first();
+        $doctores = Doctor::where('deleted', 0)->get();
+
         return view('admin.users.edit')->with([
             'user' => $user,
-            'roles' => $roles
+            'roles' => $roles,
+            'doctores' => $doctores,
+            'rolDoctor' => $rolDoctor
         ]);
     }
 
@@ -117,6 +129,7 @@ class UsersController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->person = $request->post('person', null);
 
         if(isset($request->password)){
             $user->password = Hash::make($request->password);

@@ -25,8 +25,8 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
-                        <th>Roles</th>
                         <th>Estado</th>
+                        <th>Roles</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -40,13 +40,13 @@
                             <td>{{implode(', ', $user->roles()->get()->pluck('name')->toArray())}}</td>
                             <td>
                                 @can('edit-users')
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success"><i class="far fa-edit"></i></a>&nbsp;
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success btn-sm m-1"><i class="far fa-edit"></i></a>&nbsp;
                                 @endcan
                                 @can('delete-users')
                                 <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="float-left">
                                     @csrf
                                     {{method_field('DELETE')}}
-                                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-sm m-1"><i class="far fa-trash-alt"></i></button>
                                 </form>
                                     @endcan
                             </td>

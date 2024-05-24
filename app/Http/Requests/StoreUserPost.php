@@ -37,6 +37,7 @@ class StoreUserPost extends FormRequest
         return [
             'name' => 'required|max:255',
             'email' => $email,
+            'roles' => 'required',
             'password' => $pass,
             'password_confirmation' => $pass_c
         ];

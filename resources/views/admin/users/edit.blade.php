@@ -23,14 +23,14 @@
                         <h4>Crear Usuario</h4>
                     @endif
                 </div>
-                <div class="col-md-6 text-right"><a href="{{route('admin.users.create')}}" class="btn btn-success">Crear Usuario</a></div>
+{{--                <div class="col-md-6 text-right"><a href="{{route('admin.users.create')}}" class="btn btn-success">Crear Usuario</a></div>--}}
             </div>
         </div>
         <div class="card-body">
             <form action="{{isset($user)? route('admin.users.update', $user) : route('admin.users.store')}}" method="POST">
                 <div class="form-group">
                     <label for="email">Correo Electronico</label>
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ isset($user)? $user->email : ''}}" autocomplete="email" autofocus>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ isset($user)? $user->email : ''}}" autofocus  autocomplete="off">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -71,19 +71,38 @@
                 @endif
 
                 <div class="form-group">
+                    <div class="form-check">
                 @foreach($roles as $role)
                     @if(isset($user))
-                    <label>
-                        <input type="checkbox" id="cbox1" name="roles[]" value="{{$role->id}}"
-                        @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                        {{$role->name}}</label><br>
+                        <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror"
+                            @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                        <label for="frol-{{$role->id}}">{{$role->name}}</label><br>
                     @else
-                    <label>
-                        <input type="checkbox" id="cbox1" name="roles[]" value="{{$role->id}}">
-                                {{$role->name}}</label><br>
+                    <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror">
+                    <label for="frol-{{$role->id}}">{{$role->name}}</label><br>
                     @endif
 
                 @endforeach
+
+                    @error('roles')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    </div>
+                </div>
+                <div class="form-group group-doctor" style="display: @if(isset($user)) {{ $user->hasRole('medico')? 'block' : 'none' }} @else none @endif">
+                    <label for="fPerson">Doctor</label>
+                    <select name="person" id="fPerson" class="form-control">
+                        <option value="">Sin asignar</option>
+                        @foreach($doctores as $doctor)
+                            <option value="{{$doctor->id}}"
+                                    @if (isset($user) && $user->person == $doctor->id) selected="selected" @endif
+                            >
+                                {{$doctor->nombres }} {{$doctor->apellidos }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Grabar</button>
                 <a href="{{route('admin.users.index')}}" class="btn btn-dark">Atras</a>
@@ -93,3 +112,20 @@
 
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $("input[name='roles[]']").change(function() {
+                if($(this).val() === '{{ $rolDoctor->id }}') {
+                    if(this.checked){
+                        $("#fPerson").val('');
+                        $(".group-doctor").show();
+                    } else {
+                        $(".group-doctor").hide();
+                    }
+                }
+                $('#textbox1').val(this.checked);
+            });
+        });
+    </script>
+@endpush
