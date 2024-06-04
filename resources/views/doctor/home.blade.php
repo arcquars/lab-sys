@@ -92,6 +92,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" id="flexCheckChecked" type="checkbox" name="supervisado" value="1">
+                            <label class="form-check-label" for="flexCheckChecked">Interconsultado</label>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="divSigning" style="border: solid 1px #ced4da; padding: 5px;">
@@ -99,7 +105,7 @@
                                     <img class="img-fluid" src="" alt="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="signing">Example file input</label>
+                                    <label for="signing">Firma</label>
                                     <input id="signing" type="file" class="form-control-file" name="signing">
                                     <div class="fcp_error_file" style="display: none;"></div>
                                 </div>
@@ -189,6 +195,7 @@
                 fd.append('apellidos', $(this).find("input[name='apellidos']").val());
                 fd.append('especialidad', $(this).find("input[name='especialidad']").val());
                 fd.append('matricula', $(this).find("input[name='matricula']").val());
+                fd.append('supervisado', $(this).find("input[name='supervisado']").is(':checked')? 1 : 0);
 
                 $.ajax({
                     url: "{{ route('doctores.createDoctor') }}",
@@ -274,6 +281,12 @@
             $("#fcreardoctor").find("input[name='apellidos']").val(doctor.apellidos);
             $("#fcreardoctor").find("input[name='especialidad']").val(doctor.especialidad);
             $("#fcreardoctor").find("input[name='matricula']").val(doctor.matricula);
+
+            if(doctor.supervisado === 1){
+                $("#fcreardoctor").find("input[name='supervisado']").prop('checked', true);
+            } else {
+                $("#fcreardoctor").find("input[name='supervisado']").prop('checked', false);
+            }
             if(doctor.signing !== ''){
                 $("#divSigning").show();
                 $("#divSigning").find('button').attr('data-id', doctor.id);

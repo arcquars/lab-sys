@@ -63,6 +63,9 @@
             <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
                 @include('layouts.navbars.navbar')
                 @include('flash-message')
+                <div id="c_message_ajax" class="alert alert-dark m-2" role="alert" style="display: none;">
+                    A simple dark alert—check it out!
+                </div>
                 @yield('content')
                 @include('layouts.footer.nav')
             </div>
@@ -165,6 +168,18 @@
             } else {
                 $('#i_codigo').val('');
             }
+
+        }
+
+        function showMessageAjax(type, message){
+            divClass = "alert m-2 alert-"+type;
+            divMessage = "#c_message_ajax";
+            $(divMessage).removeClass();
+            $(divMessage).addClass(divClass);
+            $(divMessage).empty();
+            $(divMessage).append(message);
+            $(divMessage).fadeIn();
+            $(divMessage).delay(5000).fadeOut();
 
         }
     </script>

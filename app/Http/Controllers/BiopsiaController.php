@@ -47,7 +47,7 @@ class BiopsiaController extends Controller
             $biopsia->microscopia = $request->post('microscopia');
             $biopsia->diagnostico = $request->post('diagnostico');
             $biopsia->is_histopatologico = $request->post('is_histopatologico');
-            $biopsia->tipo_biopsia = $request->post('tipo_biopsia', null);
+            $biopsia->tipo_biopsia = $request->post('tipo_biopsia', Biopsia::BIOPSIA_RINION);
             $biopsia->user_id = auth()->id();
 
             $analisis = Analisis::find($request->post('analisis_id'));

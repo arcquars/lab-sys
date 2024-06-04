@@ -18,6 +18,7 @@ class Doctor extends Model
         'especialidad',
         'matricula',
         'signing',
+        'supervisado',
         'deleted'
         ];
 

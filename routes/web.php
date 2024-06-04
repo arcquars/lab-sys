@@ -82,6 +82,7 @@ Route::post('/analisis/enviar-wapp-paciente', 'AnalisisController@ajaxEnviarWapp
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
 Route::post('/analisis/grabar-precio', 'AnalisisController@ajaxSetPrecio')->name('analisis.aSetPrecioByAnalisis');
 Route::post('/analisis/imprimir-firma', 'AnalisisController@ajaxSetImprimirFirma')->name('analisis.aSetImprimirFirma');
+Route::post('/analisis-supervisor/imprimir-firma', 'AnalisisSupervisorController@ajaxSetImprimirFirmaSupervisor')->name('analisisSupervisor.aSetImprimirFirmaSupervisor');
 Route::post('/analisis/change-to-citologia', 'AnalisisController@ajaxChageToCitologia')->name('analisis.aChangeToCitologia');
 Route::post('/analisis/aSearchPaciente', 'AnalisisController@ajaxSearchPaciente')->name('analisis.paciente.search');
 Route::post('/analisis/aChangePaciente', 'AnalisisController@ajaxChangePaciente')->name('analisis.paciente.achangepaciente');
@@ -212,3 +213,6 @@ Route::get('/invitado-admin/analisis-asignado/{user_id}','InvitadoAdminControlle
 Route::post('/invitado-admin/ajaxObtenerAnalisisAsignados','InvitadoAdminController@ajaxObtenerAnalisisAsignado')->name('invitado.admin.obteneranalisis.asignados');
 Route::post('/invitado-admin/ajaxAsignarAnalisisProcedencia','InvitadoAdminController@ajaxAsignarAnalisisProcedencia')->name('invitado.admin.asignaranalisis.procedencia');
 Route::post('/invitado-admin/resultados-atables-analisis', 'InvitadoAdminController@getDatatablesData')->name('invitadoadmin.simple.datatables.analisis.data');
+
+Route::post('/analisis/supervisor/getdata', 'AnalisisSupervisorController@ajaxData')->name('analisis.supervisor.data');
+Route::post('/analisis/supervisor/change', 'AnalisisSupervisorController@ajaxChange')->name('analisis.supervisor.change');

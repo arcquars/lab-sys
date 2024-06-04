@@ -49,7 +49,12 @@ class Analisis extends Model
         'acuenta_numero_tarjeta',
         'acuenta_banco',
         'saldo_numero_tarjeta',
-        'saldo_banco'
+        'saldo_banco',
+        'supervisar',
+        'doctor_supervisor',
+        'imprimir_firma_supervisor',
+        'comentario_supervisor',
+        'user_asig_supervisor',
     ];
 
     protected $dates = [
@@ -80,6 +85,10 @@ class Analisis extends Model
 
     public function convenio(){
         return $this->hasOne('App\Convenio', 'analisis_id', 'id');
+    }
+
+    public function supervisor(){
+        return $this->hasOne('App\Doctor', 'id', 'doctor_supervisor');
     }
 
 //    public function isConvenio(){

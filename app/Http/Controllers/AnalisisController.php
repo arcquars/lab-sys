@@ -90,6 +90,11 @@ class AnalisisController extends Controller
         $analisis->precio = $request->get('precio');
         $analisis->codigo = $request->get('codigo');
 
+        $doctorAsig = Doctor::find($analisis->doctor_asignado);
+        if($doctorAsig->supervisado){
+            $analisis->supervisar = 1;
+        }
+
         $analisis->razon_social = $request->get('razon_social');
         $analisis->nit = $request->get('nit');
         $analisis->tipo_pago_acuenta = $request->get('tipo_pago_acuenta', Analisis::TIPO_PAGO_ACUENTA[0]);
@@ -206,6 +211,12 @@ class AnalisisController extends Controller
         }
 
         $analisis->fill($request->all());
+
+        $doctorAsig = Doctor::find($analisis->doctor_asignado);
+        if($doctorAsig->supervisado){
+            $analisis->supervisar = true;
+        }
+
         if($analisis->update()){
             $convenios = explode(',', Config::get('clinica.convenios_id'));
             if(count($convenios) == 0){
@@ -299,7 +310,10 @@ class AnalisisController extends Controller
         if($user->person){
             $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG, $user){
                 return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')
-                    ->where('doctor_asignado', '=', $user->person)
+                    ->where(function ($query) use ($user){
+                        $query->where('doctor_asignado', '=', $user->person)
+                            ->orWhere('doctor_supervisor', '=', $user->person);
+                    })
                     ->where('codigo', 'like', '%'.$searchG.'%')
                     ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
                 {

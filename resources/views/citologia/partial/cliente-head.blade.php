@@ -1,3 +1,7 @@
+<?php
+use App\Helpers\ClinicaHelper;
+$doctoresTitulares = ClinicaHelper::getAllDoctorTitulares();
+?>
 <dl class="row row-citologia">
     <dt class="col-md-3">Paciente:</dt>
     <dd class="col-md-3">
@@ -72,8 +76,6 @@
                class="btn btn-outline-success">Historial de Edición</a>
         @endcan
         @can('manage-users-dr')
-                <a href="{{ route('analisis.edit', $analisis) }}"
-                   class="btn btn-outline-success">Editar Analisis</a>
                 @if($analisis->isChangeCitologia())
                     <a href="#" onclick="openConfirVolverCito(); return false;" class="btn btn-outline-success">Volver a Citología</a>
                 @endif
@@ -87,7 +89,25 @@
                             Imprimir Firma del doctor
                         </label>
                     </div>
-        @endcan
+            @endcan
+            @can('manage-users-dr2', $analisis)
+                <div class="form-check" style="display: inline;">
+                    <label class="form-check-label">
+                        <input name="imprimir_doctor_supervisor" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma_supervisor) checked @endif onchange="setImprimirFirmaSupervisor(this, '{{$analisis->id}}');">
+                        <span class="form-check-sign form-check-sign-black" ></span>
+                        Imprimir Firma del doctor interconsultado
+                    </label>
+                </div>
+            @endcan
+            @can('manage-users')
+                <a href="{{ route('analisis.edit', $analisis) }}"
+                   class="btn btn-outline-success">Editar Analisis</a>
+                @if($analisis->supervisar)
+                    <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisor({{$analisis->id}});">
+                        <b>Interconsultado</b>
+                    </button>
+                @endif
+            @endcan
             @if(strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0)
                 <div class="form-check" style="display: inline;">
                     <label class="form-check-label">
@@ -356,6 +376,42 @@
     </div>
 </div>
 
+<!-- Modal Supervisor -->
+<div id="mSupervisor" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form onsubmit="saveChangeToSupervisor(this); return false;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Establecer Interconsultado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
+                    <div class="form-group">
+                        <label for="fDoctorSupervisor">Doctor asignado</label>
+                        <select class="form-control" name="doctor_supervisor" id="fDoctorSupervisor" required>
+                            <option value="">Seleccione ...</option>
+                            @foreach($doctoresTitulares as $dt)
+                                <option value="{{$dt->id}}">{{$dt->nombres}} {{$dt->apellidos}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fComentarioSupervisor">Comentario</label>
+                        <textarea name="comentario_supervisor" id="fComentarioSupervisor" cols="3" class="form-control" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @push('js')
 <script>
     $(document).ready(function () {
@@ -531,6 +587,30 @@
             data: {analisis_id: '{{$analisis->id}}', imprimir_firma: imprimir},
             success: function (data) {
                 console.log(data)
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+    function setImprimirFirmaSupervisor(check, analisisId){
+        let imprimir = 0;
+        if($(check).is(':checked')){
+            imprimir = 1;
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('analisisSupervisor.aSetImprimirFirmaSupervisor') }}",
+            type: 'POST',
+            data: {analisis_id: '{{$analisis->id}}', 'imprimir_firma_supervisor': imprimir},
+            success: function (result) {
+                showMessageAjax('success', result.message);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -762,6 +842,42 @@
         } else {
             $(".saldo-tarjeta").addClass("d-none");
         }
+    }
+
+    function openModalSupervisor(analisisId){
+        $("#mSupervisor form")[0].reset();
+        $.ajax({
+            url: "{{ route('analisis.supervisor.data') }}",
+            type: 'POST',
+            data: {analisis_id: analisisId},
+            success: function (result) {
+                if(result.data.doctor_supervisor){
+                    $("#mSupervisor form select[name='doctor_supervisor']").val(result.data.doctor_supervisor);
+                }
+                if(result.data.comentario_supervisor){
+                    $("#mSupervisor form textarea[name='comentario_supervisor']").val(result.data.comentario_supervisor);
+                }
+                $("#mSupervisor").modal('show');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Ocurrio un error por favor comuniquese con el aministrador del sistema');
+            }
+        });
+    }
+
+    function saveChangeToSupervisor(form){
+        $.ajax({
+            url: "{{ route('analisis.supervisor.change') }}",
+            type: 'POST',
+            data: $(form).serialize(),
+            success: function (data) {
+                showMessageAjax('success', data.message);
+                $('#mSupervisor').modal('hide');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Ocurrio un error por favor comuniquese con el aministrador del sistema');
+            }
+        });
     }
 </script>
 @endpush

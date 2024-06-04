@@ -515,7 +515,19 @@
                             }
                             return data;
                         }},
-                    {name: 'doctorasig.nombres', orderable: false},
+                    {name: 'doctorasig.nombres', orderable: false, "render": function ( data, type, row ) {
+                        var texto = "";
+                        if(row[19]){
+                            texto += "<span class='text-primary'title='Análisis Interconsultado'>"+data + ' <i class="far fa-eye text-primary" style="font-size: 14px;"></i></span>';
+                        } else {
+                            texto += data;
+                        }
+                        if(row[20]){
+                            texto += ' <i class="fas fa-clipboard-check text-success" style="font-size: 14px;" title="Análisis Interconsultado aprobado"></i>';
+                        }
+                        return texto;
+                        }},
+
                         @can('manage-users')
                     {name: 'institucion.nombre'},
                     {name: 'precio', searchable: false},
@@ -534,6 +546,8 @@
                     {name: 'fecha_cierre', visible: false, searchable: false},
                     {name: 'send_sms', visible: false, searchable: false},
                     {name: 'imprimir_firma', visible: false, searchable: false},
+                    {name: 'supervisar', visible: false, searchable: false},
+                    {name: 'imprimir_firma_supervisor', visible: false, searchable: false},
                 ],
                 // aoColumnDefs: [
                 //     {

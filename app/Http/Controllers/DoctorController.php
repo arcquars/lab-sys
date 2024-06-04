@@ -55,6 +55,7 @@ class DoctorController extends Controller
         $doctor->apellidos = $request->get('apellidos');
         $doctor->especialidad = $request->get('especialidad');
         $doctor->matricula = $request->get('matricula');
+        $doctor->supervisado = $request->get('supervisado', 0);
 
         if(isset($request->file)){
             $doctor->signing = $this->uploadSignig($request->file);
@@ -72,6 +73,7 @@ class DoctorController extends Controller
         $doctor->apellidos = $request->get('apellidos');
         $doctor->especialidad = $request->get('especialidad');
         $doctor->matricula = $request->get('matricula');
+        $doctor->supervisado = $request->get('supervisado', 0);
 
         if(isset($request->file)){
             $doctor->signing = $this->uploadSignig($request->file);
