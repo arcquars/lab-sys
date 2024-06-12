@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Config;
+use Illuminate\Support\Facades\Auth;
 
 class Analisis extends Model
 {
@@ -89,6 +90,14 @@ class Analisis extends Model
 
     public function supervisor(){
         return $this->hasOne('App\Doctor', 'id', 'doctor_supervisor');
+    }
+
+    public function getSupervisores(){
+        return AnalisisSupervisor::where('analisis_id', $this->id)->get();
+    }
+
+    public function getSupervisoresVerificado(){
+        return AnalisisSupervisor::where('analisis_id', $this->id)->where('estado', 'like', AnalisisSupervisor::ESTADO_VERIFICADO)->get();
     }
 
 //    public function isConvenio(){
@@ -208,6 +217,19 @@ class Analisis extends Model
                 }
                 break;
         }
+
+        $hasAnalisisSupervisado = false;
+        $hasAnalisisSupervisadoEstado = false;
+        if(Auth::user()->hasRole(Role::MEDICO) && $analisis->supervisar){
+            $hasAnalisisSupervisado = true;
+            $analisisSupervisado = AnalisisSupervisor::where('doctor_id',Auth::user()->person)
+                ->where('estado', AnalisisSupervisor::ESTADO_VERIFICADO)
+                ->where('analisis_id', $analisis->id)->first();
+            if($analisisSupervisado){
+                $hasAnalisisSupervisadoEstado = true;
+            }
+        }
+
         return view('analisis.includes.action')->with(array(
             'id' => $analisis->id,
             'isHasResult' => $isHasResult,
@@ -220,7 +242,9 @@ class Analisis extends Model
             'convenio' => $analisis->isConvenio(),
             'entregado' => $entregado,
             'fechaCierre' => $analisis->fecha_cierre,
-            'send_sms' => $analisis->send_sms
+            'send_sms' => $analisis->send_sms,
+            'hasAnalisisSupervisado' => $hasAnalisisSupervisado,
+            'hasAnalisisSupervisadoEstado' => $hasAnalisisSupervisadoEstado
             ))->render();
     }
 

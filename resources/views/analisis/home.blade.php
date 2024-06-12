@@ -16,19 +16,19 @@
             <button class="btn btn-success" data-toggle="modal" data-target="#crearAnalisisRangoModal">Crear rango de analisis</button>
             @endcan
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="nombres">Nombres</label>
                         <input type="text" name="nombres" class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="nombres">Apellido</label>
                         <input type="text" name="apellidos" class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="doctor">Doctores</label>
                         <select name="doctor" class="form-control form-control-sm">
@@ -37,6 +37,15 @@
                                 <option value="{{$dr->id}}">{{$dr->nombres}}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="interconsultados" type="checkbox" value="1" @if($interconsultados) checked @endif>
+                            Interconsultados
+                        </label>
                     </div>
                 </div>
             </div>
@@ -475,7 +484,7 @@
                         // Here, manually add the loading message.
                         $('#tAnalisis > tbody').html(
                             '<tr class="odd">' +
-                            '<td valign="top" colspan="6" class="dataTables_empty">Loading&hellip;</td>' +
+                            '<td valign="top" colspan="6" class="dataTables_empty">Cargando&hellip;</td>' +
                             '</tr>'
                         );
                     }
@@ -518,13 +527,13 @@
                     {name: 'doctorasig.nombres', orderable: false, "render": function ( data, type, row ) {
                         var texto = "";
                         if(row[19]){
-                            texto += "<span class='text-primary'title='Análisis Interconsultado'>"+data + ' <i class="far fa-eye text-primary" style="font-size: 14px;"></i></span>';
+                            texto += "<span class='text-primary'title='Análisis Interconsultado' style='cursor: help;'>"+data + '</span>';
                         } else {
                             texto += data;
                         }
-                        if(row[20]){
-                            texto += ' <i class="fas fa-clipboard-check text-success" style="font-size: 14px;" title="Análisis Interconsultado aprobado"></i>';
-                        }
+                        // if(row[20]){
+                        //     texto += ' <i class="fas fa-clipboard-check text-success" style="font-size: 14px;" title="Análisis Interconsultado aprobado"></i>';
+                        // }
                         return texto;
                         }},
 
@@ -580,6 +589,11 @@
                 },
             });
 
+            @if($interconsultados)
+            table.column(19).search(
+                ($('input[name="interconsultados"]').is(':checked'))? 1 : ''
+            ).draw();
+            @endif
             $('#f_realizarpago').submit(function( event ) {
                 savePago();
                 event.preventDefault();
@@ -598,6 +612,12 @@
             $('select[name="doctor"]').on( 'change', function () {
                 table.column(8).search(
                     $(this).val()
+                ).draw();
+            } );
+
+            $('input[name="interconsultados"]').on( 'change', function () {
+                table.column(19).search(
+                    ($('input[name="interconsultados"]').is(':checked'))? 1 : ''
                 ).draw();
             } );
 

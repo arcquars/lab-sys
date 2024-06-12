@@ -169,7 +169,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')
-                        <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
+                        <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" onclick="controlInterconsulta({{$analisis->id}});" target="_blank" class="btn btn-warning">Imprimir</a>
                         <a href="{{route('citologia.crear', ['analisisId' => $analisis->id])}}" class="btn btn-success">Editar</a>
                     @endcan
                     <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
@@ -185,5 +185,18 @@
 
         });
 
+        function controlInterconsulta(analisisId){
+            $.ajax({
+                url: "{{ route('analisis.aGetAnalisisById') }}",
+                type: 'POST',
+                data: {analisis_id: $(link).data('id')},
+                success: function (data) {
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));
+                }
+            });
+        }
     </script>
 @endpush

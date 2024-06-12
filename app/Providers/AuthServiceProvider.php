@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Analisis;
+use App\AnalisisSupervisor;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -44,7 +46,11 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['admin', 'medico']);
         });
         Gate::define('manage-users-dr2', function($user, $analisis){
-            return $user->hasAnyRoles(['admin', 'secretaria']) || $user->person == $analisis->doctor_supervisor;
+            $analisisSupervisor = AnalisisSupervisor::where('doctor_id', $user->person)->where('analisis_id', $analisis->id)->first();
+            return $user->hasAnyRoles(['admin', 'medico']) || ($analisisSupervisor);
+        });
+        Gate::define('manage-users-dr3', function($user, $analisis){
+            return $user->hasRole('admin') || ($user->hasRole('medico') && $analisis->doctor_asignado == $user->person);
         });
         Gate::define('manage-users-tecnico', function($user){
             return $user->hasAnyRoles(['admin', 'secretaria', 'tecnico']);

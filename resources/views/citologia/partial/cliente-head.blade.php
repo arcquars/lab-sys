@@ -1,6 +1,8 @@
 <?php
 use App\Helpers\ClinicaHelper;
-$doctoresTitulares = ClinicaHelper::getAllDoctorTitulares();
+/** @var \App\Analisis $analisis */
+/** @var \App\Doctor $doctoresTitulares */
+$doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asignado);
 ?>
 <dl class="row row-citologia">
     <dt class="col-md-3">Paciente:</dt>
@@ -91,22 +93,25 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares();
                     </div>
             @endcan
             @can('manage-users-dr2', $analisis)
-                <div class="form-check" style="display: inline;">
-                    <label class="form-check-label">
-                        <input name="imprimir_doctor_supervisor" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma_supervisor) checked @endif onchange="setImprimirFirmaSupervisor(this, '{{$analisis->id}}');">
-                        <span class="form-check-sign form-check-sign-black" ></span>
-                        Imprimir Firma del doctor interconsultado
-                    </label>
-                </div>
+                <button class="btn btn-link text-danger" style="font-size: 12px" onclick="openModalFirmaSupervisores({{$analisis->id}});">
+                    <b>Firmas Interconsultados</b>
+                </button>
+{{--                <div class="form-check" style="display: inline;">--}}
+{{--                    <label class="form-check-label">--}}
+{{--                        <input name="imprimir_doctor_supervisor" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma_supervisor) checked @endif onchange="setImprimirFirmaSupervisor(this, '{{$analisis->id}}');">--}}
+{{--                        <span class="form-check-sign form-check-sign-black" ></span>--}}
+{{--                        Imprimir Firma del doctor interconsultado--}}
+{{--                    </label>--}}
+{{--                </div>--}}
             @endcan
-            @can('manage-users')
+            @can('manage-users-dr')
                 <a href="{{ route('analisis.edit', $analisis) }}"
                    class="btn btn-outline-success">Editar Analisis</a>
-                @if($analisis->supervisar)
-                    <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisor({{$analisis->id}});">
-                        <b>Interconsultado</b>
-                    </button>
-                @endif
+            @endcan
+            @can('manage-users-dr3', $analisis)
+                <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisores({{$analisis->id}});">
+                    <b>Interconsultado</b>
+                </button>
             @endcan
             @if(strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0)
                 <div class="form-check" style="display: inline;">
@@ -411,6 +416,42 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares();
         </div>
     </div>
 </div>
+
+<!-- Modal Supervisores -->
+<div id="mSupervisores" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form onsubmit="saveChangeToSupervisores(this); return false;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Establecer Interconsultado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="analisis_id" value="{{$analisis->id}}">
+                    <label>Doctores</label>
+                    @foreach($doctoresTitulares as $dt)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox-{{$dt->id}}" name="doctores[]" value="{{$dt->id}}">
+                        <label class="form-check-label" for="inlineCheckbox-{{$dt->id}}">{{$dt->nombres}} {{$dt->apellidos}}</label>
+                    </div>
+                    @endforeach
+                    <div class="form-group">
+                        <label for="fComentarioSupervisor">Comentario</label>
+                        <textarea name="comentario_supervisor" id="fComentarioSupervisor" cols="3" class="form-control" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@include('analisis.includes.modals.m_firmas_interconsultados')
 
 @push('js')
 <script>
@@ -873,6 +914,50 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares();
             success: function (data) {
                 showMessageAjax('success', data.message);
                 $('#mSupervisor').modal('hide');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Ocurrio un error por favor comuniquese con el aministrador del sistema');
+            }
+        });
+    }
+
+    function openModalSupervisores(analisisId){
+        $("#mSupervisores form")[0].reset();
+        $.ajax({
+            url: "{{ route('analisis.supervisores.data') }}",
+            type: 'POST',
+            data: {analisis_id: analisisId},
+            success: function (result) {
+                if(result.data.analisis_supervisores){
+                    checkeds = $("#mSupervisores form input[type='checkbox']");
+                    $.each(checkeds, function(i, check){
+                        $.each(result.data.analisis_supervisores, function(j, supervisor){
+                            console.log("xxxx:: " + $(check).val() + " || " + supervisor.doctor_id);
+                            if(parseInt($(check).val()) === supervisor.doctor_id){
+                                $(check).prop('checked', true);
+                            }
+                        });
+                    });
+                }
+                if(result.data.analisis.comentario_supervisor){
+                    $("#mSupervisores form textarea[name='comentario_supervisor']").val(result.data.analisis.comentario_supervisor);
+                }
+                $("#mSupervisores").modal('show');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('Ocurrio un error por favor comuniquese con el aministrador del sistema');
+            }
+        });
+    }
+
+    function saveChangeToSupervisores(form){
+        $.ajax({
+            url: "{{ route('analisis.supervisores.change') }}",
+            type: 'POST',
+            data: $(form).serialize(),
+            success: function (data) {
+                showMessageAjax('success', data.message);
+                $('#mSupervisores').modal('hide');
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Ocurrio un error por favor comuniquese con el aministrador del sistema');

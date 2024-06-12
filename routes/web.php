@@ -216,3 +216,6 @@ Route::post('/invitado-admin/resultados-atables-analisis', 'InvitadoAdminControl
 
 Route::post('/analisis/supervisor/getdata', 'AnalisisSupervisorController@ajaxData')->name('analisis.supervisor.data');
 Route::post('/analisis/supervisor/change', 'AnalisisSupervisorController@ajaxChange')->name('analisis.supervisor.change');
+Route::post('/analisis/supervisores/getdata', 'AnalisisSupervisorController@ajaxGetSupervisores')->name('analisis.supervisores.data');
+Route::post('/analisis/supervisores/change', 'AnalisisSupervisorController@ajaxSaveSupervisores')->name('analisis.supervisores.change');
+Route::post('/analisis/supervisores/set-estado', 'AnalisisSupervisorController@ajaxSaveEstado')->name('analisis.supervisores.setEstado');

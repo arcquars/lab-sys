@@ -93,10 +93,10 @@
                             </div>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexCheckChecked" type="checkbox" name="supervisado" value="1">
-                            <label class="form-check-label" for="flexCheckChecked">Interconsultado</label>
-                        </div>
+{{--                        <div class="form-check">--}}
+{{--                            <input class="form-check-input" id="flexCheckChecked" type="checkbox" name="supervisado" value="1">--}}
+{{--                            <label class="form-check-label" for="flexCheckChecked">Interconsultado</label>--}}
+{{--                        </div>--}}
 
                         <div class="row">
                             <div class="col-md-12">

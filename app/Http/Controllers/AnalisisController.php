@@ -48,15 +48,17 @@ class AnalisisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $interconsultados = $request->get('interconsultado', 0);
         $dateNow = date('Y-m-d');
         $date7 = date('Y-m-d', strtotime('-7 days'));
         $procedencias = Institucion::all();
         $doctores = Doctor::where(Doctor::DELETED, '=', 0)->get();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         $tipoPagoEfectuado = Analisis::TIPO_PAGO_EFECTUADO;
-        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7', 'tipoPagoEfectuado'));
+
+        return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7', 'tipoPagoEfectuado', 'interconsultados'));
     }
 
     /**
@@ -303,16 +305,19 @@ class AnalisisController extends Controller
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
         $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
+        $interconsultados = isset($columns[19]['search']['value'])? $columns[19]['search']['value'] : '';
 
 //        auth()->id()
         $user = User::find(auth()->id());
         $results = null;
         if($user->person){
-            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG, $user){
+            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG, $user, $interconsultados ){
                 return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')
+                    ->where('supervisar', 'like', '%'.$interconsultados.'%')
                     ->where(function ($query) use ($user){
                         $query->where('doctor_asignado', '=', $user->person)
-                            ->orWhere('doctor_supervisor', '=', $user->person);
+//                            ->orWhere('doctor_supervisor', '=', $user->person);
+                            ->orWhereRaw('id in (select analisis.id from a_supervisores where a_supervisores.analisis_id=analisis.id and a_supervisores.doctor_id=' . $user->person . ')');
                     })
                     ->where('codigo', 'like', '%'.$searchG.'%')
                     ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)

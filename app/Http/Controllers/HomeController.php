@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\AnalisisSupervisor;
+use App\Role;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -29,6 +32,12 @@ class HomeController extends Controller
         $dateF = Carbon::now();
 //        $dateI = Carbon::now()->subDays(30);
         $dateI = Carbon::now()->firstOfMonth();
-        return view('home', compact('dateI', 'dateF'));
+        $analisisSupervisados = 0;
+        if(Auth::user()->hasRole(Role::MEDICO) && Auth::user()->person){
+            $analisisSupervisados = AnalisisSupervisor::where('doctor_id', Auth::user()->person)
+            ->where('estado', 'like', AnalisisSupervisor::ESTADO_SIN_VERIFICAR)->count();
+        }
+
+        return view('home', compact('dateI', 'dateF', 'analisisSupervisados'));
     }
 }

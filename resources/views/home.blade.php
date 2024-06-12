@@ -17,9 +17,12 @@
                         </div>
                     @endif
                     <p>Bienvenido al Sistema de control de análisis</p>
+                        @can('manage-users-dr1')
+                            @include('analisis.includes._report_supervisor_estado', ['analisisSupervisados' => $analisisSupervisados])
+                        @endcan
                         @can('manage-admin')
-                    @include('reportes.partials._graficos', ['dateI' =>$dateI, 'dateF' => $dateF])
-                            @endcan
+                            @include('reportes.partials._graficos', ['dateI' =>$dateI, 'dateF' => $dateF])
+                        @endcan
                 </div>
             </div>
         </div>

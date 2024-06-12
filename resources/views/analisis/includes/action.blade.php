@@ -52,6 +52,18 @@
     </a>
     @endcan
 @endif
+
+@if($hasAnalisisSupervisado)
+    @if($hasAnalisisSupervisadoEstado)
+        <a href="#" onclick="openModalPago(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica text-dark disabled" title="Análisis verificado">
+            <i class="fas fa-file-excel"></i>
+        </a>
+    @else
+        <a href="#" onclick="openModalPago(this); return false;" data-id="{{$id}}" class="btn btn-link float-right btn-clinica text-danger disabled" title="Análisis sin verificar">
+            <i class="fas fa-file-excel"></i>
+        </a>
+    @endif
+@endif
 {{--<a href="{{route('analisis.comprobante', ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">--}}
 {{--    <i class="fas fa-print text-success"></i>--}}
 {{--</a>--}}
