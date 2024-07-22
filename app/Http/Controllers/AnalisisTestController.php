@@ -1,0 +1,235 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\AnalysisTest;
+use App\AnalysisTestGroup;
+use App\AnalysisTestRange;
+use App\AnalysisTestRangeNoOrder;
+use App\AnalysisTestRangeNoOrderOption;
+use App\AnalysisTestRangeNoOrderOptionIntermediary;
+use App\AnalysisTestRangeOption;
+use App\Http\Requests\StoreAnalysisTestPost;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
+class AnalisisTestController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth')->except('cerrarAnalisisForId', '');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $rangeTypeList = AnalysisTest::ANALYSIS_TEST_TYPES;
+        return view('a-test.home', compact('rangeTypeList'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreAnalysisTestPost $request
+     * @return JsonResponse
+     */
+    public function store(StoreAnalysisTestPost $request)
+    {
+        $analysisTest = new AnalysisTest();
+        $analysisTest->name = $request->input('name');
+        $analysisTest->price = $request->input('price');
+        $analysisTest->a_test_group_id = $request->input('group');
+        $analysisTest->type = $request->input('type');
+        $analysisTest->user_id = Auth::user()->id;
+        $analysisTest->save();
+
+        switch ($analysisTest->type){
+            case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO:
+                $analysisTestRange = new AnalysisTestRange();
+                $analysisTestRange->measure = $request->input('range.measure');
+                $analysisTestRange->bookmark = $request->input('range.bookmark', false);
+                $analysisTestRange->user_id = Auth::user()->id;
+                $analysisTestRange->a_test_id = $analysisTest->id;
+                $analysisTestRange->save();
+
+                $options = $request->input('range.option');
+                foreach($options as $key => $value){
+                    $analysisTestRangeOption = new AnalysisTestRangeOption();
+                    $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
+                    $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                    $analysisTestRangeOption->age_initial = $value['age_initial'];
+                    $analysisTestRangeOption->age_end = $value['age_end'];
+                    $analysisTestRangeOption->gender = $value['gender'];
+                    $analysisTestRangeOption->a_test_range_id = $analysisTestRange->id;
+                    $analysisTestRangeOption->user_id = Auth::user()->id;
+                    $analysisTestRangeOption->save();
+                }
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
+                $analysisTestRangeNoOrder = new AnalysisTestRangeNoOrder();
+                $analysisTestRangeNoOrder->measure = $request->input('range.measure');
+                $analysisTestRangeNoOrder->user_id = Auth::user()->id;
+                $analysisTestRangeNoOrder->a_test_id = $analysisTest->id;
+                $analysisTestRangeNoOrder->save();
+
+                $options = $request->input('range.option');
+                foreach($options as $key => $value){
+                    $analysisTestRangeNoOrderOption = new AnalysisTestRangeNoOrderOption();
+                    $analysisTestRangeNoOrderOption->gender = $value['gender'];
+                    $analysisTestRangeNoOrderOption->age_initial = (isset($value['age_initial']))? $value['age_initial'] : null;
+                    $analysisTestRangeNoOrderOption->age_end = $value['age_end']?? null;
+                    $analysisTestRangeNoOrderOption->initial_text = $value['initial_text'] ?? null;
+                    $analysisTestRangeNoOrderOption->initial_value = $value['initial_value'] ?? null;
+                    $analysisTestRangeNoOrderOption->initial_bookmark = $value['initial_bookmark'] ?? 0;
+                    $analysisTestRangeNoOrderOption->end_text = $value['end_text']?? null;
+                    $analysisTestRangeNoOrderOption->end_value = $value['end_value']?? null;
+                    $analysisTestRangeNoOrderOption->end_bookmark = $value['end_bookmark']?? 0;
+                    $analysisTestRangeNoOrderOption->a_test_range_no_order_id = $analysisTestRangeNoOrder->id;
+                    $analysisTestRangeNoOrderOption->user_id = Auth::user()->id;
+                    $analysisTestRangeNoOrderOption->save();
+
+                    $intermediaries = $request->input('range.option.'.$key.'.intermediary');
+                    if(isset($intermediaries) && is_array($intermediaries)){
+                        foreach ($intermediaries as $key1 => $intermediary){
+                            $aTestRangeNoOrderOptionIntermediary = new AnalysisTestRangeNoOrderOptionIntermediary();
+                            $aTestRangeNoOrderOptionIntermediary->range_name = (isset($intermediary['text']))? $intermediary['text'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->initial_range = (isset($intermediary['range_initial']))? $intermediary['range_initial'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->end_range = (isset($intermediary['range_end']))? $intermediary['range_end'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? $intermediary['bookmark'] : 0;
+                            $aTestRangeNoOrderOptionIntermediary->order_option_id = $analysisTestRangeNoOrderOption->id;
+                            $aTestRangeNoOrderOptionIntermediary->save();
+                        }
+                    }
+                }
+
+
+                break;
+        }
+
+        return response()->json(['success'=>true, 'message' => "Se creo la PRUEBA correctamente..."]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  StoreAnalysisTestPost $request
+     * @return JsonResponse
+     */
+    public function update(StoreAnalysisTestPost $request)
+    {
+        $analysisTest = AnalysisTest::find($request->input('id'));
+        $analysisTest->name = $request->input('name');
+        $analysisTest->price = $request->input('price');
+        $analysisTest->a_test_group_id = $request->input('group');
+        $analysisTest->type = $request->input('type');
+        $analysisTest->user_id = Auth::user()->id;
+        $analysisTest->save();
+
+        if(strcmp($analysisTest->type, 'Rango') == 0){
+            // Bloque que actualiza los datos de AnalysisTestRange
+            $analysisTestRange = AnalysisTestRange::find($analysisTest->analysisTestRange->id);
+            $analysisTestRange->measure = $request->input('range.measure');
+            $analysisTestRange->bookmark = $request->input('range.bookmark');
+            $analysisTestRange->save();
+
+            // Bloque para eliminar las opciones
+            $deleteRangeOptionIds = [];
+            foreach ($analysisTest->analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption){
+                $deleteId = $analysisTestRangeOption->id;
+                foreach ($request->input('range.option') as $key=> $value){
+                    if(isset($value['id']) && $analysisTestRangeOption->id == $value['id']){
+                        $deleteId = 0;
+                    }
+                }
+                if($deleteId != 0){
+                    $deleteRangeOptionIds[] = $deleteId;
+                }
+            }
+            AnalysisTestRangeOption::whereIn('id', $deleteRangeOptionIds)->delete();
+
+            // Bloque para actualizar las opciones que ya tenia el Rango
+            foreach ($request->input('range.option') as $key=> $value){
+                if(isset($value['id'])){
+                    $analysisTestRangeOption = AnalysisTestRangeOption::find($value['id']);
+                    $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
+                    $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                    $analysisTestRangeOption->age_initial = $value['age_initial'];
+                    $analysisTestRangeOption->age_end = $value['age_end'];
+                    $analysisTestRangeOption->gender = $value['gender'];
+                    $analysisTestRangeOption->save();
+                } else {
+                    $analysisTestRangeOption = new AnalysisTestRangeOption();
+                    $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
+                    $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                    $analysisTestRangeOption->age_initial = $value['age_initial'];
+                    $analysisTestRangeOption->age_end = $value['age_end'];
+                    $analysisTestRangeOption->gender = $value['gender'];
+                    $analysisTestRangeOption->a_test_range_id = $analysisTest->analysisTestRange->id;
+                    $analysisTestRangeOption->user_id = Auth::user()->id;
+                    $analysisTestRangeOption->save();
+                }
+            }
+        }
+
+        return response()->json(['success'=>true, 'message' => "Se actualizo la PRUEBA correctamente..."]);
+    }
+
+    public function getGroupAndType(){
+        // Setting::where('section', $section)->select('key', 'value')->pluck('value')->toArray();
+        $groups = AnalysisTestGroup::where('deleted', 0)->pluck('id','name')->toArray();
+        return response()->json(['success'=>true, 'groups' => $groups]);
+    }
+
+    public function renderTestType(Request $request){
+        if($request->ajax()){
+            $testType = $request->input('test_type', 'Rango');
+            switch ($testType){
+                case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO:
+                    return view('a-test.partials.render-test-type-range')->render();
+                case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
+                    return view('a-test.partials.render-test-type-range-no-order')->render();
+            }
+        }
+    }
+
+    public function renderRangeOption(Request $request){
+        if($request->ajax()){
+            $tempId = rand(0,500);
+            return view('a-test.partials.render-range-option', compact('tempId'))->render();
+        }
+    }
+
+    public function renderRangeNoOrderOption(Request $request){
+        if($request->ajax()){
+            $tempId = rand(0,500);
+            return view('a-test.partials.render-range-no-order-option', compact('tempId'))->render();
+        }
+    }
+
+    public function renderTestForm(Request $request){
+        if($request->ajax()){
+            $aTestId = $request->get('a_test_id');
+            $analysisTest = AnalysisTest::find($aTestId);
+            $groups = AnalysisTestGroup::where('deleted', 0)->pluck('name', 'id');
+            $aTestTypes = AnalysisTest::ANALYSIS_TEST_TYPES;
+            return view('a-test.partials.render-test-form',
+                compact('analysisTest', 'groups', 'aTestTypes'))
+                ->render();
+        }
+    }
+
+    public function renderRangeOptionIntermediary(Request $request){
+        if($request->ajax()){
+            $tempId = $request->get('tempId');
+            $count = $request->get('count');
+            return view('a-test.partials.render-range-no-order-intermediary', compact('count', 'tempId'))->render();
+        }
+    }
+}

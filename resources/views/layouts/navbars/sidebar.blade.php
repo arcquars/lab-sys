@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="orange">
+<div class="sidebar" data-color="azure">
     <!--
 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -146,12 +146,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Analisis</p>
                     </a>
                 </li>
-                <li class="nav-item @if($activePage == 'marcadores') active @endif">
-                    <a class="nav-link" href="{{route('marcador.index')}}">
-                        <i class="fas fa-highlighter fa-lg"></i>
-                        <p>Marcadores</p>
-                    </a>
-                </li>
+{{--                <li class="nav-item @if($activePage == 'marcadores') active @endif">--}}
+{{--                    <a class="nav-link" href="{{route('marcador.index')}}">--}}
+{{--                        <i class="fas fa-highlighter fa-lg"></i>--}}
+{{--                        <p>Marcadores</p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             @endcan
             @cannot('manage-users-no-tecnico')
             <li class="nav-item @if($activePage == 'reportetecnico') active @endif">
@@ -180,21 +180,27 @@ Tip 2: you can also add an image using data-image tag
 {{--                </li>--}}
             @endcannot
             @can('manage-users-only-secretaria')
-            <li class="nav-item @if($activePage == 'gasto_index') active @endif">
-                <a class="nav-link" href="{{route('gastos.home')}}">
-                    <i class="fas fa-cash-register"></i>
-                    <p>Caja Chica</p>
-                </a>
-            </li>
+                <li class="nav-item @if($activePage == 'atest_index') active @endif">
+                    <a class="nav-link" href="{{route('analisis-test.home')}}">
+                        <i class="fas fa-vials"></i>
+                        <p>Pruebas</p>
+                    </a>
+                </li>
+                <li class="nav-item @if($activePage == 'gasto_index') active @endif">
+                    <a class="nav-link" href="{{route('gastos.home')}}">
+                        <i class="fas fa-cash-register"></i>
+                        <p>Caja Chica</p>
+                    </a>
+                </li>
             @endcan
-            @cannot('is-invitado')
-            <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">
-                <a class="nav-link" href="{{route('texto-predefinido.index')}}">
-                    <i class="far fa-file-word"></i>
-                    <p>Texto Predefinido</p>
-                </a>
-            </li>
-            @endcan
+{{--            @cannot('is-invitado')--}}
+{{--            <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">--}}
+{{--                <a class="nav-link" href="{{route('texto-predefinido.index')}}">--}}
+{{--                    <i class="far fa-file-word"></i>--}}
+{{--                    <p>Texto Predefinido</p>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+{{--            @endcan--}}
             @can('is-invitado')
                 <li class="nav-item @if($activePage == 'invitado_index') active @endif">
                     <a class="nav-link" href="{{route('invitado.index')}}">

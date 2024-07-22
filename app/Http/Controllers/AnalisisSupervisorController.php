@@ -62,22 +62,51 @@ class AnalisisSupervisorController extends Controller
         $doctores = $request->post('doctores', []);
         $analisis = Analisis::find($analisisId);
 
-        AnalisisSupervisor::where('analisis_id', $analisisId)->delete();
         if(count($doctores) == 0){
             $analisis->supervisar = 0;
             $analisis->comentario_supervisor =  '';
         } else {
             $analisis->supervisar = 1;
             $analisis->comentario_supervisor =  $request->post('comentario_supervisor', '');
-            foreach ($doctores as $doctor){
-                $mDoctor = new AnalisisSupervisor();
-                $mDoctor->estado = AnalisisSupervisor::ESTADO_SIN_VERIFICAR;
-                $mDoctor->comentario = '';
-                $mDoctor->user_id = auth()->id();
-                $mDoctor->analisis_id = $analisisId;
-                $mDoctor->doctor_id = $doctor;
-                $mDoctor->save();
+            $analisisSupervisores = AnalisisSupervisor::where('analisis_id', $analisisId)->get();
+            if(count($analisisSupervisores) > 0){
+                foreach ($analisisSupervisores as $as){
+                    $isDelete = true;
+                    foreach ($doctores as $doctor){
+                        if($as->doctor_id == $doctor){
+                            $isDelete = false;
+                        }
+                    }
+                    if($isDelete){
+                        $as->delete();
+                    }
+                }
+
+                foreach ($doctores as $doctor){
+                    $auxAS = AnalisisSupervisor::where('analisis_id', $analisisId)->where('doctor_id', $doctor)->get();
+                    if(count($auxAS) == 0){
+                        $mDoctor = new AnalisisSupervisor();
+                        $mDoctor->estado = AnalisisSupervisor::ESTADO_SIN_VERIFICAR;
+                        $mDoctor->comentario = '';
+                        $mDoctor->user_id = auth()->id();
+                        $mDoctor->analisis_id = $analisisId;
+                        $mDoctor->doctor_id = $doctor;
+                        $mDoctor->save();
+                    }
+                }
+
+            } else {
+                foreach ($doctores as $doctor){
+                    $mDoctor = new AnalisisSupervisor();
+                    $mDoctor->estado = AnalisisSupervisor::ESTADO_SIN_VERIFICAR;
+                    $mDoctor->comentario = '';
+                    $mDoctor->user_id = auth()->id();
+                    $mDoctor->analisis_id = $analisisId;
+                    $mDoctor->doctor_id = $doctor;
+                    $mDoctor->save();
+                }
             }
+
         }
         $analisis->save();
         return response()->json(['success' => true, 'message' => 'Se actualizó correctamente la firma del supervisor.']);

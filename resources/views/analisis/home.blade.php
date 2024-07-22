@@ -12,9 +12,9 @@
         <div class="card-header">
         </div>
         <div class="card-body ">
-            @can('manage-users')
-            <button class="btn btn-success" data-toggle="modal" data-target="#crearAnalisisRangoModal">Crear rango de analisis</button>
-            @endcan
+{{--            @can('manage-users')--}}
+{{--            <button class="btn btn-success" data-toggle="modal" data-target="#crearAnalisisRangoModal">Crear rango de analisis</button>--}}
+{{--            @endcan--}}
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
@@ -514,7 +514,7 @@
                                     if($(data).text().length > 19){
                                         return $(data).text().slice(0, 20) + "...";
                                     } else {
-                                        return data;
+                                        return $(data).text();
                                     }
                                 } catch(err) {
                                     return data;

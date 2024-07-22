@@ -108,7 +108,8 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
                 <a href="{{ route('analisis.edit', $analisis) }}"
                    class="btn btn-outline-success">Editar Analisis</a>
             @endcan
-            @can('manage-users-dr3', $analisis)
+{{--            @can('manage-users-dr3', $analisis)--}}
+            @can('manage-users-dr1')
                 <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisores({{$analisis->id}});">
                     <b>Interconsultado</b>
                 </button>
@@ -433,8 +434,14 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
                     <label>Doctores</label>
                     @foreach($doctoresTitulares as $dt)
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox-{{$dt->id}}" name="doctores[]" value="{{$dt->id}}">
-                        <label class="form-check-label" for="inlineCheckbox-{{$dt->id}}">{{$dt->nombres}} {{$dt->apellidos}}</label>
+                        <label class="form-check-label" for="inlineCheckbox-{{$dt->id}}">
+                            <input class="form-check-input" type="checkbox"
+                                   id="inlineCheckbox-{{$dt->id}}" name="doctores[]" value="{{$dt->id}}"
+                            >
+                            <span class="form-check-sign"></span>
+                            {{$dt->nombres}} {{$dt->apellidos}}
+                        </label>
+
                     </div>
                     @endforeach
                     <div class="form-group">

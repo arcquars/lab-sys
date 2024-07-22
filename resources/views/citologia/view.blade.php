@@ -169,7 +169,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')
-                        <a href="{{route('citologia.reporte', ['analisisId' => $analisis->id])}}" onclick="controlInterconsulta({{$analisis->id}});" target="_blank" class="btn btn-warning">Imprimir</a>
+                        <a href="#" onclick="controlInterconsulta({{$analisis->id}}, '{{route('citologia.reporte', ['analisisId' => $analisis->id])}}'); return false;" target="_blank" class="btn btn-warning">Imprimir</a>
                         <a href="{{route('citologia.crear', ['analisisId' => $analisis->id])}}" class="btn btn-success">Editar</a>
                     @endcan
                     <a href="{{route('analisis.index')}}" class="btn btn-dark">Atras</a>
@@ -185,13 +185,16 @@
 
         });
 
-        function controlInterconsulta(analisisId){
+        function controlInterconsulta(analisisId, url){
             $.ajax({
-                url: "{{ route('analisis.aGetAnalisisById') }}",
+                url: "{{ route('analisis.interconsultas.validar.firmas') }}",
                 type: 'POST',
-                data: {analisis_id: $(link).data('id')},
+                data: {analisis_id: analisisId},
                 success: function (data) {
-
+                    if(!data.firmasValidas){
+                        alert("Las firmas no estan completas.");
+                    }
+                    window.open(url,'_blank');
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     // printErrorMsg($("#f_fechaentrega"), JSON.parse(XMLHttpRequest.responseText));

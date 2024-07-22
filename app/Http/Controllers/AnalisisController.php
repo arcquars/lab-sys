@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\AnalisisSupervisor;
 use App\Bethesda;
 use App\Biopsia;
 use App\Convenio;
@@ -90,8 +91,8 @@ class AnalisisController extends Controller
         $analisis->region = $request->get('region');
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
-        $analisis->codigo = $request->get('codigo');
-
+//        $analisis->codigo = $request->get('codigo');
+        $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
             $analisis->supervisar = 1;
@@ -120,33 +121,7 @@ class AnalisisController extends Controller
         $analisis->user_id = auth()->id();
 
         if($analisis->save()) {
-            $convenios = explode(',', Config::get('clinica.convenios_id'));
-            if(count($convenios) == 0){
-                $convenios = array([Config::get('clinica.convenios_id')]);
-            }
-            for ($i=0; $i<count($convenios); $i++){
-                if($convenios[$i] == $analisis->procedencia){
-                    $convenio = new Convenio();
-                    $convenio->bancaInstitucion = $request->get('bancaInstitucion');
-                    $convenio->bancaMatricula = $request->get('bancaMatricula');
-                    $convenio->bancaPreAfiliacion = $request->get('bancaPreAfiliacion');
-                    $convenio->bancaActivoAsegurado = $request->get('bancaActivoAsegurado');
-                    $convenio->bancaActivoExt = $request->get('bancaActivoExt');
-                    $convenio->bancaActivoResto = $request->get('bancaActivoResto');
-                    $convenio->bancaPasivoAsegurado = $request->get('bancaPasivoAsegurado');
-                    $convenio->bancaPasivoExt = $request->get('bancaPasivoExt');
-                    $convenio->bancaPasivoResto = $request->get('bancaPasivoResto');
-                    $convenio->bancaSecAsegurado = $request->get('bancaSecAsegurado');
-                    $convenio->bancaSecExt = $request->get('bancaSecExt');
-                    $convenio->bancaSecResto = $request->get('bancaSecResto');
-                    $convenio->bancaEspecialidad = $request->get('bancaEspecialidad');
-                    $convenio->bancaAmbulatorio = $request->get('bancaAmbulatorio');
-                    $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
-                    $convenio->analisis_id = $analisis->id;
-
-                    $convenio->save();
-                }
-            }
+            // TODO implementar analisis hemo pruebas test
 
             return redirect('/clients');
         } else {
@@ -478,6 +453,10 @@ class AnalisisController extends Controller
                 $num = Analisis::where('tipo_analisis', Analisis::BIOLOGIA_MOLECULAR)->count() + config('clinica.contadores_analisis.BIOLOGIA_MOLECULAR'); // 300
                 $codigo = 'BM'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
+            case Analisis::PRUEBA:
+                $num = Analisis::where('tipo_analisis', Analisis::PRUEBA)->count() + config('clinica.contadores_analisis.PRUEBA');
+                $codigo = 'HEMO'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
+                break;
         }
         return $codigo;
     }
@@ -594,6 +573,21 @@ class AnalisisController extends Controller
     public function ajaxGetAnalisisById(Request $request){
         $analisisId = $request->get('analisis_id');
         return response()->json(['success' => true, 'analisis' => Analisis::find($analisisId), 'bandera' => 1]);
+    }
+
+    public function ajaxInterconsultaValidarFirmas(Request $request){
+        $analisisId = $request->get('analisis_id');
+        $analisis = Analisis::find($analisisId);
+        $firmasValidas = false;
+        if($analisis->supervisar){
+            $countAnalisisSupervisor = AnalisisSupervisor::where('analisis_id', $analisisId)->count();
+            $countAnalisisSupervisorAprobate = AnalisisSupervisor::where('analisis_id', $analisisId)->where('estado', AnalisisSupervisor::ESTADO_VERIFICADO)->count();
+            if($countAnalisisSupervisor == $countAnalisisSupervisorAprobate){
+                $firmasValidas = true;
+            }
+
+        }
+        return response()->json(['success' => true, 'firmasValidas' => $firmasValidas]);
     }
 
     public function ajaxGetAnalisisPacienteById(Request $request){
@@ -997,5 +991,31 @@ class AnalisisController extends Controller
         $analisis->persona_entrega = 'Registrado por QR';
         $analisis->update();
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * formulario para crear un analisis para una persona.
+     *
+     * @param  integer personId
+     * @return View
+     */
+    public function crearAnalisisHemoForPersona($personId){
+        $persona = Person::find($personId);
+        $edad = '';
+        if($persona->f_nacimiento){
+            $edad = Carbon::parse($persona->f_nacimiento)->age;
+        }
+        $procedencias = Institucion::all();
+        $doctores = Doctor::all();
+        $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $convenio = null;
+        return view('analisis.crear-hemo', compact(
+            'procedencias',
+            'doctores',
+            'edad', 'tipoPagoAcuenta',
+            'tipoAnalisis',
+            'persona',
+            'convenio'));
     }
 }

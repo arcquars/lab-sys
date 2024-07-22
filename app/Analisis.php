@@ -17,6 +17,7 @@ class Analisis extends Model
     const HISTOPATOLOGICO = 'HISTOPATOLOGICO';
     const LIQUIDOS = 'LIQUIDOS';
     const BIOPSIA_DE_RINON = 'BIOPSIA DE RIÑON';
+    const PRUEBA = 'PRUEBA';
 
     const TIPO_PAGO_ACUENTA = ['EFECTIVO', 'TRANSFERENCIA'];
     const TIPO_PAGO_EFECTUADO = ['EFECTIVO', 'TRANSFERENCIA'];

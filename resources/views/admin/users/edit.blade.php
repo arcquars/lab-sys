@@ -71,17 +71,23 @@
                 @endif
 
                 <div class="form-group">
-                    <div class="form-check">
                 @foreach($roles as $role)
+                        <div class="form-check">
                     @if(isset($user))
-                        <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror"
-                            @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                        <label for="frol-{{$role->id}}">{{$role->name}}</label><br>
+                        <label class="form-check-label">
+                            <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror"
+                                   @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                            <span class="form-check-sign"></span>
+                            {{$role->name}}
+                        </label>
                     @else
-                    <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror">
-                    <label for="frol-{{$role->id}}">{{$role->name}}</label><br>
+                        <label class="form-check-label">
+                            <input type="checkbox" id="frol-{{$role->id}}" name="roles[]" value="{{$role->id}}" class="form-check-input @error('roles') is-invalid @enderror">
+                            <span class="form-check-sign"></span>
+                            {{$role->name}}
+                        </label>
                     @endif
-
+                        </div>
                 @endforeach
 
                     @error('roles')
@@ -89,7 +95,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                     @enderror
-                    </div>
+
                 </div>
                 <div class="form-group group-doctor" style="display: @if(isset($user)) {{ $user->hasRole('medico')? 'block' : 'none' }} @else none @endif">
                     <label for="fPerson">Doctor</label>

@@ -181,3 +181,14 @@
 .toggle.clinica-toggle > .toggle-group > label {
     color: white;
 }
+
+.card-header-clinica{
+    padding: 0.75rem 1.25rem !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+}
+
+.card-header-azure {
+    background: #d1f6ff !important;
+    /*color: white;*/
+}

@@ -2,7 +2,10 @@
 {{--    Edit {{$id}}--}}
     <i class="far fa-edit fa-lg"></i>
 </a>
-<a href="{{route('analisis.crearanalisis', $id)}}" class="btn btn-link float-right" title="Crear Analisis">
+{{--<a href="{{route('analisis.crearanalisis', $id)}}" class="btn btn-link float-right" title="Crear Analisis">--}}
+{{--    <i class="fas fa-notes-medical fa-lg"></i>--}}
+{{--</a>--}}
+<a href="{{route('analisis.crear.analisis.hemo', $id)}}" class="btn btn-link float-right" title="Crear Analisis Hemo">
     <i class="fas fa-notes-medical fa-lg"></i>
 </a>
 <a href="{{route('analisis.listByPerson', $id)}}" class="btn btn-link float-right" title="Kadex">

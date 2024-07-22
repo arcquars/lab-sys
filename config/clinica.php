@@ -279,6 +279,7 @@ return [
         'BETHESDA' => 220,
         'HISTOPATOLOGICO' => 300,
         'BIOLOGIA_MOLECULAR' => 10,
+        'PRUEBA' => 1,
     ],
     'sms_enviar_texto' => 'CENTRO DE DIAGNOSTICO CITOPATOLOGICO COCHABAMBA <br>Usted puede descargar su analisis abriendo el siguiente link:<br> ',
     'ci_person_default' => '6000000'

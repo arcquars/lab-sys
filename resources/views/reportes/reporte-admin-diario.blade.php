@@ -125,7 +125,7 @@
                 <td>{{$analisi->tipo_analisis}}</td>
                 <td>{{$analisi->doctor}}</td>
                 <td>{{$analisi->institucion->nombre}}</td>
-                <td>{{$analisi->region}}</td>
+                <td>{{\Illuminate\Support\Str::limit(html_entity_decode(strip_tags($analisi->region)), 19, ' ...')}}</td>
                 <td>{{$analisi->precio}}</td>
 {{--                <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>".$analisi->fecha_entrega->format('d-m-Y')."</p>" : "<p style='color:red;'>No</p>" !!}</td>--}}
                 <td style="text-align: center;">{!! ($analisi->fecha_entrega)? "<p style='color:green; font-size: 10px;'>Entregado</p>" : "<p style='color:red;'>No</p>" !!}</td>

@@ -58,6 +58,7 @@ Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getEx
 
 Route::resource('analisis', 'AnalisisController');
 Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');
+Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersona')->name('analisis.crear.analisis.hemo');
 Route::get('/analisis/lista_impresiones/{analisisId}', 'AnalisisController@listaImpresion')->name('analisis.lista.impresion');
 Route::get('/analisis/lista_ediciones/{analisisId}', 'AnalisisController@listaEdicion')->name('analisis.lista.edicion');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
@@ -73,6 +74,7 @@ Route::post('/analisis/agetanalisispago', 'AnalisisController@ajaxGetAnalisisPag
 Route::post('/analisis/generar-rango-analisis', 'AnalisisController@ajaxGenerarRango')->name('analisis.generar.rango.analisis');
 Route::post('/analisis/crear-generar-rango-analisis', 'AnalisisController@ajaxCrearGenerarRango')->name('analisis.crear.generar.rango.analisis');
 Route::post('/analisis/agetanalisis', 'AnalisisController@ajaxGetAnalisisById')->name('analisis.aGetAnalisisById');
+Route::post('/analisis/interconsulta/validar-firmas', 'AnalisisController@ajaxInterconsultaValidarFirmas')->name('analisis.interconsultas.validar.firmas');
 Route::post('/analisis/agetanalisispaciente', 'AnalisisController@ajaxGetAnalisisPacienteById')->name('analisis.aGetAnalisisPacienteById');
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
@@ -219,3 +221,19 @@ Route::post('/analisis/supervisor/change', 'AnalisisSupervisorController@ajaxCha
 Route::post('/analisis/supervisores/getdata', 'AnalisisSupervisorController@ajaxGetSupervisores')->name('analisis.supervisores.data');
 Route::post('/analisis/supervisores/change', 'AnalisisSupervisorController@ajaxSaveSupervisores')->name('analisis.supervisores.change');
 Route::post('/analisis/supervisores/set-estado', 'AnalisisSupervisorController@ajaxSaveEstado')->name('analisis.supervisores.setEstado');
+
+Route::get('/analisis-test', 'AnalisisTestController@index')->name('analisis-test.home');
+Route::get('/analisis-test/get-group-type', 'AnalisisTestController@getGroupAndType')->name('analisis-test.get-group-type');
+Route::get('/analisis-test/render-test-form', 'AnalisisTestController@renderTestForm')->name('analisis-test.render-test-form');
+Route::get('/analisis-test/render-test-type', 'AnalisisTestController@renderTestType')->name('analysis-test.render-test-type');
+Route::get('/analisis-test/render-range-option', 'AnalisisTestController@renderRangeOption')->name('analysis-test.render-range-option');
+Route::get('/analisis-test/render-range-option-intermediary', 'AnalisisTestController@renderRangeOptionIntermediary')->name('analysis-test.render-range-option-intermediary');
+Route::get('/analisis-test/render-range-no-order-option', 'AnalisisTestController@renderRangeNoOrderOption')->name('analysis-test.render-range-no-order-option');
+Route::post('/analisis-test/store-test', 'AnalisisTestController@store')->name('analysis-test.store.test');
+Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name('analysis-test.update.test');
+
+
+/** Analisis Test Group */
+Route::get('/analysis-test-group/render-list-groups', 'AnalysisTestGroupController@renderListGroups')->name('analysis-test-group.render.list');
+Route::get('/analysis-test-group/render-list-groups-select', 'AnalysisTestGroupController@renderListGroupsTestSelect')->name('analysis-test-group.render.list.selected');
+Route::resource('/analysis-test-group', 'AnalysisTestGroupController');
