@@ -46,7 +46,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['admin', 'medico']);
         });
         Gate::define('manage-users-dr2', function($user, $analisis){
-            $analisisSupervisor = AnalisisSupervisor::where('doctor_id', $user->person)->where('analisis_id', $analisis->id)->first();
+            $analisisSupervisor = false;
+            if(isset($user->person)){
+                $analisisSupervisor = AnalisisSupervisor::where('doctor_id', $user->person)->where('analisis_id', $analisis->id)->first();
+            }
             return $user->hasAnyRoles(['admin', 'medico']) || ($analisisSupervisor);
         });
         Gate::define('manage-users-dr3', function($user, $analisis){

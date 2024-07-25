@@ -101,8 +101,8 @@ class StoreAnalysisTestPost extends FormRequest
                 if(isset($value['intermediary']) && is_array($value['intermediary'])){
                     foreach($value['intermediary'] as $key1 =>$value1){
                         $rules['range.option.'.$key.'.intermediary.'.$key1.'.text'] = 'required';
-                        $rules['range.option.'.$key.'.intermediary.'.$key1.'.range_initial'] = 'required|numeric|min:0|max:99999999';
-                        $rules['range.option.'.$key.'.intermediary.'.$key1.'.range_end'] = 'required|numeric|min:0|max:99999999';
+                        $rules['range.option.'.$key.'.intermediary.'.$key1.'.initial_range'] = 'required|numeric|min:0|max:99999999';
+                        $rules['range.option.'.$key.'.intermediary.'.$key1.'.end_range'] = 'required|numeric|min:0|max:99999999';
                     }
                 }
             }
@@ -172,16 +172,16 @@ class StoreAnalysisTestPost extends FormRequest
                 if(isset($value['intermediary']) && is_array($value['intermediary'])){
                     foreach($value['intermediary'] as $key1 =>$value1){
                         $message['range.option.'.$key.'.intermediary.'.$key1.'.text.required'] = 'El campo es requerido';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_initial.required'] = 'El valor del campo es requerido';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_initial.numeric'] = 'El valor del campo tiene que ser un valor numerico';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_initial.min'] = 'El campo tiene que tener un valor minimo de cero';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_initial.max'] = 'El campo tiene que tener un valor maximo de 99999999';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.initial_range.required'] = 'El valor del campo es requerido';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.initial_range.numeric'] = 'El valor del campo tiene que ser un valor numerico';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.initial_range.min'] = 'El campo tiene que tener un valor minimo de cero';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.initial_range.max'] = 'El campo tiene que tener un valor maximo de 99999999';
 
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_end.required'] = 'El valor del campo es requerido';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_end.numeric'] = 'El valor del campo tiene que ser un valor numerico';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_end.min'] = 'El campo tiene que tener un valor minimo de cero';
-                        $message['range.option.'.$key.'.intermediary.'.$key1.'.range_end.max'] = 'El campo tiene que tener un valor maximo de 99999999';
-                    }
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.end_range.required'] = 'El valor del campo es requerido';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.end_range.numeric'] = 'El valor del campo tiene que ser un valor numerico';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.end_range.min'] = 'El campo tiene que tener un valor minimo de cero';
+                        $message['range.option.'.$key.'.intermediary.'.$key1.'.end_range.max'] = 'El campo tiene que tener un valor maximo de 99999999';
+                }
                 }
 
             }

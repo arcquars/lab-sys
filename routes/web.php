@@ -237,3 +237,6 @@ Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name
 Route::get('/analysis-test-group/render-list-groups', 'AnalysisTestGroupController@renderListGroups')->name('analysis-test-group.render.list');
 Route::get('/analysis-test-group/render-list-groups-select', 'AnalysisTestGroupController@renderListGroupsTestSelect')->name('analysis-test-group.render.list.selected');
 Route::resource('/analysis-test-group', 'AnalysisTestGroupController');
+
+Route::get('/test/crear/{analysisId}', 'TestController@create')->name('test.crear');
+Route::post('/test/save', 'TestController@store')->name('test.save');

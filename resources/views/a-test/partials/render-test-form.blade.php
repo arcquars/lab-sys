@@ -48,9 +48,10 @@
 <div class="dTestType">
     @switch($analysisTest->type)
         @case('Rango')
-            @include('a-test.includes.partial-edit-test-range', ['analysisTestRange' => $analysisTest->analysisTestRange])
+            @include('a-test.includes.partial-edit-test-range', ['analysisTestRange' => $analysisTest->analysisTestType])
             @break
         @default
-        dddd
+            @include('a-test.includes.partial-edit-test-range-no-order', ['analysisTestRange' => $analysisTest->analysisTestType])
+            @break
     @endswitch
 </div>

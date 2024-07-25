@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\AnalisisSupervisor;
+use App\AnalysisTestResult;
 use App\Bethesda;
 use App\Biopsia;
 use App\Convenio;
@@ -91,7 +92,6 @@ class AnalisisController extends Controller
         $analisis->region = $request->get('region');
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
-//        $analisis->codigo = $request->get('codigo');
         $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
@@ -122,6 +122,15 @@ class AnalisisController extends Controller
 
         if($analisis->save()) {
             // TODO implementar analisis hemo pruebas test
+            if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
+                $aTests = $request->input('aTests', []);
+                foreach ($aTests as $aTest){
+                    $aTestResult = new AnalysisTestResult();
+                    $aTestResult ->analysis_id = $analisis->id;
+                    $aTestResult ->a_test_id = $aTest;
+                    $aTestResult->save();
+                }
+            }
 
             return redirect('/clients');
         } else {
@@ -409,6 +418,10 @@ class AnalisisController extends Controller
                 return redirect()->action(
                     'BiopsiaController@create',
                     ['analisisId' => $analisisId, 'is_histopatologico' => true]);
+            case Analisis::PRUEBA:
+                return redirect()->action(
+                    'TestController@create',
+                    ['analysisId' => $analisisId]);
             default:
                 return redirect()->action(
                     'BiopsiaController@create',

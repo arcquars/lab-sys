@@ -100,16 +100,14 @@ class AnalisisTestController extends Controller
                         foreach ($intermediaries as $key1 => $intermediary){
                             $aTestRangeNoOrderOptionIntermediary = new AnalysisTestRangeNoOrderOptionIntermediary();
                             $aTestRangeNoOrderOptionIntermediary->range_name = (isset($intermediary['text']))? $intermediary['text'] : null;
-                            $aTestRangeNoOrderOptionIntermediary->initial_range = (isset($intermediary['range_initial']))? $intermediary['range_initial'] : null;
-                            $aTestRangeNoOrderOptionIntermediary->end_range = (isset($intermediary['range_end']))? $intermediary['range_end'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->initial_range = (isset($intermediary['initial_range']))? $intermediary['initial_range'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->end_range = (isset($intermediary['end_range']))? $intermediary['end_range'] : null;
                             $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? $intermediary['bookmark'] : 0;
                             $aTestRangeNoOrderOptionIntermediary->order_option_id = $analysisTestRangeNoOrderOption->id;
                             $aTestRangeNoOrderOptionIntermediary->save();
                         }
                     }
                 }
-
-
                 break;
         }
 
@@ -132,50 +130,131 @@ class AnalisisTestController extends Controller
         $analysisTest->user_id = Auth::user()->id;
         $analysisTest->save();
 
-        if(strcmp($analysisTest->type, 'Rango') == 0){
-            // Bloque que actualiza los datos de AnalysisTestRange
-            $analysisTestRange = AnalysisTestRange::find($analysisTest->analysisTestRange->id);
-            $analysisTestRange->measure = $request->input('range.measure');
-            $analysisTestRange->bookmark = $request->input('range.bookmark');
-            $analysisTestRange->save();
+        switch ($analysisTest->type) {
+            case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO:
+                // Bloque que actualiza los datos de AnalysisTestRange
+                $analysisTestRange = AnalysisTestRange::find($analysisTest->analysisTestRange->id);
+                $analysisTestRange->measure = $request->input('range.measure');
+                $analysisTestRange->bookmark = $request->input('range.bookmark');
+                $analysisTestRange->save();
 
-            // Bloque para eliminar las opciones
-            $deleteRangeOptionIds = [];
-            foreach ($analysisTest->analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption){
-                $deleteId = $analysisTestRangeOption->id;
-                foreach ($request->input('range.option') as $key=> $value){
-                    if(isset($value['id']) && $analysisTestRangeOption->id == $value['id']){
-                        $deleteId = 0;
+                // Bloque para eliminar las opciones
+                $deleteRangeOptionIds = [];
+                foreach ($analysisTest->analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption){
+                    $deleteId = $analysisTestRangeOption->id;
+                    foreach ($request->input('range.option') as $key=> $value){
+                        if(isset($value['id']) && $analysisTestRangeOption->id == $value['id']){
+                            $deleteId = 0;
+                        }
+                    }
+                    if($deleteId != 0){
+                        $deleteRangeOptionIds[] = $deleteId;
                     }
                 }
-                if($deleteId != 0){
-                    $deleteRangeOptionIds[] = $deleteId;
-                }
-            }
-            AnalysisTestRangeOption::whereIn('id', $deleteRangeOptionIds)->delete();
+                AnalysisTestRangeOption::whereIn('id', $deleteRangeOptionIds)->delete();
 
-            // Bloque para actualizar las opciones que ya tenia el Rango
-            foreach ($request->input('range.option') as $key=> $value){
-                if(isset($value['id'])){
-                    $analysisTestRangeOption = AnalysisTestRangeOption::find($value['id']);
-                    $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
-                    $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
-                    $analysisTestRangeOption->age_initial = $value['age_initial'];
-                    $analysisTestRangeOption->age_end = $value['age_end'];
-                    $analysisTestRangeOption->gender = $value['gender'];
-                    $analysisTestRangeOption->save();
-                } else {
-                    $analysisTestRangeOption = new AnalysisTestRangeOption();
-                    $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
-                    $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
-                    $analysisTestRangeOption->age_initial = $value['age_initial'];
-                    $analysisTestRangeOption->age_end = $value['age_end'];
-                    $analysisTestRangeOption->gender = $value['gender'];
-                    $analysisTestRangeOption->a_test_range_id = $analysisTest->analysisTestRange->id;
-                    $analysisTestRangeOption->user_id = Auth::user()->id;
-                    $analysisTestRangeOption->save();
+                // Bloque para actualizar las opciones que ya tenia el Rango
+                foreach ($request->input('range.option') as $key=> $value){
+                    if(isset($value['id'])){
+                        $analysisTestRangeOption = AnalysisTestRangeOption::find($value['id']);
+                        $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
+                        $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                        $analysisTestRangeOption->age_initial = $value['age_initial'];
+                        $analysisTestRangeOption->age_end = $value['age_end'];
+                        $analysisTestRangeOption->gender = $value['gender'];
+                        $analysisTestRangeOption->save();
+                    } else {
+                        $analysisTestRangeOption = new AnalysisTestRangeOption();
+                        $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
+                        $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                        $analysisTestRangeOption->age_initial = $value['age_initial'];
+                        $analysisTestRangeOption->age_end = $value['age_end'];
+                        $analysisTestRangeOption->gender = $value['gender'];
+                        $analysisTestRangeOption->a_test_range_id = $analysisTest->analysisTestRange->id;
+                        $analysisTestRangeOption->user_id = Auth::user()->id;
+                        $analysisTestRangeOption->save();
+                    }
                 }
-            }
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
+                $analysisTestRangeNoOrder = AnalysisTestRangeNoOrder::find($analysisTest->analysisTestType->id);
+                $analysisTestRangeNoOrder->measure = $request->input('range.measure');
+                $analysisTestRangeNoOrder->user_id = Auth::user()->id;
+                $analysisTestRangeNoOrder->save();
+
+                // Bloque para eliminar las opciones de rango sin orden
+                $deleteRangeOptionIds = [];
+                    foreach ($analysisTest->analysisTestType->analysisTestRangeOptions as $analysisTestRangeOption){
+                    $deleteId = $analysisTestRangeOption->id;
+                    foreach ($request->input('range.option') as $key=> $value){
+                        if(isset($value['id']) && $analysisTestRangeOption->id == $value['id']){
+                            $deleteId = 0;
+                        }
+                    }
+                    if($deleteId != 0){
+                        $deleteRangeOptionIds[] = $deleteId;
+                    }
+                }
+                AnalysisTestRangeNoOrderOptionIntermediary::whereIn('order_option_id', $deleteRangeOptionIds)->delete();
+                AnalysisTestRangeNoOrderOption::whereIn('id', $deleteRangeOptionIds)->delete();
+
+                $options = $request->input('range.option');
+                foreach($options as $key => $value){
+                    if(isset($value['id'])){
+                        $analysisTestRangeNoOrderOption = AnalysisTestRangeNoOrderOption::find($value['id']);
+                    } else {
+                        $analysisTestRangeNoOrderOption = new AnalysisTestRangeNoOrderOption();
+                        $analysisTestRangeNoOrderOption->a_test_range_no_order_id = $analysisTestRangeNoOrder->id;
+                        $analysisTestRangeNoOrderOption->user_id = Auth::user()->id;
+                    }
+                    $analysisTestRangeNoOrderOption->gender = $value['gender'];
+                    $analysisTestRangeNoOrderOption->age_initial = (isset($value['age_initial']))? $value['age_initial'] : null;
+                    $analysisTestRangeNoOrderOption->age_end = $value['age_end']?? null;
+                    $analysisTestRangeNoOrderOption->initial_text = $value['initial_text'] ?? null;
+                    $analysisTestRangeNoOrderOption->initial_value = $value['initial_value'] ?? null;
+                    $analysisTestRangeNoOrderOption->initial_bookmark = $value['initial_bookmark'] ?? 0;
+                    $analysisTestRangeNoOrderOption->end_text = $value['end_text']?? null;
+                    $analysisTestRangeNoOrderOption->end_value = $value['end_value']?? null;
+                    $analysisTestRangeNoOrderOption->end_bookmark = $value['end_bookmark']?? 0;
+                    $analysisTestRangeNoOrderOption->save();
+
+                    $intermediaries = $request->input('range.option.'.$key.'.intermediary');
+                    if(isset($intermediaries) && is_array($intermediaries)){
+                        // Bloque para eliminar las intermediaries
+                        // Ids base de datos
+                        $dbIntermediaryIds = [];
+                        foreach ($analysisTestRangeNoOrderOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediary){
+                            $dbIntermediaryIds[] = $analysisTestRangeOptionsIntermediary->id;
+                        }
+                        // Ids interface
+                        $interfaceIntermediaryIds = [];
+                        foreach ($intermediaries as $key1 => $intermediary){
+                            if(isset($intermediary['id'])){
+                                $interfaceIntermediaryIds[] = $intermediary['id'];
+                            }
+                        }
+                        $deleteIds = array_diff($dbIntermediaryIds, $interfaceIntermediaryIds);
+                        Log::info("PdM:: db: " . json_encode($dbIntermediaryIds) . " || inter:: " . json_encode($interfaceIntermediaryIds) . " || resultado:: " . json_encode($deleteId));
+                        AnalysisTestRangeNoOrderOptionIntermediary::whereIn('id', $deleteIds)->delete();
+
+                        foreach ($intermediaries as $key1 => $intermediary){
+                            if(isset($intermediary['id'])){
+                                $aTestRangeNoOrderOptionIntermediary = AnalysisTestRangeNoOrderOptionIntermediary::find($intermediary['id']);
+                            } else {
+                                $aTestRangeNoOrderOptionIntermediary = new AnalysisTestRangeNoOrderOptionIntermediary();
+                                $aTestRangeNoOrderOptionIntermediary->order_option_id = $analysisTestRangeNoOrderOption->id;
+                            }
+                            $aTestRangeNoOrderOptionIntermediary->range_name = (isset($intermediary['text']))? $intermediary['text'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->initial_range = (isset($intermediary['initial_range']))? $intermediary['initial_range'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->end_range = (isset($intermediary['end_range']))? $intermediary['end_range'] : null;
+                            $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? $intermediary['bookmark'] : 0;
+                            $aTestRangeNoOrderOptionIntermediary->save();
+                        }
+                    }
+
+
+                }
+                break;
         }
 
         return response()->json(['success'=>true, 'message' => "Se actualizo la PRUEBA correctamente..."]);
@@ -217,6 +296,7 @@ class AnalisisTestController extends Controller
         if($request->ajax()){
             $aTestId = $request->get('a_test_id');
             $analysisTest = AnalysisTest::find($aTestId);
+
             $groups = AnalysisTestGroup::where('deleted', 0)->pluck('name', 'id');
             $aTestTypes = AnalysisTest::ANALYSIS_TEST_TYPES;
             return view('a-test.partials.render-test-form',

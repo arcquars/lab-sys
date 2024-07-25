@@ -28,4 +28,9 @@ class AnalysisTestRangeNoOrderOption extends Model
     {
         return $this->belongsTo('App\AnalysisTestRangeNoOrder', 'a_test_range_no_order_id', 'id');
     }
+
+    public function analysisTestRangeOptionsIntermediates(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\AnalysisTestRangeNoOrderOptionIntermediary', 'order_option_id', 'id');
+    }
 }
