@@ -24,7 +24,7 @@ use \App\AnalysisTestRangeNoOrderOptionIntermediary;
                 Rango inicial
             </label>
             <input type="number" id="mtestrange_option_{{$tempId}}_intermediary_{{$count}}_range_initial" name="range[option][{{$tempId}}][intermediary][{{$count}}][initial_range]"
-                   class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeInitial{{$tempId.$count}}"
+                   step="0.1" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeInitial{{$tempId.$count}}"
                    value="{{$analysisTestRangeOptionsIntermediate->initial_range}}"
             >
             <div id="validationIntermediaryRangeInitial{{$tempId.$count}}" class="invalid-feedback">
@@ -35,7 +35,7 @@ use \App\AnalysisTestRangeNoOrderOptionIntermediary;
                 Rango final
             </label>
             <input type="number" id="mtestrange_option_{{$tempId}}_intermediary_{{$count}}_range_end" name="range[option][{{$tempId}}][intermediary][{{$count}}][end_range]"
-                   class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeEnd{{$tempId.$count}}"
+                   step="0.1" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeEnd{{$tempId.$count}}"
                    value="{{$analysisTestRangeOptionsIntermediate->end_range}}"
             >
             <div id="validationIntermediaryRangeEnd{{$tempId.$count}}" class="invalid-feedback">
@@ -48,7 +48,7 @@ use \App\AnalysisTestRangeNoOrderOptionIntermediary;
             <select id="mtestrange_option_{{$tempId}}_intermediary_{{$count}}_bookmark" name="range[option][{{$tempId}}][intermediary][{{$count}}][bookmark]"
                     class="form-control form-control-sm" aria-describedby="validationIntermediaryColor{{$tempId.$count}}">
                 <option value="">Seleccione ...</option>
-                <option value="ROJO" @if($analysisTestRangeOptionsIntermediate->bookmark) selected @endif>ROJO</option>
+                <option value="1" @if($analysisTestRangeOptionsIntermediate->bookmark) selected @endif>ROJO</option>
             </select>
             <div id="validationIntermediaryColor{{$tempId.$count}}" class="invalid-feedback">
             </div>

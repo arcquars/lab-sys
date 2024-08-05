@@ -19,7 +19,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dt class="col-md-3">Procedencia:</dt>
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
     <dt class="col-md-3">Edad:</dt>
-    <dd class="col-md-3">{{$analisis->edad}} años</dd>
+    <dd class="col-md-3">{{$analisis->person->year_now}} años</dd>
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Sexo:</dt>
@@ -92,28 +92,21 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
                         </label>
                     </div>
             @endcan
-            @can('manage-users-dr2', $analisis)
-                <button class="btn btn-link text-danger" style="font-size: 12px" onclick="openModalFirmaSupervisores({{$analisis->id}});">
-                    <b>Firmas Interconsultados</b>
-                </button>
-{{--                <div class="form-check" style="display: inline;">--}}
-{{--                    <label class="form-check-label">--}}
-{{--                        <input name="imprimir_doctor_supervisor" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma_supervisor) checked @endif onchange="setImprimirFirmaSupervisor(this, '{{$analisis->id}}');">--}}
-{{--                        <span class="form-check-sign form-check-sign-black" ></span>--}}
-{{--                        Imprimir Firma del doctor interconsultado--}}
-{{--                    </label>--}}
-{{--                </div>--}}
-            @endcan
+{{--            @can('manage-users-dr2', $analisis)--}}
+{{--                <button class="btn btn-link text-danger" style="font-size: 12px" onclick="openModalFirmaSupervisores({{$analisis->id}});">--}}
+{{--                    <b>Firmas Interconsultados</b>--}}
+{{--                </button>--}}
+{{--            @endcan--}}
             @can('manage-users-dr')
                 <a href="{{ route('analisis.edit', $analisis) }}"
                    class="btn btn-outline-success">Editar Analisis</a>
             @endcan
 {{--            @can('manage-users-dr3', $analisis)--}}
-            @can('manage-users-dr1')
-                <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisores({{$analisis->id}});">
-                    <b>Interconsultado</b>
-                </button>
-            @endcan
+{{--            @can('manage-users-dr1')--}}
+{{--                <button class="btn btn-link text-success" style="font-size: 12px" onclick="openModalSupervisores({{$analisis->id}});">--}}
+{{--                    <b>Interconsultado</b>--}}
+{{--                </button>--}}
+{{--            @endcan--}}
             @if(strcmp($analisis->tipo_analisis, \App\Analisis::CITOLOGIA) == 0 || strcmp($analisis->tipo_analisis, \App\Analisis::BETHESDA) == 0)
                 <div class="form-check" style="display: inline;">
                     <label class="form-check-label">

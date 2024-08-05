@@ -217,6 +217,12 @@ class Analisis extends Model
                     $isHasResult = true;
                 }
                 break;
+            case Analisis::PRUEBA:
+                if(AnalysisTestResult::where('analysis_id', $analisis->id)->whereNotNull('result')->count() > 0){
+                    $routeView = 'test.viewResultado';
+                    $printAnalisis = 'test.reporte';
+                    $isHasResult = true;
+                }
         }
 
         $hasAnalisisSupervisado = false;

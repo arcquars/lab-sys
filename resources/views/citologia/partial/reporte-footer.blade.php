@@ -1,4 +1,6 @@
 <?php
+/** @var \App\Analisis $analisis */
+/** @var  $chunkSupervisores */
 $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
 ?>
 <div style="width: 100%; text-align: center;">

@@ -229,6 +229,7 @@ Route::get('/analisis-test/render-test-type', 'AnalisisTestController@renderTest
 Route::get('/analisis-test/render-range-option', 'AnalisisTestController@renderRangeOption')->name('analysis-test.render-range-option');
 Route::get('/analisis-test/render-range-option-intermediary', 'AnalisisTestController@renderRangeOptionIntermediary')->name('analysis-test.render-range-option-intermediary');
 Route::get('/analisis-test/render-range-no-order-option', 'AnalisisTestController@renderRangeNoOrderOption')->name('analysis-test.render-range-no-order-option');
+Route::get('/analisis-test/render-limit-option', 'AnalisisTestController@renderLimitOption')->name('analysis-test.render-limit-option');
 Route::post('/analisis-test/store-test', 'AnalisisTestController@store')->name('analysis-test.store.test');
 Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name('analysis-test.update.test');
 
@@ -240,3 +241,8 @@ Route::resource('/analysis-test-group', 'AnalysisTestGroupController');
 
 Route::get('/test/crear/{analysisId}', 'TestController@create')->name('test.crear');
 Route::post('/test/save', 'TestController@store')->name('test.save');
+Route::get('/test/view/{analisisId}', 'TestController@viewResultado')->name('test.viewResultado');
+Route::get('/test/reporte/{analisisId}', 'TestController@reporte')->name('test.reporte');
+
+// SIAT
+Route::get('/siat/invoicing/{analysisId}', 'SiatController@invoicing')->name('siat.invoicing');

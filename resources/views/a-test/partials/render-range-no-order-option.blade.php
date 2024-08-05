@@ -47,7 +47,8 @@
         </div>
         <div class="col-md-3 px-1 form-group">
             <label for="mtestrange_option_{{$tempId}}_initial_value">Valor</label>
-            <input type="number" id="mtestrange_option_{{$tempId}}_initial_value" placeholder="Rango inicial" name="range[option][{{$tempId}}][initial_value]" class="form-control form-control-sm" aria-describedby="validationInitialValue{{$tempId}}">
+            <input type="number" id="mtestrange_option_{{$tempId}}_initial_value" placeholder="Rango inicial" name="range[option][{{$tempId}}][initial_value]"
+                   step="0.1" class="form-control form-control-sm" aria-describedby="validationInitialValue{{$tempId}}">
             <div id="validationInitialValue{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
@@ -75,7 +76,7 @@
         <div class="col-md-3 px-1 form-group">
             <label for="mtestrange_option_{{$tempId}}_end_value">Valor</label>
             <input type="number" id="mtestrange_option_{{$tempId}}_end_value" placeholder="Rango final" name="range[option][{{$tempId}}][end_value]"
-                   class="form-control form-control-sm" aria-describedby="validationEndValue{{$tempId}}">
+                   step="0.1" class="form-control form-control-sm" aria-describedby="validationEndValue{{$tempId}}">
             <div id="validationEndValue{{$tempId}}" class="invalid-feedback">
             </div>
         </div>

@@ -19,7 +19,7 @@ class AnalysisTestResult extends Model
 
     public function analysis(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Analisis', 'analysis_id', 'i   d');
+        return $this->belongsTo('App\Analisis', 'analysis_id', 'id');
     }
 
     public function aTest(): \Illuminate\Database\Eloquent\Relations\BelongsTo

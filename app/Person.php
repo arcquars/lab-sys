@@ -1,6 +1,7 @@
 <?php
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
@@ -16,9 +17,21 @@ class Person extends Model
         'ci',
         'nombres',
         'apellidos',
+        'f_nacimiento',
         'apellido_materno',
         'edad'
     ];
+
+//    protected $dates = [
+//        'f_nacimiento',
+//    ];
+
+    public function getYearNowAttribute(){
+        if($this->edad > 0){
+            return $this->edad;
+        }
+        return Carbon::parse($this->attributes['f_nacimiento'])->age;
+    }
 
 
     /**

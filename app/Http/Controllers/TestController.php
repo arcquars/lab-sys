@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Analisis;
+use App\AnalysisTest;
 use App\AnalysisTestGroup;
 use App\AnalysisTestResult;
+use App\Helpers\ClinicaHelper;
+use App\ImpresionControl;
+use App\Liquido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Milon\Barcode\DNS2D;
+use PDF;
 
 class TestController extends Controller
 {
@@ -22,29 +30,51 @@ class TestController extends Controller
     public function create($analysisId)
     {
         $analysis = Analisis::find($analysisId);
-        $testResults = AnalysisTestResult::where('analysis_id', $analysisId)->get();
-        $groupsIds = [];
-        foreach ($testResults as $testResult){
-            if (!in_array($testResult->aTest->a_test_group_id, $groupsIds)) {
-                $groupsIds[] = $testResult->aTest->a_test_group_id;
-            }
-        }
-        $groups = AnalysisTestGroup::whereIn('id', $groupsIds)->orderBy('name')->get();
-
-        $orderGroupTest = [];
-        foreach ($groups as $group){
-            $test = [];
-            foreach ($testResults as $testResult){
-                if($testResult->aTest->a_test_group_id == $group->id){
-                    $test[] = $testResult;
-                }
-            }
-
-            if(count($test) > 0){
-                $orderGroupTest[$group->name] = $test;
-            }
-        }
+        $orderGroupTest = ClinicaHelper::getTestGroupResults($analysisId);
 
         return view('test.crear', compact('analysis', 'orderGroupTest'));
+    }
+
+    public function store(Request $request){
+        $testResultValues = $request->input('testResultValue');
+        $analisisId = $request->input('analisis_id');
+        foreach ($testResultValues as $id => $value){
+            Log::info("eeee: " . $value . " || " . $analisisId . " || " . $id);
+            if(isset($value)){
+                $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
+                $analysisTestResult->result = $value;
+                $analysisTestResult->save();
+            }
+        }
+        return redirect('/test/view/'.$request->input('analisis_id'));
+    }
+
+    public function viewResultado($analisisId){
+        $analisis = Analisis::find($analisisId);
+        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+
+        return view('test.view', compact(
+            'analisis', 'orderGroupTest'));
+    }
+
+    function reporte($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+
+        $analisis = Analisis::find($analisisId);
+
+        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+
+        $pdf = PDF::loadView('test.reporte', compact(
+            'analisis', 'pathQr', 'orderGroupTest'));
+
+        $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
+        $pdf->mpdf->showWatermarkImage = true;
+        $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
     }
 }

@@ -63,6 +63,15 @@
             });
         }
 
+        function addTestTypeLimit(){
+            $.ajax({
+                url: "{{ route('analysis-test.render-limit-option') }}",
+                success: function (data) {
+                    $("#rangeListOptions").append(data);
+                }
+            });
+        }
+
         function removeTestTypeRange(button){
             $(button).parent().parent().parent().parent().remove();
         }

@@ -59,7 +59,7 @@ class AnalisisController extends Controller
         $doctores = Doctor::where(Doctor::DELETED, '=', 0)->get();
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         $tipoPagoEfectuado = Analisis::TIPO_PAGO_EFECTUADO;
-
+        
         return view('analisis.home', compact('procedencias', 'tipoAnalisis', 'doctores', 'dateNow', 'date7', 'tipoPagoEfectuado', 'interconsultados'));
     }
 

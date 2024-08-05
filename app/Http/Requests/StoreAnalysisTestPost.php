@@ -38,6 +38,9 @@ class StoreAnalysisTestPost extends FormRequest
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
                 $this->valRangeNoOrder($rules);
                 break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
+                $this->valLimit($rules);
+                break;
 
         }
         return $rules;
@@ -60,6 +63,9 @@ class StoreAnalysisTestPost extends FormRequest
                 break;
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
                 $this->messageRangeNoOrder($messages);
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
+                $this->messageLimit($messages);
                 break;
         }
         return $messages;
@@ -105,6 +111,21 @@ class StoreAnalysisTestPost extends FormRequest
                         $rules['range.option.'.$key.'.intermediary.'.$key1.'.end_range'] = 'required|numeric|min:0|max:99999999';
                     }
                 }
+            }
+        }
+    }
+
+    public function valLimit(&$rules){
+        $rules['limit.measure'] = "required";
+        $rules['range.option'] = "present|array";
+        if(is_array($this->input('range.option'))){
+            foreach($this->input('range.option') as $key=>$value){
+                $rules['range.option.'.$key.'.gender'] = 'required';
+
+                $rules['range.option.'.$key.'.to'] = 'required|numeric';
+
+                $rules['range.option.'.$key.'.age_initial'] = 'nullable|numeric';
+                $rules['range.option.'.$key.'.age_end'] = 'required_with:'.'range.option.'.$key.'.age_initial'.'|gte:'.'range.option.'.$key.'.age_initial';
             }
         }
     }
@@ -183,6 +204,27 @@ class StoreAnalysisTestPost extends FormRequest
                         $message['range.option.'.$key.'.intermediary.'.$key1.'.end_range.max'] = 'El campo tiene que tener un valor maximo de 99999999';
                 }
                 }
+
+            }
+        }
+    }
+
+    public function messageLimit(&$message)
+    {
+        $message['range.option.present'] = "El tipo Rango tiene que tener por lo menos 1 opcion";
+        $message['range.option.array'] = "El tipo Rango tiene que tener por lo menoss 1 opcion";
+        if(is_array($this->input('range.option'))){
+            foreach($this->input('range.option') as $key=>$value){
+                $message['range.option.'.$key.'.gender.required'] = 'El campo Sexo es obligatorio.';
+
+                $message['range.option.'.$key.'.to.required'] = 'El campo HASTA es obligatorio.';
+                $message['range.option.'.$key.'.to.numeric'] = 'El campo Hasta debe ser un numero';
+
+                $message['range.option.'.$key.'.age_initial.nullable'] = 'El campo Edad Inicial puede ser nulo';
+                $message['range.option.'.$key.'.age_initial.numeric'] = 'El campo Edad Inicial tiene que tener un valor numerico';
+
+                $message['range.option.'.$key.'.age_end.required_with'] = 'El campo Edad Final es obligatorio cuando Edad Inicial está presente.';
+                $message['range.option.'.$key.'.age_end.gte'] = 'El campo Edad Final debe ser mayor o igual a Edad inicial.';
 
             }
         }

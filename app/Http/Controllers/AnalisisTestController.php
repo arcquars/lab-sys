@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\AnalysisTest;
 use App\AnalysisTestGroup;
+use App\AnalysisTestLimit;
+use App\AnalysisTestLimitOption;
 use App\AnalysisTestRange;
 use App\AnalysisTestRangeNoOrder;
 use App\AnalysisTestRangeNoOrderOption;
@@ -109,6 +111,26 @@ class AnalisisTestController extends Controller
                     }
                 }
                 break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
+                $analysisTestLimit = new AnalysisTestLimit();
+                $analysisTestLimit->measure = $request->input('limit.measure');
+//                $analysisTestLimit->bookmark = $request->input('range.bookmark', false);
+                $analysisTestLimit->user_id = Auth::user()->id;
+                $analysisTestLimit->a_test_id = $analysisTest->id;
+                $analysisTestLimit->save();
+
+                $options = $request->input('range.option');
+                foreach($options as $key => $value){
+                    $analysisTestLimitOption = new AnalysisTestLimitOption();
+                    $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
+                    $analysisTestLimitOption->age_initial = $value['age_initial'];
+                    $analysisTestLimitOption->age_end = $value['age_end'];
+                    $analysisTestLimitOption->gender = $value['gender'];
+                    $analysisTestLimitOption->a_test_limit_id = $analysisTestLimit->id;
+                    $analysisTestLimitOption->user_id = Auth::user()->id;
+                    $analysisTestLimitOption->save();
+                }
+                break;
         }
 
         return response()->json(['success'=>true, 'message' => "Se creo la PRUEBA correctamente..."]);
@@ -133,14 +155,14 @@ class AnalisisTestController extends Controller
         switch ($analysisTest->type) {
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO:
                 // Bloque que actualiza los datos de AnalysisTestRange
-                $analysisTestRange = AnalysisTestRange::find($analysisTest->analysisTestRange->id);
+                $analysisTestRange = AnalysisTestRange::find($analysisTest->analysisTestType->id);
                 $analysisTestRange->measure = $request->input('range.measure');
                 $analysisTestRange->bookmark = $request->input('range.bookmark');
                 $analysisTestRange->save();
 
                 // Bloque para eliminar las opciones
                 $deleteRangeOptionIds = [];
-                foreach ($analysisTest->analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption){
+                foreach ($analysisTest->analysisTestType->analysisTestRangeOptions as $analysisTestRangeOption){
                     $deleteId = $analysisTestRangeOption->id;
                     foreach ($request->input('range.option') as $key=> $value){
                         if(isset($value['id']) && $analysisTestRangeOption->id == $value['id']){
@@ -170,7 +192,7 @@ class AnalisisTestController extends Controller
                         $analysisTestRangeOption->age_initial = $value['age_initial'];
                         $analysisTestRangeOption->age_end = $value['age_end'];
                         $analysisTestRangeOption->gender = $value['gender'];
-                        $analysisTestRangeOption->a_test_range_id = $analysisTest->analysisTestRange->id;
+                        $analysisTestRangeOption->a_test_range_id = $analysisTest->analysisTestType->id;
                         $analysisTestRangeOption->user_id = Auth::user()->id;
                         $analysisTestRangeOption->save();
                     }
@@ -247,7 +269,7 @@ class AnalisisTestController extends Controller
                             $aTestRangeNoOrderOptionIntermediary->range_name = (isset($intermediary['text']))? $intermediary['text'] : null;
                             $aTestRangeNoOrderOptionIntermediary->initial_range = (isset($intermediary['initial_range']))? $intermediary['initial_range'] : null;
                             $aTestRangeNoOrderOptionIntermediary->end_range = (isset($intermediary['end_range']))? $intermediary['end_range'] : null;
-                            $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? $intermediary['bookmark'] : 0;
+                            $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? 1 : 0;
                             $aTestRangeNoOrderOptionIntermediary->save();
                         }
                     }
@@ -274,6 +296,8 @@ class AnalisisTestController extends Controller
                     return view('a-test.partials.render-test-type-range')->render();
                 case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
                     return view('a-test.partials.render-test-type-range-no-order')->render();
+                case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
+                    return view('a-test.partials.render-test-type-limit')->render();
             }
         }
     }
@@ -289,6 +313,13 @@ class AnalisisTestController extends Controller
         if($request->ajax()){
             $tempId = rand(0,500);
             return view('a-test.partials.render-range-no-order-option', compact('tempId'))->render();
+        }
+    }
+
+    public function renderLimitOption(Request $request){
+        if($request->ajax()){
+            $tempId = rand(0,500);
+            return view('a-test.partials.render-limit-option', compact('tempId'))->render();
         }
     }
 

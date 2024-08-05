@@ -17,14 +17,14 @@
         <div id="validationMeasure" class="invalid-feedback">
         </div>
     </div>
-    <div class="col-md-6 form-group">
-        <div class="custom-control custom-checkbox">
-            <input class="form-check-input" type="checkbox" value="1" id="mtestrange_bookmark" @if($analysisTestRange->bookmark) checked @endif name="range[bookmark]">
-            <label class="form-check-label" for="mtestrange_bookmark">
-                Resaltar resultado
-            </label>
-        </div>
-    </div>
+{{--    <div class="col-md-6 form-group">--}}
+{{--        <div class="custom-control custom-checkbox">--}}
+{{--            <input class="form-check-input" type="checkbox" value="1" id="mtestrange_bookmark" @if($analysisTestRange->bookmark) checked @endif name="range[bookmark]">--}}
+{{--            <label class="form-check-label" for="mtestrange_bookmark">--}}
+{{--                Resaltar resultado--}}
+{{--            </label>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 </div>
 <div id="rangeListOptions">
     @foreach($analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption)
