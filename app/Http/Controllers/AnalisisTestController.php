@@ -14,6 +14,7 @@ use App\AnalysisTestRangeNoOrder;
 use App\AnalysisTestRangeNoOrderOption;
 use App\AnalysisTestRangeNoOrderOptionIntermediary;
 use App\AnalysisTestRangeOption;
+use App\AnalysisTestText;
 use App\Http\Requests\StoreAnalysisTestPost;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -156,6 +157,12 @@ class AnalisisTestController extends Controller
                 $analysisTestPositive->user_id = Auth::user()->id;
                 $analysisTestPositive->a_test_id = $analysisTest->id;
                 $analysisTestPositive->save();
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_TEXTO:
+                $analysisTestText = new AnalysisTestText();
+                $analysisTestText->user_id = Auth::user()->id;
+                $analysisTestText->a_test_id = $analysisTest->id;
+                $analysisTestText->save();
                 break;
         }
 
@@ -404,6 +411,8 @@ class AnalisisTestController extends Controller
                     return view('a-test.partials.render-test-type-generic')->render();
                 case AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO:
                     return view('a-test.partials.render-test-type-positive')->render();
+                case AnalysisTest::ANALYSIS_TEST_TYPE_TEXTO:
+                    return view('a-test.partials.render-test-type-text')->render();
             }
         }
     }

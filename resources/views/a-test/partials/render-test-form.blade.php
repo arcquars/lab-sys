@@ -56,6 +56,9 @@
         @case(\App\AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO)
             @include('a-test.includes.partial-edit-test-generic', ['analysisTestGeneric' => $analysisTest->analysisTestType])
             @break
+        @case(\App\AnalysisTest::ANALYSIS_TEST_TYPE_TEXTO)
+            @include('a-test.includes.partial-edit-test-text', ['analysisTestText' => $analysisTest->analysisTestType])
+            @break
         @case(\App\AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO)
             @include('a-test.includes.partial-edit-test-positive', ['analysisTestPositive' => $analysisTest->analysisTestType])
             @break
