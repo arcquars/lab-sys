@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class AnalysisTest extends Model
 {
-    const ANALYSIS_TEST_TYPES = ['Generico', 'Rango', 'Rango Sin orden', 'Limite'];
+    const ANALYSIS_TEST_TYPES = ['Generico', 'Limite', 'Rango', 'Rango Sin orden', 'Positivo o Negativo'];
     const ANALYSIS_TEST_TYPE_RANGO = 'Rango';
     const ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN = 'Rango Sin orden';
     const ANALYSIS_TEST_TYPE_LIMITE = 'Limite';
     const ANALYSIS_TEST_TYPE_GENERICO = 'Generico';
+    const ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO = 'Positivo o Negativo';
 
 
     protected $table = 'a_tests';
@@ -33,6 +34,8 @@ class AnalysisTest extends Model
     {
         $this->refresh();
         switch ($this->type){
+            case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                return $this->hasOne('App\AnalysisTestGeneric', 'a_test_id', 'id');
             case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
                 return $this->hasOne('App\AnalysisTestLimit', 'a_test_id', 'id');
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:

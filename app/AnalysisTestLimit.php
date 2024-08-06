@@ -28,10 +28,6 @@ class AnalysisTestLimit extends TestInputAbstract
     public function getHtmlInput($aTestResultId): string
     {
         $value = '';
-//        if(isset($this->analysisTest->analysisTestResult) && isset($this->analysisTest->analysisTestResult->result)){
-//            Log::info('www: ' . $this->analysisTest->analysisTestResult->id);
-//            $value = $this->analysisTest->analysisTestResult->result;
-//        }
         return "<input type='number' name='testResultValue[".$this->a_test_id."]' value='". $value ."' class='form-control'>";
     }
 

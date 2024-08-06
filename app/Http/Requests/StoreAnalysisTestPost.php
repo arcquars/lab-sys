@@ -41,6 +41,9 @@ class StoreAnalysisTestPost extends FormRequest
             case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
                 $this->valLimit($rules);
                 break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                $this->valGeneric($rules);
+                break;
 
         }
         return $rules;
@@ -66,6 +69,9 @@ class StoreAnalysisTestPost extends FormRequest
                 break;
             case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
                 $this->messageLimit($messages);
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                $this->messageGeneric($messages);
                 break;
         }
         return $messages;
@@ -123,6 +129,20 @@ class StoreAnalysisTestPost extends FormRequest
                 $rules['range.option.'.$key.'.gender'] = 'required';
 
                 $rules['range.option.'.$key.'.to'] = 'required|numeric';
+
+                $rules['range.option.'.$key.'.age_initial'] = 'nullable|numeric';
+                $rules['range.option.'.$key.'.age_end'] = 'required_with:'.'range.option.'.$key.'.age_initial'.'|gte:'.'range.option.'.$key.'.age_initial';
+            }
+        }
+    }
+
+    public function valGeneric(&$rules){
+        $rules['range.option'] = "present|array";
+        if(is_array($this->input('range.option'))){
+            foreach($this->input('range.option') as $key=>$value){
+                $rules['range.option.'.$key.'.gender'] = 'required';
+
+                $rules['range.option.'.$key.'.reference'] = 'required|string|min:3|max:120';
 
                 $rules['range.option.'.$key.'.age_initial'] = 'nullable|numeric';
                 $rules['range.option.'.$key.'.age_end'] = 'required_with:'.'range.option.'.$key.'.age_initial'.'|gte:'.'range.option.'.$key.'.age_initial';
@@ -211,14 +231,38 @@ class StoreAnalysisTestPost extends FormRequest
 
     public function messageLimit(&$message)
     {
-        $message['range.option.present'] = "El tipo Rango tiene que tener por lo menos 1 opcion";
-        $message['range.option.array'] = "El tipo Rango tiene que tener por lo menoss 1 opcion";
+        $message['range.option.present'] = "El tipo Limite tiene que tener por lo menos 1 opcion";
+        $message['range.option.array'] = "El tipo Limite tiene que tener por lo menoss 1 opcion";
         if(is_array($this->input('range.option'))){
             foreach($this->input('range.option') as $key=>$value){
                 $message['range.option.'.$key.'.gender.required'] = 'El campo Sexo es obligatorio.';
 
                 $message['range.option.'.$key.'.to.required'] = 'El campo HASTA es obligatorio.';
                 $message['range.option.'.$key.'.to.numeric'] = 'El campo Hasta debe ser un numero';
+
+                $message['range.option.'.$key.'.age_initial.nullable'] = 'El campo Edad Inicial puede ser nulo';
+                $message['range.option.'.$key.'.age_initial.numeric'] = 'El campo Edad Inicial tiene que tener un valor numerico';
+
+                $message['range.option.'.$key.'.age_end.required_with'] = 'El campo Edad Final es obligatorio cuando Edad Inicial está presente.';
+                $message['range.option.'.$key.'.age_end.gte'] = 'El campo Edad Final debe ser mayor o igual a Edad inicial.';
+
+            }
+        }
+    }
+
+    public function messageGeneric(&$message)
+    {
+        $message['range.option.present'] = "El tipo Generico tiene que tener por lo menos 1 opcion";
+        $message['range.option.array'] = "El tipo Generico tiene que tener por lo menoss 1 opcion";
+        if(is_array($this->input('range.option'))){
+            foreach($this->input('range.option') as $key=>$value){
+                $message['range.option.'.$key.'.gender.required'] = 'El campo Sexo es obligatorio.';
+
+                $message['range.option.'.$key.'.reference.required'] = 'El campo Referencia es obligatorio.';
+                $message['range.option.'.$key.'.reference.string'] = 'El campo Referencia debe ser una cadena';
+                $message['range.option.'.$key.'.reference.string'] = 'El campo Referencia debe ser una cadena';
+                $message['range.option.'.$key.'.reference.min'] = 'El campo Referencia debe tener minimo 3 caracteres';
+                $message['range.option.'.$key.'.reference.max'] = 'El campo Referencia debe tener maximo 120 caracteres';
 
                 $message['range.option.'.$key.'.age_initial.nullable'] = 'El campo Edad Inicial puede ser nulo';
                 $message['range.option.'.$key.'.age_initial.numeric'] = 'El campo Edad Inicial tiene que tener un valor numerico';

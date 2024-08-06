@@ -230,6 +230,7 @@ Route::get('/analisis-test/render-range-option', 'AnalisisTestController@renderR
 Route::get('/analisis-test/render-range-option-intermediary', 'AnalisisTestController@renderRangeOptionIntermediary')->name('analysis-test.render-range-option-intermediary');
 Route::get('/analisis-test/render-range-no-order-option', 'AnalisisTestController@renderRangeNoOrderOption')->name('analysis-test.render-range-no-order-option');
 Route::get('/analisis-test/render-limit-option', 'AnalisisTestController@renderLimitOption')->name('analysis-test.render-limit-option');
+Route::get('/analisis-test/render-generic-option', 'AnalisisTestController@renderGenericOption')->name('analysis-test.render-generic-option');
 Route::post('/analisis-test/store-test', 'AnalisisTestController@store')->name('analysis-test.store.test');
 Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name('analysis-test.update.test');
 

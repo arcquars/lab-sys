@@ -73,11 +73,24 @@
             });
         }
 
+        function addTestTypeGeneric(){
+            $.ajax({
+                url: "{{ route('analysis-test.render-generic-option') }}",
+                success: function (data) {
+                    $("#genericListOptions").append(data);
+                }
+            });
+        }
+
         function removeTestTypeRange(button){
             $(button).parent().parent().parent().parent().remove();
         }
 
         function removeTestTypeLimit(button){
+            $(button).parent().parent().parent().remove();
+        }
+
+        function removeTestTypeGeneric(button){
             $(button).parent().parent().parent().remove();
         }
 

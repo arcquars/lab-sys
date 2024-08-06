@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\AnalysisTest;
+use App\AnalysisTestGeneric;
+use App\AnalysisTestGenericOption;
 use App\AnalysisTestGroup;
 use App\AnalysisTestLimit;
 use App\AnalysisTestLimitOption;
@@ -114,7 +116,6 @@ class AnalisisTestController extends Controller
             case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
                 $analysisTestLimit = new AnalysisTestLimit();
                 $analysisTestLimit->measure = $request->input('limit.measure');
-//                $analysisTestLimit->bookmark = $request->input('range.bookmark', false);
                 $analysisTestLimit->user_id = Auth::user()->id;
                 $analysisTestLimit->a_test_id = $analysisTest->id;
                 $analysisTestLimit->save();
@@ -129,6 +130,24 @@ class AnalisisTestController extends Controller
                     $analysisTestLimitOption->a_test_limit_id = $analysisTestLimit->id;
                     $analysisTestLimitOption->user_id = Auth::user()->id;
                     $analysisTestLimitOption->save();
+                }
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                $analysisTestGeneric = new AnalysisTestGeneric();
+                $analysisTestGeneric->user_id = Auth::user()->id;
+                $analysisTestGeneric->a_test_id = $analysisTest->id;
+                $analysisTestGeneric->save();
+
+                $options = $request->input('range.option');
+                foreach($options as $key => $value){
+                    $analysisTestGenericOption = new AnalysisTestGenericOption();
+                    $analysisTestGenericOption->reference = $value['reference']? $value['reference'] : '';
+                    $analysisTestGenericOption->age_initial = $value['age_initial'];
+                    $analysisTestGenericOption->age_end = $value['age_end'];
+                    $analysisTestGenericOption->gender = $value['gender'];
+                    $analysisTestGenericOption->a_test_generic_id = $analysisTestGeneric->id;
+                    $analysisTestGenericOption->user_id = Auth::user()->id;
+                    $analysisTestGenericOption->save();
                 }
                 break;
         }
@@ -241,6 +260,39 @@ class AnalisisTestController extends Controller
                     }
                 }
                 break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                // Bloque que actualiza los datos de AnalysisTestGeneric
+                $analysisTestGeneric = AnalysisTestGeneric::find($analysisTest->analysisTestType->id);
+
+                // Bloque para eliminar las opciones
+                $deleteGenericOptionIds = [];
+                foreach ($analysisTest->analysisTestType->analysisTestGenericOptions as $analysisTestGenericOption){
+                    $deleteId = $analysisTestGenericOption->id;
+                    foreach ($request->input('range.option') as $key=> $value){
+                        if(isset($value['id']) && $analysisTestGenericOption->id == $value['id']){
+                            $deleteId = 0;
+                        }
+                    }
+                    if($deleteId != 0){
+                        $deleteGenericOptionIds[] = $deleteId;
+                    }
+                }
+                AnalysisTestGenericOption::whereIn('id', $deleteGenericOptionIds)->delete();
+
+                // Bloque para actualizar las opciones que ya tenia el generico
+                foreach ($request->input('range.option') as $key=> $value){
+                    $analysisTestGenericOption = new AnalysisTestGenericOption();
+                    $analysisTestGenericOption->a_test_generic_id = $analysisTest->analysisTestType->id;
+                    if(isset($value['id'])){
+                        $analysisTestGenericOption = AnalysisTestGenericOption::find($value['id']);
+                    }
+                    $analysisTestGenericOption->reference = $value['reference']? $value['reference'] : '';
+                    $analysisTestGenericOption->age_initial = $value['age_initial'];
+                    $analysisTestGenericOption->age_end = $value['age_end'];
+                    $analysisTestGenericOption->gender = $value['gender'];
+                    $analysisTestGenericOption->save();
+                }
+                break;
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
                 $analysisTestRangeNoOrder = AnalysisTestRangeNoOrder::find($analysisTest->analysisTestType->id);
                 $analysisTestRangeNoOrder->measure = $request->input('range.measure');
@@ -341,6 +393,8 @@ class AnalisisTestController extends Controller
                     return view('a-test.partials.render-test-type-range-no-order')->render();
                 case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
                     return view('a-test.partials.render-test-type-limit')->render();
+                case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
+                    return view('a-test.partials.render-test-type-generic')->render();
             }
         }
     }
@@ -363,6 +417,13 @@ class AnalisisTestController extends Controller
         if($request->ajax()){
             $tempId = rand(0,500);
             return view('a-test.partials.render-limit-option', compact('tempId'))->render();
+        }
+    }
+
+    public function renderGenericOption(Request $request){
+        if($request->ajax()){
+            $tempId = rand(0,500);
+            return view('a-test.partials.render-generic-option', compact('tempId'))->render();
         }
     }
 
