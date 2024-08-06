@@ -8,6 +8,7 @@ use App\AnalysisTestGenericOption;
 use App\AnalysisTestGroup;
 use App\AnalysisTestLimit;
 use App\AnalysisTestLimitOption;
+use App\AnalysisTestPositive;
 use App\AnalysisTestRange;
 use App\AnalysisTestRangeNoOrder;
 use App\AnalysisTestRangeNoOrderOption;
@@ -149,6 +150,12 @@ class AnalisisTestController extends Controller
                     $analysisTestGenericOption->user_id = Auth::user()->id;
                     $analysisTestGenericOption->save();
                 }
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO:
+                $analysisTestPositive = new AnalysisTestPositive();
+                $analysisTestPositive->user_id = Auth::user()->id;
+                $analysisTestPositive->a_test_id = $analysisTest->id;
+                $analysisTestPositive->save();
                 break;
         }
 
@@ -395,6 +402,8 @@ class AnalisisTestController extends Controller
                     return view('a-test.partials.render-test-type-limit')->render();
                 case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
                     return view('a-test.partials.render-test-type-generic')->render();
+                case AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO:
+                    return view('a-test.partials.render-test-type-positive')->render();
             }
         }
     }

@@ -34,6 +34,8 @@ class AnalysisTest extends Model
     {
         $this->refresh();
         switch ($this->type){
+            case AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO:
+                return $this->hasOne('App\AnalysisTestPositive', 'a_test_id', 'id');
             case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
                 return $this->hasOne('App\AnalysisTestGeneric', 'a_test_id', 'id');
             case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
