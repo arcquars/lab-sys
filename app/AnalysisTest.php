@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class AnalysisTest extends Model
 {
-    const ANALYSIS_TEST_TYPES = ['Rango', 'Rango Sin orden', 'Limite'];
+    const ANALYSIS_TEST_TYPES = ['Generico', 'Rango', 'Rango Sin orden', 'Limite'];
     const ANALYSIS_TEST_TYPE_RANGO = 'Rango';
     const ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN = 'Rango Sin orden';
     const ANALYSIS_TEST_TYPE_LIMITE = 'Limite';
+    const ANALYSIS_TEST_TYPE_GENERICO = 'Generico';
 
 
     protected $table = 'a_tests';

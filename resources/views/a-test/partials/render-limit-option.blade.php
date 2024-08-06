@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <label>Sexo</label>
-            <button class="btn btn-link text-danger float-right" onclick="removeTestTypeRange(this);" title="Quitar opcion"><i class="far fa-trash-alt"></i></button>
+            <button class="btn btn-link text-danger float-right" onclick="removeTestTypeLimit(this);" title="Quitar opcion"><i class="far fa-trash-alt"></i></button>
             <div></div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="range[option][{{$tempId}}][gender]" id="inlineGenderMujer{{$tempId}}" value="mujer"

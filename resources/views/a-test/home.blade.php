@@ -58,6 +58,7 @@
             $.ajax({
                 url: "{{ route('analysis-test.render-range-no-order-option') }}",
                 success: function (data) {
+                    // alert("sss oo");
                     $("#rangeNoOrderListOptions").append(data);
                 }
             });
@@ -74,6 +75,10 @@
 
         function removeTestTypeRange(button){
             $(button).parent().parent().parent().parent().remove();
+        }
+
+        function removeTestTypeLimit(button){
+            $(button).parent().parent().parent().remove();
         }
 
         function addRangeIntermediary(link, tempId) {

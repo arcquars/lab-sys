@@ -59,6 +59,42 @@ class AnalysisTestLimit extends TestInputAbstract
 
     public function getHtmlDescriptionResult($aTestResultId): string
     {
-        return "";
+        $html = "";
+        $aTestResult = AnalysisTestResult::find($aTestResultId);
+        $resultNumeric = doubleval($aTestResult->result);
+        $clientGender = $aTestResult->analysis->person->sexo;
+        $clientAge = $aTestResult->analysis->person->year_now;
+
+        foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
+        {
+            $html1 = $analysisTestLimitOption->gender;
+            if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
+                $html1 .= " (".$analysisTestLimitOption->age_initial . " - " . $analysisTestLimitOption->age_end . " años) ";
+            }
+            $html1 .= ": HASTA ";
+
+            if(strcmp("hombre y mujer", $analysisTestLimitOption->gender) == 0){
+                if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
+                    if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end){
+                        $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                    }
+                } else {
+                    $html .= $html1 . $analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                }
+            } else {
+//                dd($analysisTestLimitOption->gender. ' || ' . $clientGender);
+                if(strcmp($analysisTestLimitOption->gender, $clientGender) == 0){
+                    if($analysisTestLimitOption->age_initial && $analysisTestLimitOption->age_end){
+                        if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end){
+                            $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                        }
+                    } else {
+                        $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                    }
+
+                }
+            }
+        }
+        return $html;
     }
 }

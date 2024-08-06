@@ -198,6 +198,49 @@ class AnalisisTestController extends Controller
                     }
                 }
                 break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_LIMITE:
+                // Bloque que actualiza los datos de AnalysisTestLimit
+                $analysisTestLimit = AnalysisTestLimit::find($analysisTest->analysisTestType->id);
+                $analysisTestLimit->measure = $request->input('limit.measure');
+//                $analysisTestRange->bookmark = $request->input('range.bookmark');
+                $analysisTestLimit->save();
+
+                // Bloque para eliminar las opciones
+                $deleteLimitOptionIds = [];
+                foreach ($analysisTest->analysisTestType->analysisTestLimitOptions as $analysisTestLimitOption){
+                    $deleteId = $analysisTestLimitOption->id;
+                    foreach ($request->input('range.option') as $key=> $value){
+                        if(isset($value['id']) && $analysisTestLimitOption->id == $value['id']){
+                            $deleteId = 0;
+                        }
+                    }
+                    if($deleteId != 0){
+                        $deleteLimitOptionIds[] = $deleteId;
+                    }
+                }
+                AnalysisTestLimitOption::whereIn('id', $deleteLimitOptionIds)->delete();
+
+                // Bloque para actualizar las opciones que ya tenia el Limite
+                foreach ($request->input('range.option') as $key=> $value){
+                    if(isset($value['id'])){
+                        $analysisTestLimitOption = AnalysisTestLimitOption::find($value['id']);
+                        $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
+                        $analysisTestLimitOption->age_initial = $value['age_initial'];
+                        $analysisTestLimitOption->age_end = $value['age_end'];
+                        $analysisTestLimitOption->gender = $value['gender'];
+                        $analysisTestLimitOption->save();
+                    } else {
+                        $analysisTestLimitOption = new AnalysisTestLimitOption();
+                        $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
+                        $analysisTestLimitOption->age_initial = $value['age_initial'];
+                        $analysisTestLimitOption->age_end = $value['age_end'];
+                        $analysisTestLimitOption->gender = $value['gender'];
+                        $analysisTestLimitOption->a_test_limit_id = $analysisTest->analysisTestType->id;
+                        $analysisTestLimitOption->user_id = Auth::user()->id;
+                        $analysisTestLimitOption->save();
+                    }
+                }
+                break;
             case AnalysisTest::ANALYSIS_TEST_TYPE_RANGO_SIN_ORDEN:
                 $analysisTestRangeNoOrder = AnalysisTestRangeNoOrder::find($analysisTest->analysisTestType->id);
                 $analysisTestRangeNoOrder->measure = $request->input('range.measure');
