@@ -58,42 +58,7 @@
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            tinymce.init({
-                selector: '#ta-macroscopia',
-                plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
-                menubar: false,
-                language: 'es',
-                browser_spellcheck: true,
-                @cannot('manage-users-all') readonly : 1 @endcannot
-            });
-            tinymce.init({
-                selector: '#ta-microscopia',
-                plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
-                menubar: false,
-                language: 'es',
-                browser_spellcheck: true,
-                @cannot('manage-users-dr') readonly : 1 @endcannot
-            });
-            tinymce.init({
-                selector: '#ta-diagnostico',
-                plugins: "lists autoresize",
-                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
-                menubar: false,
-                language: 'es',
-                browser_spellcheck: true,
-                @cannot('manage-users-dr') readonly : 1 @endcannot
-            });
-
-            $(".custom-file-input").on("change", function() {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            });
         });
 
-        function prueba() {
-            console.log($('#ta-organo-tejido').val());
-        }
     </script>
 @endpush

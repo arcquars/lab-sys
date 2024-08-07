@@ -8,6 +8,7 @@ use App\AnalysisTestGenericOption;
 use App\AnalysisTestGroup;
 use App\AnalysisTestLimit;
 use App\AnalysisTestLimitOption;
+use App\AnalysisTestLineText;
 use App\AnalysisTestPositive;
 use App\AnalysisTestRange;
 use App\AnalysisTestRangeNoOrder;
@@ -163,6 +164,12 @@ class AnalisisTestController extends Controller
                 $analysisTestText->user_id = Auth::user()->id;
                 $analysisTestText->a_test_id = $analysisTest->id;
                 $analysisTestText->save();
+                break;
+            case AnalysisTest::ANALYSIS_TEST_TYPE_LINEA_TEXTO:
+                $analysisTestLineText = new AnalysisTestLineText();
+                $analysisTestLineText->user_id = Auth::user()->id;
+                $analysisTestLineText->a_test_id = $analysisTest->id;
+                $analysisTestLineText->save();
                 break;
         }
 
@@ -411,7 +418,7 @@ class AnalisisTestController extends Controller
                     return view('a-test.partials.render-test-type-generic')->render();
                 case AnalysisTest::ANALYSIS_TEST_TYPE_POSITIVO_NEGATIVO:
                     return view('a-test.partials.render-test-type-positive')->render();
-                case AnalysisTest::ANALYSIS_TEST_TYPE_TEXTO:
+                case AnalysisTest::ANALYSIS_TEST_TYPE_TEXTO || AnalysisTest::ANALYSIS_TEST_TYPE_LINEA_TEXTO:
                     return view('a-test.partials.render-test-type-text')->render();
             }
         }
