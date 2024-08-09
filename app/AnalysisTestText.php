@@ -37,7 +37,7 @@ class AnalysisTestText extends TestInputAbstract
     public function getHtmlResult($aTestResultId, $result): string
     {
         if($result != null){
-            return $result;
+            return nl2br(e($result));
         }
         return '--';
     }

@@ -151,15 +151,14 @@
                                 <div class="fcp_error_sexo" style="display: none;"></div>
                             </div>
                         </div>
-                        <div class="custom-control custom-checkbox">
+                        <div class="custom-control custom-checkbox fade">
                             <input type="checkbox" class="custom-control-input" name="crear_analisis" onchange="showhideCrearAnalisis(this);" id="customControlValidation1" value="1">
                             <label class="custom-control-label" for="customControlValidation1">Crear Analisis</label>
                         </div>
-                        <div id="d_crear_analisis" style="display: inline;">
+                        <div id="d_crear_analisis" style="display: none;">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="tipo_analisis">Tipo Analisis <span class="text-danger">*</span></label>
                                         <select name="tipo_analisis" id="s_tipoanalisis" onchange="getCodigo();" class="form-control">
                                             <option value="">Elija un Analisis</option>
                                             @foreach($tipoAnalisis as $analisis)
@@ -376,7 +375,7 @@
             $("#mpersona").on('shown.bs.modal', function (event) {
                 $("#fcrearpersona")[0].reset();
                 $("#fcrearpersona").find("input[name='id']").val('');
-                $( "#d_crear_analisis" ).show();
+                // $( "#d_crear_analisis" ).show();
                 clearErrorMsg();
             });
 

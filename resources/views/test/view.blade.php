@@ -26,7 +26,7 @@
                             </label>
                         </div>
                         <div class="col-md-4">
-                            {!! nl2br(e($testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result))) !!}
+                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}
 {{--                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}--}}
                         </div>
                         <div class="col-md-4">

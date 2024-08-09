@@ -37,7 +37,7 @@
     @foreach($testResults as $testResult)
         <tr>
             <td style="width: 33.33%; font-size: 12px;">{{ $testResult->aTest->name }}</td>
-            <td style="width: 33.33%; font-size: 12px; text-align: center;">{!! nl2br(e($testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result))) !!}</td>
+            <td style="width: 33.33%; font-size: 12px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}</td>
             <td style="width: 33.33%; font-size: 10px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) !!}</td>
         </tr>
     @endforeach
