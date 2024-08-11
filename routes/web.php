@@ -225,6 +225,7 @@ Route::post('/analisis/supervisores/set-estado', 'AnalisisSupervisorController@a
 Route::get('/analisis-test', 'AnalisisTestController@index')->name('analisis-test.home');
 Route::get('/analisis-test/get-group-type', 'AnalisisTestController@getGroupAndType')->name('analisis-test.get-group-type');
 Route::get('/analisis-test/render-test-form', 'AnalisisTestController@renderTestForm')->name('analisis-test.render-test-form');
+Route::get('/analisis-test/render-test-form-delete', 'AnalisisTestController@renderTestFormDelete')->name('analisis-test.render-test-form-delete');
 Route::get('/analisis-test/render-test-type', 'AnalisisTestController@renderTestType')->name('analysis-test.render-test-type');
 Route::get('/analisis-test/render-range-option', 'AnalisisTestController@renderRangeOption')->name('analysis-test.render-range-option');
 Route::get('/analisis-test/render-range-option-intermediary', 'AnalisisTestController@renderRangeOptionIntermediary')->name('analysis-test.render-range-option-intermediary');
@@ -233,6 +234,7 @@ Route::get('/analisis-test/render-limit-option', 'AnalisisTestController@renderL
 Route::get('/analisis-test/render-generic-option', 'AnalisisTestController@renderGenericOption')->name('analysis-test.render-generic-option');
 Route::post('/analisis-test/store-test', 'AnalisisTestController@store')->name('analysis-test.store.test');
 Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name('analysis-test.update.test');
+Route::post('/analisis-test/delete-test', 'AnalisisTestController@destroy')->name('analysis-test.delete.test');
 
 
 /** Analisis Test Group */

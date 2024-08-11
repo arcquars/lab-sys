@@ -7,7 +7,8 @@
             <div class="card-body">
                 @foreach($group->analysisTests as $analysisTests)
                     <p class="mb-0">
-                        <button class="btn btn-link text-primary" onclick="openModalAnalysisTest({{$analysisTests->id}});"><i class="far fa-edit"></i></button>
+                        <button class="btn btn-link text-primary p-1" onclick="openModalAnalysisTest({{$analysisTests->id}});"><i class="far fa-edit"></i></button>
+                        <button class="btn btn-link text-danger p-1" onclick="openModalAnalysisTestDelete({{$analysisTests->id}});"><i class="fas fa-trash-alt"></i></button>
                         {{$analysisTests->name}} <small>({{$analysisTests->price }} Bs. - {{$analysisTests->type}})</small>
                     </p>
                 @endforeach

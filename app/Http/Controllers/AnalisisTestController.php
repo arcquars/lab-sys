@@ -398,6 +398,17 @@ class AnalisisTestController extends Controller
         return response()->json(['success'=>true, 'message' => "Se actualizo la PRUEBA correctamente..."]);
     }
 
+    public function destroy(Request $request)
+    {
+        if($request->ajax()){
+            $id = $request->post("id");
+            $analysisTest = AnalysisTest::find($id);
+            $analysisTest->deleted = true;
+            $analysisTest->save();
+            return response()->json(['success'=>true, 'message' => "Se elimino la PRUEBA correctamente..."]);
+        }
+    }
+
     public function getGroupAndType(){
         // Setting::where('section', $section)->select('key', 'value')->pluck('value')->toArray();
         $groups = AnalysisTestGroup::where('deleted', 0)->pluck('id','name')->toArray();
@@ -461,6 +472,17 @@ class AnalisisTestController extends Controller
             $aTestTypes = AnalysisTest::ANALYSIS_TEST_TYPES;
             return view('a-test.partials.render-test-form',
                 compact('analysisTest', 'groups', 'aTestTypes'))
+                ->render();
+        }
+    }
+
+    public function renderTestFormDelete(Request $request){
+        if($request->ajax()){
+            $aTestId = $request->get('a_test_id');
+            $analysisTest = AnalysisTest::find($aTestId);
+
+            return view('a-test.partials.render-test-form-delete',
+                compact('analysisTest'))
                 ->render();
         }
     }

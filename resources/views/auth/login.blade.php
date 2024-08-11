@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-4 col-sm-6 ml-auto mr-auto">
             <div class="card card-login">
-                <div class="card-header"><h3 class="header text-center">Iniciar sesión</h3></div>
+                <div class="card-header">
+                    <img src="{{ asset(env('APP_LOGO_48_48')) }}" class="img-thumbnail mx-auto d-block" alt="">
+                    <h3 class="header text-center">Iniciar sesión</h3>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -30,7 +33,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 ml-2">
                                 <div class="form-check">
                                     <label class="form-check-label" for="remember">
                                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -43,7 +46,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12 text-center">
-                                <button type="submit" class="btn btn-warning btn-wd btn-block">
+                                <button type="submit" class="btn btn-primary btn-wd btn-block">
                                     {{ __('Login') }}
                                 </button>
 
