@@ -8,10 +8,6 @@
 
         </ol>
     </nav>
-    @include('a-test.includes.modals.m_create_group', ['rangeTypeList', $rangeTypeList])
-    @include('a-test.includes.modals.m_create_test')
-    @include('a-test.includes.modals.m_edit_test')
-    @include('a-test.includes.modals.m_delete_test')
     <div class="card">
         <div class="card-header">
         </div>
@@ -25,7 +21,10 @@
     </div>
 
 @endsection
-
+@include('a-test.includes.modals.m_create_group', ['rangeTypeList', $rangeTypeList])
+@include('a-test.includes.modals.m_create_test')
+@include('a-test.includes.modals.m_edit_test')
+@include('a-test.includes.modals.m_delete_test')
 @push('js')
     <script>
         $(document).ready(function () {

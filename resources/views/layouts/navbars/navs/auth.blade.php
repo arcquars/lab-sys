@@ -14,11 +14,9 @@
                     </a>
                 </li>
             </ul>
-            <ul class="navbar-nav   d-flex align-items-center">
-                <li class="nav-link">
-                    <a href="#" class="text-success" data-toggle="modal" data-target="#textPreModal"><i class="fas fa-atlas"></i> </a>
-                </li>
+            <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item">
+                    <a href="#" class="nav-link disabled">
                     <span class="no-icon">
                         @php
                         $roles = auth()->user()->roles;
@@ -27,21 +25,19 @@
                             $rolesStr .= $role->name.', ';
                         }
                         @endphp
-                        {{auth()->user()->name}} <span style="font-size: .75rem">({{strtoupper(substr($rolesStr, 0, -2))}}) |</span>
+                        {{auth()->user()->name}} <span style="font-size: .75rem">({{strtoupper(substr($rolesStr, 0, -2))}})</span>
                     </span>
+                    </a>
                 </li>
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link" href=" ">--}}
-{{--                        <span class="no-icon">Cuenta</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
                 <li class="nav-item">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <a class="text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar sesión</a>
-                    </form>
+                    <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="no-icon">Cerrar sesión</span>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<form id="logout-form" action="{{ route('logout') }}" method="POST">
+    @csrf
+</form>
