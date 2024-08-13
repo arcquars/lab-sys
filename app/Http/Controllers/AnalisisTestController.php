@@ -409,6 +409,17 @@ class AnalisisTestController extends Controller
         }
     }
 
+    public function testGroupDestroy(Request $request)
+    {
+        if($request->ajax()){
+            $id = $request->post("id");
+            $analysisTestGroup = AnalysisTestGroup::find($id);
+            $analysisTestGroup->deleted = true;
+            $analysisTestGroup->save();
+            return response()->json(['success'=>true, 'message' => "Se elimino el Grupo correctamente..."]);
+        }
+    }
+
     public function getGroupAndType(){
         // Setting::where('section', $section)->select('key', 'value')->pluck('value')->toArray();
         $groups = AnalysisTestGroup::where('deleted', 0)->pluck('id','name')->toArray();
@@ -484,6 +495,19 @@ class AnalisisTestController extends Controller
             return view('a-test.partials.render-test-form-delete',
                 compact('analysisTest'))
                 ->render();
+        }
+    }
+
+    public function renderTestGroupFormDelete(Request $request){
+        if($request->ajax()){
+            $aTestGroupId = $request->get('a_test_group_id');
+            $analysisTestGroup = AnalysisTestGroup::find($aTestGroupId);
+
+            $valid = true;
+            if(count($analysisTestGroup->analysisTests) > 0){
+                $valid = false;
+            }
+            return response()->json(['success'=>true, 'valid' => $valid, 'testGroup' => $analysisTestGroup]);
         }
     }
 
