@@ -39,10 +39,20 @@
             <div id="validationAgeEnd{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
-        <div class="col-md-6 form-group">
+        <div class="col-md-3 form-group">
             <label for="mtestrange_option_{{$tempId}}_to">Hasta</label>
             <input type="number" id="mtestrange_option_{{$tempId}}_to" name="range[option][{{$tempId}}][to]" class="form-control form-control-sm" aria-describedby="validationTo{{$tempId}}">
             <div id="validationTo{{$tempId}}" class="invalid-feedback">
+            </div>
+        </div>
+        <div class="col-md-3 form-group">
+            <label for="mtestrange_option_{{$tempId}}_bookmark">Color</label>
+            <select id="mtestrange_option_{{$tempId}}_bookmark" name="range[option][{{$tempId}}][bookmark]" class="form-control form-control-sm"
+                    aria-describedby="validationBookmarkColor{{$tempId}}">
+                <option value="">Ninguno</option>
+                <option value="ROJO">ROJO</option>
+            </select>
+            <div id="validationBookmarkColor{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
     </div>

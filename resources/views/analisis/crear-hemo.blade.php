@@ -270,7 +270,6 @@
             @if(old('aTests'))
                 aTestIds = {!! json_encode(old('aTests')) !!};
             @endif
-            alert(JSON.stringify(aTestIds));
             $("#list_group").empty().append(renderLoading());
             $.ajax({
                 url: "{{ route('analysis-test-group.render.list.selected') }}",

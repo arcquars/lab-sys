@@ -40,7 +40,12 @@ class AnalysisTestLimit extends TestInputAbstract
         $html = "";
         foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
         {
-            $html .= $analysisTestLimitOption->gender;
+            $bookmarkI = "";
+            if($analysisTestLimitOption->bookmark){
+                $bookmarkI = "<span class='text-danger'>*</span>&nbsp;";
+            }
+
+            $html .= $bookmarkI.$analysisTestLimitOption->gender;
             if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
                 $html .= " <small>(".$analysisTestLimitOption->age_initial . " - " . $analysisTestLimitOption->age_end . " años)</small> ";
             }
@@ -51,10 +56,48 @@ class AnalysisTestLimit extends TestInputAbstract
 
     public function getHtmlResult($aTestResultId, $result): string
     {
-        if($result != null){
-            return $result;
+        if($result == null){
+            return "--";
         }
-        return '--';
+
+        $resultHtml = false;
+        $aTestResult = AnalysisTestResult::find($aTestResultId);
+        $resultNumeric = doubleval($result);
+        $clientGender = $aTestResult->analysis->person->sexo;
+        $clientAge = $aTestResult->analysis->person->year_now;
+
+        foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
+        {
+            if(strcmp("hombre y mujer", $analysisTestLimitOption->gender) == 0){
+                if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
+                    if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
+                        $resultNumeric <= $analysisTestLimitOption->to){
+                        $resultHtml = true;
+                    }
+                } else {
+                    if($resultNumeric <= $analysisTestLimitOption->to)
+                        $resultHtml = true;
+                }
+            } else {
+                if(strcmp($analysisTestLimitOption->gender, $clientGender) == 0){
+                    if($analysisTestLimitOption->age_initial && $analysisTestLimitOption->age_end){
+                        if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
+                            $resultNumeric <= $analysisTestLimitOption->to){
+                            $resultHtml = true;
+                        }
+                    } else {
+                        if($resultNumeric <= $analysisTestLimitOption->to)
+                            $resultHtml = true;
+                    }
+
+                }
+            }
+            if(!$analysisTestLimitOption->bookmark){
+                $resultHtml = false;
+            }
+        }
+
+        return $resultHtml? "<span class='text-danger'>".$resultNumeric."</span>" : $result;
     }
 
     public function getHtmlDescriptionResult($aTestResultId): string
@@ -75,21 +118,24 @@ class AnalysisTestLimit extends TestInputAbstract
 
             if(strcmp("hombre y mujer", $analysisTestLimitOption->gender) == 0){
                 if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
-                    if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end){
+                    if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
+                        $resultNumeric <= $analysisTestLimitOption->to){
                         $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
                     }
                 } else {
-                    $html .= $html1 . $analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                    if($resultNumeric <= $analysisTestLimitOption->to)
+                        $html .= $html1 . $analysisTestLimitOption->to . " " . $this->measure ."<br>";
                 }
             } else {
-//                dd($analysisTestLimitOption->gender. ' || ' . $clientGender);
                 if(strcmp($analysisTestLimitOption->gender, $clientGender) == 0){
                     if($analysisTestLimitOption->age_initial && $analysisTestLimitOption->age_end){
-                        if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end){
+                        if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
+                            $resultNumeric <= $analysisTestLimitOption->to){
                             $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
                         }
                     } else {
-                        $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
+                        if($resultNumeric <= $analysisTestLimitOption->to)
+                            $html .= $html1 .$analysisTestLimitOption->to . " " . $this->measure ."<br>";
                     }
 
                 }

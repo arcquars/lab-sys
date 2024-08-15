@@ -131,6 +131,7 @@ class AnalisisTestController extends Controller
                     $analysisTestLimitOption->age_end = $value['age_end'];
                     $analysisTestLimitOption->gender = $value['gender'];
                     $analysisTestLimitOption->a_test_limit_id = $analysisTestLimit->id;
+                    $analysisTestLimitOption->bookmark = (isset($value['bookmark']))? 1 : 0;
                     $analysisTestLimitOption->user_id = Auth::user()->id;
                     $analysisTestLimitOption->save();
                 }
@@ -262,23 +263,19 @@ class AnalisisTestController extends Controller
 
                 // Bloque para actualizar las opciones que ya tenia el Limite
                 foreach ($request->input('range.option') as $key=> $value){
+                    $analysisTestLimitOption = new AnalysisTestLimitOption();
                     if(isset($value['id'])){
                         $analysisTestLimitOption = AnalysisTestLimitOption::find($value['id']);
-                        $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
-                        $analysisTestLimitOption->age_initial = $value['age_initial'];
-                        $analysisTestLimitOption->age_end = $value['age_end'];
-                        $analysisTestLimitOption->gender = $value['gender'];
-                        $analysisTestLimitOption->save();
                     } else {
-                        $analysisTestLimitOption = new AnalysisTestLimitOption();
-                        $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
-                        $analysisTestLimitOption->age_initial = $value['age_initial'];
-                        $analysisTestLimitOption->age_end = $value['age_end'];
-                        $analysisTestLimitOption->gender = $value['gender'];
                         $analysisTestLimitOption->a_test_limit_id = $analysisTest->analysisTestType->id;
                         $analysisTestLimitOption->user_id = Auth::user()->id;
-                        $analysisTestLimitOption->save();
                     }
+                    $analysisTestLimitOption->to = $value['to']? $value['to'] : '';
+                    $analysisTestLimitOption->age_initial = $value['age_initial'];
+                    $analysisTestLimitOption->age_end = $value['age_end'];
+                    $analysisTestLimitOption->gender = $value['gender'];
+                    $analysisTestLimitOption->bookmark = (isset($value['bookmark']))? 1 : 0;
+                    $analysisTestLimitOption->save();
                 }
                 break;
             case AnalysisTest::ANALYSIS_TEST_TYPE_GENERICO:
