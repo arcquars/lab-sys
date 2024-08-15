@@ -213,7 +213,8 @@ class ClientController extends Controller
         }
 
         if($valid) {
-            return response()->json(['success'=>true, 'url' => route('analisis.crearanalisis', ['personId' => $valid])]);
+//            return response()->json(['success'=>true, 'url' => route('analisis.crearanalisis', ['personId' => $valid])]);
+            return response()->json(['success'=>true, 'url' => route('analisis.crear.analisis.hemo', ['personId' => $valid])]);
         } else {
             return response()->json(['success'=> false, 'errors' => 'Existe un error por favor contactese con el administrador.']);
         }

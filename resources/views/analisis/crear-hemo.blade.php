@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <dl>
-                        <dt>Nombres y Apellidos:</dt>
+                        <dt>Nombres y Apellidos: </dt>
                         <dd>{{$persona->apellidos.' '.$persona->apellido_materno.', '.$persona->nombres}}</dd>
                     </dl>
                 </div>
@@ -225,9 +225,12 @@
                     </div>
                 </div>
                 <hr>
+                @error('aTests')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
                 <div id="list_group" class="row">
                 </div>
-                <a href="{{ url()->previous() }}" class="btn btn-secondary">Cerrar</a>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">Atras</a>
                 <button type="submit" id="btnSubmit" class="btn btn-primary">Crear</button>
             </form>
         </div>
@@ -263,9 +266,15 @@
     }
 
         function loadTestGroup(){
+            let aTestIds = null;
+            @if(old('aTests'))
+                aTestIds = {!! json_encode(old('aTests')) !!};
+            @endif
+            alert(JSON.stringify(aTestIds));
             $("#list_group").empty().append(renderLoading());
             $.ajax({
                 url: "{{ route('analysis-test-group.render.list.selected') }}",
+                data: {aTestIds},
                 success: function (data) {
                     $("#list_group").empty().append(data);
                 }

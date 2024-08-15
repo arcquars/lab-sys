@@ -115,8 +115,10 @@ class AnalysisTestGroupController extends Controller
 
     public function renderListGroupsTestSelect(Request $request){
         if($request->ajax()){
+            $aTestIds = $request->get('aTestIds', []);
+//            dd($aTestIds);
             $groups = AnalysisTestGroup::where('deleted', 0)->orderBy('name')->get();
-            return view('a-test.partials.render-list-selected',compact('groups'))->render();
+            return view('a-test.partials.render-list-selected',compact('groups', 'aTestIds'))->render();
         }
     }
 }

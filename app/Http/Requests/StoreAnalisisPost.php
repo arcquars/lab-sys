@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Analisis;
 use Illuminate\Foundation\Http\FormRequest;
 use Config;
 
@@ -25,6 +26,7 @@ class StoreAnalisisPost extends FormRequest
     public function rules()
     {
         $procedencia = $this->input('procedencia');
+        $tipoAnalisis = $this->input('tipo_analisis');
 
         $convenios = explode(',', Config::get('clinica.convenios_id'));
         if(count($convenios) == 0){
@@ -63,6 +65,11 @@ class StoreAnalisisPost extends FormRequest
                 break;
             }
         }
+
+        if(strcmp($tipoAnalisis, Analisis::PRUEBA) == 0){
+            $rulesR['aTests'] = 'required';
+        }
+
         return $rulesR;
     }
 }

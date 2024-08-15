@@ -8,8 +8,10 @@
                 @foreach($group->analysisTests as $analysisTests)
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests    ->id }}" onchange="updateTotalPriceTest();"
-                                   name="aTests[]" data-price="{{$analysisTests->price }}">
+                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="updateTotalPriceTest();"
+                                   name="aTests[]" data-price="{{$analysisTests->price }}"
+                                   @if(isset($aTestIds) && in_array($analysisTests->id, $aTestIds)) checked @endif
+                            >
                             <span class="form-check-sign"></span>
                             {{$analysisTests->name}} <small>({{$analysisTests->price }} Bs. - {{$analysisTests->type}})</small>
                         </label>
