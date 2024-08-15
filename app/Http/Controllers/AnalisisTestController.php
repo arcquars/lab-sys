@@ -487,6 +487,16 @@ class AnalisisTestController extends Controller
         }
     }
 
+    public function renderTestGroupForm(Request $request){
+        if($request->ajax()){
+            $aTestGroupId = $request->get('a_test_group_id');
+            $analysisTestGroup = AnalysisTestGroup::find($aTestGroupId);
+            return view('a-test.partials.render-test-group-form',
+                compact('analysisTestGroup'))
+                ->render();
+        }
+    }
+
     public function renderTestFormDelete(Request $request){
         if($request->ajax()){
             $aTestId = $request->get('a_test_id');

@@ -82,9 +82,17 @@ class AnalysisTestGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $analisisTestGroup = AnalysisTestGroup::find($request->post('id'));
+        $analisisTestGroup->name = $request->post('name');
+        $analisisTestGroup->save();
+
+        return response()->json(['success'=>true, 'message' => "Se edito el grupo correctamente..."]);
     }
 
     /**

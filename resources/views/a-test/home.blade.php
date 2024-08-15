@@ -26,6 +26,7 @@
 @include('a-test.includes.modals.m_edit_test')
 @include('a-test.includes.modals.m_delete_test')
 @include('a-test.includes.modals.m_delete_test_group')
+@include('a-test.includes.modals.m_edit_group')
 @push('js')
     <script>
         $(document).ready(function () {

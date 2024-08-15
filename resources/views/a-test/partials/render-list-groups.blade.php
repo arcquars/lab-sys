@@ -5,7 +5,7 @@
                 <h5 class="mb-0">
                     {{ $group->name }}
                     <button class="btn btn-link text-danger p-1 float-right " onclick="openModalAnalysisTestGroupDelete({{$group->id}});"><i class="fas fa-trash-alt"></i></button>
-                    <button class="btn btn-link text-primary p-1 float-right" onclick=""><i class="far fa-edit"></i></button>
+                    <button class="btn btn-link text-primary p-1 float-right" onclick="openModalEditGroupTest({{$group->id}})"><i class="far fa-edit"></i></button>
                 </h5>
             </div>
             <div class="card-body">
