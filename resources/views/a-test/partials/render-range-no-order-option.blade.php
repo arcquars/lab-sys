@@ -26,7 +26,8 @@
         </div>
         <div class="col-md-2 form-group">
             <label for="mtestrange_option_{{$tempId}}_age_initial">Edad inicial</label>
-            <input type="number" id="mtestrange_option_{{$tempId}}_age_initial" name="range[option][{{$tempId}}][age_initial]" class="form-control form-control-sm" aria-describedby="validationAgeInitial{{$tempId}}">
+            <input type="number" id="mtestrange_option_{{$tempId}}_age_initial" name="range[option][{{$tempId}}][age_initial]" class="form-control form-control-sm"
+                   aria-describedby="validationAgeInitial{{$tempId}}">
             <div id="validationAgeInitial{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
@@ -48,7 +49,7 @@
         <div class="col-md-3 px-1 form-group">
             <label for="mtestrange_option_{{$tempId}}_initial_value">Valor</label>
             <input type="number" id="mtestrange_option_{{$tempId}}_initial_value" placeholder="Rango inicial" name="range[option][{{$tempId}}][initial_value]"
-                   step="0.1" class="form-control form-control-sm" aria-describedby="validationInitialValue{{$tempId}}">
+                   step="0.01" class="form-control form-control-sm" aria-describedby="validationInitialValue{{$tempId}}">
             <div id="validationInitialValue{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
@@ -76,7 +77,7 @@
         <div class="col-md-3 px-1 form-group">
             <label for="mtestrange_option_{{$tempId}}_end_value">Valor</label>
             <input type="number" id="mtestrange_option_{{$tempId}}_end_value" placeholder="Rango final" name="range[option][{{$tempId}}][end_value]"
-                   step="0.1" class="form-control form-control-sm" aria-describedby="validationEndValue{{$tempId}}">
+                   step="0.01" class="form-control form-control-sm" aria-describedby="validationEndValue{{$tempId}}">
             <div id="validationEndValue{{$tempId}}" class="invalid-feedback">
             </div>
         </div>

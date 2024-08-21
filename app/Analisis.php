@@ -54,6 +54,7 @@ class Analisis extends Model
         'saldo_banco',
         'supervisar',
         'doctor_supervisor',
+        'imprimir_firma',
         'imprimir_firma_supervisor',
         'comentario_supervisor',
         'user_asig_supervisor',
@@ -333,6 +334,31 @@ class Analisis extends Model
             "isHasResult" => $isHasResult,
             "routeView" => $routeView
             ))->render();
+    }
+
+    /**
+     * Returns the action column html for datatables.
+     *
+     * @param \App\Analisis
+     * @return string
+     */
+    public static function laratablesCustomActionGuest($analysis)
+    {
+        $isHasResult = false;
+        $routeView = '';
+        $printAnalisis = '';
+        if(AnalysisTestResult::where('analysis_id', $analysis->id)->whereNotNull('result')->count() > 0){
+            $routeView = 'test.viewResultado';
+            $printAnalisis = 'test.reporte';
+            $isHasResult = true;
+        }
+        return view('analisis.includes.action-guest')->with(array(
+            "id" => $analysis->id,
+            "isHasResult" => $isHasResult,
+            "printAnalisis" => $printAnalisis,
+            'imprimir_firma' => $analysis->imprimir_firma,
+            "routeView" => $routeView
+        ))->render();
     }
 
     /**

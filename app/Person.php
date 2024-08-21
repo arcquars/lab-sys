@@ -105,5 +105,9 @@ class Person extends Model
         return $isPersonaSinNombre;
     }
 
+    public function getFullnameAttribute(){
+        return $this->nombres . " " . $this->apellidos . " " . $this->apellido_materno;
+    }
+
 
 }

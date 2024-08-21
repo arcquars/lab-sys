@@ -19,8 +19,12 @@ Route::get('/', function () {
 Route::middleware(['guest'])->group(function () {
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
-    Route::get('/guest/login', 'Guest\LoginController@index')->name('guest.login');
+    Route::get('/guest', 'Guest\LoginController@index')->name('guest.home');
+    Route::get('/guest/home', 'Guest\LoginController@home')->name('guest.auth.home');
+    Route::get('/guest/login', 'Guest\LoginController@login')->name('guest.login');
     Route::post('/guest/post-login', 'Guest\LoginController@postLogin')->name('guest.postlogin');
+    Route::post('/guest/post-login-guest', 'Guest\LoginController@postLoginGuest')->name('guest.post.login.guest');
+    Route::post('/guest/post-logout-guest', 'Guest\LoginController@postLogoutGuest')->name('guest.post.logout.guest');
 });
 Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
 Route::get('/analisis-pdf/{analisisId}', 'QrController@index')->name('analisis.reporte.pdf.public');

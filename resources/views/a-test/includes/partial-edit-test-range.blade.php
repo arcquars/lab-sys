@@ -83,7 +83,7 @@
                 <label for="mtestrange_option_{{$tempId}}_initial">Inicial</label>
                 <input type="number" id="mtestrange_option_{{$tempId}}_initial" name="range[option][{{$tempId}}][initial]"
                        class="form-control form-control-sm" aria-describedby="validationInitial{{$tempId}}"
-                       value="{{ $analysisTestRangeOption->initial }}"
+                       value="{{ $analysisTestRangeOption->initial }}" step="0.01"
                 >
                 <div id="validationInitial{{$tempId}}" class="invalid-feedback">
                 </div>
@@ -92,7 +92,7 @@
                 <label for="mtestrange_option_{{$tempId}}_end">Final</label>
                 <input type="number" id="mtestrange_option_{{$tempId}}_end" name="range[option][{{$tempId}}][end]"
                        class="form-control form-control-sm" aria-describedby="validationEnd{{$tempId}}"
-                       value="{{ $analysisTestRangeOption->end }}"
+                       value="{{ $analysisTestRangeOption->end }}" step="0.01"
                 >
                 <div id="validationEnd{{$tempId}}" class="invalid-feedback">
                 </div>

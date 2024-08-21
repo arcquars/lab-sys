@@ -50,14 +50,31 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
-                            </li>
 {{--                            @if (Route::has('register'))--}}
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link" href="{{ route('register') }}">Registro</a>--}}
 {{--                                </li>--}}
 {{--                            @endif--}}
+                            @if(\Illuminate\Support\Facades\Session::exists('guest'))
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('guest.post.logout.guest') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('guest.home') }}">Invitado</a>
+                                </li>
+                            @endif
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -87,8 +104,9 @@
         </main>
     </div>
 </body>
+<script src="{{ asset('js/app.js') }}"></script>
 <!--   Core JS Files   -->
-<script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>
+{{--<script src="{{ asset('light-bootstrap/js/core/jquery.3.2.1.min.js') }}" type="text/javascript"></script>--}}
 <script src="{{ asset('light-bootstrap/js/core/jquery-ui.js') }}" type="text/javascript"></script>
 <script src="{{ asset('light-bootstrap/js/core/popper.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('light-bootstrap/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
@@ -105,7 +123,9 @@
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="{{ asset('light-bootstrap/js/light-bootstrap-dashboard.js?v=2.0.0') }}" type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>
+{{--<script src="{{ asset('light-bootstrap/js/demo.js') }}"></script>--}}
+<script src="{{ asset('light-bootstrap/js/plugins/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 @stack('js')
 <script>
     $(document).ready(function () {

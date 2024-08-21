@@ -65,7 +65,7 @@
                             // return data;
                         }},
                     // {name: 'doctor', orderable: false},
-                    {name: 'doctorasig.nombres', orderable: false},
+                        {name: 'doctorasig.nombres', orderable: false},
                     {name: 'actiontec', orderable: false, searchable: false},
                 ],
                 language: {

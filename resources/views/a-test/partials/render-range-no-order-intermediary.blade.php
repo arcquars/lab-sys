@@ -19,7 +19,7 @@
                 Rango inicial
             </label>
             <input type="number" id="mtestrange_option_{{$tempId}}_intermediary_{{$count}}_initial_range" name="range[option][{{$tempId}}][intermediary][{{$count}}][initial_range]"
-                   step="0.1" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeInitial{{$tempId.$count}}">
+                   step="0.01" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeInitial{{$tempId.$count}}">
             <div id="validationIntermediaryRangeInitial{{$tempId.$count}}" class="invalid-feedback">
             </div>
         </div>
@@ -28,7 +28,7 @@
                 Rango final
             </label>
             <input type="number" id="mtestrange_option_{{$tempId}}_intermediary_{{$count}}_end_range" name="range[option][{{$tempId}}][intermediary][{{$count}}][end_range]"
-                   step="0.1" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeEnd{{$tempId.$count}}">
+                   step="0.01" class="form-control form-control-sm" aria-describedby="validationIntermediaryRangeEnd{{$tempId.$count}}">
             <div id="validationIntermediaryRangeEnd{{$tempId.$count}}" class="invalid-feedback">
             </div>
         </div>

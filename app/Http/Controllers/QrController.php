@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 
 
 use App\Analisis;
+use App\AnalysisTest;
+use App\AnalysisTestResult;
 use App\Bethesda;
 use App\BiologiaMolecular;
 use App\Biopsia;
+use App\Helpers\ClinicaHelper;
 use App\Histoquimica;
 use App\ImpresionControl;
 use App\Liquido;
@@ -97,7 +100,11 @@ class QrController
                     return $this->reporteBmolecular($id);
                 }
                 return 'Analisis no terminado';
-                break;
+            case Analisis::PRUEBA:
+                if(AnalysisTestResult::where('analysis_id', $analisis->id)->count() > 0){
+                    return $this->reporteTest($id);
+                }
+                return 'Analisis no terminado';
             default:
                 return $this->reporteBiopsia($id);
                 break;
@@ -126,9 +133,8 @@ class QrController
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
         $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
-        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+//        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         $analisis = Analisis::find($analisisId);
-//        Analisis::saveFechaEntrega($analisis, Auth::user()->name);
         $biologia = BiologiaMolecular::where('analisis_id', $analisisId)->first();
         $pdf = PDF::loadView('biologia-molecular.reporte', compact(
             'analisis', 'biologia', 'pathQr'), [], ['marginTop' => 800]);
@@ -210,6 +216,28 @@ class QrController
             'analisis', 'liquido', 'pathQr'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->WriteHTML($stylesheet,1);
+        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        return $pdf->stream($fileNombre);
+    }
+
+    function reporteTest($analisisId) {
+        $d = new DNS2D();
+        $d->setStorPath(public_path()."/generateqr/");
+        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
+
+//        dd(public_path($pathQr));
+
+        $analisis = Analisis::find($analisisId);
+
+        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+
+        $pdf = PDF::loadView('test.reporte', compact(
+            'analisis', 'pathQr', 'orderGroupTest'));
+
+        $stylesheet = asset('css/reporte-pdf.css'); // external css
+        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
+        $pdf->mpdf->showWatermarkImage = true;
         $pdf->mpdf->WriteHTML($stylesheet,1);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
