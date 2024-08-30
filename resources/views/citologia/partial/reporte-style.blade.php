@@ -3,8 +3,8 @@
         header: page-header;
         footer: page-footer;
 
-        margin-header: 13mm;
-        margin-top: 4.2cm;
+        margin-header: 7mm;
+        margin-top: 2.8cm;
     }
 
     body {

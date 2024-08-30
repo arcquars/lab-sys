@@ -31,9 +31,9 @@
                 <div class="col-md-2">
                     <label for="fecha_fin">Fecha fin</label>
                 </div>
-                <div class="col-md-2">
-                    <label for="fecha_fin">T. analisis</label>
-                </div>
+{{--                <div class="col-md-2">--}}
+{{--                    <label for="fecha_fin">T. analisis</label>--}}
+{{--                </div>--}}
                 <div class="col-md-2">
                     <label for="fecha_ingreso">Doctor que pidio</label>
                 </div>
@@ -55,18 +55,18 @@
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="col-md-2">
-                    <select name="tipo_analisis" class="form-control">
-                        <option value="">Todos</option>
-                        @foreach($tipoAnalisis as $key => $tipo)
-                            @if(strcmp(old('tipo_analisis', $sTipoAnalisis), $key) == 0)
-                                <option value="{{$key}}" selected>{{$tipo}}</option>
-                            @else
-                                <option value="{{$key}}">{{$tipo}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
+{{--                <div class="col-md-2">--}}
+{{--                    <select name="tipo_analisis" class="form-control">--}}
+{{--                        <option value="">Todos</option>--}}
+{{--                        @foreach($tipoAnalisis as $key => $tipo)--}}
+{{--                            @if(strcmp(old('tipo_analisis', $sTipoAnalisis), $key) == 0)--}}
+{{--                                <option value="{{$key}}" selected>{{$tipo}}</option>--}}
+{{--                            @else--}}
+{{--                                <option value="{{$key}}">{{$tipo}}</option>--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div class="col-md-2">
                     <select class="form-control" name="doctor_refiere" id="js-doctor-ajax-id">
                         @if(!isset($doctor))

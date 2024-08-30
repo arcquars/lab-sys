@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Analisis;
+use App\Classes\FacturaSiatModel;
+use App\Helpers\SiatHelper;
 use Illuminate\Http\Request;
 use \Illuminate\Http\Response;
 
@@ -19,6 +22,16 @@ class SiatController extends Controller
      */
     public function invoicing(Request $request, $analysisId)
     {
-        return view('siat.invoicing');
+        $analisis = Analisis::find($analysisId);
+        return view('siat.invoicing', compact('analisis'));
+    }
+
+    public function ajaxSendInvoide(Request $request){
+        // Implementar objeto para mandar a siat
+        $siatHelper = new SiatHelper();
+        /** @var FacturaSiatModel $factura */
+//        $factura = $siatHelper->sendSiatFactura($request);
+        dd($siatHelper->getSiatCuis());
+        return response()->json(['success' => '1']);
     }
 }

@@ -7,11 +7,11 @@
                         <p class="p-datos-12-1"><b>Paciente: <span style="font-size: 12px;">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</span></b></p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <p class="p-datos-12-1"><b>Procedencia:</b> {{$analisis->institucion->nombre}}</p>
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td>--}}
+{{--                        <p class="p-datos-12-1"><b>Procedencia:</b> {{$analisis->institucion->nombre}}</p>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <tr>
                     <td>
                         <p class="p-datos-12-1"><b>Fecha de Registro:</b> {{$analisis->fecha->format('Y-m-d')}}</p>
@@ -45,12 +45,11 @@
                         <p class="p-datos-12-1"><b>Sexo:</b> {{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <p class="p-datos-12-1"><b>Fecha Conclusión:</b> {{ $analisis->lastControlEdition()? $analisis->lastControlEdition()->created_at->format('Y-m-d') : '--' }}</p>
-{{--                        <p class="p-datos-12-1"><b>Fecha Conclusión:</b> {{ $analisis->fecha_cierre? $analisis->fecha_cierre : '--' }}</p>--}}
-                    </td>
-                </tr>
+{{--                <tr>--}}
+{{--                    <td>--}}
+{{--                        <p class="p-datos-12-1"><b>Fecha Conclusión:</b> {{ $analisis->lastControlEdition()? $analisis->lastControlEdition()->created_at->format('Y-m-d') : '--' }}</p>--}}
+{{--                    </td>--}}
+{{--                </tr>--}}
                 <tr>
                     <td>
                         <div style="border: 2px double #f6993f; width: 100%; text-align: right; margin-top: 2px;">

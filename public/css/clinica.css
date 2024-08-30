@@ -192,3 +192,7 @@
     background: #d1f6ff !important;
     /*color: white;*/
 }
+
+#t_products > thead > tr > th {
+    text-align: center !important;
+}

@@ -31,12 +31,12 @@ Tip 2: you can also add an image using data-image tag
                                 <p>Gestionar Usuarios</p>
                             </a>
                         </li>
-                        <li class="nav-item @if($activePage == 'invitados_admin_users') active @endif">
-                            <a class="nav-link" href="{{route('invitado.admin.index')}}">
-                                <i class="fas fa-user-ninja"></i>
-                                <p>Invitados</p>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item @if($activePage == 'invitados_admin_users') active @endif">--}}
+{{--                            <a class="nav-link" href="{{route('invitado.admin.index')}}">--}}
+{{--                                <i class="fas fa-user-ninja"></i>--}}
+{{--                                <p>Invitados</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 {{--                        <li class="nav-item @if($activePage == 'user-management') active @endif">--}}
 {{--                            <a class="nav-link" href="#">--}}
 {{--                                <i class="nc-icon nc-circle-09"></i>--}}
@@ -122,12 +122,12 @@ Tip 2: you can also add an image using data-image tag
                                         <p>Reporte de Transacciones</p>
                                     </a>
                                 </li>
-                                <li class="nav-item @if($activePage == 'admin_reporte_admin_desechar') active @endif">
-                                    <a class="nav-link" href="{{route('reporte.reporte_admin_desechar')}}">
-                                        <i class="fas fa-receipt"></i>
-                                        <p>Reporte Desechar</p>
-                                    </a>
-                                </li>
+{{--                                <li class="nav-item @if($activePage == 'admin_reporte_admin_desechar') active @endif">--}}
+{{--                                    <a class="nav-link" href="{{route('reporte.reporte_admin_desechar')}}">--}}
+{{--                                        <i class="fas fa-receipt"></i>--}}
+{{--                                        <p>Reporte Desechar</p>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
                                 <li class="nav-item @if($activePage == 'admin_reporte_admin_sinterminar') active @endif">
                                     <a class="nav-link" href="{{route('reporte.reporte_admin_sinterminar')}}">
                                         <i class="fas fa-receipt"></i>

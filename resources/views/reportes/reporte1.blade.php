@@ -20,7 +20,7 @@
                         <label for="fecha_ingreso">Fecha de ingreso</label>
                     </div>
                     <div class="col-md-5">
-                        <label for="fecha_ingreso">Tipo de Analisis</label>
+                        <label for="fecha_ingreso">Procedencia</label>
                     </div>
                     <div class="col-md-2"></div>
                 </div>

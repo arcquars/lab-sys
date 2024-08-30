@@ -141,47 +141,81 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         $clientAge = $aTestResult->analysis->person->year_now;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
-            if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
-                if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-                    }
-                } else {
-                    $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-                }
-            } else {
-                if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
-                    if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                        if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-                            $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-                        }
-                    } else {
-                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-                    }
-                }
-            }
+            $resultHtml .= $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
         }
 
         return $resultHtml;
     }
 
+//    public function getHtmlDescriptionResult($aTestResultId): string
+//    {
+//        $aTestResult = AnalysisTestResult::find($aTestResultId);
+//        if($aTestResult->result == null){
+//            return "--";
+//        }
+//        $resultHtml = '';
+//        $resultNumeric = doubleval($aTestResult->result);
+//        $clientGender = $aTestResult->analysis->person->sexo;
+//        $clientAge = $aTestResult->analysis->person->year_now;
+//
+//        foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
+//            if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
+//                if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
+//                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
+//                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
+//                    }
+//                } else {
+//                    $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
+//                }
+//            } else {
+//                if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
+//                    if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
+//                        if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
+//                            $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
+//                        }
+//                    } else {
+//                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
+//                    }
+//                }
+//            }
+//        }
+//
+//        return $resultHtml;
+//    }
+
     public function searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric){
         $html = "";
-        if($resultNumeric <= $analysisTestRangeOption->initial_value){
+        if($analysisTestRangeOption->initial_value){
             $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value ."<br>";
         }
-        if($resultNumeric >= $analysisTestRangeOption->end_value){
+        if($analysisTestRangeOption->end_value){
             $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value ."<br>";
         }
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
-            if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
-                $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range
-            ){
-                $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .
-                    $analysisTestRangeOptionsIntermediate->initial_range . " - " . $analysisTestRangeOptionsIntermediate->end_range . " " .
-                    $this->measure . "<br>";
-            }
+            $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .
+                $analysisTestRangeOptionsIntermediate->initial_range . " - " . $analysisTestRangeOptionsIntermediate->end_range . " " .
+                $this->measure . "<br>";
         }
         return $html;
     }
+
+//    public function searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric){
+//        $html = "";
+//        if($resultNumeric <= $analysisTestRangeOption->initial_value){
+//            $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value ."<br>";
+//        }
+//        if($resultNumeric >= $analysisTestRangeOption->end_value){
+//            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value ."<br>";
+//        }
+//        foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
+//            if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
+//                $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range
+//            ){
+//                $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .
+//                    $analysisTestRangeOptionsIntermediate->initial_range . " - " . $analysisTestRangeOptionsIntermediate->end_range . " " .
+//                    $this->measure . "<br>";
+//            }
+//        }
+//        return $html;
+//    }
 }

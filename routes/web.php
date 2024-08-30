@@ -257,3 +257,4 @@ Route::get('/test/reporte/{analisisId}', 'TestController@reporte')->name('test.r
 
 // SIAT
 Route::get('/siat/invoicing/{analysisId}', 'SiatController@invoicing')->name('siat.invoicing');
+Route::post('/siat/invoicing/a-send-invoice', 'SiatController@ajaxSendInvoide')->name('siat.a_send_invoice');

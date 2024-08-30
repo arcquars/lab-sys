@@ -77,7 +77,7 @@
                     google.charts.setOnLoadCallback(drawChart(data.analisisTipo));
                     google.charts.setOnLoadCallback(drawChartDoctores(data.analisisDoctores));
                     google.charts.setOnLoadCallback(drawChartCreadores(data.analisisCreadores));
-                    google.charts.setOnLoadCallback(drawBarWorkings(data.usuarioWorks));
+                    // google.charts.setOnLoadCallback(drawBarWorkings(data.usuarioWorks));
 
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

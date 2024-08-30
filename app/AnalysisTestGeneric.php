@@ -54,6 +54,44 @@ class AnalysisTestGeneric extends TestInputAbstract
         return '--';
     }
 
+//    public function getHtmlDescriptionResult($aTestResultId): string
+//    {
+//        $html = "";
+//        $aTestResult = AnalysisTestResult::find($aTestResultId);
+//        $resultNumeric = doubleval($aTestResult->result);
+//        $clientGender = $aTestResult->analysis->person->sexo;
+//        $clientAge = $aTestResult->analysis->person->year_now;
+//
+//        foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
+//        {
+//            $html1 = $analysisTestGenericOption->gender;
+//            if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+//                $html1 .= " (".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años) ";
+//            }
+//            $html1 .= ": ";
+//
+//            if(strcmp("hombre y mujer", $analysisTestGenericOption->gender) == 0){
+//                if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+//                    if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+//                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+//                    }
+//                } else {
+//                    $html .= $html1 . $analysisTestGenericOption->reference ."<br>";
+//                }
+//            } else {
+//                if(strcmp($analysisTestGenericOption->gender, $clientGender) == 0){
+//                    if($analysisTestGenericOption->age_initial && $analysisTestGenericOption->age_end){
+//                        if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+//                            $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+//                        }
+//                    } else {
+//                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+//                    }
+//                }
+//            }
+//        }
+//        return $html;
+//    }
     public function getHtmlDescriptionResult($aTestResultId): string
     {
         $html = "";
@@ -64,31 +102,7 @@ class AnalysisTestGeneric extends TestInputAbstract
 
         foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
         {
-            $html1 = $analysisTestGenericOption->gender;
-            if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
-                $html1 .= " (".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años) ";
-            }
-            $html1 .= ": ";
-
-            if(strcmp("hombre y mujer", $analysisTestGenericOption->gender) == 0){
-                if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
-                    if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
-                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-                    }
-                } else {
-                    $html .= $html1 . $analysisTestGenericOption->reference ."<br>";
-                }
-            } else {
-                if(strcmp($analysisTestGenericOption->gender, $clientGender) == 0){
-                    if($analysisTestGenericOption->age_initial && $analysisTestGenericOption->age_end){
-                        if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
-                            $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-                        }
-                    } else {
-                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-                    }
-                }
-            }
+            $html .= $analysisTestGenericOption->reference ."<br>";
         }
         return $html;
     }

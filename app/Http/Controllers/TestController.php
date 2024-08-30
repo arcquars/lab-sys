@@ -39,7 +39,6 @@ class TestController extends Controller
         $testResultValues = $request->input('testResultValue');
         $analisisId = $request->input('analisis_id');
         foreach ($testResultValues as $id => $value){
-            Log::info("eeee: " . $value . " || " . $analisisId . " || " . $id);
             if(isset($value)){
                 $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
                 $analysisTestResult->result = $value;
@@ -71,8 +70,8 @@ class TestController extends Controller
             'analisis', 'pathQr', 'orderGroupTest'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
-        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
-        $pdf->mpdf->showWatermarkImage = true;
+//        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
+//        $pdf->mpdf->showWatermarkImage = true;
         $pdf->mpdf->WriteHTML($stylesheet,1);
         $fileNombre = $analisis->codigo.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
