@@ -9,13 +9,15 @@
         </ol>
     </nav>
     <div class="card">
-        <div class="card-header">
-        </div>
         <div class="card-body ">
             <button type="button" class="btn btn-secondary btn-sm" onclick="openModalCreateGroupTest();"><i class="fas fa-vials"></i> Crear grupo</button>
             <button type="button" class="btn btn-secondary btn-sm" onclick="openModalCreateTest();"><i class="fas fa-vial"></i> Crear Prueba</button>
             <hr>
             <div id="list_group" class="row">
+            </div>
+
+            <div class="tree_group">
+
             </div>
         </div>
     </div>
@@ -30,7 +32,8 @@
 @push('js')
     <script>
         $(document).ready(function () {
-            loadTestGroup();
+            // loadTestGroup();
+            loadTreeTestGroup();
         });
 
         function loadTestGroup(){
@@ -39,6 +42,16 @@
                 url: "{{ route('analysis-test-group.render.list') }}",
                 success: function (data) {
                     $("#list_group").empty().append(data);
+                }
+            });
+        }
+
+        function loadTreeTestGroup(){
+            $(".tree_group").empty().append(renderLoading());
+            $.ajax({
+                url: "{{ route('analysis-test-group.render.tree') }}",
+                success: function (data) {
+                    $(".tree_group").empty().append(data);
                 }
             });
         }

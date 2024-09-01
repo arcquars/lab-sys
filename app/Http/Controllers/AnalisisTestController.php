@@ -418,9 +418,11 @@ class AnalisisTestController extends Controller
     }
 
     public function getGroupAndType(){
-        // Setting::where('section', $section)->select('key', 'value')->pluck('value')->toArray();
-        $groups = AnalysisTestGroup::where('deleted', 0)->pluck('id','name')->toArray();
-        return response()->json(['success'=>true, 'groups' => $groups]);
+//        $groups = AnalysisTestGroup::where('deleted', 0)->pluck('id','name')->toArray();
+        $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->with('children')->orderBy('name')->get();
+//        return response()->json(['success'=>true, 'groups' => $groups]);
+//        @include('a-test.partials.render-group-select-html',['$groups' => $groups, 'group_id' => $analysisTest->a_test_group_id])
+        return view('a-test.partials.render-group-select-html', compact('groups'))->render();
     }
 
     public function renderTestType(Request $request){
@@ -476,10 +478,14 @@ class AnalisisTestController extends Controller
             $aTestId = $request->get('a_test_id');
             $analysisTest = AnalysisTest::find($aTestId);
 
-            $groups = AnalysisTestGroup::where('deleted', 0)->pluck('name', 'id');
+            $analysisTestGroup = AnalysisTestGroup::find($analysisTest->a_test_group_id);
+
+//            $groups = AnalysisTestGroup::where('deleted', 0)->pluck('name', 'id');
+            $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->with('children')->orderBy('name')->get();
+
             $aTestTypes = AnalysisTest::ANALYSIS_TEST_TYPES;
             return view('a-test.partials.render-test-form',
-                compact('analysisTest', 'groups', 'aTestTypes'))
+                compact('analysisTest', 'groups', 'aTestTypes', 'analysisTestGroup'))
                 ->render();
         }
     }
@@ -513,6 +519,11 @@ class AnalisisTestController extends Controller
             $valid = true;
             if(count($analysisTestGroup->analysisTests) > 0){
                 $valid = false;
+            }
+            $childTestGroup = AnalysisTestGroup::where('parent_id', $aTestGroupId)->count();
+            if($childTestGroup > 0){
+                $valid = false;
+
             }
             return response()->json(['success'=>true, 'valid' => $valid, 'testGroup' => $analysisTestGroup]);
         }

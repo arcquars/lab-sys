@@ -26,12 +26,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <label for="mtestgroup">Grupo</label>
-                            <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">
-                            </select>
-                            <div id="validationTestGroup" class="invalid-feedback">
-                            </div>
+                        <div id="testgroup" class="col-md-6">
+{{--                            <label for="mtestgroup">Grupo</label>--}}
+{{--                            <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">--}}
+{{--                            </select>--}}
+{{--                            <div id="validationTestGroup" class="invalid-feedback">--}}
+{{--                            </div>--}}
                         </div>
                         <div class="col-md-6">
                             <label for="mtesttype">Tipo</label>
@@ -65,8 +65,11 @@ function openModalCreateTest(){
         url: "{{ route('analisis-test.get-group-type') }}",
         // data: $(form).serialize(),
         success: function (data) {
+            // $("#mCreateTest").modal('show');
+            // $("#mtestgroup").empty().append(loadSelectGroup(data.groups));
             $("#mCreateTest").modal('show');
-            $("#mtestgroup").empty().append(loadSelectGroup(data.groups));
+            $("#testgroup").empty().append(data);
+
         }
     });
 }
@@ -109,7 +112,7 @@ function saveTest(form){
         data: $(form).serialize(),
         success: function (data) {
             $("#mCreateTest").modal('hide');
-            loadTestGroup();
+            loadTreeTestGroup();
 
             let notify = $.notify(data.message, {
                 type: 'success',

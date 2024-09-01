@@ -41,7 +41,7 @@ function updateTest(form){
         data: $(form).serialize(),
         success: function (data) {
             $("#mEditTest").modal('hide');
-            loadTestGroup();
+            loadTreeTestGroup();
 
             let notify = $.notify(data.message, {
                 type: 'success',

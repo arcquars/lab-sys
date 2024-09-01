@@ -252,7 +252,7 @@
                 //alert("xxx");
             });
 
-            loadTestGroup();
+            loadTreeTestGroup();
 
         });
     function changeTipoPago(radio){

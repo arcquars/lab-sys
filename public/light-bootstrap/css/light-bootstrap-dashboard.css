@@ -2805,7 +2805,7 @@ Copyright (c) 2015 Daniel Eden
 .card {
     border-radius: 4px;
     background-color: #FFFFFF;
-    margin-bottom: 30px;
+    margin-bottom: 3px;
 }
 
 .card .card-image {
@@ -2867,6 +2867,7 @@ Copyright (c) 2015 Daniel Eden
     padding: 15px 15px 0;
     background-color: #FFFFFF;
     border-bottom: none !important;
+    /*margin-bottom: 0px !important;*/
 }
 
 .card .card-category,

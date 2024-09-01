@@ -245,7 +245,9 @@ Route::post('/analisis-test/delete-test-group', 'AnalisisTestController@testGrou
 
 
 /** Analisis Test Group */
+Route::get('/analysis-test-group/render-form-group', 'AnalysisTestGroupController@renderGroupForm')->name('analysis-test-group.render.form');
 Route::get('/analysis-test-group/render-list-groups', 'AnalysisTestGroupController@renderListGroups')->name('analysis-test-group.render.list');
+Route::get('/analysis-test-group/render-tree-groups', 'AnalysisTestGroupController@renderTreeGroups')->name('analysis-test-group.render.tree');
 Route::get('/analysis-test-group/render-list-groups-select', 'AnalysisTestGroupController@renderListGroupsTestSelect')->name('analysis-test-group.render.list.selected');
 Route::post('/analysis-test-group/update-group', 'AnalysisTestGroupController@update')->name('analysis-test-group.update_group');
 Route::resource('/analysis-test-group', 'AnalysisTestGroupController');

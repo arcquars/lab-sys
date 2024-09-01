@@ -12,8 +12,19 @@ class AnalysisTestGroup extends Model
         'name',
         'sorted',
         'deleted',
+        'parent_id',
         'user_id'
         ];
+
+    public function children()
+    {
+        return $this->hasMany(AnalysisTestGroup::class, 'parent_id')->with('parent')->where('deleted', '=', 0);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(AnalysisTestGroup::class, 'parent_id');
+    }
 
     public function user(){
         return $this->belongsTo('App\User');

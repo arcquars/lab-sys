@@ -44,9 +44,10 @@ class AnalysisTestGroupController extends Controller
         $request->validate([
             'name' => 'required',
         ]);
-
+        $parent = $request->post('group', null);
         $analisisTestGroup = new AnalysisTestGroup();
         $analisisTestGroup->name = $request->post('name');
+        $analisisTestGroup->parent_id = $parent;
         $analisisTestGroup->user_id = Auth::user()->id;
         $analisisTestGroup->save();
 
@@ -86,9 +87,11 @@ class AnalysisTestGroupController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'group' => 'nullable|different:id'
         ]);
 
         $analisisTestGroup = AnalysisTestGroup::find($request->post('id'));
+        $analisisTestGroup->parent_id = $request->post('group', null);
         $analisisTestGroup->name = $request->post('name');
         $analisisTestGroup->save();
 
@@ -113,6 +116,14 @@ class AnalysisTestGroupController extends Controller
         }
     }
 
+    public function renderTreeGroups(Request $request){
+        if($request->ajax()){
+            // $groups = AnalysisTestGroup::where('deleted', 0)->orderBy('name')->get();
+            $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->orderBy('name')->get();
+            return view('a-test.partials.render-tree-groups',compact('groups'))->render();
+        }
+    }
+
     public function renderListGroupsTestSelect(Request $request){
         if($request->ajax()){
             $aTestIds = $request->get('aTestIds', []);
@@ -121,4 +132,18 @@ class AnalysisTestGroupController extends Controller
             return view('a-test.partials.render-list-selected',compact('groups', 'aTestIds'))->render();
         }
     }
+
+    public function renderGroupForm(Request $request){
+        if($request->ajax()){
+            $aTestGroupId = $request->get('a_test_group_id', null);
+            $analysisTestGroup = null;
+            if($aTestGroupId != null){
+                $analysisTestGroup = AnalysisTestGroup::find($aTestGroupId);
+            }
+
+            $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->with('children')->orderBy('name')->get();
+            return view('a-test.partials.render-group-form',compact('groups', 'analysisTestGroup'))->render();
+        }
+    }
+
 }

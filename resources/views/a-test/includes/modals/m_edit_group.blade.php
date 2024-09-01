@@ -25,7 +25,7 @@
 function openModalEditGroupTest(testGroupId){
     clearUpdateGroupFormValidation();
     $.ajax({
-        url: "{{ route('analisis-test.render-test-group-form') }}",
+        url: "{{ route('analysis-test-group.render.form') }}",
         data: {'a_test_group_id': testGroupId},
         success: function (data) {
             $("#mEditGroupTest").modal('show');
@@ -42,7 +42,7 @@ function updateGroup(form){
         data: $(form).serialize(),
         success: function (data) {
             $("#mEditGroupTest").modal('hide');
-            loadTestGroup();
+            loadTreeTestGroup();
 
             let notify = $.notify(data.message, {
                 type: 'success',
@@ -53,7 +53,7 @@ function updateGroup(form){
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             for (const [key, value] of Object.entries(XMLHttpRequest.responseJSON.errors)) {
                 console.log(`${key}: ${value}`);
-                let inputName = "#meditgroup" + key;
+                let inputName = "#mgroup" + key;
                 $(inputName).addClass('is-invalid');
                 $(inputName).next().empty().append(value);
             }
@@ -62,8 +62,10 @@ function updateGroup(form){
 }
 
 function clearUpdateGroupFormValidation(){
-    $("#meditgroupname").removeClass('is-invalid');
-    $("#meditgroupname").next().empty();
+    $("#mgroupname").removeClass('is-invalid');
+    $("#mgroupname").next().empty();
+    $("#mgroupgroup").removeClass('is-invalid');
+    $("#mgroupgroup").next().empty();
 }
     </script>
 @endpush

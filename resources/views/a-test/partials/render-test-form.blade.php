@@ -16,15 +16,16 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <label for="mtestgroup">Grupo</label>
-        <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">
-            <option value="">Seleccione...</option>
-            @foreach($groups as $id => $gName)
-                <option value="{{$id}}" @if($id == $analysisTest->a_test_group_id) selected @endif>{{$gName}}</option>
-            @endforeach
-        </select>
-        <div id="validationTestGroup" class="invalid-feedback">
-        </div>
+        @include('a-test.partials.render-group-select-html',['$groups' => $groups, 'group_id' => $analysisTest->a_test_group_id])
+{{--        <label for="mtestgroup">Grupo</label>--}}
+{{--        <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">--}}
+{{--            <option value="">Seleccione...</option>--}}
+{{--            @foreach($groups as $id => $gName)--}}
+{{--                <option value="{{$id}}" @if($id == $analysisTest->a_test_group_id) selected @endif>{{$gName}}</option>--}}
+{{--            @endforeach--}}
+{{--        </select>--}}
+{{--        <div id="validationTestGroup" class="invalid-feedback">--}}
+{{--        </div>--}}
     </div>
     <div class="col-md-6 disabled">
         <input type="hidden" name="type" value="{{$analysisTest->type}}">

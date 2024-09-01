@@ -40,7 +40,7 @@ function deleteTest(form){
         data: $(form).serialize(),
         success: function (data) {
             $("#mDeleteTest").modal('hide');
-            loadTestGroup();
+            loadTreeTestGroup();
 
             let notify = $.notify(data.message, {
                 type: 'success',

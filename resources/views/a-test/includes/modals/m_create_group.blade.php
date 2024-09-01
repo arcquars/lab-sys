@@ -11,12 +11,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="mgroupname">Nombre</label>
-                        <input type="text" id="mgroupname" name="name" class="form-control form-control-sm" aria-describedby="validationGroupName">
-                        <div id="validationGroupName" class="invalid-feedback">
-                        </div>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -29,9 +24,15 @@
 @push('js')
     <script>
 function openModalCreateGroupTest(){
-    $("#mCreateGroupTest").modal('show');
-    $("#mCreateGroupTest form")[0].reset();
-    clearSaveGroupFormValidation();
+    $.ajax({
+        url: "{{ route('analysis-test-group.render.form') }}",
+        success: function (data) {
+            $("#mCreateGroupTest .modal-body").empty().append(data);
+            $("#mCreateGroupTest").modal('show');
+            // $("#mCreateGroupTest form")[0].reset();
+            // clearSaveGroupFormValidation();
+        }
+    });
 }
 
 function saveGroup(form){
@@ -42,7 +43,7 @@ function saveGroup(form){
         data: $(form).serialize(),
         success: function (data) {
             $("#mCreateGroupTest").modal('hide');
-            loadTestGroup();
+            loadTreeTestGroup();
 
             let notify = $.notify(data.message, {
                 type: 'success',
