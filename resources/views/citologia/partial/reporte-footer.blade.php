@@ -3,6 +3,7 @@
 /** @var  $chunkSupervisores */
 $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
 ?>
+@if(!$sin)
 <div style="width: 100%; text-align: center;">
     @if($analisis->supervisar)
         @if(count($analisis->getSupervisoresVerificado()) == 0)
@@ -88,6 +89,7 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
     @endif
 
 </div>
+@endif
 <htmlpagefooter name="page-footer">
     <div style="width: 100%; text-align: center">
         <p style="font-size: 10px;">- {PAGENO} de {nbpg} -</p>

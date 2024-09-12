@@ -142,7 +142,7 @@ class StoreAnalysisTestPost extends FormRequest
             foreach($this->input('range.option') as $key=>$value){
                 $rules['range.option.'.$key.'.gender'] = 'required';
 
-                $rules['range.option.'.$key.'.reference'] = 'required|string|min:3|max:120';
+                $rules['range.option.'.$key.'.reference'] = 'required|string|min:3|max:250';
 
                 $rules['range.option.'.$key.'.age_initial'] = 'nullable|numeric';
                 $rules['range.option.'.$key.'.age_end'] = 'required_with:'.'range.option.'.$key.'.age_initial'.'|gte:'.'range.option.'.$key.'.age_initial';

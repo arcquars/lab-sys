@@ -248,6 +248,7 @@ Route::post('/analisis-test/delete-test-group', 'AnalisisTestController@testGrou
 Route::get('/analysis-test-group/render-form-group', 'AnalysisTestGroupController@renderGroupForm')->name('analysis-test-group.render.form');
 Route::get('/analysis-test-group/render-list-groups', 'AnalysisTestGroupController@renderListGroups')->name('analysis-test-group.render.list');
 Route::get('/analysis-test-group/render-tree-groups', 'AnalysisTestGroupController@renderTreeGroups')->name('analysis-test-group.render.tree');
+Route::get('/analysis-test-group/render-tree-groups-select', 'AnalysisTestGroupController@renderTreeGroupsSelect')->name('analysis-test-group.render.tree.selected');
 Route::get('/analysis-test-group/render-list-groups-select', 'AnalysisTestGroupController@renderListGroupsTestSelect')->name('analysis-test-group.render.list.selected');
 Route::post('/analysis-test-group/update-group', 'AnalysisTestGroupController@update')->name('analysis-test-group.update_group');
 Route::resource('/analysis-test-group', 'AnalysisTestGroupController');
@@ -255,7 +256,7 @@ Route::resource('/analysis-test-group', 'AnalysisTestGroupController');
 Route::get('/test/crear/{analysisId}', 'TestController@create')->name('test.crear');
 Route::post('/test/save', 'TestController@store')->name('test.save');
 Route::get('/test/view/{analisisId}', 'TestController@viewResultado')->name('test.viewResultado');
-Route::get('/test/reporte/{analisisId}', 'TestController@reporte')->name('test.reporte');
+Route::get('/test/reporte/{analisisId}/{sin?}', 'TestController@reporte')->name('test.reporte');
 
 // SIAT
 Route::get('/siat/invoicing/{analysisId}', 'SiatController@invoicing')->name('siat.invoicing');

@@ -228,7 +228,7 @@
                 @error('aTests')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror
-                <div id="list_group" class="row">
+                <div id="list_group">
                 </div>
                 <a href="{{ url()->previous() }}" class="btn btn-secondary">Atras</a>
                 <button type="submit" id="btnSubmit" class="btn btn-primary">Crear</button>
@@ -264,6 +264,16 @@
             $(".acuenta-tarjeta").addClass("fade");
         }
     }
+
+        function loadTreeTestGroup(){
+            $("#list_group").empty().append(renderLoading());
+            $.ajax({
+                url: "{{ route('analysis-test-group.render.tree.selected') }}",
+                success: function (data) {
+                    $("#list_group").empty().append(data);
+                }
+            });
+        }
 
         function loadTestGroup(){
             let aTestIds = null;

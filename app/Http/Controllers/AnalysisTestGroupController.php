@@ -124,6 +124,14 @@ class AnalysisTestGroupController extends Controller
         }
     }
 
+    public function renderTreeGroupsSelect(Request $request){
+        if($request->ajax()){
+            // $groups = AnalysisTestGroup::where('deleted', 0)->orderBy('name')->get();
+            $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->orderBy('name')->get();
+            return view('a-test.partials.render-tree-groups-selected',compact('groups'))->render();
+        }
+    }
+
     public function renderListGroupsTestSelect(Request $request){
         if($request->ajax()){
             $aTestIds = $request->get('aTestIds', []);

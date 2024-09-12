@@ -56,7 +56,7 @@ class TestController extends Controller
             'analisis', 'orderGroupTest'));
     }
 
-    function reporte($analisisId) {
+    function reporte($analisisId, $sin=0) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
         $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
@@ -67,7 +67,7 @@ class TestController extends Controller
         $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
 
         $pdf = PDF::loadView('test.reporte', compact(
-            'analisis', 'pathQr', 'orderGroupTest'));
+            'analisis', 'pathQr', 'orderGroupTest', 'sin'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
 //        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));

@@ -42,9 +42,9 @@
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
                         <div class="float-right">
-                            @can('manage-users')
-                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir" onclick="this.form.target='_blank';return true;">
-                            @endcan
+{{--                            @can('manage-users')--}}
+{{--                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir" onclick="this.form.target='_blank';return true;">--}}
+{{--                            @endcan--}}
                             <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
                         </div>
                     </div>

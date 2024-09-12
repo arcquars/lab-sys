@@ -47,4 +47,4 @@
 
 {{--<div class="chapter2">Text of Chapter 2</div>--}}
 
-@include('citologia.partial.reporte-footer', compact('analisis'))
+@include('citologia.partial.reporte-footer', compact('analisis', 'sin'))

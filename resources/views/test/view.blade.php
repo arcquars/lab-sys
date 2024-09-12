@@ -39,6 +39,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')
+                    <a href="{{route('test.reporte', ['analisisId' => $analisis->id, 'sin' => 1])}}" target="_blank" class="btn btn-warning">Imprimir sin firma</a>
                     <a href="{{route('test.reporte', ['analisisId' => $analisis->id])}}" target="_blank" class="btn btn-warning">Imprimir</a>
                     @endcan
                     <a href="{{route('test.crear', ['analysisId' => $analisis->id])}}" class="btn btn-primary">Editar</a>

@@ -61,15 +61,15 @@ class LoginController extends Controller
     {
         request()->validate([
             'ci' => 'required',
-            'password' => 'required',
+//            'password' => 'required',
         ]);
 
 //        dd($request->post('password'));
         $person = Person::where('ci', $request->post('ci'))->first();
-        if($person && strcmp($request->post('ci'), $person->ci) == 0 && strcmp($request->post('password'), 'h'.$person->ci) == 0){
+        if($person && strcmp($request->post('ci'), $person->ci) == 0){
             $request->session()->regenerate();
             $request->session()->put('guest', $person);
-            return redirect()->intended('/guest/home');
+            return redirect()->to('/guest/home');
         }
 
         return Redirect::to("guest")->withErrors('Credenciales incorrectas.');
