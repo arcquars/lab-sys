@@ -30,7 +30,7 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         if(isset($aTestResult) && isset($aTestResult->result)){
             $value = $aTestResult->result;
         }
-        return "<input type='number' step='0.1' name='testResultValue[".$this->a_test_id."]' value='".$value ."' class='form-control'>";
+        return "<input type='number' step='0.001' name='testResultValue[".$this->a_test_id."]' value='".$value ."' class='form-control'>";
     }
 
     public function getHtmlDescription(): string

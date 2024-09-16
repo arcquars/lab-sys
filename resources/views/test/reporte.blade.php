@@ -11,12 +11,14 @@
         display: inline-table;
     }
     .analysisTestTable tbody tr, .analysisTestTable tbody td{
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid #A1A2A3;
     }
 
     .analysisTestTable thead tr th{
         font-size: 12px;
+        border-bottom: 1px solid #000;
     }
+
 </style>
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
 @include('citologia.partial.reporte-client', compact('analisis'))
@@ -24,7 +26,7 @@
 <table style="width: 98%" class="analysisTestTable">
     <thead>
     <tr>
-        <th></th>
+        <th>ANÁLISIS</th>
         <th>RESULTADOS</th>
         <th>VALORES DE REFERENCIA</th>
     </tr>
@@ -32,7 +34,7 @@
     <tbody>
 @foreach($orderGroupTest as $key => $testResults)
     <tr style="border: none;">
-        <td colspan="3" style="padding-top: 15px;"><h5>{{$key}}</h5></td>
+        <td colspan="3" style="padding-top: 15px; font-size: 12px"><h5>{{$key}}</h5></td>
     </tr>
     @foreach($testResults as $testResult)
         <tr>
@@ -44,7 +46,7 @@
 @endforeach
     </tbody>
 </table>
-
+<br>
 {{--<div class="chapter2">Text of Chapter 2</div>--}}
 
 @include('citologia.partial.reporte-footer', compact('analisis', 'sin'))
