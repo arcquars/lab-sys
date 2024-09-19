@@ -43,10 +43,12 @@ class AnalysisTestGroupController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'price' => 'nullable|numeric|min:10|max:25000'
         ]);
         $parent = $request->post('group', null);
         $analisisTestGroup = new AnalysisTestGroup();
         $analisisTestGroup->name = $request->post('name');
+        $analisisTestGroup->price = $request->post('price');
         $analisisTestGroup->parent_id = $parent;
         $analisisTestGroup->user_id = Auth::user()->id;
         $analisisTestGroup->save();
@@ -93,6 +95,7 @@ class AnalysisTestGroupController extends Controller
         $analisisTestGroup = AnalysisTestGroup::find($request->post('id'));
         $analisisTestGroup->parent_id = $request->post('group', null);
         $analisisTestGroup->name = $request->post('name');
+        $analisisTestGroup->price = $request->post('price');
         $analisisTestGroup->save();
 
         return response()->json(['success'=>true, 'message' => "Se edito el grupo correctamente..."]);
@@ -149,6 +152,7 @@ class AnalysisTestGroupController extends Controller
                 $analysisTestGroup = AnalysisTestGroup::find($aTestGroupId);
             }
 
+//            dd($analysisTestGroup->price);
             $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->with('children')->orderBy('name')->get();
             return view('a-test.partials.render-group-form',compact('groups', 'analysisTestGroup'))->render();
         }

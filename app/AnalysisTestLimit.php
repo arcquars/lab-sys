@@ -71,22 +71,22 @@ class AnalysisTestLimit extends TestInputAbstract
             if(strcmp("hombre y mujer", $analysisTestLimitOption->gender) == 0){
                 if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
                     if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
-                        $resultNumeric <= $analysisTestLimitOption->to){
+                        $resultNumeric > $analysisTestLimitOption->to){
                         $resultHtml = true;
                     }
                 } else {
-                    if($resultNumeric <= $analysisTestLimitOption->to)
+                    if($resultNumeric > $analysisTestLimitOption->to)
                         $resultHtml = true;
                 }
             } else {
                 if(strcmp($analysisTestLimitOption->gender, $clientGender) == 0){
                     if($analysisTestLimitOption->age_initial && $analysisTestLimitOption->age_end){
                         if($clientAge >= $analysisTestLimitOption->age_initial && $clientAge <= $analysisTestLimitOption->age_end &&
-                            $resultNumeric <= $analysisTestLimitOption->to){
+                            $resultNumeric > $analysisTestLimitOption->to){
                             $resultHtml = true;
                         }
                     } else {
-                        if($resultNumeric <= $analysisTestLimitOption->to)
+                        if($resultNumeric > $analysisTestLimitOption->to)
                             $resultHtml = true;
                     }
 

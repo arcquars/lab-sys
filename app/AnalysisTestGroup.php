@@ -10,6 +10,7 @@ class AnalysisTestGroup extends Model
 
     protected $fillable = [
         'name',
+        'price',
         'sorted',
         'deleted',
         'parent_id',

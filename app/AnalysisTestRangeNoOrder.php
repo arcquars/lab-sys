@@ -49,7 +49,7 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
                     if($analysisTestRangeOption->initial_bookmark){
                         $bookmark = "<span class='text-danger'>*</span>&nbsp;";
                     }
-                    $html .= "&nbsp; &nbsp; " . $bookmark .$analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value ."<br>";
+                    $html .= "&nbsp; &nbsp; " . $bookmark .$analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value . " " . $this->measure ."<br>";
                 }
 
                 foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
@@ -67,7 +67,7 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
                     if($analysisTestRangeOption->end_bookmark){
                         $bookmarkE = "<span class='text-danger'>*</span>&nbsp;";
                     }
-                    $html .= "&nbsp; &nbsp; ".$bookmarkE.$analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value ."<br>";
+                    $html .= "&nbsp; &nbsp; ".$bookmarkE.$analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value . " " . $this->measure ."<br>";
                 }
             }
         }
@@ -82,7 +82,7 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         }
         $aTestResult = AnalysisTestResult::find($aTestResultId);
 
-        $resultHtml = false;
+        $resultHtml = true;
         $resultNumeric = doubleval($result);
         $clientGender = $aTestResult->analysis->person->sexo;
         $clientAge = $aTestResult->analysis->person->year_now;
@@ -113,20 +113,20 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
 
     public function searchMarkRangeOption($analysisTestRangeOption, $resultNumeric){
         if($analysisTestRangeOption->initial_bookmark && $resultNumeric <= $analysisTestRangeOption->initial_value){
-            return true;
+            return false;
         }
         if($analysisTestRangeOption->end_bookmark && $resultNumeric >= $analysisTestRangeOption->end_value){
-            return true;
+            return false;
         }
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
             if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
                 $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range &&
                 $analysisTestRangeOptionsIntermediate->bookmark
             ){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public function getHtmlDescriptionResult($aTestResultId): string
@@ -186,10 +186,10 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
     public function searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric){
         $html = "";
         if($analysisTestRangeOption->initial_value){
-            $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value ."<br>";
+            $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value . " " .$this->measure ."<br>";
         }
         if($analysisTestRangeOption->end_value){
-            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value ."<br>";
+            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value . " " .$this->measure ."<br>";
         }
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
             $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .

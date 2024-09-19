@@ -13,6 +13,7 @@ class AnalysisTestGenericOption extends Model
         'age_initial',
         'age_end',
         'gender',
+        'bookmark',
         'deleted',
         'user_id',
         'a_test_generic_id',

@@ -66,7 +66,8 @@ class StoreAnalisisPost extends FormRequest
             }
         }
 
-        if(strcmp($tipoAnalisis, Analisis::PRUEBA) == 0){
+//        dd($this->input('aGroup'));
+        if(strcmp($tipoAnalisis, Analisis::PRUEBA) == 0 && ($this->input('aTests') == null && $this->input('aGroup') == null)){
             $rulesR['aTests'] = 'required';
         }
 

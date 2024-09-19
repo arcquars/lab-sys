@@ -44,25 +44,36 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3 form-group">
+                <div class="col-md-2 form-group">
                     <label for="mtestrange_option_{{$tempId}}_age_initial">Edad inicial</label>
                     <input type="number" id="mtestrange_option_{{$tempId}}_age_initial" name="range[option][{{$tempId}}][age_initial]"
                            value="{{ $analysisTestGenericOption->age_initial }}" class="form-control form-control-sm" aria-describedby="validationAgeInitial{{$tempId}}">
                     <div id="validationAgeInitial{{$tempId}}" class="invalid-feedback">
                     </div>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-2 form-group">
                     <label for="mtestrange_option_{{$tempId}}_age_end">Edad Final</label>
                     <input type="number" id="mtestrange_option_{{$tempId}}_age_end" name="range[option][{{$tempId}}][age_end]"
                            value="{{ $analysisTestGenericOption->age_end }}" class="form-control form-control-sm" aria-describedby="validationAgeEnd{{$tempId}}">
                     <div id="validationAgeEnd{{$tempId}}" class="invalid-feedback">
                     </div>
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="mtestrange_option_{{$tempId}}_reference">Referencia</label>
                     <input type="text" id="mtestrange_option_{{$tempId}}_reference" name="range[option][{{$tempId}}][reference]" class="form-control form-control-sm"
                            value="{{ $analysisTestGenericOption->reference }}" aria-describedby="validationreference{{$tempId}}">
                     <div id="validationreference{{$tempId}}" class="invalid-feedback">
+                    </div>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label for="mtestrange_option_{{$tempId}}_bookmark">Color</label>
+                    <select id="mtestrange_option_{{$tempId}}_bookmark" name="range[option][{{$tempId}}][bookmark]" class="form-control form-control-sm"
+                            aria-describedby="validationBookmark{{$tempId}}">
+                        <option value="">Ninguno</option>
+{{--                        <option value="ROJO">ROJO</option>--}}
+                        <option value="1" @if($analysisTestGenericOption->bookmark) selected @endif>ROJO</option>
+                    </select>
+                    <div id="validationBookmark{{$tempId}}" class="invalid-feedback">
                     </div>
                 </div>
             </div>

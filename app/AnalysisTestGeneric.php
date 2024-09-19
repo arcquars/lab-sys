@@ -37,6 +37,10 @@ class AnalysisTestGeneric extends TestInputAbstract
         $html = "";
         foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
         {
+            if($analysisTestGenericOption->bookmark){
+//                dd($analysisTestGenericOption->bookmark);
+                $html .= "<span class='text-danger'>*</span>&nbsp;";
+            }
             $html .= $analysisTestGenericOption->gender;
             if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
                 $html .= " <small>(".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años)</small> ";
@@ -48,10 +52,91 @@ class AnalysisTestGeneric extends TestInputAbstract
 
     public function getHtmlResult($aTestResultId, $result): string
     {
-        if($result != null){
-            return $result;
+        if($result == null){
+            return '--';
         }
-        return '--';
+
+        $aTestResult = AnalysisTestResult::find($aTestResultId);
+        $clientGender = $aTestResult->analysis->person->sexo;
+        $clientAge = $aTestResult->analysis->person->year_now;
+
+        foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
+        {
+            $resultHtml = true;
+            if($analysisTestGenericOption->bookmark){
+                if(strcmp("hombre y mujer", $analysisTestGenericOption->gender) == 0){
+                    if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+                        if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+                            if(strcasecmp($analysisTestGenericOption->reference, $result) == 0){
+                                $resultHtml = false;
+                            }
+                        }
+                    } else {
+                        if(strcasecmp($analysisTestGenericOption->reference, $result) == 0){
+                            $resultHtml = false;
+                        }
+                    }
+                } else {
+                    if(strcmp($analysisTestGenericOption->gender, $clientGender) == 0){
+                        if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+                            if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+                                if(strcasecmp($analysisTestGenericOption->reference, $result) == 0){
+                                    $resultHtml = false;
+                                }
+                            }
+                        } else {
+                            if(strcasecmp($analysisTestGenericOption->reference, $result) == 0){
+                                $resultHtml = false;
+                            }
+                        }
+                    }
+                }
+            } else {
+                $resultHtml = false;
+            }
+
+        }
+        return $resultHtml? "<span class='text-danger'>".$result."</span>" : $result;
+    }
+
+    public function getHtmlDescriptionResult($aTestResultId): string
+    {
+        $html = "";
+        $aTestResult = AnalysisTestResult::find($aTestResultId);
+        $resultNumeric = doubleval($aTestResult->result);
+        $clientGender = $aTestResult->analysis->person->sexo;
+        $clientAge = $aTestResult->analysis->person->year_now;
+
+        foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
+        {
+//            $html1 = $analysisTestGenericOption->gender;
+//            if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+//                $html1 .= " (".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años) ";
+//            }
+//            $html1 .= ": ";
+
+            $html1 = "";
+            if(strcmp("hombre y mujer", $analysisTestGenericOption->gender) == 0){
+                if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
+                    if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+                    }
+                } else {
+                    $html .= $html1 . $analysisTestGenericOption->reference ."<br>";
+                }
+            } else {
+                if(strcmp($analysisTestGenericOption->gender, $clientGender) == 0){
+                    if($analysisTestGenericOption->age_initial && $analysisTestGenericOption->age_end){
+                        if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
+                            $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+                        }
+                    } else {
+                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
+                    }
+                }
+            }
+        }
+        return $html;
     }
 
 //    public function getHtmlDescriptionResult($aTestResultId): string
@@ -64,46 +149,9 @@ class AnalysisTestGeneric extends TestInputAbstract
 //
 //        foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
 //        {
-//            $html1 = $analysisTestGenericOption->gender;
-//            if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
-//                $html1 .= " (".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años) ";
-//            }
-//            $html1 .= ": ";
+//            $html .= $analysisTestGenericOption->reference ."<br>";
 //
-//            if(strcmp("hombre y mujer", $analysisTestGenericOption->gender) == 0){
-//                if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
-//                    if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
-//                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-//                    }
-//                } else {
-//                    $html .= $html1 . $analysisTestGenericOption->reference ."<br>";
-//                }
-//            } else {
-//                if(strcmp($analysisTestGenericOption->gender, $clientGender) == 0){
-//                    if($analysisTestGenericOption->age_initial && $analysisTestGenericOption->age_end){
-//                        if($clientAge >= $analysisTestGenericOption->age_initial && $clientAge <= $analysisTestGenericOption->age_end){
-//                            $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-//                        }
-//                    } else {
-//                        $html .= $html1 .$analysisTestGenericOption->reference ."<br>";
-//                    }
-//                }
-//            }
 //        }
 //        return $html;
 //    }
-    public function getHtmlDescriptionResult($aTestResultId): string
-    {
-        $html = "";
-        $aTestResult = AnalysisTestResult::find($aTestResultId);
-        $resultNumeric = doubleval($aTestResult->result);
-        $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
-
-        foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
-        {
-            $html .= $analysisTestGenericOption->reference ."<br>";
-        }
-        return $html;
-    }
 }

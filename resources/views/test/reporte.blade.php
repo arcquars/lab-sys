@@ -34,13 +34,13 @@
     <tbody>
 @foreach($orderGroupTest as $key => $testResults)
     <tr style="border: none;">
-        <td colspan="3" style="padding-top: 15px; font-size: 12px"><h5>{{$key}}</h5></td>
+        <td colspan="3" style="padding-top: 15px; font-size: 14px"><h5>{{$key}}</h5></td>
     </tr>
     @foreach($testResults as $testResult)
         <tr>
-            <td style="width: 33.33%; font-size: 12px;">{{ $testResult->aTest->name }}</td>
-            <td style="width: 33.33%; font-size: 12px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}</td>
-            <td style="width: 33.33%; font-size: 10px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) !!}</td>
+            <td style="width: 33.33%; font-size: 13px;">{{ $testResult->aTest->name }}</td>
+            <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}</td>
+            <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) !!}</td>
         </tr>
     @endforeach
 @endforeach

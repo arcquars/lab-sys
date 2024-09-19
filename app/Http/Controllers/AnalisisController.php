@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\AnalisisSupervisor;
+use App\AnalysisTest;
 use App\AnalysisTestResult;
 use App\Bethesda;
 use App\Biopsia;
@@ -92,6 +93,7 @@ class AnalisisController extends Controller
         $analisis->region = $request->get('region');
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
+        $analisis->internal_code = $request->get('internal_code', null);
         $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
@@ -124,10 +126,22 @@ class AnalisisController extends Controller
             // TODO implementar analisis hemo pruebas test
             if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
                 $aTests = $request->input('aTests', []);
+                $aGroups = $request->input('aGroup', []);
+
+                foreach ($aGroups as $aGroup){
+                    $atests = AnalysisTest::where('a_test_group_id', $aGroup)->get();
+                    foreach ($atests as $aTest) {
+                        $aTestResult = new AnalysisTestResult();
+                        $aTestResult->analysis_id = $analisis->id;
+                        $aTestResult->a_test_id = $aTest->id;
+                        $aTestResult->save();
+                    }
+                }
+
                 foreach ($aTests as $aTest){
                     $aTestResult = new AnalysisTestResult();
-                    $aTestResult ->analysis_id = $analisis->id;
-                    $aTestResult ->a_test_id = $aTest;
+                    $aTestResult->analysis_id = $analisis->id;
+                    $aTestResult->a_test_id = $aTest;
                     $aTestResult->save();
                 }
             }

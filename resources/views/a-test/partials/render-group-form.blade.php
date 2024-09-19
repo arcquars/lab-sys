@@ -7,3 +7,10 @@
     <div id="validationGroupName" class="invalid-feedback">
     </div>
 </div>
+<div class="form-group">
+    <label for="mgroupprice">Precio</label>
+    <input type="number" id="mgroupprice" name="price" step="0.1" class="form-control form-control-sm" aria-describedby="validationGroupPrice"
+           value="@if($analysisTestGroup != null){{ $analysisTestGroup->price }}@endif">
+    <div id="validationGroupPrice" class="invalid-feedback">
+    </div>
+</div>

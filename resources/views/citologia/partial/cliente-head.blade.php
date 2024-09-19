@@ -26,7 +26,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dd class="col-md-3">{{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</dd>
     <dt class="col-md-3">Código:</dt>
     <dd class="col-md-3">{{$analisis->codigo}}</dd>
-</dl>markers
+</dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Fecha de Registro:</dt>
     <dd class="col-md-3">{{(isset($analisis->fecha)? $analisis->fecha->format('Y-m-d'): '--')}}</dd>

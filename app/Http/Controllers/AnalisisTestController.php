@@ -149,6 +149,7 @@ class AnalisisTestController extends Controller
                     $analysisTestGenericOption->age_initial = $value['age_initial'];
                     $analysisTestGenericOption->age_end = $value['age_end'];
                     $analysisTestGenericOption->gender = $value['gender'];
+                    $analysisTestGenericOption->bookmark = (isset($value['bookmark']))? 1 : 0;
                     $analysisTestGenericOption->a_test_generic_id = $analysisTestGeneric->id;
                     $analysisTestGenericOption->user_id = Auth::user()->id;
                     $analysisTestGenericOption->save();
@@ -308,6 +309,7 @@ class AnalisisTestController extends Controller
                     $analysisTestGenericOption->age_initial = $value['age_initial'];
                     $analysisTestGenericOption->age_end = $value['age_end'];
                     $analysisTestGenericOption->gender = $value['gender'];
+                    $analysisTestGenericOption->bookmark = (isset($value['bookmark']))? 1 : 0;
                     $analysisTestGenericOption->save();
                 }
                 break;

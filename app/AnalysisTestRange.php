@@ -99,21 +99,6 @@ class AnalysisTestRange extends TestInputAbstract
         return $resultHtml? "<span class='text-danger'>".$result."</span>" : $result;
     }
 
-    public function getHtmlDescriptionResult($aTestResultId): string
-    {
-        $html = "";
-        $aTestResult = AnalysisTestResult::find($aTestResultId);
-        $resultNumeric = doubleval($aTestResult->result);
-        $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
-
-        foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
-        {
-            $html .= $analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
-        }
-        return $html;
-    }
-
 //    public function getHtmlDescriptionResult($aTestResultId): string
 //    {
 //        $html = "";
@@ -124,28 +109,43 @@ class AnalysisTestRange extends TestInputAbstract
 //
 //        foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
 //        {
-//            $html1 = $analysisTestRangeOption->gender;
-//            if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-//                $html1 .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
-//            }
-//            $html1 .= ": ";
-//
-//            if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
-//                if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-//                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-//                        $html .= $html1 .$analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
-//                    }
-//                } else {
-//                    $html .= $html1 . $analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
-//                }
-//            } else {
-//                if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
-//                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-//                        $html .= $html1 .$analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
-//                    }
-//                }
-//            }
+//            $html .= $analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
 //        }
 //        return $html;
 //    }
+
+    public function getHtmlDescriptionResult($aTestResultId): string
+    {
+        $html = "";
+        $aTestResult = AnalysisTestResult::find($aTestResultId);
+        $resultNumeric = doubleval($aTestResult->result);
+        $clientGender = $aTestResult->analysis->person->sexo;
+        $clientAge = $aTestResult->analysis->person->year_now;
+
+        foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
+        {
+            $html1 = $analysisTestRangeOption->gender;
+            if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
+                $html1 .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
+            }
+            $html1 .= ": ";
+
+            if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
+                if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
+                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
+                        $html .= $html1 .$analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
+                    }
+                } else {
+                    $html .= $html1 . $analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
+                }
+            } else {
+                if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
+                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
+                        $html .= $html1 .$analysisTestRangeOption->initial . " - " . $analysisTestRangeOption->end . " " . $this->measure ."<br>";
+                    }
+                }
+            }
+        }
+        return $html;
+    }
 }

@@ -67,6 +67,8 @@ function saveGroup(form){
 function clearSaveGroupFormValidation(){
     $("#mgroupname").removeClass('is-invalid');
     $("#mgroupname").next().empty();
+    $("#mgroupprice").removeClass('is-invalid');
+    $("#mgroupprice").next().empty();
 }
     </script>
 @endpush

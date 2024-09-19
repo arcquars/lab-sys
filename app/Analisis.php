@@ -55,6 +55,7 @@ class Analisis extends Model
         'supervisar',
         'doctor_supervisor',
         'imprimir_firma',
+        'internal_code',
         'imprimir_firma_supervisor',
         'comentario_supervisor',
         'user_asig_supervisor',

@@ -170,6 +170,16 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
+                            <label for="internal_code">Codifo interno</label>
+                            <input class="form-control @error('internal_code') is-invalid @enderror"
+                            value="{{@old('internal_code')}}" name="internal_code" />
+                            @error('internal_code')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
                             <input type="hidden" name="precio" value="{{@old('precio')}}">
                             <label for="precio">Precio</label>
                             <div class="form-control @error('precio') is-invalid @enderror text-right bg-light"
@@ -313,5 +323,33 @@
                 $(inputPrecio).next().next().empty().append('--');
             }
         }
+
+        function reloadGroupChilds(input){
+            parent = $(input).parent().parent().parent().parent().parent();
+            cardBody = $(parent).find(".card-body");
+            if($(input).is(':checked')){
+                checks = $(cardBody).find("input[type=checkbox]");
+                $.each(checks, function(ind, check){
+                    if($(check).is(':checked')){
+                        $(check).click();
+                    }
+                    $(check).attr('disabled', 'disabled');
+                    $(check).parent().parent().addClass('disabled');
+                });
+            } else {
+                checks = $(cardBody).find("input[type=checkbox]");
+                $.each(checks, function(ind, check){
+                    $(check).removeAttr('disabled');
+                    $(check).parent().parent().removeClass('disabled');
+                    if($(check).is(':checked')){
+                        $(check).click();
+                    }
+                });
+
+            }
+            // alert($(cardBody).html());
+            updateTotalPriceTest();
+        }
+
     </script>
 @endpush

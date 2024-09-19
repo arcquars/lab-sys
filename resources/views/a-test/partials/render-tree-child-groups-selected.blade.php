@@ -2,14 +2,40 @@
 @foreach($childs as $child)
     <div class="card">
         <div class="card-header" id="heading{{ $child->id }}">
-            <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $child->id }}" aria-expanded="true" aria-controls="collapse{{ $child->id }}">
-                    @for($i=0; $i<$level; $i++)
-                        -
-                    @endfor
+
+
+
+            @if($child->price)
+                <h2 class="mb-0">
+                    <div class="form-check">
+                            <label class="form-check-label">
+                            <input class="form-check-input test-price" type="checkbox" value="{{ $child->id }}" onchange="reloadGroupChilds(this);"
+                                   name="aGroup[]" data-price="{{$child->price }}"
+                            >
+                            <span class="form-check-sign"></span>
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $child->id }}" aria-expanded="true" aria-controls="collapse{{ $child->id }}">
+                                @for($i=0; $i<$level; $i++)
+                                    -
+                                @endfor
+                                {{ $child->name }}
+                            </button>
+                        </label>
+                    </div>
+                </h2>
+            @else
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $child->id }}" aria-expanded="true" aria-controls="collapse{{ $child->id }}">
+                        @for($i=0; $i<$level; $i++)
+                            -
+                        @endfor
                         {{ $child->name }}
-                </button>
-            </h2>
+                    </button>
+                </h2>
+            @endif
+
+
+
+
         </div>
         <div id="collapse{{ $child->id }}" class="collapse" aria-labelledby="heading{{ $child->id }}" data-parent="#accordionTestGroup">
             <div class="card-body">
