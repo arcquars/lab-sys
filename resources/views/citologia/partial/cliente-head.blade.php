@@ -33,6 +33,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dt class="col-md-3">Fecha Conclusión:</dt>
 {{--    <dd class="col-md-3">{{(isset($analisis->fecha_cierre)? $analisis->fecha_cierre->format('Y-m-d'): '--')}}</dd>--}}
     <dd class="col-md-3">{{ $analisis->lastControlEdition()? $analisis->lastControlEdition()->created_at->format('Y-m-d') : '--' }}</dd>
+
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Analisis Entregado A:</dt>
@@ -48,9 +49,9 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Doctor asígnado:</dt>
-    <dd class="col-md-9">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
-{{--    <dt class="col-md-3">Telefono de referencia:</dt>--}}
-{{--    <dd class="col-md-3">{{(isset($analisis->telefono_referencia)? $analisis->telefono_referencia: '--')}}</dd>--}}
+    <dd class="col-md-3">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
+    <dt class="col-md-3">Código interno:</dt>
+    <dd class="col-md-3">{{$analisis->internal_code}}</dd>
 </dl>
 @if(isset($analisis->convenio))
     <dl class="row row-citologia">

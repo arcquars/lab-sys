@@ -53,7 +53,13 @@
                 <tr>
                     <td>
                         <div style="border: 2px double #f6993f; width: 100%; text-align: right; margin-top: 2px;">
-                            <p class="p-datos-13"><b>&nbsp;&nbsp;Código: {{$analisis->codigo}}&nbsp;&nbsp;</b></p>
+                            <p class="p-datos-13">
+                                @if($analisis->internal_code)
+                                    <b>&nbsp;Cód Int: {{$analisis->internal_code}}&nbsp;&nbsp;</b>
+                                @else
+                                    <b>&nbsp;&nbsp;Código: {{$analisis->codigo}}&nbsp;&nbsp;</b>
+                                @endif
+                            </p>
                         </div>
                     </td>
                 </tr>

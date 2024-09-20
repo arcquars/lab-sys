@@ -123,13 +123,12 @@ class AnalisisController extends Controller
         $analisis->user_id = auth()->id();
 
         if($analisis->save()) {
-            // TODO implementar analisis hemo pruebas test
             if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
                 $aTests = $request->input('aTests', []);
                 $aGroups = $request->input('aGroup', []);
 
                 foreach ($aGroups as $aGroup){
-                    $atests = AnalysisTest::where('a_test_group_id', $aGroup)->get();
+                    $atests = AnalysisTest::where('a_test_group_id', $aGroup)->where('deleted', 0)->get();
                     foreach ($atests as $aTest) {
                         $aTestResult = new AnalysisTestResult();
                         $aTestResult->analysis_id = $analisis->id;
