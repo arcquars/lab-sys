@@ -21,7 +21,7 @@ class ClinicaHelper {
                 $groupsIds[] = $testResult->aTest->a_test_group_id;
             }
         }
-        $groups = AnalysisTestGroup::whereIn('id', $groupsIds)->orderBy('name')->get();
+        $groups = AnalysisTestGroup::whereIn('id', $groupsIds)->orderBy('sortable', 'desc')->orderBy('name')->get();
 
         $orderGroupTest = [];
         foreach ($groups as $group){

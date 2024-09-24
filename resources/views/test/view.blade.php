@@ -26,11 +26,15 @@
                             </label>
                         </div>
                         <div class="col-md-4">
+                            @if($testResult->aTest->analysisTestType)
                             {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}
 {{--                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}--}}
+                                @endif
                         </div>
                         <div class="col-md-4">
+                            @if($testResult->aTest->analysisTestType)
                             {!! $testResult->aTest->analysisTestType->getHtmlDescription() !!}
+                            @endif
                         </div>
                     </div>
                 @endforeach

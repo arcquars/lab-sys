@@ -39,8 +39,8 @@
     @foreach($testResults as $testResult)
         <tr>
             <td style="width: 33.33%; font-size: 13px;">{{ $testResult->aTest->name }}</td>
-            <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}</td>
-            <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) !!}</td>
+            <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) : "xxx" !!}</td>
+            <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) : "yyy" !!}</td>
         </tr>
     @endforeach
 @endforeach

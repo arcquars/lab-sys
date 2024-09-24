@@ -18,6 +18,7 @@ class AnalysisTestLineText extends TestInputAbstract
 
     public function getHtmlInput($aTestResultId): string
     {
+
         $value = '';
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         if(isset($aTestResult) && isset($aTestResult->result)){

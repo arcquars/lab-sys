@@ -124,11 +124,12 @@ class AnalysisTestRange extends TestInputAbstract
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {
-            $html1 = $analysisTestRangeOption->gender;
-            if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                $html1 .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
-            }
-            $html1 .= ": ";
+            $html1 = "";
+//            $html1 = $analysisTestRangeOption->gender;
+//            if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
+//                $html1 .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
+//            }
+//            $html1 .= ": ";
 
             if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
                 if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){

@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
+            <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Análisis</a></li>
             <li class="breadcrumb-item">Crear Prueba</li>
 
         </ol>
@@ -28,10 +28,17 @@
                                 </label>
                             </div>
                             <div class="col-md-4">
+                                @if($testResult->aTest->analysisTestType)
                                 {!! $testResult->aTest->analysisTestType->getHtmlInput($testResult->id) !!}
+                                @else
+                                    {{ $testResult->aTest->id }}
+                                @endif
+
                             </div>
                             <div class="col-md-4">
+                                @if($testResult->aTest->analysisTestType)
                                 {!! $testResult->aTest->analysisTestType->getHtmlDescription() !!}
+                                @endif
                             </div>
                         </div>
                     @endforeach
