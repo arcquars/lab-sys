@@ -22,16 +22,16 @@
                 <div class="col-md-4"></div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <select name="tipo_analisis" class="form-control">
-                        <option value="">TODOS</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA? 'selected':''}} value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA_DE_RINON? 'selected':''}} value="{{\App\Analisis::BIOPSIA_DE_RINON}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::LIQUIDOS? 'selected':''}} value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOLOGIA_MOLECULAR? 'selected':''}} value="{{\App\Analisis::BIOLOGIA_MOLECULAR}}">{{\App\Analisis::BIOLOGIA_MOLECULAR}}</option>
-                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::INMUNOHISTOQUIMICA? 'selected':''}} value="{{\App\Analisis::INMUNOHISTOQUIMICA}}">{{\App\Analisis::INMUNOHISTOQUIMICA}}</option>
-                    </select>
-                </div>
+{{--                <div class="col-md-6">--}}
+{{--                    <select name="tipo_analisis" class="form-control">--}}
+{{--                        <option value="">TODOS</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA? 'selected':''}} value="{{\App\Analisis::BIOPSIA}}">{{\App\Analisis::BIOPSIA}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOPSIA_DE_RINON? 'selected':''}} value="{{\App\Analisis::BIOPSIA_DE_RINON}}">{{\App\Analisis::BIOPSIA_DE_RINON}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::LIQUIDOS? 'selected':''}} value="{{\App\Analisis::LIQUIDOS}}">{{\App\Analisis::LIQUIDOS}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::BIOLOGIA_MOLECULAR? 'selected':''}} value="{{\App\Analisis::BIOLOGIA_MOLECULAR}}">{{\App\Analisis::BIOLOGIA_MOLECULAR}}</option>--}}
+{{--                        <option {{old('tipo_analisis',$tipo_analisis)== \App\Analisis::INMUNOHISTOQUIMICA? 'selected':''}} value="{{\App\Analisis::INMUNOHISTOQUIMICA}}">{{\App\Analisis::INMUNOHISTOQUIMICA}}</option>--}}
+{{--                    </select>--}}
+{{--                </div>--}}
                 <div class="col-md-2">
                     <select name="rango" class="form-control" required>
                         <option {{old('rango',$rango)=="10"? 'selected':''}} value="10">10</option>
@@ -114,7 +114,8 @@
 
         function exportExcelReporteAdminDesecho(){
             var rango = $("#f_reporte_admin_sinterminar select[name='rango']").val();
-            var tipo_analisis = $("#f_reporte_admin_sinterminar select[name='tipo_analisis']").val();
+            // var tipo_analisis = $("#f_reporte_admin_sinterminar select[name='tipo_analisis']").val();
+            var tipo_analisis = '';
             var url = '{{url("/")}}/reportes/reporte-admin-sinterminar/'+rango+'/'+tipo_analisis;
             window.open(url, '_blank');
         }

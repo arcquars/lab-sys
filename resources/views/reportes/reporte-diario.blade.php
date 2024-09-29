@@ -31,9 +31,9 @@
                     <div class="col-md-2">
                         <label for="fecha_fin">Fecha fin</label>
                     </div>
-                    <div class="col-md-2">
-                        <label for="fecha_fin">Tipo analisis</label>
-                    </div>
+{{--                    <div class="col-md-2">--}}
+{{--                        <label for="fecha_fin">Tipo analisis</label>--}}
+{{--                    </div>--}}
                     <div class="col-md-2">
                         <label for="doctor_refiere">Doctor</label>
                     </div>
@@ -55,18 +55,18 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-2">
-                        <select name="tipo_analisis" class="form-control">
-                            <option value="0">Todos</option>
-                            @foreach($tipoAnalisis as $key => $tipo)
-                                @if(strcmp(old('tipo_analisis', $tipoId), $key) == 0)
-                                    <option value="{{$key}}" selected>{{$tipo}}</option>
-                                @else
-                                    <option value="{{$key}}">{{$tipo}}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+{{--                    <div class="col-md-2">--}}
+{{--                        <select name="tipo_analisis" class="form-control">--}}
+{{--                            <option value="0">Todos</option>--}}
+{{--                            @foreach($tipoAnalisis as $key => $tipo)--}}
+{{--                                @if(strcmp(old('tipo_analisis', $tipoId), $key) == 0)--}}
+{{--                                    <option value="{{$key}}" selected>{{$tipo}}</option>--}}
+{{--                                @else--}}
+{{--                                    <option value="{{$key}}">{{$tipo}}</option>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
                     <div class="col-md-2">
                         <select class="form-control" name="doctor_refiere" id="js-doctor-ajax-id">
                             @if(!isset($doctor))
@@ -91,7 +91,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <input type="submit" value="Buscar" class="btn btn-info">
                         <a href="#" onclick="exportExcel(); return false;"  class="btn btn-warning">Exportar excel</a>
                         <a href="#" onclick="exportPdf(); return false;"  class="btn btn-warning">Exportar pdf</a>
@@ -108,10 +108,9 @@
                         <th scope="col">Codigo</th>
                         <th scope="col">Paciente</th>
                         <th scope="col">Doctor que Pidio</th>
-                        <th scope="col">Region</th>
-                        <th scope="col">Tipo Estudio</th>
                         <th scope="col">Precio</th>
                         <th scope="col">A cuenta</th>
+                        <th scope="col">Tipo Pago</th>
                         <th scope="col">Debe</th>
                         <th scope="col">Empresa</th>
                     </tr>
@@ -127,10 +126,9 @@
                                 <td>{{$analisi->codigo}}</td>
                                 <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                                 <td>{{$analisi->doctor}}</td>
-                                <td>{{$analisi->region}}</td>
-                                <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
                                 <td>{{$analisi->precio}}</td>
                                 <td>{{$analisi->acuenta}}</td>
+                                <td>{{$analisi->tipo_pago_acuenta}}</td>
                                 <td>{{$analisi->precio - $analisi->acuenta}}</td>
                                 <td>{{ $analisi->institucion->nombre }}</td>
                             </tr>
@@ -142,11 +140,10 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
                     <td>TOTALES</td>
                     <td>{{$totalPrecio}}</td>
                     <td>{{$totalAcuenta}}</td>
+                    <td></td>
                     <td>{{$totalDebe}}</td>
                     <td></td>
                 </tr>
@@ -162,11 +159,10 @@
                     <th scope="col">Codigo</th>
                     <th scope="col">Paciente</th>
                     <th scope="col">Doctor que Pidio</th>
-                    <th scope="col">Region</th>
-                    <th scope="col">Tipo Estudio</th>
                     <th scope="col">Precio</th>
                     <th scope="col">A cuenta</th>
                     <th scope="col">Pago Efec</th>
+                    <th scope="col">Tipo Pago</th>
                     <th scope="col">Empresa</th>
                 </tr>
                 </thead>
@@ -181,11 +177,10 @@
                         <td>{{$analisi->codigo}}</td>
                         <td>{{$analisi->person->nombres}} {{$analisi->person->apellidos}} {{$analisi->person->apellido_materno}}</td>
                         <td>{{$analisi->doctor}}</td>
-                        <td>{{$analisi->region}}</td>
-                        <td>{{( strcmp($analisi->tipo_analisis, \App\Analisis::HISTOPATOLOGICO) != 0)? $analisi->tipo_analisis: \App\Analisis::BIOPSIA_DE_RINON}}</td>
                         <td>{{$analisi->precio}}</td>
                         <td>{{$analisi->acuenta}}</td>
                         <td>{{$analisi->pago_efectuado}}</td>
+                        <td>{{$analisi->tipo_pago_efectuado}}</td>
                         <td>{{ $analisi->institucion->nombre }}</td>
                     </tr>
                 @endforeach
@@ -196,12 +191,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
                     <td>TOTALES</td>
                     <td>{{$totalPrecioPago}}</td>
                     <td>{{$totalAcuentaPago}}</td>
                     <td>{{$totalDebePago}}</td>
+                    <td></td>
                     <td></td>
                 </tr>
                 </tfoot>
@@ -304,7 +298,8 @@
             var fechaIni = $("#f_reporte_diario input[name='fecha_ini']").val();
             var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
-            var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            // var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            var tipoId = 0;
             var doctor = $("#f_reporte_diario select[name='doctor_refiere']").val();
             var url = '{{url("/")}}/reportes/reporte-diario-excel/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId+'/'+doctor;
 
@@ -315,7 +310,8 @@
             var fechaIni = $("#f_reporte_diario input[name='fecha_ini']").val();
             var fechaFin = $("#f_reporte_diario input[name='fecha_fin']").val();
             var procedencia = $("#f_reporte_diario select[name='procedencia']").val();
-            var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            // var tipoId = $("#f_reporte_diario select[name='tipo_analisis']").val();
+            var tipoId = 0;
             var doctor = $("#f_reporte_diario select[name='doctor_refiere']").val();
             var url = '{{url("/")}}/reportes/reporte-diario-pdf/'+fechaIni+'/'+fechaFin+'/'+procedencia+'/'+tipoId+'/'+doctor;
 

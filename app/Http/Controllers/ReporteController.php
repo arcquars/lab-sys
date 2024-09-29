@@ -40,8 +40,8 @@ class ReporteController extends Controller
         $procedenciaId = 0;
 
         $procedencias = Institucion::all();
-        $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
-        $analisisEfec = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->where('fecha_pago_efectuado', $fecha)->get();
+        $analisis = Analisis::where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
+        $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->get();
         $totalAcuenta = 0;
         $totalEfec = 0;
         foreach ($analisis as $ana){
@@ -71,10 +71,11 @@ class ReporteController extends Controller
 
         $procedencias = Institucion::all();
 
-        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
+//        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
-        $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0)->get();
-        $analisisPagos = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->whereNotNull('fecha_pago_efectuado')->get();
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])
+            ->where('acuenta', '>', 0)->get();
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin])->whereNotNull('fecha_pago_efectuado')->get();
         $gastos = Gasto::whereBetween('fecha', [$fecha_ini, $fecha_fin])->get();
         $totalPrecio = 0;
         $totalAcuenta = 0;
@@ -105,7 +106,8 @@ class ReporteController extends Controller
             'analisis', 'totalDebe', 'tipoId',
             'totalPrecio', 'totalAcuenta',
             'fecha_ini', 'fecha_fin', 'gastos',
-            'procedenciaId', 'totalGastos', 'tipoAnalisis',
+//            'procedenciaId', 'totalGastos', 'tipoAnalisis',
+            'procedenciaId', 'totalGastos',
             'analisisPagos', 'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago'
         ));
     }
@@ -219,7 +221,8 @@ class ReporteController extends Controller
     public function reporteAdminSinterminarPost(Request $request)
     {
         $rango = $request->post('rango', 10);
-        $tipo_analisis = $request->post('tipo_analisis','');
+//        $tipo_analisis = $request->post('tipo_analisis','');
+        $tipo_analisis = '';
         $fecha_ini = Carbon::now()->subDays($rango);
         $fecha_fin = Carbon::now();
 
@@ -243,11 +246,11 @@ class ReporteController extends Controller
         $procedencias = Institucion::all();
 
         if($procedenciaId == 0){
-            $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
-            $analisisEfec = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->where('fecha_pago_efectuado', $fecha)->get();
+            $analisis = Analisis::where('fecha', $fecha)->where('acuenta', '>', 0 )->get();
+            $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->get();
         } else {
-            $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->where('fecha', $fecha)->where('procedencia', $procedenciaId)->where('acuenta', '>', 0 )->get();
-            $analisisEfec = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->where('fecha_pago_efectuado', $fecha)->where('procedencia', $procedenciaId)->get();
+            $analisis = Analisis::where('fecha', $fecha)->where('procedencia', $procedenciaId)->where('acuenta', '>', 0 )->get();
+            $analisisEfec = Analisis::where('fecha_pago_efectuado', $fecha)->where('procedencia', $procedenciaId)->get();
         }
         $totalAcuenta = 0;
         $totalEfec = 0;
@@ -273,23 +276,23 @@ class ReporteController extends Controller
         $fecha_ini = $request->post('fecha_ini');
         $fecha_fin = $request->post('fecha_fin');
         $procedenciaId = $request->post('procedencia');
-        $tipoId = $request->post('tipo_analisis');
+//        $tipoId = $request->post('tipo_analisis');
         $doctor = $request->post('doctor_refiere', '');
 
         $procedencias = Institucion::all();
-        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
+//        $tipoAnalisis = Config::get('clinica.tipo_analisis_1');
 
 
-        $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0);
-        $analisisPagos = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin]);
+        $analisis = Analisis::whereBetween('fecha', [$fecha_ini, $fecha_fin])->where('acuenta', '>', 0);
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fecha_ini, $fecha_fin]);
         if($procedenciaId != 0){
             $analisis = $analisis->where('procedencia', $procedenciaId);
             $analisisPagos = $analisisPagos->where('procedencia', $procedenciaId);
         }
-        if(strcmp($tipoId, '0') != 0) {
-            $analisis = $analisis->where('tipo_analisis', $tipoId);
-            $analisisPagos = $analisisPagos->where('tipo_analisis', $tipoId);
-        }
+//        if(strcmp($tipoId, '0') != 0) {
+//            $analisis = $analisis->where('tipo_analisis', $tipoId);
+//            $analisisPagos = $analisisPagos->where('tipo_analisis', $tipoId);
+//        }
         if(!empty($doctor)){
             $analisis = $analisis->where('doctor', $doctor);
             $analisisPagos = $analisisPagos->where('doctor', $doctor);
@@ -325,10 +328,11 @@ class ReporteController extends Controller
         }
 
         return view('reportes.reporte-diario', compact(
-            'procedencias', 'tipoId',
+            'procedencias',
             'analisis', 'totalDebe', 'doctor',
             'totalPrecio', 'totalAcuenta',
-            'fecha_ini', 'fecha_fin', 'tipoAnalisis',
+//            'fecha_ini', 'fecha_fin', 'tipoAnalisis',
+            'fecha_ini', 'fecha_fin',
             'procedenciaId', 'gastos', 'totalGastos',
             'analisisPagos', 'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago'
         ));
@@ -462,8 +466,8 @@ class ReporteController extends Controller
     }
 
     function excelDiario($fechaIni, $fechaFin, $procedenciaId, $tipo, $doctor=''){
-        $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0);
-        $analisisPagos = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin]);
+        $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0);
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin]);
         if($procedenciaId != 0){
             $analisis = $analisis->where('procedencia', $procedenciaId);
             $analisisPagos = $analisisPagos->where('procedencia', $procedenciaId);
@@ -836,8 +840,8 @@ class ReporteController extends Controller
     }
 
     function pdfDiario($fechaIni, $fechaFin, $procedenciaId, $tipo, $doctor=''){
-        $analisis = Analisis::where('tipo_pago_acuenta', '=', Analisis::TIPO_PAGO_ACUENTA[0])->whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0);
-        $analisisPagos = Analisis::where('tipo_pago_efectuado', '=', Analisis::TIPO_PAGO_EFECTUADO[0])->whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin]);
+        $analisis = Analisis::whereBetween('fecha', [$fechaIni, $fechaFin])->where('acuenta', '>', 0);
+        $analisisPagos = Analisis::whereBetween('fecha_pago_efectuado', [$fechaIni, $fechaFin]);
         if($procedenciaId != 0){
             $analisis = $analisis->where('procedencia', $procedenciaId);
             $analisisPagos = $analisisPagos->where('procedencia', $procedenciaId);
@@ -884,9 +888,10 @@ class ReporteController extends Controller
 //                $analisis, $gastos, $totalPrecio, $totalAcuenta, $totalDebe,
 //                $totalGastos, $analisisPago, $totalPrecioPago, $totalAcuentaPago, $totalDebePago), 'reportediario'.date('Ymd').'.xlsx');
 
+        $sin = 0;
         $pdf = PDF::loadView('export-excel.reporte-diario-excel', compact(
             'analisis', 'totalPrecio', 'totalDebe', 'totalAcuenta', 'analisisPagos',
-            'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago', 'gastos', 'totalGastos'));
+            'totalPrecioPago', 'totalAcuentaPago', 'totalDebePago', 'gastos', 'totalGastos', 'sin'));
 
         $fileNombre = 'reporte-diario'.date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
