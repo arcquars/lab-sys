@@ -4,8 +4,14 @@
         footer: page-footer;
 
         margin-header: 4mm;
+        @if(!$sin)
         margin-top: 2.2cm;
-
+        @else
+        margin-top: 0.9cm;
+        @endif
+        margin-bottom: 1.8cm;
+        margin-left: 2.2cm;
+        margin-right: 2.2cm;
         /*margin: 0cm 0cm;*/
     }
 

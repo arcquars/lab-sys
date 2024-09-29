@@ -91,7 +91,7 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
 </div>
 @endif
 <htmlpagefooter name="page-footer">
-    <div style="width: 100%; text-align: center">
-        <p style="font-size: 10px;">- {PAGENO} de {nbpg} -</p>
-    </div>
+{{--    <div style="width: 100%; text-align: center">--}}
+{{--        <p style="font-size: 10px;">- {PAGENO} de {nbpg} -</p>--}}
+{{--    </div>--}}
 </htmlpagefooter>

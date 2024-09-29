@@ -55,41 +55,41 @@ class AnalysisTestRange extends TestInputAbstract
             return '--';
         }
         $aTestResult = AnalysisTestResult::find($aTestResultId);
-        $resultHtml = false;
+        $resultHtml = true;
         $clientGender = $aTestResult->analysis->person->sexo;
         $resultNumeric = doubleval($result);
 
-//        dd("ddd::: ".$resultNumeric);
         $clientAge = $aTestResult->analysis->person->year_now;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {
             if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
                 if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                    if($resultNumeric <= $analysisTestRangeOption->initial ||
-                        $resultNumeric >= $analysisTestRangeOption->end){
-                        $resultHtml = true;
+                    //if($resultNumeric <= $analysisTestRangeOption->initial &&
+                    //    $resultNumeric >= $analysisTestRangeOption->end){
+                    if($resultNumeric >= $analysisTestRangeOption->initial &&
+                        $resultNumeric <= $analysisTestRangeOption->end){
+                        $resultHtml = false;
                     }
                 } else {
-                    if($resultNumeric <= $analysisTestRangeOption->initial ||
-                        $resultNumeric >= $analysisTestRangeOption->end){
-//                        dd("dddss");
-                        $resultHtml = true;
+                    if($resultNumeric >= $analysisTestRangeOption->initial &&
+                        $resultNumeric <= $analysisTestRangeOption->end){
+                        $resultHtml = false;
                     }
                 }
             } else {
                 if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
                     if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
                         if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-                            if($resultNumeric <= $analysisTestRangeOption->initial ||
-                                $resultNumeric >= $analysisTestRangeOption->end){
-                                $resultHtml = true;
+                            if($resultNumeric >= $analysisTestRangeOption->initial &&
+                                $resultNumeric <= $analysisTestRangeOption->end){
+                                $resultHtml = false;
                             }
                         }
                     } else {
-                        if($resultNumeric <= $analysisTestRangeOption->initial ||
-                            $resultNumeric >= $analysisTestRangeOption->end){
-                            $resultHtml = true;
+                        if($resultNumeric >= $analysisTestRangeOption->initial &&
+                            $resultNumeric <= $analysisTestRangeOption->end){
+                            $resultHtml = false;
                         }
                     }
                 }

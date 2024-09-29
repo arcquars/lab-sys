@@ -2,8 +2,8 @@
 
 return [
 	'mode'                  => 'utf-8',
-//	'format'                => 'Letter',
-	'format'                => [215, 330],
+	'format'                => 'Letter',
+//	'format'                => [215, 330],
 //	'format'                => 'Legal',
 //    'marginTop'          => 500,
 //    'marginBottom'       => 10,

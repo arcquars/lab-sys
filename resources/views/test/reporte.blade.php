@@ -23,7 +23,7 @@
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
 @include('citologia.partial.reporte-client', compact('analisis'))
 <br>
-<table style="width: 98%" class="analysisTestTable">
+<table style="width: 99.99%" class="analysisTestTable">
     <thead>
     <tr>
         <th>ANÁLISIS</th>

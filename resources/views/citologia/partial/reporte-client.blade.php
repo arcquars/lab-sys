@@ -1,6 +1,8 @@
 <table style="width: 100%">
     <tr>
-        <td width="50%">
+        <td width="@if(!$sin) 0% @else 20% @endif">
+        </td>
+        <td width="@if(!$sin) 50% @else 40% @endif">
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 100%;">
@@ -30,10 +32,8 @@
                     </td>
                 </tr>
             </table>
-
-
         </td>
-        <td width="30%">
+        <td width="@if(!$sin) 30% @else 25% @endif">
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 100%;">
@@ -72,7 +72,7 @@
                 </tr>
             </table>
         </td>
-        <td width="15%">
+        <td style="text-align: right;" width="@if(!$sin) 20% @else 15% @endif">
             @if($analisis->imprimir_firma && isset($pathQr))
             <img src="{{ public_path($pathQr) }}" width="80">
             @endif
