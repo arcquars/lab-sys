@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('index2');
     }
 
     /**
@@ -39,5 +39,9 @@ class HomeController extends Controller
         }
 
         return view('home', compact('dateI', 'dateF', 'analisisSupervisados'));
+    }
+
+    public function index2(){
+        return view('index');
     }
 }

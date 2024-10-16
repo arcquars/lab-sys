@@ -15,10 +15,16 @@ Route::get('/', function () {
 //    return view('auth.login');
     return redirect('home');
 });
+
+Route::get('/index2', function () {
+    return redirect('index2');
+});
+
 //Route::middleware('guest')->get('/analisis/cerrar_analisis/{analisisId}')->uses('AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
 Route::middleware(['guest'])->group(function () {
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'AnalisisController@cerrarAnalisisForId')->name('analisis.cerraranalisis');
 //    Route::get('/analisis/cerrar_analisis/{analisisId}', 'QrController@index')->name('analisis.cerraranalisis');
+    Route::get('/index2', 'HomeController@index2')->name('index2');
     Route::get('/guest', 'Guest\LoginController@index')->name('guest.home');
     Route::get('/guest/home', 'Guest\LoginController@home')->name('guest.auth.home');
     Route::get('/guest/login', 'Guest\LoginController@login')->name('guest.login');
