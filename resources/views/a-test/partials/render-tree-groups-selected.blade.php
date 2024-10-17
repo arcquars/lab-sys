@@ -9,7 +9,7 @@
                         <input class="form-check-input test-price" type="checkbox" value="{{ $group->id }}" onchange="reloadGroupChilds(this);"
                                name="aGroup[]" data-price="{{$group->price }}"
                         >
-                        <span class="form-check-sign"></span>
+                        <span class="form-check-sign icheck-black"></span>
                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $group->id }}" aria-expanded="true" aria-controls="collapse{{ $group->id }}">
                             {{ $group->name }} - {{$group->price}} Bs.
                         </button>
@@ -33,8 +33,8 @@
                                    name="aTests[]" data-price="{{$analysisTests->price }}"
                                    @if(isset($aTestIds) && in_array($analysisTests->id, $aTestIds)) checked @endif
                             >
-                            <span class="form-check-sign"></span>
-                            {{$analysisTests->name}} <small>({{$analysisTests->price }} Bs. - {{$analysisTests->type}})</small>
+                            <span class="form-check-sign icheck-black"></span>
+                            <span class="text-dark h5">{{$analysisTests->name}} <small>({{$analysisTests->price }} Bs. - {{$analysisTests->type}})</small></span>
                         </label>
                     </div>
                 @endforeach

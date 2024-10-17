@@ -41,7 +41,10 @@
                             <address class="contact-info reveal-sm-inline-block text-start offset-none">
                                 <div class="p unit unit-spacing-xs unit-horizontal">
                                     <div class="unit-left"><span class="icon icon-xs icon-circle icon-white-17 mdi mdi-phone"></span></div>
-                                    <div class="unit-body"><a class="text-white" href="tel:#">1-800-1234-567</a><br><a class="text-white" href="tel:#">1-800-3214-654</a></div>
+                                    <div class="unit-body">
+                                        <a class="text-white" href="tel:#">+ 591 458 476 2</a>
+                                        <br><a class="text-white" href="tel:#">+ 591 707 404 80</a> | <a class="text-white" href="tel:#">+ 591 797 279 08 </a>
+                                    </div>
                                 </div>
                             </address>
                             <address class="contact-info reveal-sm-inline-block text-start">
@@ -69,8 +72,8 @@
                                 <ul class="rd-navbar-nav">
                                     <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html">INICIO</a>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link" href="#pdm-we-are">NOSOTROS</a>
-                                    </li>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="#pdm-we-are">NOSOTROS</a></li>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="#pdm-mision">MISIÓN</a></li>
                                     <li class="rd-nav-item"><a class="rd-nav-link" href="#pdm-services">SERVICIOS</a>
                                     </li>
                                     <!--                                    <li class="rd-nav-item"><a class="rd-nav-link" href="services.html">Services</a>-->
@@ -159,12 +162,10 @@
                             <h6 class="d-inline-block inset-left-10 text-white">horario de apertura</h6>
                             <hr>
                             <div class="row offset-top-24 justify-content-sm-between text-gray-light">
-                                <div class="col-sm-4">Mon–Fri</div>
-                                <div class="col-sm-7 offset-top-10 offset-xs-top-0 text-sm-end">8:00am–7:00pm</div>
+                                <div class="col-sm-4">Lunes a viernes</div>
+                                <div class="col-sm-7 offset-top-10 offset-xs-top-0 text-sm-end">07:30 a 18:00</div>
                                 <div class="col-sm-4 offset-top-30 offset-xs-top-10">Saturday</div>
-                                <div class="col-sm-7 offset-top-10 text-sm-end">9:00am–5:00pm</div>
-                                <div class="col-sm-4 offset-top-30 offset-xs-top-10">Sunday</div>
-                                <div class="col-sm-7 offset-top-10 text-sm-end">9:00am–3:00pm</div>
+                                <div class="col-sm-7 offset-top-10 text-sm-end">08:00 a 12:00</div>
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
                             <h6 class="d-inline-block inset-left-10 text-white">casos de emergencia</h6>
                             <hr>
                             <div class="offset-top-24">
-                                <h5 class="font-weight-bold"><a class="text-white" href="tel:#">1-800-1234-567</a></h5>
+                                <h5 class="font-weight-bold"><a class="text-white" href="tel:#">+ 591 707 404 80</a></h5>
                                 <p class="text-gray-light">Llámenos.</p>
                             </div>
                         </div>
@@ -192,18 +193,18 @@
             <div class="row offset-top-60 row-50">
                 <div class="col-md-6 col-lg-4">
                     <div class="icon icon-xlg icon-circle icon-default icon-pills-xl"></div>
-                    <h5 class="font-weight-bold text-gray-darkest">Especialistas titulados</h5>
+                    <h5 class="font-weight-bold text-gray-darkest">Profesionales con especialidad</h5>
                     <p>Contratamos a los mejores especialistas para ofrecerle servicios de diagnóstico de primera categoría.</p>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-md-top-0">
                     <div class="icon icon-xlg icon-circle icon-default icon-doctor-xl"></div>
                     <h5 class="font-weight-bold text-gray-darkest">Equipos modernos</h5>
-                    <p>Utilizamos equipos médicos de primera clase para el diagnóstico oportuno de diversas enfermedades.</p>
+                    <p>Contamos con equipos de última tecnología para el diagnóstico oportuno, seguimiento de enfermedades</p>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-md-top-0">
                     <div class="icon icon-xlg icon-circle icon-default icon-medical-car-xl"></div>
-                    <h5 class="font-weight-bold text-gray-darkest">Diagnóstico de emergencia</h5>
-                    <p>Our emergency diagnostics services help you get the most accurate diagnosis in a minimal time.</p>
+                    <h5 class="font-weight-bold text-gray-darkest">Controles de Calidad</h5>
+                    <p>Contamos con Controles de Calidad Interno y Externo</p>
                 </div>
             </div>
         </div>
@@ -230,29 +231,38 @@
             </div>
             <div class="row offset-top-60 text-lg-start row-30">
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-01-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Pediatrics</a>
+                    <div class="service"><img class="img-responsive" src="images/home-01-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Química Sanguínea</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-sm-top-0">
-                    <div class="service"><img class="img-responsive" src="images/home-02-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">MRI of the brain</a>
+                    <div class="service"><img class="img-responsive" src="images/home-02-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Uroánalisis</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-md-top-0">
-                    <div class="service"><img class="img-responsive" src="images/home-03-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">x-ray diagnostic</a>
+                    <div class="service"><img class="img-responsive" src="images/home-03-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Hematología</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-04-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">laboratory services</a>
+                    <div class="service"><img class="img-responsive" src="images/home-04-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Serologia</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-05-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">pregnancy</a>
+                    <div class="service"><img class="img-responsive" src="images/home-05-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Inmunología</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-06-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Best Equipment</a>
+                    <div class="service"><img class="img-responsive" src="images/home-06-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Parasitología</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <!-- main mision-->
+    <section id="pdm-mision" class="section-lg bg-default section">
+        <div class="container">
+            <h3 class="text-center">Misión</h3>
+            <div class="offset-top-41">
+                <p class="custom-paragraph">Proveer un servicio de salud personalizado y especializado, destinado a realizar análisis de muestras biológicas humanas, con el propósito de orientar la prevención, diagnóstico y tratamiento de los problemas de salud de forma oportuna con calidad y calidez.</p>
             </div>
         </div>
     </section>
@@ -280,7 +290,9 @@
                                 <address class="contact-info d-md-inline-block text-start">
                                     <div class="p unit unit-spacing-xxs flex-row">
                                         <div class="unit-left"><span class="icon icon-xxs mdi mdi-phone text-white"></span></div>
-                                        <div class="unit-body"><a class="text-white-70" href="tel:#">1-800-1234-567</a><span class="text-white-70">, </span><a class="text-white-70" href="tel:#">1-800-3214-321</a></div>
+                                        <div class="unit-body">
+                                            <a class="text-white-70" href="tel:#">+591 707 404 80 </a><span class="text-white-70">, </span><a class="text-white-70" href="tel:#">+ 591 797 279 08</a>
+                                        </div>
                                     </div>
                                     <div class="p unit flex-row unit-spacing-xxs">
                                         <div class="unit-left"><span class="icon icon-xxs mdi mdi-map-marker text-white"></span></div>

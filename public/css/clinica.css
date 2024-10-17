@@ -203,3 +203,10 @@
     padding: 5px 5px 0;
     background: #D8F9FF;
 }
+
+/*.icheck-black .icheck-black:before .icheck-black:after*/
+.form-check .icheck-black::before,
+.form-check .icheck-black::after
+{
+    color: #000;
+}
