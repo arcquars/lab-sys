@@ -1044,4 +1044,10 @@ class AnalisisController extends Controller
             'persona',
             'convenio'));
     }
+
+    public function ajaxSearchEnvia(Request $request){
+        $search = $request->get('keyword');
+        $anaDoctores = Analisis::where('doctor', 'like', '%'.$search.'%')->orderby('doctor')->distinct()->limit(20)->get('doctor');
+        return response()->view('analisis._search_envia', compact('anaDoctores'));
+    }
 }

@@ -73,7 +73,7 @@ class TestController extends Controller
 //        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
 //        $pdf->mpdf->showWatermarkImage = true;
         $pdf->mpdf->WriteHTML($stylesheet,1);
-        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
+        $fileNombre = $analisis->person->nombres . '-'. $analisis->person->apellidos . '-' . $analisis->codigo . '-' . date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }
 }

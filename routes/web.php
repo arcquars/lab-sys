@@ -99,6 +99,7 @@ Route::post('/analisis/change-to-citologia', 'AnalisisController@ajaxChageToCito
 Route::post('/analisis/aSearchPaciente', 'AnalisisController@ajaxSearchPaciente')->name('analisis.paciente.search');
 Route::post('/analisis/aChangePaciente', 'AnalisisController@ajaxChangePaciente')->name('analisis.paciente.achangepaciente');
 Route::post('/analisis/aSearchDoctor', 'AnalisisController@ajaxSearchDoctor')->name('analisis.doctor.asearchdoctor');
+Route::post('/analisis/a-search-envia', 'AnalisisController@ajaxSearchEnvia')->name('analisis.doctor.envia');
 
 Route::post('/analisis/grafic-report', 'AnalisisController@ajaxGraficReport')->name('analisis.aGraficReport');
 

@@ -65,9 +65,11 @@
                         <div class="form-group">
                             <label for="doctor">Doctor que envia</label>
                             <input type="text" name="doctor"
+                                   id="search-envia" autocomplete="off"
                                    class="form-control @error('doctor') is-invalid @enderror"
                                    onkeyup="uppercaseInput(this);"
                                    value="{{old('doctor')}}">
+                            <div id="suggesstion-box"></div>
                             @error('doctor')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -76,6 +78,7 @@
                     <div class="col-md-3">
                         <label for="telefono_referencia">Telefono Referencia</label>
                         <input type="text" name="telefono_referencia" class="form-control @error('telefono_referencia') is-invalid @enderror"
+                               onfocus="hideSuggesstionBox();"
                                value="{{old('telefono_referencia')}}">
                         @error('telefono_referencia')
                         <div class="text-danger">{{ $message }}</div>
@@ -85,6 +88,7 @@
                         <label for="fecha">Fecha de Ingreso</label>
                         <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
                                value="{{old('fecha', date('Y-m-d'))}}"
+                               onfocus="hideSuggesstionBox();"
                                min="{{date('Y-m-d', strtotime("-10 days"))}}"
                                max="{{date('Y-m-d', strtotime("5 days"))}}"
                         >
@@ -125,7 +129,7 @@
                     <div class="col-md-3 form-group">
                         <label for="doctor_asignado">Asignar Doctor</label>
                         <select name="doctor_asignado" class="form-control @error('fecha_entrega') is-invalid @enderror">
-                            <option value="" selected>Elija un doctor</option>
+                            <option value="">Elija un doctor</option>
                             @if(old('doctor_asignado'))
                                 @foreach($doctores as $doctor)
                                     @if(old('doctor_asignado') == $doctor->id)
@@ -136,7 +140,7 @@
                                 @endforeach
                             @else
                                 @foreach($doctores as $doctor)
-                                    <option value="{{$doctor->id}}">{{$doctor->nombres}} {{$doctor->apellidos}}</option>
+                                    <option value="{{$doctor->id}}" @if($doctor->id == 5) selected @endif>{{$doctor->nombres}} {{$doctor->apellidos}}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -264,6 +268,31 @@
 
             loadTreeTestGroup();
 
+            var timeout = null;
+            $("#search-envia").keyup(function() {
+                var inputSearch = this;
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('analisis.doctor.envia') }}",
+                        data: 'keyword=' + $(inputSearch).val(),
+                        beforeSend: function() {
+                            $("#search-envia").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
+                        },
+                        dataType: 'html',
+                        success: function(data) {
+                            $("#suggesstion-box").show();
+                            $("#suggesstion-box").html(data);
+                            $("#search-envia").css("background", "#FFF");
+                        }
+                    });
+                }, 1000);
+
+            });
+
         });
     function changeTipoPago(radio){
         $("#formAnalisis input[name='acuenta_numero_tarjeta']").val('');
@@ -283,6 +312,15 @@
                     $("#list_group").empty().append(data);
                 }
             });
+        }
+
+        function selectEnvia(val) {
+            $("#search-envia").val(val);
+            $("#suggesstion-box").hide();
+        }
+
+        function hideSuggesstionBox(){
+            $("#suggesstion-box").hide();
         }
 
         function loadTestGroup(){
