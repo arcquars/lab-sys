@@ -231,27 +231,27 @@
             </div>
             <div class="row offset-top-60 text-lg-start row-30">
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-01-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Química Sanguínea</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-1.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Química Sanguínea</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-sm-top-0">
-                    <div class="service"><img class="img-responsive" src="images/home-02-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Uroánalisis</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-2.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Uroánalisis</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 offset-md-top-0">
-                    <div class="service"><img class="img-responsive" src="images/home-03-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Hematología</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-3.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Hematología</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-04-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Serologia</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-4.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Serologia</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-05-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Inmunología</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-5.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Inmunología</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
-                    <div class="service"><img class="img-responsive" src="images/home-06-320x320.jpg" width="320" height="320" alt=""/><a class="service-desc h6" href="services.html">Parasitología</a>
+                    <div class="service"><img class="img-responsive" src="images/hemolab/image-6.png" width="320" height="320" alt=""/><a class="service-desc h6" href="#">Parasitología</a>
                     </div>
                 </div>
             </div>
