@@ -45,6 +45,10 @@
                     <br>
                 @endforeach
 
+                <div class="form-group">
+                    <label for="a-observaciones">Observaciones</label>
+                    <textarea name="observaciones" id="a-observaciones" rows="3" class="form-control">{{$analysis->observaciones}}</textarea>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>

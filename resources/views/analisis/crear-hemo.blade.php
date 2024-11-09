@@ -270,27 +270,30 @@
 
             var timeout = null;
             $("#search-envia").keyup(function() {
-                var inputSearch = this;
-                if (timeout) {
-                    clearTimeout(timeout);
+                if($(this).val().length > 2){
+                    var inputSearch = this;
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+                    timeout = setTimeout(function() {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('analisis.doctor.envia') }}",
+                            data: 'keyword=' + $(inputSearch).val(),
+                            beforeSend: function() {
+                                $("#search-envia").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
+                            },
+                            dataType: 'html',
+                            success: function(data) {
+                                $("#suggesstion-box").show();
+                                $("#suggesstion-box").html(data);
+                                $("#search-envia").css("background", "#FFF");
+                            }
+                        });
+                    }, 1000);
+                } else {
+                    hideSuggesstionBox();
                 }
-                timeout = setTimeout(function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('analisis.doctor.envia') }}",
-                        data: 'keyword=' + $(inputSearch).val(),
-                        beforeSend: function() {
-                            $("#search-envia").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
-                        },
-                        dataType: 'html',
-                        success: function(data) {
-                            $("#suggesstion-box").show();
-                            $("#suggesstion-box").html(data);
-                            $("#search-envia").css("background", "#FFF");
-                        }
-                    });
-                }, 1000);
-
             });
 
         });

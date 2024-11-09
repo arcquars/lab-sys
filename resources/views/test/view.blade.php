@@ -40,6 +40,14 @@
                 @endforeach
                 <br>
             @endforeach
+            <hr>
+            <div class="form-group">
+                <label for="">Observaciones</label>
+                <div class="form-control">
+                    {{$analisis->observaciones}}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')

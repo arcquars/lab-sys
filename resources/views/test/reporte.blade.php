@@ -48,6 +48,12 @@
 @endforeach
     </tbody>
 </table>
+@if($analisis->observaciones)
+    <dl>
+        <dt style="font-size: 14px; font-weight: 900;">Observaciones</dt>
+        <dd style="font-size: 12px;">{{$analisis->observaciones}}</dd>
+    </dl>
+@endif
 <br>
 {{--<div class="chapter2">Text of Chapter 2</div>--}}
 

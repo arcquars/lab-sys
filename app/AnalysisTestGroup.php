@@ -24,7 +24,7 @@ class AnalysisTestGroup extends Model
 
     public function parent()
     {
-        return $this->belongsTo(AnalysisTestGroup::class, 'parent_id');
+        return $this->hasOne(AnalysisTestGroup::class, 'parent_id');
     }
 
     public function user(){

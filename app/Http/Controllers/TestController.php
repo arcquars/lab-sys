@@ -45,6 +45,10 @@ class TestController extends Controller
                 $analysisTestResult->save();
             }
         }
+        $observaciones = $request->input('observaciones', null);
+        $analisis = Analisis::find($analisisId);
+        $analisis->observaciones = $observaciones;
+        $analisis->save();
         return redirect('/test/view/'.$request->input('analisis_id'));
     }
 

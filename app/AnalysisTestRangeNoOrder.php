@@ -119,12 +119,16 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
             return false;
         }
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
-            if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
-                $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range &&
-                $analysisTestRangeOptionsIntermediate->bookmark
-            ){
+            if($analysisTestRangeOptionsIntermediate->bookmark){
+                if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
+                    $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range
+                ){
+                    return true;
+                }
+            } else {
                 return false;
             }
+
         }
         return true;
     }
