@@ -11,7 +11,7 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-12 text-right"><a href="#" class="btn btn-primary" onclick="openModelInstitucion();">Registrar
+                <div class="col-md-12 text-right"><a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelInstitucion();">Registrar
                         Institucion</a></div>
             </div>
         </div>
@@ -28,55 +28,57 @@
             </table>
         </div>
     </div>
-@endsection
-<!-- Modal registro Institucion -->
-<div id="minstitucion" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <form id="fcrearinstitucion" action="">
-            {{ csrf_field() }}
-            <input type="hidden" name="id" value="">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="minstitucion_title" class="modal-title ">Crear Institucion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Nombre de la Institucion</label>
-                                <input type="text" name="nombre" class="form-control"
-                                       placeholder="Nombre de la institucion"
-                                       onkeyup="uppercaseInput(this);"
-                                >
-                                <div class="fcp_error_nombre" style="display: none;"></div>
-                            </div>
-                            <div class="form-group">
-                                <label>Telefono</label>
-                                <input type="text" name="telefono" class="form-control">
-                                <div class="fcp_error_telefono" style="display: none;"></div>
-                            </div>
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input class="form-check-input" type="checkbox" value="1" id="is_convenio" name="is_convenio">
-                                    <label class="form-check-label" for="is_convenio">
-                                        Convenio
-                                    </label>
+
+    <!-- Modal registro Institucion -->
+    <div id="minstitucion" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="fcrearinstitucion" action="">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="minstitucion_title" class="modal-title ">Crear Institucion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Nombre de la Institucion</label>
+                                    <input type="text" name="nombre" class="form-control"
+                                           placeholder="Nombre de la institucion"
+                                           onkeyup="uppercaseInput(this);"
+                                    >
+                                    <div class="fcp_error_nombre" style="display: none;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefono</label>
+                                    <input type="text" name="telefono" class="form-control">
+                                    <div class="fcp_error_telefono" style="display: none;"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="form-check-input" type="checkbox" value="1" id="is_convenio" name="is_convenio">
+                                        <label class="form-check-label" for="is_convenio">
+                                            Convenio
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-lab-pdm-primary btn-sm">Grabar</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+@endsection
+
 @push('js')
     <script>
         $(document).ready(function () {

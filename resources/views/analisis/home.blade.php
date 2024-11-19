@@ -72,393 +72,395 @@
             </div>
         </div>
     </div>
-@endsection
 
-<!-- Modal Pago -->
-<div class="modal fade" id="pagoModal" tabindex="-1" role="dialog" aria-labelledby="pagoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_realizarpago">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="pagoModalLabel">Realizar Pago</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body m-pago-p">
-                    <input type="hidden" name="analisis_id" id="i_analisis_id">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><b>Cliente: </b> <span id="pago_cliente">Maria Jose</span></p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><b>Doctor: </b> <span id="pago_doctor">Carlos Terrazas</span></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><b>Precio: </b> <span id="pago_precio"></span></p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><b>A cuenta: </b> <span id="pago_acuenta"></span></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6" style="text-align: right;">
-                            <p style="color: #FF9500; font-size: 1rem;"><b>PAGO: </b> <span id="pago_pago"></span></p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Tipo de pago</label>
-                        <br>
-                        @foreach($tipoPagoEfectuado as $i => $tipo_pago)
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
-                                       onchange="changeTipoPagoSaldo(this);"
-                                       id="tipo_pago_efectuado_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
-                                <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_efectuado_{{$i}}">{{$tipo_pago}}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="row saldo-tarjeta d-none">
-                        <div class="col-md-6">
-                            <label for="saldo_numero_tarjeta">Numero de cuenta</label>
-                            <input type="text" name="saldo_numero_tarjeta" id="saldo_numero_tarjeta"
-                                   class="form-control"
-                                   value=""
-                            >
-                        </div>
-                        <div class="col-md-6">
-                            <label for="saldo_banco">Banco</label>
-                            <input type="text" name="saldo_banco" id="saldo_banco"
-                                   class="form-control"
-                                   value=""
-                            >
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nit">Nit</label>
-                                <input id="realizar_pago_nit" type="text" name="nit" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="razon_social">Razon Social</label>
-                                <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control" onkeyup="uppercaseInput(this);" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="fecha_pago_efectuado">Fecha</label>
-                                <input id="realizar_pago_fecha" value="{{date('Y-m-d')}}" min="{{$date7}}" max="{{$dateNow}}"  type="date" name="fecha_pago_efectuado" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Realizar Pago</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
-<!-- Modal Fecha de Entrega -->
-<div class="modal fade" id="fechaEntregaModal" tabindex="-1" role="dialog" aria-labelledby="fechaentregaModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_fechaentrega">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="fechaentregaModalLabel">Fecha de Entrega de analisis</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body m-pago-p">
-                    <input type="hidden" name="analisis_id">
-                    <div class="form-group">
-                        <label for="persona_entrega">Persona a quien entrega</label>
-                        <input type="text" name="persona_entrega"
-                               class="form-control"
-                               placeholder="Nombres"
-                               onkeyup="uppercaseInput(this);"
-                        >
-                        <div class="fcp_error_persona_entrega" style="display: none;"></div>
+    <!-- Modal Pago -->
+    <div class="modal fade" id="pagoModal" tabindex="-1" role="dialog" aria-labelledby="pagoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_realizarpago">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="pagoModalLabel">Realizar Pago</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fecha_entrega">Fecha de entrega</label>
-                                <input type="date" name="fecha_entrega" class="form-control"
-                                       value="{{date('Y-m-d')}}"
-                                       min="{{date('Y-m-d', strtotime("-100 days"))}}"
-                                       max="{{date('Y-m-d', strtotime("5 days"))}}"
+                    <div class="modal-body m-pago-p">
+                        <input type="hidden" name="analisis_id" id="i_analisis_id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><b>Cliente: </b> <span id="pago_cliente">Maria Jose</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><b>Doctor: </b> <span id="pago_doctor">Carlos Terrazas</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><b>Precio: </b> <span id="pago_precio"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><b>A cuenta: </b> <span id="pago_acuenta"></span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6" style="text-align: right;">
+                                <p style="color: #FF9500; font-size: 1rem;"><b>PAGO: </b> <span id="pago_pago"></span></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de pago</label>
+                            <br>
+                            @foreach($tipoPagoEfectuado as $i => $tipo_pago)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo_pago_efectuado"
+                                           onchange="changeTipoPagoSaldo(this);"
+                                           id="tipo_pago_efectuado_{{$i}}" value="{{$tipo_pago}}" {{($i==0)? 'checked' : ''}}>
+                                    <label class="form-check-label" style="padding-left: 2px !important;" for="tipo_pago_efectuado_{{$i}}">{{$tipo_pago}}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="row saldo-tarjeta d-none">
+                            <div class="col-md-6">
+                                <label for="saldo_numero_tarjeta">Numero de cuenta</label>
+                                <input type="text" name="saldo_numero_tarjeta" id="saldo_numero_tarjeta"
+                                       class="form-control"
+                                       value=""
                                 >
-                                <div class="fcp_error_fecha_entrega" style="display: none;"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="saldo_banco">Banco</label>
+                                <input type="text" name="saldo_banco" id="saldo_banco"
+                                       class="form-control"
+                                       value=""
+                                >
                             </div>
                         </div>
-                        {{--                            <div class="col-md-6">--}}
-                        {{--                                <label for="hora_entrega">Hora</label>--}}
-                        {{--                                <input type="time" name="hora_entrega" class="form-control">--}}
-                        {{--                                <div class="fcp_error_hora_entrega" style="display: none;"></div>--}}
-                        {{--                            </div>--}}
-                    </div>
-                    <span class="font-weight-bold text-success">Esta fecha es la que se imprime en el resultado del análisis</span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" onclick="saveFechaEntrega();" class="btn btn-primary">Registrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Cerrar Analisis -->
-<div class="modal fade" id="cerrarAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="cerrarAnalisisModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_cerraranalisis">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cerrarAnalisisModalLabel">Conclusión de Análisis</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body m-pago-p">
-                    <input type="hidden" name="analisis_id">
-                    <div class="form-group">
-                        <label for="fecha_cierre">Fecha de Conclusión del Analisis</label>
-                        <input type="date" name="fecha_cierre" class="form-control"
-                               value="{{date('Y-m-d')}}"
-                               min="{{date('Y-m-d', strtotime("-100 days"))}}"
-                               max="{{date('Y-m-d', strtotime("2 days"))}}"
-                        >
-                        <div class="fcp_error_fecha_cierre" style="display: none;"></div>
-                    </div>
-                    <span class="font-weight-bold text-success">Esta fecha es de conclusión del análisis</span>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" onclick="saveCerrarAnalisis();" class="btn btn-primary">Registrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Enviar mensaja SMS Analisis -->
-<div class="modal fade" id="enviarSmsAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarSmsAnalisisModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_enviarsmsanalisis" onsubmit="sendSmsAnalisis(this);  return false;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="enviarSmsAnalisisModalLabel">Enviar SMS al paciente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="analisis_id">
-                    <dl>
-                        <dt>Paciente:</dt>
-                        <dd id="m_paciente_nombres"></dd>
-                        <dt>Codigo analisis</dt>
-                        <dd id="m_analisis_codigo"></dd>
-                    </dl>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Precio</dt>
-                                <dd id="m_analisis_precio"></dd>
-                            </dl>
-
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nit">Nit</label>
+                                    <input id="realizar_pago_nit" type="text" name="nit" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="razon_social">Razon Social</label>
+                                    <input id="realizar_pago_razon_social" type="text" name="razon_social" class="form-control" onkeyup="uppercaseInput(this);" required>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Acuenta</dt>
-                                <dd id="m_analisis_acuenta"></dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>P. efectuado</dt>
-                                <dd id="m_analisis_pago_efectuado"></dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Estado</dt>
-                                <dd id="m_analisis_estado"></dd>
-                            </dl>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="fecha_pago_efectuado">Fecha</label>
+                                    <input id="realizar_pago_fecha" value="{{date('Y-m-d')}}" min="{{$date7}}" max="{{$dateNow}}"  type="date" name="fecha_pago_efectuado" class="form-control" required>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="m_analisis_celular">Celular:</label>
-                        <input type="text" name="s_celular" id="m_analisis_celular" value="" class="form-control">
-                        <div class="fcp_error_s_celular" style="display: none;"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Realizar Pago</button>
                     </div>
-                    <div class="form-group">
-                        <label for="s_texto">Mensaje</label>
-                        <textarea name="s_texto" id="s_texto" class="form-control" style="resize: none;" rows="6"></textarea>
-                        <div class="fcp_error_s_texto" style="display: none;"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="f_enviarsmsanalisis_submit" type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Enviar mensaja Whatsapp Analisis -->
-<div class="modal fade" id="enviarWappAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarWappAnalisisModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_enviarwappanalisis" onsubmit="sendWappAnalisis(this);  return false;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="enviarWappAnalisisModalLabel">Enviar mensaje whatsapp al paciente</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="analisis_id">
-                    <p class="text-success"><b>Convenio: </b><span class="m_paciente_convenio"></span></p>
-                    <dl>
-                        <dt>Paciente:</dt>
-                        <dd class="m_paciente_nombres"></dd>
-                        <dt>Codigo analisis</dt>
-                        <dd class="m_analisis_codigo"></dd>
-                    </dl>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Precio</dt>
-                                <dd class="m_analisis_precio"></dd>
-                            </dl>
-
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Acuenta</dt>
-                                <dd class="m_analisis_acuenta"></dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>P. efectuado</dt>
-                                <dd class="m_analisis_pago_efectuado"></dd>
-                            </dl>
-                        </div>
-                        <div class="col-md-3">
-                            <dl>
-                                <dt>Estado</dt>
-                                <dd class="m_analisis_estado"></dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Celular:</label>
-                        <input type="text" name="s_celular" value="" class="form-control m_analisis_celular">
-                        <div class="fcp_error_s_celular" style="display: none;"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="s_texto">Mensaje</label>
-                        <textarea name="s_texto" class="form-control s_texto" style="resize: none;" rows="6"></textarea>
-                        <div class="fcp_error_s_texto" style="display: none;"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button id="f_enviarWappanalisis_submit" type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Pago -->
-<div class="modal fade" id="crearAnalisisRangoModal" tabindex="-1" role="dialog" aria-labelledby="crearAnalisisRangoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="f_crearrangoanalisis" onsubmit="sendCreateRangoAnalisis(this); return false;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="crearAnalisisRangoModalLabel">Crear rango de analisis</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="procedencia">Procedencia</label>
-                            <select name="procedencia" id="procedencia" class="form-control" required>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="analisis">Analisis</label>
-                            <select name="analisis" id="analisis" class="form-control" onchange="getCodigoAnalisis(this)" required>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="cantidad">Cantidad</label>
-                            <select name="cantidad" id="cantidad" class="form-control" required>
-                                {{--                                    <option value="1">1</option>--}}
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="">Codigo inicio</label>
-                            <input type="text" disabled class="form-control" value="" name="codigo">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Crear rango</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Cerrar Analisis -->
-<div class="modal fade" id="fechaCierreModal" tabindex="-1" role="dialog" aria-labelledby="fcModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="fcModalLabel">Cerrar análisis</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
+                </form>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Modal Fecha de Entrega -->
+    <div class="modal fade" id="fechaEntregaModal" tabindex="-1" role="dialog" aria-labelledby="fechaentregaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_fechaentrega">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fechaentregaModalLabel">Fecha de Entrega de analisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-pago-p">
+                        <input type="hidden" name="analisis_id">
+                        <div class="form-group">
+                            <label for="persona_entrega">Persona a quien entrega</label>
+                            <input type="text" name="persona_entrega"
+                                   class="form-control"
+                                   placeholder="Nombres"
+                                   onkeyup="uppercaseInput(this);"
+                            >
+                            <div class="fcp_error_persona_entrega" style="display: none;"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fecha_entrega">Fecha de entrega</label>
+                                    <input type="date" name="fecha_entrega" class="form-control"
+                                           value="{{date('Y-m-d')}}"
+                                           min="{{date('Y-m-d', strtotime("-100 days"))}}"
+                                           max="{{date('Y-m-d', strtotime("5 days"))}}"
+                                    >
+                                    <div class="fcp_error_fecha_entrega" style="display: none;"></div>
+                                </div>
+                            </div>
+                            {{--                            <div class="col-md-6">--}}
+                            {{--                                <label for="hora_entrega">Hora</label>--}}
+                            {{--                                <input type="time" name="hora_entrega" class="form-control">--}}
+                            {{--                                <div class="fcp_error_hora_entrega" style="display: none;"></div>--}}
+                            {{--                            </div>--}}
+                        </div>
+                        <span class="font-weight-bold text-success">Esta fecha es la que se imprime en el resultado del análisis</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onclick="saveFechaEntrega();" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cerrar Analisis -->
+    <div class="modal fade" id="cerrarAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="cerrarAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_cerraranalisis">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cerrarAnalisisModalLabel">Conclusión de Análisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-pago-p">
+                        <input type="hidden" name="analisis_id">
+                        <div class="form-group">
+                            <label for="fecha_cierre">Fecha de Conclusión del Analisis</label>
+                            <input type="date" name="fecha_cierre" class="form-control"
+                                   value="{{date('Y-m-d')}}"
+                                   min="{{date('Y-m-d', strtotime("-100 days"))}}"
+                                   max="{{date('Y-m-d', strtotime("2 days"))}}"
+                            >
+                            <div class="fcp_error_fecha_cierre" style="display: none;"></div>
+                        </div>
+                        <span class="font-weight-bold text-success">Esta fecha es de conclusión del análisis</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onclick="saveCerrarAnalisis();" class="btn btn-primary">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar mensaja SMS Analisis -->
+    <div class="modal fade" id="enviarSmsAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarSmsAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_enviarsmsanalisis" onsubmit="sendSmsAnalisis(this);  return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="enviarSmsAnalisisModalLabel">Enviar SMS al paciente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="analisis_id">
+                        <dl>
+                            <dt>Paciente:</dt>
+                            <dd id="m_paciente_nombres"></dd>
+                            <dt>Codigo analisis</dt>
+                            <dd id="m_analisis_codigo"></dd>
+                        </dl>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Precio</dt>
+                                    <dd id="m_analisis_precio"></dd>
+                                </dl>
+
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Acuenta</dt>
+                                    <dd id="m_analisis_acuenta"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>P. efectuado</dt>
+                                    <dd id="m_analisis_pago_efectuado"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Estado</dt>
+                                    <dd id="m_analisis_estado"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="m_analisis_celular">Celular:</label>
+                            <input type="text" name="s_celular" id="m_analisis_celular" value="" class="form-control">
+                            <div class="fcp_error_s_celular" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="s_texto">Mensaje</label>
+                            <textarea name="s_texto" id="s_texto" class="form-control" style="resize: none;" rows="6"></textarea>
+                            <div class="fcp_error_s_texto" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="f_enviarsmsanalisis_submit" type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Enviar mensaja Whatsapp Analisis -->
+    <div class="modal fade" id="enviarWappAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarWappAnalisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_enviarwappanalisis" onsubmit="sendWappAnalisis(this);  return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="enviarWappAnalisisModalLabel">Enviar mensaje whatsapp al paciente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="analisis_id">
+                        <p class="text-success"><b>Convenio: </b><span class="m_paciente_convenio"></span></p>
+                        <dl>
+                            <dt>Paciente:</dt>
+                            <dd class="m_paciente_nombres"></dd>
+                            <dt>Codigo analisis</dt>
+                            <dd class="m_analisis_codigo"></dd>
+                        </dl>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Precio</dt>
+                                    <dd class="m_analisis_precio"></dd>
+                                </dl>
+
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Acuenta</dt>
+                                    <dd class="m_analisis_acuenta"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>P. efectuado</dt>
+                                    <dd class="m_analisis_pago_efectuado"></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-3">
+                                <dl>
+                                    <dt>Estado</dt>
+                                    <dd class="m_analisis_estado"></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Celular:</label>
+                            <input type="text" name="s_celular" value="" class="form-control m_analisis_celular">
+                            <div class="fcp_error_s_celular" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="s_texto">Mensaje</label>
+                            <textarea name="s_texto" class="form-control s_texto" style="resize: none;" rows="6"></textarea>
+                            <div class="fcp_error_s_texto" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button id="f_enviarWappanalisis_submit" type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pago -->
+    <div class="modal fade" id="crearAnalisisRangoModal" tabindex="-1" role="dialog" aria-labelledby="crearAnalisisRangoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="f_crearrangoanalisis" onsubmit="sendCreateRangoAnalisis(this); return false;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="crearAnalisisRangoModalLabel">Crear rango de analisis</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="procedencia">Procedencia</label>
+                                <select name="procedencia" id="procedencia" class="form-control" required>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="analisis">Analisis</label>
+                                <select name="analisis" id="analisis" class="form-control" onchange="getCodigoAnalisis(this)" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="cantidad">Cantidad</label>
+                                <select name="cantidad" id="cantidad" class="form-control" required>
+                                    {{--                                    <option value="1">1</option>--}}
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Codigo inicio</label>
+                                <input type="text" disabled class="form-control" value="" name="codigo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear rango</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cerrar Analisis -->
+    <div class="modal fade" id="fechaCierreModal" tabindex="-1" role="dialog" aria-labelledby="fcModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fcModalLabel">Cerrar análisis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
 
 @push('js')
     <script>
@@ -508,10 +510,10 @@
                                 return '';
                             } else {
                                 try{
-                                    if($(data).text().length > 19){
-                                        return $(data).text().slice(0, 20) + "...";
+                                    if(htmlToPlainText(data).length > 19){
+                                        return htmlToPlainText(data).slice(0, 20) + "...";
                                     } else {
-                                        return $(data).text();
+                                        return htmlToPlainText(data);
                                     }
                                 } catch(err) {
                                     return data;
@@ -1045,5 +1047,13 @@
                 $(".saldo-tarjeta").addClass("d-none");
             }
         }
+
+        function htmlToPlainText(html) {
+            var temp = document.createElement('div');
+            temp.innerHTML = html;
+            // return temp.innerText || temp.textContent;
+            return temp.innerText;
+        }
+
     </script>
 @endpush

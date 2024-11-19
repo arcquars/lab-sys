@@ -42,7 +42,7 @@ class StoreAnalisisPost extends FormRequest
             'tipo_analisis' => 'required',
             'fecha' => 'required',
             'doctor_asignado' => 'required',
-            'telefono_referencia' => 'numeric',
+            'telefono_referencia' => 'nullable|numeric',
             'region' => 'required|max:200',
             'precio' => 'required|numeric|min:0|max:10000',
             'acuenta' => 'lte:precio|nullable',

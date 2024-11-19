@@ -56,7 +56,7 @@
 {{--                            @can('manage-users')--}}
 {{--                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir" onclick="this.form.target='_blank';return true;">--}}
 {{--                            @endcan--}}
-                            <input type="submit" name="grabar" class="btn btn-primary" value="Grabar">
+                            <input type="submit" name="grabar" class="btn btn-lab-pdm-primary" value="Grabar">
                         </div>
                     </div>
                 </div>

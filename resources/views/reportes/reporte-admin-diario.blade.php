@@ -92,7 +92,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <input type="submit" value="Buscar" class="btn btn-info">
+                    <input type="submit" value="Buscar" class="btn btn-lab-pdm-primary">
                     <a class="btn btn-warning" onclick="exportExcelReporteAdmin(); return false;">Exportar</a>
                     <a class="btn btn-default" href="{{route('reporte.reporte_admin_diario')}}">Limpiar</a>
                 </div>

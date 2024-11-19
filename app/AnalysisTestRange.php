@@ -55,26 +55,43 @@ class AnalysisTestRange extends TestInputAbstract
             return '--';
         }
         $aTestResult = AnalysisTestResult::find($aTestResultId);
-        $resultHtml = true;
         $clientGender = $aTestResult->analysis->person->sexo;
         $resultNumeric = doubleval($result);
 
         $clientAge = $aTestResult->analysis->person->year_now;
 
+        $resultHtml = true;
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {
             if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
+                Log::info('pdm 1::: ' . $resultNumeric);
                 if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                    //if($resultNumeric <= $analysisTestRangeOption->initial &&
-                    //    $resultNumeric >= $analysisTestRangeOption->end){
-                    if($resultNumeric >= $analysisTestRangeOption->initial &&
-                        $resultNumeric <= $analysisTestRangeOption->end){
-                        $resultHtml = false;
+                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
+                        //if($resultNumeric <= $analysisTestRangeOption->initial &&
+                        //    $resultNumeric >= $analysisTestRangeOption->end){
+                        Log::info('pdm 5.1 entro al rango de edad::: ' . $resultNumeric . " || " . $analysisTestRangeOption->initial . " || " . $analysisTestRangeOption->end);
+                        if($resultNumeric >= $analysisTestRangeOption->initial &&
+                            $resultNumeric <= $analysisTestRangeOption->end){
+                            Log::info('pdm 5.2.1 entro al rango de edad::: ' . $resultNumeric);
+                            $resultHtml = false;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        if($resultNumeric >= $analysisTestRangeOption->initial &&
+                            $resultNumeric <= $analysisTestRangeOption->end){
+                            $resultHtml = false;
+                        } else {
+                            break;
+                        }
                     }
+
                 } else {
                     if($resultNumeric >= $analysisTestRangeOption->initial &&
                         $resultNumeric <= $analysisTestRangeOption->end){
                         $resultHtml = false;
+                    } else {
+                        break;
                     }
                 }
             } else {
@@ -84,16 +101,21 @@ class AnalysisTestRange extends TestInputAbstract
                             if($resultNumeric >= $analysisTestRangeOption->initial &&
                                 $resultNumeric <= $analysisTestRangeOption->end){
                                 $resultHtml = false;
+                            } else {
+                                break;
                             }
                         }
                     } else {
                         if($resultNumeric >= $analysisTestRangeOption->initial &&
                             $resultNumeric <= $analysisTestRangeOption->end){
                             $resultHtml = false;
+                        } else {
+                            break;
                         }
                     }
                 }
             }
+            Log::info('pdm 5.3::: ' . $resultNumeric . " || " . $resultHtml);
         }
 
         return $resultHtml? "<span class='text-danger'>".$result."</span>" : $result;

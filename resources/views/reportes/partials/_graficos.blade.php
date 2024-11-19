@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-2">
         <label for="">.</label><br>
-        <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-search"></i></button>
+        <button type="submit" class="btn btn-lab-pdm-primary btn-sm btn-block"><i class="fas fa-search"></i></button>
     </div>
 </div>
 </form>

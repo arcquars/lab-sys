@@ -14,7 +14,7 @@
                     <h4>Doctores</h4>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a href="#" class="btn btn-primary" onclick="openModelDoctor();">Registrar Doctor</a>
+                    <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelDoctor();">Registrar Doctor</a>
                 </div>
             </div>
         </div>
@@ -37,92 +37,92 @@
 
         </div>
     </div>
-@endsection
 
-<!-- Modal registro Doctor-->
-<div id="mdoctor" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <form id="fcreardoctor" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <input type="hidden" name="id" value="">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="mdoctor_title" class="modal-title ">Crear Doctor</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Nombres</label>
-                                <input type="text" name="nombres"
-                                       onkeyup="uppercaseInput(this);"
-                                       class="form-control" placeholder="Nombres">
-                                <div class="fcp_error_nombres" style="display: none;"></div>
+    <!-- Modal registro Doctor-->
+    <div id="mdoctor" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="fcreardoctor" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="mdoctor_title" class="modal-title ">Crear Doctor</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nombres</label>
+                                    <input type="text" name="nombres"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" placeholder="Nombres">
+                                    <div class="fcp_error_nombres" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input type="text" name="apellidos"
+                                           class="form-control"
+                                           onkeyup="uppercaseInput(this);"
+                                           placeholder="Apellido Paterno">
+                                    <div class="fcp_error_apellidos" style="display: none;"></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="apellidos">Apellidos</label>
-                                <input type="text" name="apellidos"
-                                       class="form-control"
-                                       onkeyup="uppercaseInput(this);"
-                                       placeholder="Apellido Paterno">
-                                <div class="fcp_error_apellidos" style="display: none;"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Especialidad</label>
+                                    <input type="text" name="especialidad"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" placeholder="Especialidad">
+                                    <div class="fcp_error_especialidad" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="matricula">Matrícula</label>
+                                    <input type="text" name="matricula"
+                                           class="form-control"
+                                           onkeyup="uppercaseInput(this);"
+                                           placeholder="Matricula">
+                                    <div class="fcp_error_matricula" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{--                        <div class="form-check">--}}
+                        {{--                            <input class="form-check-input" id="flexCheckChecked" type="checkbox" name="supervisado" value="1">--}}
+                        {{--                            <label class="form-check-label" for="flexCheckChecked">Interconsultado</label>--}}
+                        {{--                        </div>--}}
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="divSigning" style="border: solid 1px #ced4da; padding: 5px;">
+                                    <button type="button" class="btn btn-danger" onclick="deleteImageSigningDr(this); return false;">Borrar Imagen</button>
+                                    <img class="img-fluid" src="" alt="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signing">Firma</label>
+                                    <input id="signing" type="file" class="form-control-file" name="signing">
+                                    <div class="fcp_error_file" style="display: none;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Especialidad</label>
-                                <input type="text" name="especialidad"
-                                       onkeyup="uppercaseInput(this);"
-                                       class="form-control" placeholder="Especialidad">
-                                <div class="fcp_error_especialidad" style="display: none;"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="matricula">Matrícula</label>
-                                <input type="text" name="matricula"
-                                       class="form-control"
-                                       onkeyup="uppercaseInput(this);"
-                                       placeholder="Matricula">
-                                <div class="fcp_error_matricula" style="display: none;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{--                        <div class="form-check">--}}
-                    {{--                            <input class="form-check-input" id="flexCheckChecked" type="checkbox" name="supervisado" value="1">--}}
-                    {{--                            <label class="form-check-label" for="flexCheckChecked">Interconsultado</label>--}}
-                    {{--                        </div>--}}
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="divSigning" style="border: solid 1px #ced4da; padding: 5px;">
-                                <button type="button" class="btn btn-danger" onclick="deleteImageSigningDr(this); return false;">Borrar Imagen</button>
-                                <img class="img-fluid" src="" alt="">
-                            </div>
-                            <div class="form-group">
-                                <label for="signing">Firma</label>
-                                <input id="signing" type="file" class="form-control-file" name="signing">
-                                <div class="fcp_error_file" style="display: none;"></div>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-lab-pdm-primary btn-sm">Grabar</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+@endsection
 
 @push('js')
     <script>

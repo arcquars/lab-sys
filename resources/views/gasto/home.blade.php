@@ -11,7 +11,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <a href="#" class="btn btn-primary" onclick="openModelGasto(); return false;">Registrar Gasto</a>
+                    <a href="#" class="btn btn-lab-pdm-primary" onclick="openModelGasto(); return false;">Registrar Gasto</a>
                 </div>
             </div>
         </div>
@@ -28,61 +28,63 @@
             </table>
         </div>
     </div>
-@endsection
-<!-- Modal registro gasto-->
-<div id="mgasto" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <form id="fcreargasto" action="">
-            {{ csrf_field() }}
-            <input type="hidden" name="id" value="">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="mgasto_title" class="modal-title ">Crear Gasto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="detalle">Detalle</label>
-                                <input type="text" name="detalle"
-                                       onkeyup="uppercaseInput(this);"
-                                       class="form-control" placeholder="Detalle">
-                                <div class="fcp_error_detalle" style="display: none;"></div>
+
+    <!-- Modal registro gasto-->
+    <div id="mgasto" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form id="fcreargasto" action="">
+                {{ csrf_field() }}
+                <input type="hidden" name="id" value="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="mgasto_title" class="modal-title ">Crear Gasto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="detalle">Detalle</label>
+                                    <input type="text" name="detalle"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" placeholder="Detalle">
+                                    <div class="fcp_error_detalle" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="gasto">Monto</label>
+                                    <input type="number" name="gasto"
+                                           onkeyup="uppercaseInput(this);"
+                                           class="form-control" min="0" max="5000" step="0.1">
+                                    <div class="fcp_error_gasto" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" name="fecha"
+                                           value="{{date('Y-m-d')}}"
+                                           class="form-control">
+                                    <div class="fcp_error_fecha" style="display: none;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="gasto">Monto</label>
-                                <input type="number" name="gasto"
-                                       onkeyup="uppercaseInput(this);"
-                                       class="form-control" min="0" max="5000" step="0.1">
-                                <div class="fcp_error_gasto" style="display: none;"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="fecha">Fecha</label>
-                                <input type="date" name="fecha"
-                                       value="{{date('Y-m-d')}}"
-                                       class="form-control">
-                                <div class="fcp_error_fecha" style="display: none;"></div>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-lab-pdm-primary">Grabar</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+@endsection
+
 @push('js')
     <script>
         $(document).ready(function () {

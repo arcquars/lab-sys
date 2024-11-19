@@ -54,7 +54,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <div class="form-check" style="padding-left: 4px;">
+                    <div class="form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" name="facturados" type="checkbox" value="1" @if(isset($facturados) && $facturados == 1) checked @endif>
                             <span class="form-check-sign"></span>
@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <input type="submit" value="Buscar" class="btn btn-info">
+                    <input type="submit" value="Buscar" class="btn btn-lab-pdm-primary">
                     <a class="btn btn-warning" onclick="exportExcelReporteAdmin(); return false;">Exportar</a>
                 </div>
             </div>

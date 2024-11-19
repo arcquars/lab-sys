@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                        <input type="submit" value="Buscar" class="btn btn-info btn-lab-pdm-primary">
                     </div>
                 </div>
             </form>

@@ -202,7 +202,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="{{ url()->previous() }}" class="btn btn-secondary">Atras</a>
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <button type="submit" class="btn btn-lab-pdm-primary">Actualizar</button>
                 </div>
             </form>
         </div>
@@ -226,8 +226,8 @@
                         <select class="js-data-example-ajax" id="js-paciente-ajax-id"></select>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Grabar</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-lab-pdm-primary btn-sm">Grabar</button>
                     </div>
                 </div>
             </form>

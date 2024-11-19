@@ -53,7 +53,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <input type="submit" value="Buscar" class="btn btn-info btn-block">
+                    <input type="submit" value="Buscar" class="btn btn-lab-pdm-primary">
                 </div>
             </div>
         </form>

@@ -43,7 +43,7 @@
                     @enderror
                 </div>
                 <div class="col-md-4">
-                    <input type="submit" value="Buscar" class="btn btn-info">
+                    <input type="submit" value="Buscar" class="btn btn-lab-pdm-primary">
                     <a class="btn btn-warning" onclick="exportExcelReporteAdminDesecho(); return false;">Exportar</a>
                 </div>
             </div>

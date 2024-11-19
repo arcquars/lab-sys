@@ -110,8 +110,8 @@
                         @endforeach
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Grabar</button>
-                <a href="{{route('admin.users.index')}}" class="btn btn-dark">Atras</a>
+                <button type="submit" class="btn btn-lab-pdm-primary btn-sm">Grabar</button>
+                <a href="{{route('admin.users.index')}}" class="btn btn-dark btn-sm">Atras</a>
             </form>
 
         </div>

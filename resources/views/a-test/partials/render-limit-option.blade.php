@@ -42,7 +42,7 @@
         <div class="col-md-3 form-group">
             <label for="mtestrange_option_{{$tempId}}_to">Hasta</label>
             <input type="number" id="mtestrange_option_{{$tempId}}_to" name="range[option][{{$tempId}}][to]" class="form-control form-control-sm"
-                   aria-describedby="validationTo{{$tempId}}" step="0.01">
+                   aria-describedby="validationTo{{$tempId}}" step="0.001">
             <div id="validationTo{{$tempId}}" class="invalid-feedback">
             </div>
         </div>

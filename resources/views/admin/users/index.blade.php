@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                     <h4>Lista de Usuarios</h4>
                 </div>
-                <div class="col-md-6 text-right"><a href="{{route('admin.users.create')}}" class="btn btn-success">Crear Usuario</a></div>
+                <div class="col-md-6 text-right"><a href="{{route('admin.users.create')}}" class="btn btn-lab-pdm-primary btn-sm">Crear Usuario</a></div>
             </div>
         </div>
         <div class="card-body">

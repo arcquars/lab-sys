@@ -210,3 +210,16 @@
 {
     color: #000;
 }
+
+.btn-lab-pdm-primary{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #e3342f;
+}
+
+.btn-lab-pdm-primary:hover {
+    color: #fff;
+    opacity: 1;
+    background: #F86870;
+    border-color: #e3342f;
+}
