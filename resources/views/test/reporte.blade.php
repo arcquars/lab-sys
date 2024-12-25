@@ -22,6 +22,9 @@
 </style>
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
 @include('citologia.partial.reporte-client', compact('analisis'))
+@php
+$index = 0;
+@endphp
 <br>
 <table style="width: 99.99%" class="analysisTestTable">
     <thead>
@@ -32,20 +35,51 @@
     </tr>
     </thead>
     <tbody>
-@foreach($orderGroupTest as $key => $testResults)
-    <tr style="border: none;">
-        <td colspan="3" style="padding-top: 15px; font-size: 14px"><h5>{{$key}}</h5></td>
-    </tr>
-    @foreach($testResults as $testResult)
-        @if(isset($testResult->result))
-        <tr>
-            <td style="width: 33.33%; font-size: 13px;">{{ $testResult->aTest->name }}</td>
-            <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) : "xxx" !!}</td>
-            <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) : "yyy" !!}</td>
-        </tr>
+    @foreach($orderGroupTest as $key => $testResults)
+        @php
+            $show = false;
+            foreach($testResults as $testResult){
+                if(isset($testResult->result)){
+                    $show = true;
+                    $index++;
+                    break;
+                }
+            }
+        @endphp
+        @if($show)
+{{--            @if($index >= 34 && $index <= 35)--}}
+            @if($sin)
+                <tr style="border: none">
+                    @if($index >= 34 && $index <= 35)
+                        <td colspan="3" style="height: 70px">
+                        </td>
+                    @endif
+                </tr>
+            @else
+                <tr style="border: none">
+                    @if($index >= 34 && $index <= 35)
+                        <td colspan="3" style="height: 15px">
+                        </td>
+                    @endif
+                </tr>
+            @endif
+            <tr style="border: none;">
+                <td colspan="3  " style="padding-top: 15px; font-size: 14px">
+                    <h5>{{$key}}</h5>
+                </td>
+            </tr>
+            @foreach($testResults as $testResult)
+                @if(isset($testResult->result))
+                    @php $index++; @endphp
+                    <tr>
+                        <td style="width: 33.33%; font-size: 13px;">{{ $testResult->aTest->name }}</td>
+                        <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) : "xxx" !!}</td>
+                        <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) : "yyy" !!}</td>
+                    </tr>
+                @endif
+            @endforeach
         @endif
     @endforeach
-@endforeach
     </tbody>
 </table>
 @if($analisis->observaciones)
