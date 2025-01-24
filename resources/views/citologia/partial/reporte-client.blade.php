@@ -26,6 +26,11 @@
                 </tr>
                 <tr>
                     <td>
+                        <p class="p-datos-12-1"><b>Fecha de impresión: </b> {{ \Carbon\Carbon::now()->format('d-m-Y, H:i:s') }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         @if(isset($analisis->convenio))
                             <p class="p-datos-12"><b>Matrícula convenio:</b> {{$analisis->convenio->bancaMatricula}}</p>
                         @endif

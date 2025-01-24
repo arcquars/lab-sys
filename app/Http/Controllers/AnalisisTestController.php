@@ -356,6 +356,7 @@ class AnalisisTestController extends Controller
                     $analysisTestRangeNoOrderOption->save();
 
                     $intermediaries = $request->input('range.option.'.$key.'.intermediary');
+                    Log::info("PdM10:: db: " . json_encode($intermediaries));
                     if(isset($intermediaries) && is_array($intermediaries)){
                         // Bloque para eliminar las intermediaries
                         // Ids base de datos
@@ -371,7 +372,7 @@ class AnalisisTestController extends Controller
                             }
                         }
                         $deleteIds = array_diff($dbIntermediaryIds, $interfaceIntermediaryIds);
-                        Log::info("PdM:: db: " . json_encode($dbIntermediaryIds) . " || inter:: " . json_encode($interfaceIntermediaryIds) . " || resultado:: " . json_encode($deleteId));
+                        Log::info("PdM11:: db: " . json_encode($dbIntermediaryIds) . " || inter:: " . json_encode($interfaceIntermediaryIds) . " || resultado:: " . json_encode($deleteId));
                         AnalysisTestRangeNoOrderOptionIntermediary::whereIn('id', $deleteIds)->delete();
 
                         foreach ($intermediaries as $key1 => $intermediary){
@@ -387,9 +388,10 @@ class AnalisisTestController extends Controller
                             $aTestRangeNoOrderOptionIntermediary->bookmark = (isset($intermediary['bookmark']))? 1 : 0;
                             $aTestRangeNoOrderOptionIntermediary->save();
                         }
+                    } else {
+                        Log::info("PdM13::: " . $value['id']);
+                        AnalysisTestRangeNoOrderOptionIntermediary::where('order_option_id', $value['id'])->delete();
                     }
-
-
                 }
                 break;
         }

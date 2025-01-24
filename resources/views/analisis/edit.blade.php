@@ -164,7 +164,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2 form-group">
+                            <label for="internal_code">Código interno</label>
+                            <input class="form-control @error('internal_code') is-invalid @enderror"
+                                   value="{{@old('internal_code', $analisis->internal_code)}}" name="internal_code" />
+                            @error('internal_code')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="precio">Precio</label>
                                 <input type="number" name="precio" class="form-control @error('precio') is-invalid @enderror"

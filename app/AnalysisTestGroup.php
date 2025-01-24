@@ -24,7 +24,7 @@ class AnalysisTestGroup extends Model
 
     public function parent()
     {
-        return $this->hasOne(AnalysisTestGroup::class, 'parent_id');
+        return $this->hasOne(AnalysisTestGroup::class, 'id', 'parent_id');
     }
 
     public function user(){
@@ -34,6 +34,6 @@ class AnalysisTestGroup extends Model
     public function analysisTests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\AnalysisTest', 'a_test_group_id', 'id')
-            ->where('deleted', false)->orderBy('name', 'asc');
+            ->where('deleted', false)->orderBy('sorted', 'asc')->orderBy('name', 'asc');
     }
 }

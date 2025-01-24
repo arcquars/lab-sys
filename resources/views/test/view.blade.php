@@ -22,18 +22,18 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label for="">
-                                {{ $testResult->aTest->name }}
+                                {{ $testResult['testResult']->aTest->name }}
                             </label>
                         </div>
                         <div class="col-md-4">
-                            @if($testResult->aTest->analysisTestType)
-                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}
+                            @if($testResult['testResult']->aTest->analysisTestType)
+                            {!! $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) !!}
 {{--                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}--}}
                                 @endif
                         </div>
                         <div class="col-md-4">
-                            @if($testResult->aTest->analysisTestType)
-                            {!! $testResult->aTest->analysisTestType->getHtmlDescription() !!}
+                            @if($testResult['testResult']->aTest->analysisTestType)
+                            {!! $testResult['testResult']->aTest->analysisTestType->getHtmlDescription() !!}
                             @endif
                         </div>
                     </div>

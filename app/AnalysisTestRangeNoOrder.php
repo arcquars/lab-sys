@@ -83,54 +83,98 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         $aTestResult = AnalysisTestResult::find($aTestResultId);
 
         $resultHtml = true;
+        $isOption = false;
         $resultNumeric = doubleval($result);
         $clientGender = $aTestResult->analysis->person->sexo;
         $clientAge = $aTestResult->analysis->person->year_now;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
+            $resultHtml = true;
             if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
                 if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
                     if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
                         $resultHtml = $this->searchMarkRangeOption($analysisTestRangeOption, $resultNumeric);
+                        $isOption = true;
                     }
                 } else {
+                    Log::info('pdm 5.2.1 entro al rango de edad::: ' . $resultNumeric);
                     $resultHtml = $this->searchMarkRangeOption($analysisTestRangeOption, $resultNumeric);
+                    $isOption = true;
                 }
             } else {
                 if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
                     if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
                         if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
                             $resultHtml = $this->searchMarkRangeOption($analysisTestRangeOption, $resultNumeric);
+                            $isOption = true;
                         }
                     } else {
                         $resultHtml = $this->searchMarkRangeOption($analysisTestRangeOption, $resultNumeric);
+                        $isOption = true;
                     }
                 }
             }
+            if($isOption){
+                break;
+            }
         }
+        Log::info('pdm 7 result finales::: ' . $resultNumeric . " || resultHtml: " . $resultHtml);
         return $resultHtml? "<span class='text-danger'>".$resultNumeric."</span>" : $result;
     }
 
     public function searchMarkRangeOption($analysisTestRangeOption, $resultNumeric){
-        if($analysisTestRangeOption->initial_bookmark && $resultNumeric <= $analysisTestRangeOption->initial_value){
-            return false;
+        $result = $this->isRangeInitial($analysisTestRangeOption, $resultNumeric);
+        if($result)
+            return $result;
+        else{
+            $resultEnd = $this->isRangeEnd($analysisTestRangeOption, $resultNumeric);
+            if($resultEnd){
+                return $resultEnd;
+            } else
+                return $this->isRangeOption($analysisTestRangeOption, $resultNumeric);
         }
-        if($analysisTestRangeOption->end_bookmark && $resultNumeric >= $analysisTestRangeOption->end_value){
-            return false;
-        }
+    }
+
+    public function isRangeOption($analysisTestRangeOption, $resultNumeric){
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
             if($analysisTestRangeOptionsIntermediate->bookmark){
+                Log::info('pdm 5.2.1 buscando en el rango::: ' . $analysisTestRangeOptionsIntermediate->initial_range . " || " . $analysisTestRangeOptionsIntermediate->end_range);
                 if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
                     $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range
                 ){
+                    Log::info('pdm 5.2.2 encontrado en el rango::: ' . $analysisTestRangeOptionsIntermediate->initial_range . " || " . $analysisTestRangeOptionsIntermediate->end_range);
                     return true;
                 }
-            } else {
-                return false;
             }
 
         }
-        return true;
+        return false;
+    }
+
+    public function isRangeInitial($analysisTestRangeOption, $resultNumeric){
+        $isRange = $this->isRangeOption($analysisTestRangeOption, $resultNumeric);
+        if($analysisTestRangeOption->initial_bookmark){
+            if(!$isRange){
+                Log::info('pdm 6.0.1 entro al rango de edad::: ' . $resultNumeric);
+                if($resultNumeric <= $analysisTestRangeOption->initial_value){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function isRangeEnd($analysisTestRangeOption, $resultNumeric){
+        $isRange = $this->isRangeOption($analysisTestRangeOption, $resultNumeric);
+        if($analysisTestRangeOption->end_bookmark){
+            if(!$isRange){
+                Log::info('pdm 6.0.1 entro al rango de edad::: ' . $resultNumeric);
+                if($resultNumeric >= $analysisTestRangeOption->end_value){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public function getHtmlDescriptionResult($aTestResultId): string
@@ -151,41 +195,6 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         return $resultHtml;
     }
 
-//    public function getHtmlDescriptionResult($aTestResultId): string
-//    {
-//        $aTestResult = AnalysisTestResult::find($aTestResultId);
-//        if($aTestResult->result == null){
-//            return "--";
-//        }
-//        $resultHtml = '';
-//        $resultNumeric = doubleval($aTestResult->result);
-//        $clientGender = $aTestResult->analysis->person->sexo;
-//        $clientAge = $aTestResult->analysis->person->year_now;
-//
-//        foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
-//            if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
-//                if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-//                    if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-//                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-//                    }
-//                } else {
-//                    $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-//                }
-//            } else {
-//                if(strcmp($analysisTestRangeOption->gender, $clientGender) == 0){
-//                    if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-//                        if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-//                            $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-//                        }
-//                    } else {
-//                        $resultHtml = $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
-//                    }
-//                }
-//            }
-//        }
-//
-//        return $resultHtml;
-//    }
 
     public function searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric){
         $html = "";
@@ -203,23 +212,4 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         return $html;
     }
 
-//    public function searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric){
-//        $html = "";
-//        if($resultNumeric <= $analysisTestRangeOption->initial_value){
-//            $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value ."<br>";
-//        }
-//        if($resultNumeric >= $analysisTestRangeOption->end_value){
-//            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value ."<br>";
-//        }
-//        foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
-//            if($resultNumeric >= $analysisTestRangeOptionsIntermediate->initial_range &&
-//                $resultNumeric <= $analysisTestRangeOptionsIntermediate->end_range
-//            ){
-//                $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .
-//                    $analysisTestRangeOptionsIntermediate->initial_range . " - " . $analysisTestRangeOptionsIntermediate->end_range . " " .
-//                    $this->measure . "<br>";
-//            }
-//        }
-//        return $html;
-//    }
 }

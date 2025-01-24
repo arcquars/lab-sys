@@ -54,7 +54,7 @@ class TestController extends Controller
 
     public function viewResultado($analisisId){
         $analisis = Analisis::find($analisisId);
-        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+        $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
         return view('test.view', compact(
             'analisis', 'orderGroupTest'));
@@ -68,7 +68,8 @@ class TestController extends Controller
 
         $analisis = Analisis::find($analisisId);
 
-        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+//        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
+        $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
         $pdf = PDF::loadView('test.reporte', compact(
             'analisis', 'pathQr', 'orderGroupTest', 'sin'));

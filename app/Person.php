@@ -33,6 +33,12 @@ class Person extends Model
         return Carbon::parse($this->attributes['f_nacimiento'])->age;
     }
 
+    public function getMonthNowAttribute(){
+        if($this->edad > 0){
+            return $this->edad;
+        }
+        return Carbon::parse($this->attributes['f_nacimiento'])->month;
+    }
 
     /**
      * Returns the action column html for datatables.

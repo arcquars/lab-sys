@@ -39,7 +39,7 @@ $index = 0;
         @php
             $show = false;
             foreach($testResults as $testResult){
-                if(isset($testResult->result)){
+                if(isset($testResult['testResult']->result)){
                     $show = true;
                     $index++;
                     break;
@@ -69,12 +69,12 @@ $index = 0;
                 </td>
             </tr>
             @foreach($testResults as $testResult)
-                @if(isset($testResult->result))
+                @if(isset($testResult['testResult']->result))
                     @php $index++; @endphp
                     <tr>
-                        <td style="width: 33.33%; font-size: 13px;">{{ $testResult->aTest->name }}</td>
-                        <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) : "xxx" !!}</td>
-                        <td style=" width: 33.33%; font-size: 12px;">{!! $testResult->aTest->analysisTestType? $testResult->aTest->analysisTestType->getHtmlDescriptionResult($testResult->id) : "yyy" !!}</td>
+                        <td style="width: 33.33%; font-size: 13px;">{{ $testResult['testResult']->aTest->name }}</td>
+                        <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) : "xxx" !!}</td>
+                        <td style=" width: 33.33%; font-size: 12px;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlDescriptionResult($testResult['testResult']->id) : "yyy" !!}</td>
                     </tr>
                 @endif
             @endforeach

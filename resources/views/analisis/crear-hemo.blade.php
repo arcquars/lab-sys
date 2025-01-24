@@ -174,7 +174,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="internal_code">Codifo interno</label>
+                            <label for="internal_code">Código interno</label>
                             <input class="form-control @error('internal_code') is-invalid @enderror"
                             value="{{@old('internal_code')}}" name="internal_code" />
                             @error('internal_code')
