@@ -4,7 +4,7 @@
         footer: page-footer;
 
         margin-header: 4mm;
-        @if(!$sin)
+        @if(!isset($sin))
         margin-top: 2.2cm;
         @else
         margin-top: 0.9cm;

@@ -1,3 +1,8 @@
+<?php
+if(!isset($sin)){
+    $sin = null;
+}
+?>
 @include('citologia.partial.reporte-style')
 @include('citologia.partial.reporte-head')
 <style>

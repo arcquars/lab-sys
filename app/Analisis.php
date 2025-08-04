@@ -105,6 +105,10 @@ class Analisis extends Model
         return AnalisisSupervisor::where('analisis_id', $this->id)->where('estado', 'like', AnalisisSupervisor::ESTADO_VERIFICADO)->get();
     }
 
+    public function getAgeByDateAnalisisAttribute(){
+        return $this->person->getAgeByDate($this->fecha);
+    }
+
 //    public function isConvenio(){
 //        $convenios = explode(',', Config::get('clinica.convenios_id'));
 //

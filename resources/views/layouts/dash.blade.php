@@ -62,16 +62,10 @@
 
             <div class="@if (auth()->check() && request()->route()->getName() != "") main-panel @endif">
                 @include('layouts.navbars.navbar')
-                <div class="content">
-                    <div class="container-fluid">
-                        <div class="section">
-                            @include('flash-message')
-                            <div id="c_message_ajax" class="alert alert-dark m-2" role="alert" style="display: none;">
-                            </div>
-                            @yield('content')
-                        </div>
-                    </div>
+                @include('flash-message')
+                <div id="c_message_ajax" class="alert alert-dark m-2" role="alert" style="display: none;">
                 </div>
+                @yield('content')
 
                 @include('layouts.footer.nav')
             </div>

@@ -1,5 +1,5 @@
 <htmlpageheader name="page-header">
-    @if(!$sin)
+    @if(!isset($sin))
     <img src="{{public_path('img/clinica.png')}}" width="350" >
     @endif
 </htmlpageheader>

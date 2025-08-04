@@ -13,7 +13,7 @@ class PersonsTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
-        for($i=0; $i < 100; $i++){
+        for($i=0; $i < 10; $i++){
             \Illuminate\Support\Facades\DB::table('persons')->insert(array(
                 'ci' => $faker->unique()->numberBetween(58555, 988888),
                 'nombres' => $faker->firstName,

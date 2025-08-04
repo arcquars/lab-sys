@@ -30,7 +30,7 @@ class Person extends Model
         if($this->edad > 0){
             return $this->edad;
         }
-        return Carbon::parse($this->attributes['f_nacimiento'])->age;
+        return Carbon::parse($this->attributes['f_nacimiento'])->age . " años";
     }
 
     public function getMonthNowAttribute(){
@@ -38,6 +38,15 @@ class Person extends Model
             return $this->edad;
         }
         return Carbon::parse($this->attributes['f_nacimiento'])->month;
+    }
+
+    public function getAgeByDate($date){
+        if($this->edad > 0){
+            return $this->edad;
+        }
+        $fNacimiento = Carbon::create($this->attributes['f_nacimiento']);
+        $age = $fNacimiento->diff($date)->format('%y años, %m meses %d dias');
+        return $age;
     }
 
     /**

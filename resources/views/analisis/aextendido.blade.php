@@ -196,39 +196,39 @@
             </form>
         </div>
     </div>
-
-    <!-- Modal Extendido compatible-->
-    <div class="modal fade" id="ecdModal" tabindex="-1" role="dialog" aria-labelledby="ecdModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ecdModalLabel">Aniadir Extendido Compatible</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+@endsection
+<!-- Modal Extendido compatible-->
+<div class="modal fade" id="ecdModal" tabindex="-1" role="dialog" aria-labelledby="ecdModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ecdModalLabel">Aniadir Extendido Compatible</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <select class="form-control" id="s_extendido_compatible">
+                        @foreach(Config::get('clinica.extendido_compatible') as $extComp)
+                            <option>{{$extComp}}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <select class="form-control" id="s_extendido_compatible">
-                            @foreach(Config::get('clinica.extendido_compatible') as $extComp)
-                                <option>{{$extComp}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="addExtendidoCompatible();">Aniadir</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="addExtendidoCompatible();">Aniadir</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal Reaccion inflamatoria -->
-    <div class="modal fade" id="reacInflaModal" tabindex="-1" role="dialog" aria-labelledby="reacModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="reacInflaForm">
+<!-- Modal Reaccion inflamatoria -->
+<div class="modal fade" id="reacInflaModal" tabindex="-1" role="dialog" aria-labelledby="reacModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="reacInflaForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="reacModalLabel">Aniadir reaccion inflamatoria</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -255,47 +255,46 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Aniadir</button>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 
-    <!-- Modal Estudio Microbiologico-->
-    <div class="modal fade" id="estMicroModal" tabindex="-1" role="dialog" aria-labelledby="estMicroModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <form id="estMicroForm">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="estMicroModalLabel">Aniadir Estudio Microbiologico</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <select class="form-control" name="tipo" required>
-                                    <option value="">Seleccione ...</option>
-                                    @foreach(Config::get('clinica.estudio_microbiologico') as $estMicro)
-                                        <option>{{$estMicro}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" name="descripcion" class="form-control" required>
-                            </div>
+<!-- Modal Estudio Microbiologico-->
+<div class="modal fade" id="estMicroModal" tabindex="-1" role="dialog" aria-labelledby="estMicroModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="estMicroForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="estMicroModalLabel">Aniadir Estudio Microbiologico</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-control" name="tipo" required>
+                                <option value="">Seleccione ...</option>
+                                @foreach(Config::get('clinica.estudio_microbiologico') as $estMicro)
+                                    <option>{{$estMicro}}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <div class="col-md-6">
+                            <input type="text" name="descripcion" class="form-control" required>
+                        </div>
+                    </div>
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Aniadir</button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Aniadir</button>
+                </div>
+            </form>
         </div>
     </div>
-@endsection
+</div>
 
 @push('js')
     <script>

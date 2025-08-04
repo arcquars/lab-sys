@@ -524,8 +524,9 @@ class AnalisisTestController extends Controller
             if(count($analysisTestGroup->analysisTests) > 0){
                 $valid = false;
             }
-            $childTestGroup = AnalysisTestGroup::where('parent_id', $aTestGroupId)->count();
+            $childTestGroup = AnalysisTestGroup::where('deleted', 0)->where('parent_id', $aTestGroupId)->count();
             if($childTestGroup > 0){
+                die;
                 $valid = false;
 
             }
