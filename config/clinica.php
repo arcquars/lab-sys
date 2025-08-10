@@ -282,5 +282,6 @@ return [
         'PRUEBA' => 1,
     ],
     'sms_enviar_texto' => env('APP_NAME', 'Laravel').' <br>Usted puede descargar su analisis abriendo el siguiente link:<br> ',
-    'ci_person_default' => '6000000'
+    'ci_person_default' => '6000000',
+    'siat_active' => false
 ];

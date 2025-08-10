@@ -67,6 +67,8 @@
 {{--<a href="{{route('analisis.comprobante', ['analisisId' => $id])}}" target="_blank" class="btn btn-link float-right btn-clinica" title="Imprimir Comprobante">--}}
 {{--    <i class="fas fa-print text-success"></i>--}}
 {{--</a>--}}
+@if(config('clinica.siat_active'))
 <a href="{{ route('siat.invoicing', $id) }}" class="btn btn-link float-right btn-clinica" title="Crear/Ver Factura">
     <i class="fas fa-file-invoice-dollar"></i>
 </a>
+@endif
