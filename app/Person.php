@@ -122,6 +122,7 @@ class Person extends Model
 
     public function getFullnameAttribute(){
         return $this->nombres . " " . $this->apellidos . " " . $this->apellido_materno;
+//        return "xxx";
     }
 
 

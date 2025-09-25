@@ -26,14 +26,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="testgroup" class="col-md-6">
+                        <div class="col-md-4 form-group">
+                            <label for="f_metodo">Metodo</label>
+                            <select name="metodo" id="f_metodo" class="form-control form-control-sm">
+                                <option value="">Seleccione ...</option>
+                                @foreach(config('clinica.metodos') as $metodo)
+                                    <option value="{{$metodo}}" @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div id="testgroup" class="col-md-4">
 {{--                            <label for="mtestgroup">Grupo</label>--}}
 {{--                            <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">--}}
 {{--                            </select>--}}
 {{--                            <div id="validationTestGroup" class="invalid-feedback">--}}
 {{--                            </div>--}}
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="mtesttype">Tipo</label>
                             <select name="type" id="mtesttype" class="form-control form-control-sm"
                                     onchange="loadTestType(this);" aria-describedby="validationTestType">

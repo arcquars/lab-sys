@@ -133,14 +133,17 @@ class AnalisisController extends Controller
                         $aTestResult = new AnalysisTestResult();
                         $aTestResult->analysis_id = $analisis->id;
                         $aTestResult->a_test_id = $aTest->id;
+                        $aTestResult->metodo = $aTest->metodo?? null;
                         $aTestResult->save();
                     }
                 }
 
                 foreach ($aTests as $aTest){
+                    $atestSelect = AnalysisTest::find($aTest);
                     $aTestResult = new AnalysisTestResult();
                     $aTestResult->analysis_id = $analisis->id;
                     $aTestResult->a_test_id = $aTest;
+                    $aTestResult->metodo = $atestSelect->metodo?? null;
                     $aTestResult->save();
                 }
             }
@@ -1027,8 +1030,9 @@ class AnalisisController extends Controller
      */
     public function crearAnalisisHemoForPersona($personId){
         $persona = Person::find($personId);
+//        dd($personId);
         $edad = '';
-        if($persona->f_nacimiento){
+        if(isset($persona->f_nacimiento)){
             $edad = Carbon::parse($persona->f_nacimiento)->age;
         }
         $procedencias = Institucion::all();

@@ -17,7 +17,7 @@
                 <div class="col-md-4">
                     <dl>
                         <dt>Nombres y Apellidos: </dt>
-                        <dd>{{$persona->apellidos.' '.$persona->apellido_materno.', '.$persona->nombres}}</dd>
+                        <dd>{{ $persona->full_name }}</dd>
                     </dl>
                 </div>
                 <div class="col-md-4">
@@ -281,7 +281,7 @@
                             url: "{{ route('analisis.doctor.envia') }}",
                             data: 'keyword=' + $(inputSearch).val(),
                             beforeSend: function() {
-                                $("#search-envia").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
+                                // $("#search-envia").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
                             },
                             dataType: 'html',
                             success: function(data) {

@@ -29,14 +29,19 @@
                             @if($testResult['testResult']->aTest->analysisTestType)
                             {!! $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) !!}
 {{--                            {!! $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) !!}--}}
-                                @endif
+                            @endif
                         </div>
                         <div class="col-md-4">
                             @if($testResult['testResult']->aTest->analysisTestType)
                             {!! $testResult['testResult']->aTest->analysisTestType->getHtmlDescription() !!}
                             @endif
+
+                            @if($testResult['testResult']->metodo)
+                                <p style="font-size: 12px"><b>Método: </b> {{ $testResult['testResult']->metodo }}</p>
+                            @endif
                         </div>
                     </div>
+                    <hr class="m-0" style="background: #91A0B9">
                 @endforeach
                 <br>
             @endforeach

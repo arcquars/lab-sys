@@ -22,6 +22,7 @@ class AnalysisTest extends Model
         'name',
         'price',
         'type',
+        'metodo',
         'deleted',
         'user_id',
         'a_test_group_id'

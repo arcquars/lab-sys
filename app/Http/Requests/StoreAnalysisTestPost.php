@@ -29,6 +29,7 @@ class StoreAnalysisTestPost extends FormRequest
             'price' => 'required|numeric|min:0|max:1000',
             'group' => 'required',
             'type' => 'required',
+            'metodo' => 'nullable'
         ];
 
         switch ($this->input('type')){

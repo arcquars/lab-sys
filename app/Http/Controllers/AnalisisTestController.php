@@ -54,6 +54,7 @@ class AnalisisTestController extends Controller
         $analysisTest->price = $request->input('price');
         $analysisTest->a_test_group_id = $request->input('group');
         $analysisTest->type = $request->input('type');
+        $analysisTest->metodo = $request->input('metodo');
         $analysisTest->user_id = Auth::user()->id;
         $analysisTest->save();
 
@@ -191,6 +192,7 @@ class AnalisisTestController extends Controller
         $analysisTest->price = $request->input('price');
         $analysisTest->a_test_group_id = $request->input('group');
         $analysisTest->type = $request->input('type');
+        $analysisTest->metodo = $request->input('metodo');
         $analysisTest->user_id = Auth::user()->id;
         $analysisTest->save();
 

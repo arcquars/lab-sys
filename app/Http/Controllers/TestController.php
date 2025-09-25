@@ -37,6 +37,7 @@ class TestController extends Controller
 
     public function store(Request $request){
         $testResultValues = $request->input('testResultValue');
+        $testMetodos =$request->input('metodos');
         $analisisId = $request->input('analisis_id');
         foreach ($testResultValues as $id => $value){
             if(isset($value)){
@@ -45,6 +46,14 @@ class TestController extends Controller
                 $analysisTestResult->save();
             }
         }
+        foreach ($testMetodos as $id => $value){
+            if(isset($value) && !empty($value)){
+                $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
+                $analysisTestResult->metodo = $value;
+                $analysisTestResult->save();
+            }
+        }
+
         $observaciones = $request->input('observaciones', null);
         $analisis = Analisis::find($analisisId);
         $analisis->observaciones = $observaciones;

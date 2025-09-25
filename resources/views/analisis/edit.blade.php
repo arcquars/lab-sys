@@ -12,7 +12,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
-            <li class="breadcrumb-item">Editar Analisis</li>
+            <li class="breadcrumb-item">Editar Análisis</li>
         </ol>
     </nav>
 
@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="acuenta">Acuenta</label>
+                            <label for="acuenta">A cuenta</label>
                             <input type="number" name="acuenta" class="form-control @error('acuenta') is-invalid @enderror"
                                    value="{{@old('acuenta', $analisis->acuenta)}}"
                                    min="0" max="10000"

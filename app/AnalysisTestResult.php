@@ -14,7 +14,8 @@ class AnalysisTestResult extends Model
         'a_test_id',
         'deleted',
         'user_id',
-        'analysis_id'
+        'analysis_id',
+        'metodo'
     ];
 
     public function analysis(): \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -15,7 +15,16 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4 form-group">
+        <label for="f_metodo_e">Metodo</label>
+        <select name="metodo" id="f_metodo_e" class="form-control form-control-sm">
+            <option value="">Seleccione ...</option>
+            @foreach(config('clinica.metodos') as $metodo)
+                <option value="{{$metodo}}" @if(isset($analysisTest->metodo) && strcmp($analysisTest->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="col-md-4">
         @include('a-test.partials.render-group-select-html',['$groups' => $groups, 'group_id' => $analysisTest->a_test_group_id])
 {{--        <label for="mtestgroup">Grupo</label>--}}
 {{--        <select name="group" id="mtestgroup" class="form-control form-control-sm" aria-describedby="validationTestGroup">--}}
@@ -27,7 +36,7 @@
 {{--        <div id="validationTestGroup" class="invalid-feedback">--}}
 {{--        </div>--}}
     </div>
-    <div class="col-md-6 disabled">
+    <div class="col-md-4 disabled">
         <input type="hidden" name="type" value="{{$analysisTest->type}}">
         <fieldset disabled>
             <div class="from-group">

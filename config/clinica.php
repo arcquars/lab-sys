@@ -283,5 +283,15 @@ return [
     ],
     'sms_enviar_texto' => env('APP_NAME', 'Laravel').' <br>Usted puede descargar su analisis abriendo el siguiente link:<br> ',
     'ci_person_default' => '6000000',
-    'siat_active' => false
+    'siat_active' => false,
+    'metodos' => [
+        'Recuento manual',
+        'Analizadores hematológicos automáticos',
+        'Tinciones',
+        'Velocidad de sedimentación globular (VSG)',
+        'Pruebas de coagulación (TP, TTPa, INR)',
+        'Espectrofotometría',
+        'Quimioluminiscencia',
+        'Fluorometría',
+    ]
 ];

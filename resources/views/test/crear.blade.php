@@ -29,7 +29,16 @@
                             </div>
                             <div class="col-md-4">
                                 @if($testResult->aTest->analysisTestType)
-                                {!! $testResult->aTest->analysisTestType->getHtmlInput($testResult->id) !!}
+                                    {!! $testResult->aTest->analysisTestType->getHtmlInput($testResult->id) !!}
+                                    <div class="form-group">
+                                        <label for="f_metodo_{{$testResult->a_test_id}}">Metodo</label>
+                                        <select name="metodos[{{$testResult->a_test_id}}]" id="f_metodo_{{$testResult->a_test_id}}" class="form-control form-control-sm">
+                                            <option value="">Seleccione ...</option>
+                                            @foreach(config('clinica.metodos') as $metodo)
+                                                <option value="{{$metodo}}" @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 @else
                                     {{ $testResult->aTest->id }}
                                 @endif
@@ -41,6 +50,7 @@
                                 @endif
                             </div>
                         </div>
+                        <hr class="m-0" style="background: #91A0B9">
                     @endforeach
                     <br>
                 @endforeach

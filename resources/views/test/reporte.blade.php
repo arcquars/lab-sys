@@ -79,7 +79,12 @@ $index = 0;
                     <tr>
                         <td style="width: 33.33%; font-size: 13px;">{{ $testResult['testResult']->aTest->name }}</td>
                         <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) : "xxx" !!}</td>
-                        <td style=" width: 33.33%; font-size: 12px;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlDescriptionResult($testResult['testResult']->id) : "yyy" !!}</td>
+                        <td style=" width: 33.33%; font-size: 12px;">
+                            {!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlDescriptionResult($testResult['testResult']->id) : "yyy" !!}
+                            @if(isset($testResult['testResult']->metodo))
+                                <p style="font-size: 10px;"><b>Método: </b>{{$testResult['testResult']->metodo}}</p>
+                            @endif
+                        </td>
                     </tr>
                 @endif
             @endforeach
