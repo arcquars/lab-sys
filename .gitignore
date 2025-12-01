@@ -1,10 +1,10 @@
 /node_modules
 /public/hot
 /public/uploads/*
-public/uploads/*
-public/js/*
+/public/uploads/*
+/public/js/*
 /public/storage
-
+./public/images
 /storage/*.key
 /vendor
 .idea/*
@@ -24,3 +24,10 @@ yarn-error.log
 /public/img/*
 public/font-awesome/*
 rest-test/*
+
+/.github
+/.vscode
+/.DS_Store
+/.env.local
+/.env.testing
+/.env.example
