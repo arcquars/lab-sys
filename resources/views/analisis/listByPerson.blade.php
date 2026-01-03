@@ -28,6 +28,10 @@
             </table>
         </div>
     </div>
+
+    @include('analisis.includes.modals.m_fecha_entrega_analisis')
+    @include('analisis.includes.modals.m_cerrar_analisis')
+    @include('analisis.includes.modals.m_enviar_whatsapp')
 @endsection
 
 @push('js')

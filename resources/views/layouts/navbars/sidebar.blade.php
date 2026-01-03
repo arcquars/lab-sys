@@ -63,7 +63,7 @@ Tip 2: you can also add an image using data-image tag
                 <li class="nav-item @if($activePage == 'clients') active @endif">
                     <a class="nav-link" href="{{route('clients.index')}}">
                         <i class="nc-icon nc-notes"></i>
-                        <p>Clientes</p>
+                        <p>Pacientes</p>
                     </a>
                 </li>
                 <li class="nav-item dropdown">

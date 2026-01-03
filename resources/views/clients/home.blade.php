@@ -1,10 +1,10 @@
-@extends('layouts.dash', ['activePage' => 'clients', 'title' => 'Administrar Clientes', 'navName' => 'Clientes', 'activeButton' => 'clientActiveButton'])
+@extends('layouts.dash', ['activePage' => 'clients', 'title' => 'Administrar Clientes', 'navName' => 'Pacientes', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
-            <li class="breadcrumb-item">Clientes</li>
+            <li class="breadcrumb-item">Pacientes</li>
 
         </ol>
     </nav>
@@ -12,7 +12,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Clientes</h4>
+                    <h4>Pacientes</h4>
                 </div>
                 <div class="col-md-6 text-right">
 {{--                    <a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar Cliente</a>--}}
@@ -66,7 +66,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('pageModals')
     <!-- Modal registro persona-->
     <div id="mpersona" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-xl" role="document">
@@ -478,11 +480,11 @@
         }
 
         function openModelPerson() {
-            $('#mpersona').modal('show');
             $('#mperson_title').empty().text('Crear Persona');
             $('#mpersona input[name="nombres"]').val($('input[name="s_nombres"]').val().toUpperCase());
             $('#mpersona input[name="apellidos"]').val($('input[name="apellidos_pa"]').val().toUpperCase());
             $('#mpersona input[name="apellido_materno"]').val($('input[name="apellidos_ma"]').val().toUpperCase());
+            $('#mpersona').modal('show');
         }
 
         function editPersonAjax(personId) {

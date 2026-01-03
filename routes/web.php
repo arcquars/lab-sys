@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
 Route::get('/', function () {
-//    return view('auth.login');
     return redirect('home');
 });
+
 
 Route::get('/index2', function () {
     return redirect('index2');
@@ -249,6 +249,9 @@ Route::post('/analisis-test/store-test', 'AnalisisTestController@store')->name('
 Route::post('/analisis-test/update-test', 'AnalisisTestController@update')->name('analysis-test.update.test');
 Route::post('/analisis-test/delete-test', 'AnalisisTestController@destroy')->name('analysis-test.delete.test');
 Route::post('/analisis-test/delete-test-group', 'AnalisisTestController@testGroupDestroy')->name('analysis-test.delete.test-group');
+Route::post('/analisis-test/a-search', 'AnalisisTestController@ajaxSearch')->name('analisis.test.asearch');
+Route::post('/analisis-test/a-search-set-id/{atest}', 'AnalisisTestController@ajaxSearchSetid')->name('analisis.test.asearch.setid');
+Route::post('/analisis-test/a-search-set-ids', 'AnalisisTestController@ajaxSearchSetids')->name('analisis.test.asearch.setids');
 
 
 /** Analisis Test Group */

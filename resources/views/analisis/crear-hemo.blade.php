@@ -1,9 +1,13 @@
 @php
 /** @var [] $tipoPagoAcuenta */
+
+
 @endphp
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -252,6 +256,7 @@
 @endsection
 
 @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -311,8 +316,15 @@
             $("#list_group").empty().append(renderLoading());
             $.ajax({
                 url: "{{ route('analysis-test-group.render.tree.selected') }}",
+                data: {
+                    'analisisTestGroupIds': {!! json_encode(old('aGroup', [])) !!}, 
+                    'analisisTestIds': {!! json_encode(old('aTests', [])) !!}
+                },
                 success: function (data) {
                     $("#list_group").empty().append(data);
+                    loadSelect2Atest();
+                    reloadaTest({!! json_encode(old('aTests', [])) !!});
+                    updateTotalPriceTest();
                 }
             });
         }
@@ -337,6 +349,7 @@
                 data: {aTestIds},
                 success: function (data) {
                     $("#list_group").empty().append(data);
+                    
                 }
             });
         }
@@ -345,6 +358,66 @@
             return '<div style="text-align: center; width: 100%;"><div class="fa-3x"><i class="fas fa-cog fa-spin"></i></div></div>';
         }
 
+        function syncCheckboxes(input){
+            const aTestId = $(input).val();
+            if($(input).is(':checked')){
+                var aTestSelect = $('.js-data-atest-ajax')
+                $.ajax({
+                    type: "POST",
+                    url: '{{ url('/analisis-test/a-search-set-id') }}/' + aTestId
+                }).then(function (data) {
+                    length = 0;
+                    var selectItems = aTestSelect.select2('data');
+                    selectItems.forEach(function(item) {
+                        console.log("ID del Ítem:", item.id, "Texto del Ítem:", item.text);
+                        if(item.id == data.id){
+                            length++;
+
+                        }
+                    });
+                    if (length) {
+                        console.log("PDM - Entro 2.1 ....", length);
+                        console.log("PDM - Entro 2.2 ....", data);
+                    } else { 
+                        var option = new Option(data.text, data.id, true, true);
+                        aTestSelect.append(option).trigger('change');
+                        console.log("Pdm aaa: ", aTestSelect.select2('data'));
+                        aTestSelect.trigger({
+                            type: 'select2:select',
+                            params: {
+                                data: aTestSelect.select2('data')
+                            }
+                        });
+                    }
+                    
+                });
+                // alert(aTestId + " " + aTestDescription);
+                updateTotalPriceTest();
+            } else {
+                var aTestSelect = $('.js-data-atest-ajax')
+                var length = 0;
+                var selectItems = aTestSelect.select2('data');
+                selectItems.forEach(function(item) {
+                    console.log("ID del Ítem:", item.id, "Texto del Ítem:", item.text);
+                    if(item.id == aTestId){
+                        length++;
+                    }
+                });
+                if (length) {
+                    console.log("PDM - Entro 1.1 ....", length);
+                    console.log("PDM - Entro 1.2 ....", aTestId);
+                    aTestSelect.find("option[value='" + aTestId + "']").remove();
+                    aTestSelect.trigger({
+                        type: 'select2:unselect',
+                        params: {
+                            data: aTestSelect.select2('data')
+                        }
+                    });
+                }
+                updateTotalPriceTest();
+            }
+            
+        }
         function updateTotalPriceTest(){
             let testPrices = $("#list_group .test-price");
             let total = 0;
@@ -390,6 +463,81 @@
             }
             // alert($(cardBody).html());
             updateTotalPriceTest();
+        }
+
+
+        function loadSelect2Atest(){
+            $('.js-data-atest-ajax').select2({
+                ajax: {
+                    url: '{{ route('analisis.test.asearch') }}',
+                    type: "post",
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            search: params.term // search term
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results: response
+                        };
+                    },
+                }
+            });
+
+            $('.js-data-atest-ajax').on('select2:select', function (e) {
+                // 1. Obtener los datos del ítem recién seleccionado (útil para la UX)
+                var newItemData = e.params.data;
+                
+                setChecktedAtest(newItemData.id, true);
+            });
+            $('.js-data-atest-ajax').on('select2:unselect', function (e) {
+                // 1. Obtener los datos del ítem recién seleccionado (útil para la UX)
+                var newItemData = e.params.data;
+                $(this).find("option[value='" + newItemData.id + "']").remove();
+                setChecktedAtest(newItemData.id, false);
+            });
+        }
+
+        function setChecktedAtest(atestId, checked){
+            // Buscar el checkbox correspondiente al análisis seleccionado
+            var checkbox = $("#accordionTestGroup input.test-price[value='" + atestId + "']");
+            if(checkbox.length > 0){
+                if(checked === false){
+                    $(checkbox).prop('checked', false);
+                    updateTotalPriceTest();
+                    return;
+                }
+                if(!$(checkbox).is(':checked')){
+                    $(checkbox).prop('checked', true);
+                    updateTotalPriceTest();
+                }
+            }
+        }
+
+        function reloadaTest(ids){
+            console.log("PDM - Entro reloadaTest ....", ids);
+            if(ids.length > 0){
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('analisis.test.asearch.setids') }}',
+                    data: {ids: ids}
+                }).then(function (data) {
+                    var aTestSelect = $('.js-data-atest-ajax');
+                    console.log("PDM 2- Entro reloadaTest ....", data);
+                    data.forEach(function(item){
+                        var option = new Option(item.text, item.id, true, true);
+                        aTestSelect.append(option).trigger('change');
+                    }); 
+                    aTestSelect.trigger({
+                        type: 'select2:select',
+                        params: {
+                            data: aTestSelect.select2('data')
+                        }
+                    });        
+                });
+            }
+            
         }
 
     </script>

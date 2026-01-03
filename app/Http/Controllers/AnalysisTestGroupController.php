@@ -129,9 +129,21 @@ class AnalysisTestGroupController extends Controller
 
     public function renderTreeGroupsSelect(Request $request){
         if($request->ajax()){
+            $aTestGroupStringIds = $request->get('analisisTestGroupIds', []);
+            $aTestStringIds = $request->get('analisisTestIds', []);
+
+            $aTestGroupIds = array_map(function($element) {
+                // Comentario: Retorna el elemento convertido a tipo entero.
+                return (int) $element;
+            }, $aTestGroupStringIds);
+            $aTestIds = array_map(function($element) {
+                // Comentario: Retorna el elemento convertido a tipo entero.
+                return (int) $element;
+            }, $aTestStringIds);
+
             // $groups = AnalysisTestGroup::where('deleted', 0)->orderBy('name')->get();
             $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->orderBy('name')->get();
-            return view('a-test.partials.render-tree-groups-selected',compact('groups'))->render();
+            return view('a-test.partials.render-tree-groups-selected',compact('groups', 'aTestGroupIds', 'aTestIds'))->render();
         }
     }
 

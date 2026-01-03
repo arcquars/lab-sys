@@ -2,15 +2,12 @@
 @foreach($childs as $child)
     <div class="card">
         <div class="card-header" id="heading{{ $child->id }}">
-
-
-
             @if($child->price)
                 <h2 class="mb-0">
                     <div class="form-check">
                             <label class="form-check-label">
                             <input class="form-check-input test-price" type="checkbox" value="{{ $child->id }}" onchange="reloadGroupChilds(this);"
-                                   name="aGroup[]" data-price="{{$child->price }}"
+                                   name="aGroup[]" data-price="{{$child->price }}" @if(isset($aTestGroupIds) && in_array($child->id, $aTestGroupIds)) checked @endif
                             >
                             <span class="form-check-sign icheck-black"></span>
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $child->id }}" aria-expanded="true" aria-controls="collapse{{ $child->id }}">
@@ -42,7 +39,8 @@
                 @foreach($child->analysisTests as $analysisTests)
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="updateTotalPriceTest();"
+                            {{-- <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="updateTotalPriceTest();" --}}
+                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="syncCheckboxes(this);"
                                    name="aTests[]" data-price="{{$analysisTests->price }}"
                                    @if(isset($aTestIds) && in_array($analysisTests->id, $aTestIds)) checked @endif
                             >

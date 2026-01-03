@@ -73,6 +73,15 @@
         </div>
     </div>
 
+    
+
+    
+
+    
+
+@endsection
+
+@section('pageModals')
     <!-- Modal Pago -->
     <div class="modal fade" id="pagoModal" tabindex="-1" role="dialog" aria-labelledby="pagoModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -317,7 +326,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal Enviar mensaja Whatsapp Analisis -->
     <div class="modal fade" id="enviarWappAnalisisModal" tabindex="-1" role="dialog" aria-labelledby="enviarWappAnalisisModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -441,7 +449,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal Cerrar Analisis -->
     <div class="modal fade" id="fechaCierreModal" tabindex="-1" role="dialog" aria-labelledby="fcModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -458,7 +465,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 
@@ -763,6 +769,7 @@
         }
 
         function openModalCerrarAnalisis(link) {
+            var date = new Date();
             $.ajax({
                 url: "{{ route('analisis.aGetAnalisisById') }}",
                 type: 'POST',

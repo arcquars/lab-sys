@@ -71,6 +71,11 @@
             </div>
 
         </div>
+
+        @section('pageModals')
+            
+        @show
+
     <!-- Modal -->
     <div class="modal fade" id="textPreModal" tabindex="-1" aria-labelledby="textpreModalLabel" aria-hidden="true">
         <div class="modal-dialog">

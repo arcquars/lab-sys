@@ -32,6 +32,9 @@ class HomeController extends Controller
         $dateF = Carbon::now();
 //        $dateI = Carbon::now()->subDays(30);
         $dateI = Carbon::now()->firstOfMonth();
+        if($dateF->diff($dateI)->days == 0){
+            $dateF = $dateF->addDays(1);
+        }
         $analisisSupervisados = 0;
         if(Auth::user()->hasRole(Role::MEDICO) && Auth::user()->person){
             $analisisSupervisados = AnalisisSupervisor::where('doctor_id', Auth::user()->person)

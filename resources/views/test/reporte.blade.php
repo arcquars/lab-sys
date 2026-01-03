@@ -26,7 +26,7 @@ if(!isset($sin)){
 
 </style>
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
-@include('citologia.partial.reporte-client', compact('analisis'))
+@include('citologia.partial.reporte-client', compact('analisis', 'pathQr'))
 @php
 $index = 0;
 @endphp

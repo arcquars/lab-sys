@@ -1,3 +1,13 @@
+<style>
+    .select2-container{
+        width: 100% !important;
+    }
+</style>
+<div class="form-group">
+    <label for="js-atest-ajax-id">Buscar test:</label>
+    <select id="js-atest-ajax-id" class="js-data-atest-ajax js-states form-control" multiple="multiple"></select>
+</div>
+
 <div class="accordion accordion-tree" id="accordionTestGroup">
 @foreach($groups as $key => $group)
     <div class="card">
@@ -7,7 +17,7 @@
                 <div class="form-check">
                     <label class="form-check-label">
                         <input class="form-check-input test-price" type="checkbox" value="{{ $group->id }}" onchange="reloadGroupChilds(this);"
-                               name="aGroup[]" data-price="{{$group->price }}"
+                               name="aGroup[]" data-price="{{$group->price }}" @if(isset($aTestGroupIds) && in_array($group->id, $aTestGroupIds)) checked @endif
                         >
                         <span class="form-check-sign icheck-black"></span>
                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $group->id }}" aria-expanded="true" aria-controls="collapse{{ $group->id }}">
@@ -29,7 +39,8 @@
                 @foreach($group->analysisTests as $analysisTests)
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="updateTotalPriceTest();"
+                            {{-- <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="updateTotalPriceTest();" --}}
+                            <input class="form-check-input test-price" type="checkbox" value="{{ $analysisTests->id }}" onchange="syncCheckboxes(this);"
                                    name="aTests[]" data-price="{{$analysisTests->price }}"
                                    @if(isset($aTestIds) && in_array($analysisTests->id, $aTestIds)) checked @endif
                             >
@@ -42,8 +53,16 @@
         </div>
     </div>
 
-    @if(count($group->children))
-        @include('a-test.partials.render-tree-child-groups-selected',['level' => 1, 'childs' => $group->children, 'group_id' => (isset($group_id))? $group_id: null])
+    @if(count($group->children) > 0)
+        @include('a-test.partials.render-tree-child-groups-selected',
+        [
+            'level' => 1, 
+            'childs' => $group->children, 
+            'group_id' => (isset($group_id))? $group_id: null,
+            'aTestGroupIds' => (isset($aTestGroupIds))? $aTestGroupIds: [],
+            'aTestIds' => (isset($aTestIds))? $aTestIds: [],
+            ]
+        )
     @endif
 @endforeach
 </div>

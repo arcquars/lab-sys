@@ -124,6 +124,7 @@ class UsersController extends Controller
      */
     public function update(StoreUserPost $request, $id)
     {
+        dd("www");
         $user = User::find($id);
         $user->roles()->sync($request->roles);
 

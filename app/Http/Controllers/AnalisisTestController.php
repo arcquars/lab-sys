@@ -543,4 +543,51 @@ class AnalisisTestController extends Controller
             return view('a-test.partials.render-range-no-order-intermediary', compact('count', 'tempId'))->render();
         }
     }
+
+    public function ajaxSearch(Request $request){
+        $search = $request->post('search');
+        $query = AnalysisTest::query()
+            ->where('deleted', false);
+        if($search == ''){
+            $query->limit(10);
+            // $atest = AnalysisTest::orderby('nombres')->select('id', 'nombres', 'apellidos', 'apellido_materno', 'edad')->limit(10)->get();
+        } else {
+            $query->where('name', 'like', '%'.$search.'%');
+            // $atest = AnalysisTest::orderby('nombres', 'asc')->select('id', 'nombres', 'apellidos', 'apellido_materno', 'edad')->where('apellidos', 'like', '%'.$search.'%')->get();
+        }
+        $aTests = $query->orderby('name', 'asc')->get();
+        $response = array();
+        foreach($aTests as $aTest){
+            $response[] = array(
+                "id"=>$aTest->id,
+                "text"=>$aTest->name.' ('.$aTest->price.' Bs. -'.$aTest->type.' )'
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function ajaxSearchSetid($aTest){
+        
+        $aTest = AnalysisTest::find($aTest);
+        
+        $response = array(
+                "id"=>$aTest->id,
+                "text"=>$aTest->name.' ('.$aTest->price.' Bs. -'.$aTest->type.' )'
+            );
+        return response()->json($response);
+    }
+
+    public function ajaxSearchSetids(Request $request){
+        $ids = $request->get('ids');
+        $aTests = AnalysisTest::whereIn('id', $ids)->get();
+        $response = array();
+
+        foreach($aTests as $aTest){
+            $response[] = array(
+                "id"=>$aTest->id,
+                "text"=>$aTest->name.' ('.$aTest->price.' Bs. -'.$aTest->type.' )'
+            );
+        }
+        return response()->json($response);
+    }
 }
