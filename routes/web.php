@@ -271,3 +271,10 @@ Route::get('/test/reporte/{analisisId}/{sin?}', 'TestController@reporte')->name(
 // SIAT
 Route::get('/siat/invoicing/{analysisId}', 'SiatController@invoicing')->name('siat.invoicing');
 Route::post('/siat/invoicing/a-send-invoice', 'SiatController@ajaxSendInvoide')->name('siat.a_send_invoice');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::get('finance', 'Admin\FinanceController@index')->name('finance.index');
+    Route::get('finance/create', 'Admin\FinanceController@create')->name('finance.create');
+    Route::post('finance', 'Admin\FinanceController@store')->name('finance.store');
+    Route::delete('finance/{id}', 'Admin\FinanceController@destroy')->name('finance.destroy');
+});

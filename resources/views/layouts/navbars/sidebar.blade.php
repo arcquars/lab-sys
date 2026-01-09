@@ -192,6 +192,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Caja Chica</p>
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'admin_finances') active @endif">
+                    <a class="nav-link" href="{{route('finance.index')}}">
+                        <i class="fas fa-cash-register"></i>
+                        <p>Movimientos caja</p>
+                    </a>
+                </li>
             @endcan
 {{--            @cannot('is-invitado')--}}
 {{--            <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">--}}

