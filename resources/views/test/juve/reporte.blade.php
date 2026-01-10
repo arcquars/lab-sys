@@ -3,8 +3,8 @@ if(!isset($sin)){
     $sin = null;
 }
 ?>
-@include('citologia.partial.reporte-style')
-@include('citologia.partial.reporte-head')
+@include('test.juve.partials.reporte-style')
+@include('test.juve.partials.reporte-head')
 <style>
 
     .text-danger{
@@ -26,11 +26,11 @@ if(!isset($sin)){
 
 </style>
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
-@include('citologia.partial.reporte-client', compact('analisis', 'pathQr'))
+@include('test.juve.partials.reporte-client', compact('analisis', 'pathQr'))
 @php
 $index = 0;
 @endphp
-<br>
+<!-- <br> -->
 <table style="width: 99.99%" class="analysisTestTable">
     <thead>
     <tr>
@@ -71,7 +71,7 @@ $index = 0;
             @endif
             <tr style="border: none;">
                 <td colspan="4" style="padding-top: 15px; font-size: 14px">
-                    <h5>{{$key}}</h5>
+                    <h5 style="color: #00436b; font-size: 15px;">{{$key}}</h5>
                 </td>
             </tr>
             @foreach($testResults as $testResult)
@@ -98,11 +98,11 @@ $index = 0;
 </table>
 @if($analisis->observaciones)
     <dl>
-        <dt style="font-size: 14px; font-weight: 900;">Observaciones</dt>
+        <dt style="font-size: 14px; color: #00436b;"><b>Observaciones</b></dt>
         <dd style="font-size: 12px;">{{$analisis->observaciones}}</dd>
     </dl>
 @endif
 <br>
 {{--<div class="chapter2">Text of Chapter 2</div>--}}
 
-@include('citologia.partial.reporte-footer', compact('analisis', 'sin'))
+@include('test.juve.partials.reporte-footer', compact('analisis', 'sin'))

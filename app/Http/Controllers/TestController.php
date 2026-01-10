@@ -72,18 +72,26 @@ class TestController extends Controller
     function reporte($analisisId, $sin=0) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        // $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         $pathQr = $d->getBarcodePNGPath(route('analisis.open.esultado.simple.pdf', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
 
-//        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
         $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
+        $reportEnterprice = env('REPORT_ENTERPRICE', 'DEFAULT');
+        $view = "";
+        switch($reportEnterprice){
+            case 'JUVENTUD':
+                $view = "test.juve.reporte";
+                break;
+            default:
+                $view = "test.reporte";
+                break;
+        }
 
-        $pdf = PDF::loadView('test.reporte', compact(
+        $pdf = PDF::loadView($view, compact(
             'analisis', 'pathQr', 'orderGroupTest', 'sin'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css

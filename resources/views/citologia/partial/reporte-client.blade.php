@@ -42,7 +42,7 @@
             <table style="width: 100%;">
                 <tr>
                     <td style="width: 100%;">
-                        <p class="p-datos-12-1"><b>Edad:</b> {{$analisis->person->year_now}}</p>
+                        <p class="p-datos-12-1"><b>Edad:</b> {{$analisis->edad}}</p>
                     </td>
                 </tr>
                 <tr>

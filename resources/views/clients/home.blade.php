@@ -5,7 +5,6 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item">Pacientes</li>
-
         </ol>
     </nav>
     <div class="card">
@@ -21,13 +20,13 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="form-group">
                         <label for="s_nombres">Nombres</label>
                         <input type="text" name="s_nombres" class="form-control form-control-sm">
                     </div>
-                </div>
-                <div class="col-md-3">
+                </div> --}}
+                {{-- <div class="col-md-3">
                     <div class="form-group">
                         <label for="apellido_pa">Apellido Paterno</label>
                         <input type="text" name="apellidos_pa" class="form-control form-control-sm">
@@ -38,13 +37,17 @@
                         <label for="apellido_ma">Apellido Materno</label>
                         <input type="text" name="apellidos_ma" class="form-control form-control-sm">
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="apellido_ma">.</label>
                         <div>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();"><i class="far fa-plus-square"></i></a>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);"><i class="fas fa-eraser"></i></a>
+                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();">
+                                <i class="far fa-plus-square"></i> Crear paciente
+                            </a>
+                            {{-- <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);">
+                                <i class="fas fa-eraser"></i> Limpiar buscador
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -55,10 +58,10 @@
                     <tr>
                         <th>CI</th>
                         <th>Nombres</th>
-                        <th>Ape. Paterno</th>
+                        {{-- <th>Ape. Paterno</th>
                         <th>Ape. Materno</th>
-                        <th>Fecha nacimiento</th>
-                        <th>Fecha creacion</th>
+                        <th>Fecha nacimiento</th> 
+                        <th>Fecha creacion</th> --}}
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -84,14 +87,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="ci">CI</label>
                                     <input type="text" name="ci" class="form-control" placeholder="Carnet de identidad" onchange="searchClient(this);">
                                     <div class="fcp_error_ci" style="display: none;"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Nombres <span class="text-danger">*</span></label>
                                     <input type="text" name="nombres"
@@ -102,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="apellidos">Apellido Paterno <span class="text-danger">*</span></label>
@@ -125,15 +128,15 @@
                                     <div class="fcp_error_apellido_materno" style="display: none;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="f_nacimiento">Fecha nacimiento</label>
                                     <input type="date" name="f_nacimiento" class="form-control">
                                     <div class="fcp_error_f_nacimiento" style="display: none;"></div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <label for="sexo1">Sexo <span class="text-danger">*</span></label>
                                 <br>
@@ -321,12 +324,12 @@
                 // bFilter: false,
                 ajax: "{{ route('simple_datatables_persons_data') }}",
                 columns: [
-                    {name: 'ci'},
+                    {name: 'ci', orderable: false},
                     {name: 'nombres', orderable: false, searchable: true},
-                    {name: 'apellidos'},
-                    {name: 'apellido_materno'},
-                    {name: 'f_nacimiento'},
-                    {name: 'created_at', orderable: false, searchable: false},
+                    // {name: 'apellidos'},
+                    // {name: 'apellido_materno'},
+                    // {name: 'f_nacimiento'},
+                    // {name: 'created_at', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false}
                 ],
                 "pagingType": "full_numbers",
@@ -353,21 +356,21 @@
                 },
             });
 
-            $('input[name="s_nombres"]').on( 'keyup', function () {
-                table1.column(1).search(
-                    $(this).val()
-                ).draw();
-            } );
-            $('input[name="apellidos_pa"]').on( 'keyup', function () {
-                table1.column(2).search(
-                    $(this).val()
-                ).draw();
-            } );
-            $('input[name="apellidos_ma"]').on( 'keyup', function () {
-                table1.column(3).search(
-                    $(this).val()
-                ).draw();
-            } );
+            // $('input[name="s_nombres"]').on( 'keyup', function () {
+            //     table1.column(1).search(
+            //         $(this).val()
+            //     ).draw();
+            // } );
+            // $('input[name="apellidos_pa"]').on( 'keyup', function () {
+            //     table1.column(2).search(
+            //         $(this).val()
+            //     ).draw();
+            // } );
+            // $('input[name="apellidos_ma"]').on( 'keyup', function () {
+            //     table1.column(3).search(
+            //         $(this).val()
+            //     ).draw();
+            // } );
             $("#simple-datatable-example_filter").css('display', 'none');
 
             $("#mpersona").on('shown.bs.modal', function (event) {
@@ -384,10 +387,10 @@
                 var id = $(this).find("input[name='id']").val();
                 var ci = $(this).find("input[name='ci']").val();
                 var nombres = $(this).find("input[name='nombres']").val();
-                var apellidos = $(this).find("input[name='apellidos']").val();
-                var apellido_materno = $(this).find("input[name='apellido_materno']").val();
-                var edad = $(this).find("input[name='edad']").val();
-                var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
+                // var apellidos = $(this).find("input[name='apellidos']").val();
+                // var apellido_materno = $(this).find("input[name='apellido_materno']").val();
+                // var edad = $(this).find("input[name='edad']").val();
+                // var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
                 var sexo = $(this).find("input[name='sexo']:checked").val();
                 // Datos para crear Analisis
                 var crear_analisis = $(this).find("input[name='crear_analisis']").is(':checked');
@@ -405,10 +408,10 @@
                         id: id,
                         ci: ci,
                         nombres: nombres,
-                        apellidos: apellidos,
-                        apellido_materno: apellido_materno,
-                        edad: edad,
-                        f_nacimiento: f_nacimiento,
+                        // apellidos: apellidos,
+                        // apellido_materno: apellido_materno,
+                        // edad: edad,
+                        // f_nacimiento: f_nacimiento,
                         sexo: sexo,
                         crear_analisis: crear_analisis,
                         tipo_analisis: tipo_analisis,
@@ -481,9 +484,9 @@
 
         function openModelPerson() {
             $('#mperson_title').empty().text('Crear Persona');
-            $('#mpersona input[name="nombres"]').val($('input[name="s_nombres"]').val().toUpperCase());
-            $('#mpersona input[name="apellidos"]').val($('input[name="apellidos_pa"]').val().toUpperCase());
-            $('#mpersona input[name="apellido_materno"]').val($('input[name="apellidos_ma"]').val().toUpperCase());
+            // $('#mpersona input[name="nombres"]').val($('input[name="s_nombres"]').val().toUpperCase());
+            // $('#mpersona input[name="apellidos"]').val($('input[name="apellidos_pa"]').val().toUpperCase());
+            // $('#mpersona input[name="apellido_materno"]').val($('input[name="apellidos_ma"]').val().toUpperCase());
             $('#mpersona').modal('show');
         }
 

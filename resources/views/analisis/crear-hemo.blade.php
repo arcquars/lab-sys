@@ -18,19 +18,19 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <dl>
-                        <dt>Nombres y Apellidos: </dt>
+                        <dt>Nombres: </dt>
                         <dd>{{ $persona->full_name }}</dd>
                     </dl>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <dl>
                         <dt>Fecha nacimiento:</dt>
                         <dd>{{($persona->f_nacimiento)? $persona->f_nacimiento : '--'}}</dd>
                     </dl>
-                </div>
-                <div class="col-md-4">
+                </div> --}}
+                <div class="col-md-6">
                     <dl>
                         <dt>Sexo:</dt>
                         <dd>{{$persona->sexo}}</dd>
@@ -178,12 +178,9 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="internal_code">Código interno</label>
+                            <label for="internal_code">Num. paciente</label>
                             <input class="form-control @error('internal_code') is-invalid @enderror"
-                            value="{{@old('internal_code')}}" name="internal_code" />
-                            @error('internal_code')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            value="{{ $internal_code }}" name="internal_code" disabled />
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -361,7 +358,7 @@
         function syncCheckboxes(input){
             const aTestId = $(input).val();
             if($(input).is(':checked')){
-                var aTestSelect = $('.js-data-atest-ajax')
+                var aTestSelect = $('.js-data-atest-ajax');
                 $.ajax({
                     type: "POST",
                     url: '{{ url('/analisis-test/a-search-set-id') }}/' + aTestId
@@ -501,7 +498,7 @@
 
         function setChecktedAtest(atestId, checked){
             // Buscar el checkbox correspondiente al análisis seleccionado
-            var checkbox = $("#accordionTestGroup input.test-price[value='" + atestId + "']");
+            var checkbox = $("#accordionTestGroup input.test-price[name='aTests[]'][value='" + atestId + "']");
             if(checkbox.length > 0){
                 if(checked === false){
                     $(checkbox).prop('checked', false);

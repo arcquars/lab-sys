@@ -7,7 +7,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
 <dl class="row row-citologia">
     <dt class="col-md-3">Paciente:</dt>
     <dd class="col-md-3">
-        {{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}
+        {{ $analisis->person->nombres }}
         @if($analisis->person->isSisNombreApellido())
             <a href="#" onclick="openModalChangePasiente('{{$analisis->id}}')" class="btn btn-link text-success"><i class="fas fa-user-secret fa-2x"></i></a>
         @endif
@@ -19,11 +19,12 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dt class="col-md-3">Procedencia:</dt>
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
     <dt class="col-md-3">Edad:</dt>
-    @if($analisis->person->year_now > 0)
+    <dd class="col-md-3">{{$analisis->edad}} años</dd>
+    {{-- @if($analisis->person->year_now > 0)
     <dd class="col-md-3">{{$analisis->person->year_now}} años</dd>
     @else
         <dd class="col-md-3">{{$analisis->person->month_now}} meses</dd>
-    @endif
+    @endif --}}
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Sexo:</dt>
@@ -54,7 +55,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
 <dl class="row row-citologia">
     <dt class="col-md-3">Doctor asígnado:</dt>
     <dd class="col-md-3">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
-    <dt class="col-md-3">Código interno:</dt>
+    <dt class="col-md-3">N. paciente:</dt>
     <dd class="col-md-3">{{$analisis->internal_code}}</dd>
 </dl>
 @if(isset($analisis->convenio))

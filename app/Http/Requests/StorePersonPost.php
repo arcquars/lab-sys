@@ -34,7 +34,7 @@ class StorePersonPost extends FormRequest
             return [
                 'ci' => $roleCi,
                 'nombres' => $roleNombres,
-                'apellidos' => 'required',
+                // 'apellidos' => 'required',
                 'f_nacimiento' => 'nullable|date',
                 'sexo' => 'required',
 
@@ -49,7 +49,7 @@ class StorePersonPost extends FormRequest
         return [
             'ci' => $roleCi,
             'nombres' => $roleNombres,
-            'apellidos' => 'required',
+            // 'apellidos' => 'required',
             'f_nacimiento' => 'nullable|date',
             'sexo' => 'required'
         ];

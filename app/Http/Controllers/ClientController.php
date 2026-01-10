@@ -114,20 +114,14 @@ class ClientController extends Controller
     public function getSimpleDatatablesData(Request $request)
     {
         $columns = $request->get('columns');
+        $search = $request->get('search');
         $searchNombres = isset($columns[1]['search']['value'])? $columns[1]['search']['value'] : '';
         $searchApePa = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApeMa = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
-        return Laratables::recordsOf(Person::class, function($query) use ($searchNombres, $searchApePa, $searchApeMa){
-            return $query->where('nombres', 'like', '%'.$searchNombres.'%')
-                ->where('apellidos', 'like', '%'.$searchApePa.'%')
-                ->where(function($q) use ($searchApePa){
-                    $q->whereNull('apellidos')
-                        ->orWhere('apellidos', 'like', '%'.$searchApePa.'%');
-                })
-                ->where(function($q) use ($searchApeMa){
-                    $q->whereNull('apellido_materno')
-                        ->orWhere('apellido_materno', 'like', '%'.$searchApeMa.'%');
-                });
+
+        $text = isset($search['value'])? $search['value'] : "";
+        return Laratables::recordsOf(Person::class, function($query) use ($text){
+            return $query->where('nombres', 'like', '%'.$text.'%');
         });
     }
 

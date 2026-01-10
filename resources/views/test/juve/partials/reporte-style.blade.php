@@ -1,0 +1,236 @@
+<style>
+    @page {
+        header: page-header;
+        footer: page-footer;
+
+        margin-header: 4mm;
+        @if(!isset($sin))
+        margin-top: 2.2cm;
+        @else
+        margin-top: 2.5cm;
+        @endif
+        margin-bottom: 1.5cm;
+        margin-left: 1cm;
+        margin-right: 1cm;
+        /*margin: 0cm 0cm;*/
+    }
+
+    body {
+        font-family: 'Times New Roman', 'Sansita Swashed', sans-serif;
+    }
+
+    .h1-cito{
+        text-align: center;
+        color: #012035;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+    }
+    .h2-cito{
+        text-align: center;
+        color: #012035;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .h4-cito-1{
+        color: #053D62;
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .h4-cito{
+        color: #053D62;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
+    .h4-cito p {
+        padding-bottom: 2px;
+        margin-bottom: 0;
+    }
+    .td-p-datos{
+        font-size: 12px;
+        color: #001781;
+    }
+
+    .p-dato {
+        font-size: 16px;
+        color: #012035;
+    }
+
+    .p-datos {
+        font-size: 12px;
+        color: #012035;
+    }
+
+    .p-datos-12 {
+        /*font-family: 'Sansita Swashed', cursive;*/
+        font-family: 'Times New Roman', cursive;
+        font-size: 11px;
+        color: #012035;
+    }
+
+    .p-datos-13 {
+        font-size: 14px;
+        color: #012035;
+    }
+
+    .p-datos-12-1 {
+        /*font-family: 'Sansita Swashed', cursive;*/
+        font-family: 'Times New Roman', cursive;
+        font-size: 11px;
+        color: #012035;
+        line-height: 8px;
+    }
+
+    .t-extcompatible tr td{
+        text-align: center;
+        border: 1px solid;
+    }
+
+    .t-column-title{
+        color: #012035;
+        font-size: 10px;
+        font-weight: bold;
+
+    }
+
+    .div-campo{
+        padding: 2px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    .div-campo h1 {
+        font-size: 18px !important;
+    }
+
+    .div-campo h2 {
+        font-size: 16px !important;
+    }
+
+    .div-campo h3 {
+        font-size: 14px !important;
+    }
+
+    .div-campo h4 {
+        font-size: 12px !important;
+    }
+
+    .div-campo p{
+        font-size: 12px !important;
+    }
+
+    .div-campo ul li{
+        font-size: 11px;
+    }
+
+    .div-campo ol li{
+        font-size: 11px;
+    }
+
+    .clinica-table{
+        border-collapse: collapse;
+    }
+
+    .clinica-table, .clinica-table tr td{
+        border: 1px solid black;
+    }
+
+    .cito-estudio-p{
+        font-size: 11px;
+    }
+
+    .cito-estudio-tr{
+        font-size: 9px;
+    }
+
+    .div-observacion p {
+        font-size: 12px;
+    }
+
+    .div-observacion h1 {
+        font-size: 14px;
+    }
+
+    .div-observacion h2 {
+        font-size: 12px;
+    }
+
+    .div-observacion h3 {
+        font-size: 11px;
+    }
+
+    .div-observacion h4 {
+        font-size: 10px;
+    }
+
+    .t_images_4_p{
+        font-size: 8px;
+    }
+
+    .histo_table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    .histo_table thead tr th {
+        padding: 4px 6px;
+        font-size: 10px !important;
+        background: #AAAAAA;
+    }
+
+    .histo_table tbody tr td {
+        text-align: left;
+        padding: 6px;
+    }
+
+    .histo_table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    /* Clase para el segundo TD (Encabezado) */
+    .header-cell {
+        text-align: right;
+    }
+
+    .header-cell img {
+        display: block; /* Las imágenes son inline por defecto */
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .table-head {
+        border-collapse: collapse; /* Une los bordes y elimina el espacio (cellspacing) */
+        border-spacing: 0;         /* Asegura que el espacio entre celdas sea cero */
+        width: 100%;
+        margin: 0;                 /* Elimina margen externo de la tabla */
+        padding: 0;                /* Elimina padding de la tabla */
+    }
+
+    .table-head tbody tr td {
+        padding: 0;                /* Elimina el padding interno (cellpadding) */
+        margin: 0; 
+    }
+
+    .rclient-data {
+        font-size: 12px;
+    }
+
+    .juve-client-h3 {
+        color: #00436b;
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-bottom: 5px;;
+    }
+
+    .juve-client-h5 {
+        font-size: 12px;
+        color: #000;
+    }
+</style>

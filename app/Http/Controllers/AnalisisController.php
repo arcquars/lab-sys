@@ -93,7 +93,7 @@ class AnalisisController extends Controller
         $analisis->region = $request->get('region');
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
-        $analisis->internal_code = $request->get('internal_code', null);
+        $analisis->internal_code = Analisis::genereNextInternalCode();
         $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
@@ -303,7 +303,7 @@ class AnalisisController extends Controller
         $columns = $request->get('columns');
         $searchG = $request->get('search')['value'];
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
-        $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
+        // $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
         $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
         $interconsultados = isset($columns[19]['search']['value'])? $columns[19]['search']['value'] : '';
 
@@ -311,7 +311,7 @@ class AnalisisController extends Controller
         $user = User::find(auth()->id());
         $results = null;
         if($user->person){
-            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG, $user, $interconsultados ){
+            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchDoctorId, $searchG, $user, $interconsultados ){
                 return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')
                     ->where('supervisar', 'like', '%'.$interconsultados.'%')
                     ->where(function ($query) use ($user){
@@ -320,18 +320,16 @@ class AnalisisController extends Controller
                             ->orWhereRaw('id in (select analisis.id from a_supervisores where a_supervisores.analisis_id=analisis.id and a_supervisores.doctor_id=' . $user->person . ')');
                     })
                     ->where('codigo', 'like', '%'.$searchG.'%')
-                    ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+                    ->whereHas('person', function($q) use ($searchNombres)
                 {
-                    $q->where('nombres', 'like', '%'.$searchNombres.'%')
-                        ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                    $q->where('nombres', 'like', '%'.$searchNombres.'%');
                 });
             });
         } else {
-            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG){
-                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+            $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchDoctorId, $searchG){
+                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres)
                 {
-                    $q->where('nombres', 'like', '%'.$searchNombres.'%')
-                        ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                    $q->where('nombres', 'like', '%'.$searchNombres.'%');
                 });
             });
         }
@@ -1040,13 +1038,14 @@ class AnalisisController extends Controller
         $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         $convenio = null;
+        $internal_code = Analisis::genereNextInternalCode();
         return view('analisis.crear-hemo', compact(
             'procedencias',
             'doctores',
             'edad', 'tipoPagoAcuenta',
             'tipoAnalisis',
             'persona',
-            'convenio'));
+            'convenio', 'internal_code'));
     }
 
     public function ajaxSearchEnvia(Request $request){

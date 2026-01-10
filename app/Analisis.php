@@ -482,4 +482,11 @@ class Analisis extends Model
         }
         return $resultWorks;
     }
+
+    public static function genereNextInternalCode(){
+        $cantidad = Analisis::whereYear('fecha', now()->year)
+                    ->whereMonth('fecha', now()->month)
+                    ->count();
+        return now()->year.now()->month."-" . ($cantidad+1);
+    }
 }
