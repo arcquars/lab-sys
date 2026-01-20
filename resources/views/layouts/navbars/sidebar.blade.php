@@ -186,12 +186,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Pruebas</p>
                     </a>
                 </li>
-                <li class="nav-item @if($activePage == 'gasto_index') active @endif">
+                <!-- <li class="nav-item @if($activePage == 'gasto_index') active @endif">
                     <a class="nav-link" href="{{route('gastos.home')}}">
                         <i class="fas fa-cash-register"></i>
                         <p>Caja Chica</p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item @if($activePage == 'admin_finances') active @endif">
                     <a class="nav-link" href="{{route('finance.index')}}">
                         <i class="fas fa-cash-register"></i>
