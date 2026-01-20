@@ -70,4 +70,21 @@ class InstitucionController extends Controller
         return response()
             ->json(['success'=> true, 'institucion' => Institucion::find($request->get('institucionId'))]);
     }
+
+    public function ajaxDestroy($id)
+    {
+        // 1. Buscar la institución por su ID
+        $institucion = Institucion::find($id);
+        // 2. Verificar si existe (opcional pero buena práctica)
+        if ($institucion) {
+            // 3. Ejecutar el borrado (Soft Delete)
+            // $institucion->delete();
+            return response()->json(['success' => true, 'message' => 'Institución eliminada.']);
+        }
+        
+        return response()->json([
+            'success' => false, 
+            'message' => 'No se encontró la institución.'
+        ], 422);
+    }
 }

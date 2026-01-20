@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="datatable-instituciones" class="table table-bordered">
+            <table id="datatable-instituciones" class="table-lab table table-bordered">
                 <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
@@ -31,6 +31,8 @@
 
 
 @endsection
+
+@section('pageModals')
 <!-- Modal registro Institucion -->
 <div id="minstitucion" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -79,6 +81,34 @@
         </form>
     </div>
 </div>
+
+<!-- Modal Eliminar Institucion -->
+<div id="mDeleteInstitucion" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form onsubmit="deleteInstitucionAjax(); return false;">
+            {{ csrf_field() }}
+            <input type="hidden" name="id" value="">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title ">Eliminar Institucion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id">
+                    <p class="text-danger">Esta seguro de eliminar la Institucion?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Grabar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
+
 @push('js')
     <script>
         $(document).ready(function () {
@@ -181,6 +211,28 @@
                             $("#fcrearinstitucion").find("input[name='is_convenio']").prop('checked', false);
                         }
                         $("#fcrearinstitucion").find("input[name='id']").val(data.institucion.id);
+                    } else {
+                        alert(data.errors);
+                    }
+                }
+            });
+        }
+
+        function openDeleteInstitucionAjax(institucionId){
+            $("#mDeleteInstitucion").modal("show");
+            $("#mDeleteInstitucion input[name='id']").val(institucionId);
+        }
+
+        function deleteInstitucionAjax(){
+            var _token = $("#fcrearinstitucion").find("input[name='_token']").val();
+            var institucionId = $("#mDeleteInstitucion input[name='id']").val();
+            clearErrorMsg();
+            $.ajax({
+                url: "{{ url('/institucion/ajax-delete/') }}/" + institucionId,
+                type: 'POST',
+                success: function (data) {
+                    if (data.success) {
+                        $("#mDeleteInstitucion").modal("hide");
                     } else {
                         alert(data.errors);
                     }

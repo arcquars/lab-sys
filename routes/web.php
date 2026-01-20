@@ -184,6 +184,7 @@ Route::get('/institucion/index', 'InstitucionController@index')->name('instituci
 Route::get('/institucion/datatable', 'InstitucionController@getDatatablesData')->name('institucion.datatablesInstitucionData');
 Route::post('/institucion/ajaxCrearInstitucion','InstitucionController@ajaxCreateInstitucion')->name('institucion.createInstitucion');
 Route::post('/institucion/ajaxgetinstitucion','InstitucionController@ajaxGetInstitucion')->name('institucion.getInstitucion');
+Route::post('/institucion/ajax-delete/{id}','InstitucionController@ajaxDestroy')->name('institucion.a-destroy');
 
 Route::get('/doctores/index', 'DoctorController@index')->name('doctores.home');
 Route::post('/doctores/ajaxcreatedoctor','DoctorController@ajaxCreateDoctor')->name('doctores.createDoctor');

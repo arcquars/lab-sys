@@ -223,3 +223,11 @@
     background: #F86870;
     border-color: #e3342f;
 }
+
+.table-lab tbody tr td {
+    padding: 0 2px !important;
+}
+
+.btn {
+    padding: .35rem;
+}
