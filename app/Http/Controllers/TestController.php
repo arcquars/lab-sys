@@ -72,21 +72,48 @@ class TestController extends Controller
     function reporte($analisisId, $sin=0) {
         $d = new DNS2D();
         $d->setStorPath(public_path()."/generateqr/");
-        // $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
         $pathQr = $d->getBarcodePNGPath(route('analisis.open.esultado.simple.pdf', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
         ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
 
         $analisis = Analisis::find($analisisId);
 
-//        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
         $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
+        $reportEnterprice = env('REPORT_ENTERPRICE', 'DEFAULT');
+        $view = "";
+        switch($reportEnterprice){
+            case 'JUVENTUD':
+                $view = "test.juve.reporte";
+                break;
+            case 'LABCI':
+                $view = "test.labci.reporte";
+                break;
+            default:
+                $view = "test.reporte";
+                break;
+        }
 
-        $pdf = PDF::loadView('test.reporte', compact(
+        $pdf = PDF::loadView($view, compact(
             'analisis', 'pathQr', 'orderGroupTest', 'sin'));
 
         $stylesheet = asset('css/reporte-pdf.css'); // external css
+        // --- INICIO CONFIGURACIÓN MARCA DE AGUA ---
+        
+        // Ruta absoluta a la imagen
+        $watermarkPath = public_path('img/labci/labciLa.png'); 
+
+        // Parámetros SetWatermarkImage:
+        // 1. Ruta de archivo
+        // 2. Opacidad (Alpha): 0.1 a 1 (0.2 es un buen estándar)
+        // 3. Tamaño: 'D' (Default), 'F' (Fit/Ajustar a pagina), 'P' (Resize proporcional)
+        // 4. Posición: 'P' (Centrado en la página)
+        
+        $pdf->mpdf->SetWatermarkImage($watermarkPath, 0.07, array(100, 40), 'P');
+        $pdf->mpdf->showWatermarkImage = true;
+
+        // --- FIN CONFIGURACIÓN MARCA DE AGUA ---
+        $pdf->mpdf->SetFooter('|Página {PAGENO} de {nbpg}|');
 //        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
 //        $pdf->mpdf->showWatermarkImage = true;
         $pdf->mpdf->WriteHTML($stylesheet,1);

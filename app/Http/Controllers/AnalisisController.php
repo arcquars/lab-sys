@@ -483,8 +483,11 @@ class AnalisisController extends Controller
                 $codigo = 'BM'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
                 break;
             case Analisis::PRUEBA:
-                $num = Analisis::where('tipo_analisis', Analisis::PRUEBA)->count() + config('clinica.contadores_analisis.PRUEBA');
-                $codigo = 'HEMO'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num);
+                // $num = Analisis::where('tipo_analisis', Analisis::PRUEBA)->count() + config('clinica.contadores_analisis.PRUEBA');
+                $num = Analisis::where('tipo_analisis', Analisis::PRUEBA)
+                    ->whereYear('fecha', now()->year)
+                    ->count();
+                $codigo = 'L'.$numeroFecha.'-'.$this->formatoCodigo4Dig($num+1);
                 break;
         }
         return $codigo;
