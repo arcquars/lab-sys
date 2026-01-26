@@ -1,6 +1,6 @@
 <htmlpageheader name="page-header">
     @if(!$sin)
-    <table class="table-head" >
+    <table class="table-head">
         <tbody>
             <tr>
                 <td style="width: 35%; vertical-align: middle;">
