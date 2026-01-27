@@ -9,6 +9,7 @@ use App\AnalysisTestResult;
 use App\Helpers\ClinicaHelper;
 use App\ImpresionControl;
 use App\Liquido;
+use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -30,9 +31,10 @@ class TestController extends Controller
     public function create($analysisId)
     {
         $analysis = Analisis::find($analysisId);
+        $metodo = Setting::get('metodo_analisis', '1');
         $orderGroupTest = ClinicaHelper::getTestGroupResults($analysisId);
 
-        return view('test.crear', compact('analysis', 'orderGroupTest'));
+        return view('test.crear', compact('analysis', 'orderGroupTest', 'metodo'));
     }
 
     public function store(Request $request){
@@ -94,29 +96,21 @@ class TestController extends Controller
                 break;
         }
 
+        $watermark = [
+            'path'   => public_path(env('PDF_WATERMARCK')),
+            'alpha'  => env('PDF_WATERMARCK_ALFA', 0.1),
+            'size'   => [env('PDF_WATERMARCK_WIDTH', 100), env('PDF_WATERMARCK_HEIGHT', 100)]
+        ];
+
         $pdf = PDF::loadView($view, compact(
-            'analisis', 'pathQr', 'orderGroupTest', 'sin'));
+            'analisis', 'pathQr', 'orderGroupTest', 'sin', 'watermark'));
+            
+        $pdf->showWatermarkImage = true;
 
-        $stylesheet = asset('css/reporte-pdf.css'); // external css
-        // --- INICIO CONFIGURACIÓN MARCA DE AGUA ---
-        
-        // Ruta absoluta a la imagen
-        $watermarkPath = public_path('img/labci/labciLa.png'); 
+        // $stylesheet = asset('css/reporte-pdf.css'); // external css
+        // $pdf->mpdf->SetFooter('|Página {PAGENO} de {nbpg}|');
+        // $pdf->mpdf->WriteHTML($stylesheet,1);
 
-        // Parámetros SetWatermarkImage:
-        // 1. Ruta de archivo
-        // 2. Opacidad (Alpha): 0.1 a 1 (0.2 es un buen estándar)
-        // 3. Tamaño: 'D' (Default), 'F' (Fit/Ajustar a pagina), 'P' (Resize proporcional)
-        // 4. Posición: 'P' (Centrado en la página)
-        
-        $pdf->mpdf->SetWatermarkImage($watermarkPath, 0.07, array(100, 40), 'P');
-        $pdf->mpdf->showWatermarkImage = true;
-
-        // --- FIN CONFIGURACIÓN MARCA DE AGUA ---
-        $pdf->mpdf->SetFooter('|Página {PAGENO} de {nbpg}|');
-//        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
-//        $pdf->mpdf->showWatermarkImage = true;
-        $pdf->mpdf->WriteHTML($stylesheet,1);
         $fileNombre = $analisis->person->nombres . '-'. $analisis->person->apellidos . '-' . $analisis->codigo . '-' . date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
     }

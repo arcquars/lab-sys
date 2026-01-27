@@ -31,7 +31,11 @@
     .labci-table-p {
         font-size: 12px;
         margin-top: 0;
-        margin-bottom: 5px;
+        margin-bottom: 2px;
+    }
+
+    .labci-table-p-b{
+        font-size: 10px;
     }
 
     .labci-table-p > span{
@@ -46,5 +50,13 @@
 
     .table-head {
         width: 100%;
+    }
+
+    .labci-table-4 {
+        width: 100%;
+    }
+
+    .labci-table-4 tbody tr td{
+        width: 25%;
     }
 </style>

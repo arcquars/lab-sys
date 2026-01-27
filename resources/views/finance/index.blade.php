@@ -61,7 +61,7 @@
         </div>
         <div class="card-body">
             <!-- Formulario de Filtros -->
-            <form action="{{ route('finance.index') }}" method="GET" class="form-inline mb-4">
+            <form id="f-finance-search" action="{{ route('finance.index') }}" method="GET" class="form-inline mb-4">
                 <div class="form-group mr-2">
                     <label for="start_date" class="mr-2">Desde:</label>
                     <input type="date" name="start_date" class="form-control" value="{{ $startDate }}">
@@ -71,6 +71,7 @@
                     <input type="date" name="end_date" class="form-control" value="{{ $endDate }}">
                 </div>
                 <button type="submit" class="btn btn-secondary">Filtrar</button>
+                <a class="ml-1 btn btn-warning" onclick="exportExcelFinance(); return false;">Exportar</a>
             </form>
 
             <!-- Tabla -->
@@ -130,3 +131,15 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        function exportExcelFinance(){
+            var fechaIni = $("#f-finance-search input[name='start_date']").val();
+            var fechaFin = $("#f-finance-search input[name='end_date']").val();
+            var userId = "{{ Auth::id() }}";
+            var url = '{{url("/")}}/admin/finance/export-report/'+fechaIni+'/'+fechaFin+'/'+userId;
+            window.open(url, '_blank');
+        }
+    </script>
+@endpush

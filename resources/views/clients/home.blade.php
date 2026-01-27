@@ -43,8 +43,12 @@
                     <div class="form-group">
                         <label for="apellido_ma">.</label>
                         <div>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();"><i class="far fa-plus-square"></i></a>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);"><i class="fas fa-eraser"></i></a>
+                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();">
+                                <i class="far fa-plus-square"></i> Crear paciente
+                            </a>
+                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);">
+                                <i class="fas fa-eraser"></i> Limpiar buscador
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -275,6 +275,10 @@ Route::post('/siat/invoicing/a-send-invoice', 'SiatController@ajaxSendInvoide')-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('finance', 'Admin\FinanceController@index')->name('finance.index');
     Route::get('finance/create', 'Admin\FinanceController@create')->name('finance.create');
+    Route::get('finance/export-report/{fechaIni}/{fechaFin}/{userId?}', 'Admin\FinanceController@exportExcel')->name('finance.export.report');
     Route::post('finance', 'Admin\FinanceController@store')->name('finance.store');
     Route::delete('finance/{id}', 'Admin\FinanceController@destroy')->name('finance.destroy');
+
+    Route::get('config', 'Admin\ConfigController@index')->name('admin.config.home');
+    Route::post('config', 'Admin\ConfigController@save')->name('admin.config.save');
 });

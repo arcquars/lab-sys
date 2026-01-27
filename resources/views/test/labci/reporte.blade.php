@@ -1,10 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    @include('test.labci.partials.reporte-style')
+    <style>
+        @page {
+            @if(isset($watermark))
+                background: url("{{ $watermark['path'] }}") no-repeat center;
+                background-image-resize: 6; /* 6 mantiene el tamaño original y centra */
+                background-image-opacity: {{ $watermark['alpha'] }};
+            @endif
+        }
+    </style>
+</head>
+<body>
+    
 <?php
 if(!isset($sin)){
     $sin = null;
 }
 ?>
-@include('test.labci.partials.reporte-style')
+
 @include('test.labci.partials.reporte-head')
+
 <style>
 
     .text-danger{
@@ -30,15 +51,16 @@ if(!isset($sin)){
         <td style="width: 57%;"></td>
         <td style="width: 43%;">
             <div style="">
-                <p style="font-size: 10px; margin: 4px;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
+                <p style="font-size: 10px; margin: 4px; color: #f78604;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
                 <div style="height: 2px;"></div>
-                <p style="font-size: 9px;">Realiza control de calidad externo con: INLASA y </p>
+                <p style="font-size: 9px; font-weight: 900;">Realiza control de calidad externo con: INLASA y </p>
             </div>
         </td>
     </tr>
 </table>
 {{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
 @include('test.labci.partials.reporte-client', compact('analisis', 'pathQr'))
+<div style="height: 10px;"></div>
 @php
 $index = 0;
 @endphp
@@ -80,27 +102,26 @@ $index = 0;
                     @endif
                 </tr>
             @endif
-            <tr style="border: none;">
-                <td colspan="3" style="padding-top: 15px; font-size: 14px">
-                    <h5 style="color: #00436b; font-size: 15px;">{{$key}}</h5>
+            <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: #E8EFFD;">
+                <td colspan="3" style="font-size: 13px">
+                    <h5 style="color: #00436b;">{{$key}}</h5>
                 </td>
             </tr>
             @foreach($testResults as $testResult)
                 @if(isset($testResult['testResult']->result))
                     @php $index++; @endphp
                     <tr>
-                        <td style="width: 33.33%; font-size: 13px;">{{ $testResult['testResult']->aTest->name }}</td>
-                        <td style=" width: 33.33%; font-size: 13px; text-align: center;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) : "xxx" !!}</td>
-                        <td style=" width: 33.33%; font-size: 12px; text-align: center;">
+                        <td style="width: 33.33%; font-size: 12px;"><b>{{ $testResult['testResult']->aTest->name }}</b></td>
+                        <td style=" width: 33.33%; font-size: 12px; text-align: center;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) : "xxx" !!}</td>
+                        <td style=" width: 33.33%; font-size: 10px; text-align: center;">
                             {!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlDescriptionResult($testResult['testResult']->id) : "yyy" !!}
                             
                         </td>
                     </tr>
                     @if(isset($testResult['testResult']->metodo))
                     <tr>
-                        <td colspan="3" style="padding-left: 8px;">
-                            
-                                <p style="font-size: 10px;">METODO: {{$testResult['testResult']->metodo}}</p>
+                        <td colspan="3" style="padding-left: 10px;">
+                                <p style="font-size: 9px;"><b>METODO:</b> {{$testResult['testResult']->metodo}}</p>
                         </td>
                     </tr>
                     @endif
@@ -111,12 +132,18 @@ $index = 0;
     </tbody>
 </table>
 @if($analisis->observaciones)
-    <dl>
-        <dt style="font-size: 14px; color: #00436b;"><b>Observaciones</b></dt>
-        <dd style="font-size: 12px;">{{$analisis->observaciones}}</dd>
-    </dl>
+    <div style="page-break-inside: avoid;">
+        <dl>
+            <dt style="font-size: 14px; color: #00436b;"><b>Observaciones</b></dt>
+            <dd style="font-size: 12px;">{{$analisis->observaciones}}</dd>
+        </dl>
+    </div>
 @endif
 <br>
-{{--<div class="chapter2">Text of Chapter 2</div>--}}
 
 @include('test.labci.partials.reporte-footer', compact('analisis', 'sin'))
+@if($analisis->imprimir_firma && isset($pathQr))
+    <img src="{{ public_path($pathQr) }}" width="80">
+@endif
+</body>
+</html>

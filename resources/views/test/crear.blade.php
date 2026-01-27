@@ -32,12 +32,19 @@
                                     {!! $testResult->aTest->analysisTestType->getHtmlInput($testResult->id) !!}
                                     <div class="form-group">
                                         <label for="f_metodo_{{$testResult->a_test_id}}">Metodo</label>
+                                        @if(strcmp($metodo, '1') == 0)
+                                            <input 
+                                                type="text" class="form-control form-control-sm" 
+                                                value="{{ $testResult->metodo }}"
+                                                name="metodos[{{$testResult->a_test_id}}]" id="f_metodo_{{$testResult->a_test_id}}">
+                                        @else
                                         <select name="metodos[{{$testResult->a_test_id}}]" id="f_metodo_{{$testResult->a_test_id}}" class="form-control form-control-sm">
                                             <option value="">Seleccione ...</option>
-                                            @foreach(config('clinica.metodos') as $metodo)
-                                                <option value="{{$metodo}}" @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
+                                            @foreach(config('clinica.metodos') as $metodo1)
+                                                <option value="{{$metodo1}}" @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo1) == 0 ) selected @endif>{{$metodo1}}</option>
                                             @endforeach
                                         </select>
+                                        @endif
                                     </div>
                                 @else
                                     {{ $testResult->aTest->id }}

@@ -19,12 +19,12 @@
                         <input type="text" name="nombres" class="form-control form-control-sm">
                     </div>
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <div class="form-group">
                         <label for="nombres">Apellido</label>
                         <input type="text" name="apellidos" class="form-control form-control-sm">
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-3">
                     <div class="form-group">
                         <label for="doctor">Doctores</label>
@@ -36,7 +36,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                {{-- <div class="col-md-3">
                     <br>
                     <div class="form-check">
                         <label class="form-check-label">
@@ -44,7 +44,7 @@
                             Interconsultados
                         </label>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="table-responsive">
                 <table id="tAnalisis" class="table table-clinica">
@@ -497,38 +497,12 @@
                 columns: [
                     {name: 'id', visible: false},
                     {name: 'codigo'},
-                    // {name: 'nombres', orderable: true},
                     {name: 'person.nombres', orderable: false},
                     {name: 'person.apellidos', orderable: false, visible: false},
                     {name: 'person.apellido_materno', orderable: false, visible: false},
-                    {name: 'fecha', orderable: false, searchable: false},
-                    {name: 'tipo_analisis', "render": function ( data, type, row ) {
-                            if(data === '{{\App\Analisis::HISTOPATOLOGICO}}'){
-                                return '{{\App\Analisis::BIOPSIA_DE_RINON}}';
-{{--                                return '{{\App\Analisis::BIOPSIA}}';--}}
-                            } else {
-                                return data;
-                            }
-                        }},
-                    {name: 'region', orderable: false, "render": function ( data, type, row ) {
-
-                            if(typeof data === "string" &&  data.length === 0){
-                                return '';
-                            } else {
-                                try{
-                                    if(htmlToPlainText(data).length > 19){
-                                        return htmlToPlainText(data).slice(0, 20) + "...";
-                                    } else {
-                                        return htmlToPlainText(data);
-                                    }
-                                } catch(err) {
-                                    return data;
-                                }
-
-
-                            }
-                            return data;
-                        }},
+                    {name: 'fecha', orderable: true, searchable: false},
+                    {name: 'tipo_analisis', visible: false},
+                    {name: 'region', orderable: false, visible: false},
                     {name: 'doctorasig.nombres', orderable: false, "render": function ( data, type, row ) {
                         var texto = "";
                         if(row[19]){
@@ -609,11 +583,11 @@
                     $(this).val()
                 ).draw();
             } );
-            $('input[name="apellidos"]').on( 'keyup', function () {
-                table.column(3).search(
-                    $(this).val()
-                ).draw();
-            } );
+            // $('input[name="apellidos"]').on( 'keyup', function () {
+            //     table.column(3).search(
+            //         $(this).val()
+            //     ).draw();
+            // } );
             $('select[name="doctor"]').on( 'change', function () {
                 table.column(8).search(
                     $(this).val()

@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\CashMovement;
 use App\Http\Controllers\Controller;
 use App\Concept;
+use App\Exports\CashMovementExport;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Excel;
 
 class FinanceController extends Controller
 {
@@ -21,6 +24,7 @@ class FinanceController extends Controller
 
         // Consulta base
         $query = CashMovement::with(['concept', 'user'])
+            ->where('user_id', Auth::id())
             ->whereBetween('movement_date', [$startDate, $endDate])
             ->orderBy('movement_date', 'desc')
             ->orderBy('created_at', 'desc');
@@ -89,10 +93,29 @@ class FinanceController extends Controller
     public function destroy($id)
     {
         try {
-            CashMovement::where('id', $id)->delete();
-            return redirect('admin/finance')->with('success', 'Movimiento eliminado.');
+            $cashMovement = CashMovement::find($id);
+            if (!$cashMovement) {
+                return redirect('admin/finance')->with('error', 'Movimiento no encontrado.');
+            }
+            if (Carbon::parse($cashMovement->movement_date)->isToday()) {
+                $cashMovement->delete();
+                return redirect('admin/finance')->with('success', 'Movimiento eliminado.');
+            } 
+
+            // 3. Si no es de hoy, devolvemos el error
+            return redirect('admin/finance')->with('error', 'Solo puede eliminar movimientos realizados el día de hoy.');
+            
         } catch (\Exception $e) {
             return back()->with('error', 'No se pudo eliminar.');
         }
+    }
+
+    public function exportExcel($fechaIni, $fechaFin, $userId){
+        if(!Auth::user()->hasRole(Role::ADMIN) || Auth::id() != $userId){
+            return redirect('admin/finance')->with('error', 'Sin acceso al reporte.');
+        }
+        return Excel::download(
+            new CashMovementExport($fechaIni, $fechaFin, $userId), 
+            'reporte-financila'.date('Ymd').'.xlsx');
     }
 }
