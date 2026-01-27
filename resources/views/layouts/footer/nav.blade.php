@@ -20,7 +20,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script>
-                <a href="http://lugubria.net">Lugubria</a> Todos los derechos reservados.
+                <a href="https://amyr-it.net/" target="_blank">Amyr-it</a> Todos los derechos reservados.
             </p>
         </nav>
     </div>
