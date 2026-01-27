@@ -1,4 +1,4 @@
-<div class="dropdown action-dropdown">
+<div class="dropdown action-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
     <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
         data-toggle="dropdown">
         Acciones
