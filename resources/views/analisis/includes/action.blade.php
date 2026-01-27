@@ -1,6 +1,5 @@
-<div class="dropdown action-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
-    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-        data-toggle="dropdown">
+<div class="dropdown action-dropdown">
+    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="viewport">
         Acciones
     </button>
     <div class="dropdown-menu dropdown-menu-right">
