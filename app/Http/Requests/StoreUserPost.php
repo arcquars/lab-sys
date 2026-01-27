@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule; // Importamos la clase Rule
 
 class StoreUserPost extends FormRequest
 {
@@ -24,19 +25,27 @@ class StoreUserPost extends FormRequest
     public function rules()
     {
         $id = $this->route('user');
-//        dd($id);
-        $email = 'required|email|unique:users,email|max:255';
+        
+        $emailUniqueRule = Rule::unique('users', 'email')->whereNull('deleted_at');
+
         $pass = 'required|min:6|nullable|confirmed';
         $pass_c = 'required|min:6|nullable';
-        if(isset($id)){
-            $email = 'required|email|unique:users,email,'.$id.'|max:255';
+
+        if (isset($id)) {
+            $emailUniqueRule->ignore($id);
+            
             $pass = 'min:6|nullable|confirmed';
             $pass_c = 'min:6|nullable';
         }
 
         return [
             'name' => 'required|max:255',
-            'email' => $email,
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                $emailUniqueRule // Aplicamos la regla compleja aquí
+            ],
             'roles' => 'required',
             'password' => $pass,
             'password_confirmation' => $pass_c

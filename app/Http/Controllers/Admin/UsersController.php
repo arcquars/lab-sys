@@ -152,14 +152,20 @@ class UsersController extends Controller
             return redirect(route('admin.users.index'));
         }
 
+        // Importante: Considerar si quieres borrar estos registros relacionados físicamente 
+        // o si también deberían tener borrado lógico.
         InvitadoAnalisis::where('user_id', $id)->delete();
         InvitadoAsignaciones::where('user_id', $id)->delete();
 
         $user = User::find($id);
+        
+        // Detach de roles antes del borrado lógico
         $user->roles()->detach();
+        
+        // Esto ahora ejecutará el borrado lógico (Soft Delete)
         $user->delete();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success', 'Usuario eliminado correctamente.');
     }
 
     public function aGetUser($userId){

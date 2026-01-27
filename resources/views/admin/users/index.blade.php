@@ -43,12 +43,11 @@
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-success btn-sm m-1"><i class="far fa-edit"></i></a>&nbsp;
                                 @endcan
                                 @can('delete-users')
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="float-left">
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <button type="submit" class="btn btn-danger btn-sm m-1"><i class="far fa-trash-alt"></i></button>
-                                </form>
-                                    @endcan
+                                    {{-- Botón modificado para abrir el modal --}}
+                                    <button type="button" class="btn btn-danger btn-sm m-1" onclick="openDeleteModal({{ $user->id }}, '{{ $user->name }}')">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -56,29 +55,54 @@
             </table>
             </div>
         </div>
-
     </div>
 
-    <!-- Modal -->
+    <!-- Modal de Activación/Desactivación -->
     <div class="modal fade" id="activeModal" tabindex="-1" aria-labelledby="activeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form onsubmit="sendActivoDes(this); return false;">
                 <input type="hidden" name="user_id">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Estado de Usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                    </div>
                 </div>
-                <div class="modal-body">
+            </form>
+        </div>
+    </div>
 
+    <!-- Modal de Eliminación (Soft Delete) -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form id="deleteUserForm" action="" method="POST">
+                @csrf
+                {{ method_field('DELETE') }}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            ¿Está seguro que desea eliminar al usuario <b id="deleteUserName"></b>? 
+                            Esta acción realizará un borrado lógico del sistema.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar Usuario</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Confirmar</button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
@@ -94,17 +118,24 @@
             });
         });
 
+        // Función para abrir el modal de eliminación
+        function openDeleteModal(userId, userName) {
+            let url = "{{ route('admin.users.destroy', ':id') }}";
+            url = url.replace(':id', userId);
+            
+            $('#deleteUserForm').attr('action', url);
+            $('#deleteUserName').text(userName);
+            $('#deleteModal').modal('show');
+        }
+
         function openActiveModal(userId){
             $.ajax({
                 url: "{{ url('/admin/users/a-get-user/') }}/"+userId,
                 type: 'POST',
                 success: function (data) {
-                    console.log(JSON.stringify(data));
-
                     $("#activeModal").modal('show');
                     $("#activeModal .modal-body").empty().append(showMessage(data.user.active, data.user.name));
                     $("#activeModal input[name='user_id']").val(data.user.id);
-                    // location.reload();
                 }
             });
         }
@@ -120,7 +151,6 @@
                 html += 'Usted activara al usuario <b>'+nombre+'</b>';
                 html += '</div>';
             }
-
             return html;
         }
 
@@ -130,7 +160,6 @@
                 type: 'POST',
                 data: $(form).serialize(),
                 success: function (data) {
-                    console.log(JSON.stringify(data));
                     location.reload();
                 }
             });
