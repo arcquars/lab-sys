@@ -293,7 +293,7 @@ class Analisis extends Model
      */
     public static function laratablesPersonNombres($analisis)
     {
-        return $analisis->person->nombres . ' ' . $analisis->person->apellidos.' '.$analisis->person->apellido_materno;
+        return $analisis->person->nombres?? '' . ' ' . $analisis->person->apellidos?? '' .' '.$analisis->person->apellido_materno?? '';
     }
 
     /**
