@@ -293,7 +293,14 @@ class Analisis extends Model
      */
     public static function laratablesPersonNombres($analisis)
     {
-        return $analisis->person->nombres?? '' . ' ' . $analisis->person->apellidos?? '' .' '.$analisis->person->apellido_materno?? '';
+        if($analisis->person){
+            $nombres = $analisis->person->nombres? $analisis->person->nombres : '';
+            $apellidos = $analisis->person->apellidos? $analisis->person->apellidos : '';
+            $materno = $analisis->person->apellido_materno? $analisis->person->apellido_materno : '';
+            return $nombres . " " . $apellidos . " " . $materno;
+        }
+
+        return "";
     }
 
     /**
@@ -304,7 +311,14 @@ class Analisis extends Model
      */
     public static function laratablesDoctorasigNombres($analisis)
     {
-        return $analisis->doctorasig->nombres . ' ' . $analisis->doctorasig->apellidos.' '.$analisis->doctorasig->apellido_materno;
+        if($analisis->doctorasig){
+            $nombres = $analisis->doctorasig->nombres? $analisis->doctorasig->nombres : '';
+            $apellidos = $analisis->doctorasig->apellidos? $analisis->doctorasig->apellidos : '';
+            $materno = $analisis->doctorasig->apellido_materno? $analisis->doctorasig->apellido_materno : '';
+            return $nombres . " " . $apellidos . " " . $materno;
+        }
+
+        return "";
     }
 
     public static function updatePersonaFechaEntrega($analisisId, $personaEntrega, $fechaEntrega){
