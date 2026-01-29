@@ -11,6 +11,7 @@ use App\Biopsia;
 use App\Convenio;
 use App\Doctor;
 use App\EditarControl;
+use App\Helpers\ClinicaHelper;
 use App\Histoquimica;
 use App\Http\Requests\GraficReportPost;
 use App\Http\Requests\StoreAnalisisPost;
@@ -23,6 +24,7 @@ use App\Person;
 use App\Resultado;
 use App\Rules\Saldo;
 use App\Seccion;
+use App\Setting;
 use App\User;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
@@ -148,6 +150,12 @@ class AnalisisController extends Controller
                 }
             }
 
+            $request->session()->flash('status', '¡Análisis creado correctamente!');
+            // Guardamos el ID en una variable de sesión flash llamada 'print_receipt'
+            if(Setting::get('receipt_print', '0')){
+                $request->session()->flash('print_receipt', $analisis->id);
+            }
+            
             return redirect('/clients');
         } else {
             dd('El analisis tiene errores!!!');
@@ -1056,5 +1064,27 @@ class AnalisisController extends Controller
         $search = $request->get('keyword');
         $anaDoctores = Analisis::where('doctor', 'like', '%'.$search.'%')->orderby('doctor')->distinct()->limit(20)->get('doctor');
         return response()->view('analisis._search_envia', compact('anaDoctores'));
+    }
+
+    public function descargarRecibo($id)
+    {
+        // 1. Buscamos el análisis con sus relaciones (paciente, detalles, pagos, etc.)
+        $analisis = Analisis::with(['person', 'doctorasig'])->findOrFail($id);
+        $orderGroupTest = ClinicaHelper::getTestGroupResults($id);
+        // 2. Preparamos la data para la vista
+        $data = [
+            'analisis' => $analisis,
+            'orderGroupTest' => $orderGroupTest,
+            'fecha_impresion' => date('d/m/Y H:i')
+        ];
+
+        // 3. Cargamos la vista del recibo (la crearemos en el paso 3)
+        $pdf = PDF::loadView('analisis.recibo_pdf', $data);
+
+        // 4. Configuramos el papel si es necesario (ej: ticket o carta)
+        // $pdf->setPaper('A4', 'portrait');
+
+        // 5. Descargamos el archivo
+        return $pdf->download('recibo-analisis-' . $analisis->codigo . '.pdf');
     }
 }

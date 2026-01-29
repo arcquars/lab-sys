@@ -137,7 +137,26 @@
             }
         });
         $(document).ready(function () {
+            @if(session()->has('print_receipt'))
+                var analisisId = "{{ session('print_receipt') }}";
+                
+                // 2. Generamos la URL. Usamos un placeholder ':id' por seguridad
+                // para evitar errores de compilación de Blade si la sesión estuviera vacía.
+                var urlRecibo = "{{ route('analisis.recibo', ':id') }}";
+                urlRecibo = urlRecibo.replace(':id', analisisId);
 
+                console.log("Iniciando descarga automática del recibo: " + analisisId);
+
+                // 3. Abrimos el PDF en una pestaña nueva
+                // Usamos un pequeño setTimeout para asegurar que el navegador no lo bloquee como popup inmediato
+                setTimeout(function() {
+                    window.open(urlRecibo, '_blank');
+                }, 800);
+
+                // Opcional: Si usas SweetAlert o Toastr en tu proyecto
+                // toastr.success('Generando recibo de análisis...');
+                
+            @endif
 
         });
 

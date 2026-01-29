@@ -27,4 +27,9 @@ class AnalysisTestResult extends Model
     {
         return $this->belongsTo('App\AnalysisTest', 'a_test_id', 'id');
     }
+
+    public function getPriceAttribute()
+    {
+        return $this->aTest->price;
+    }
 }

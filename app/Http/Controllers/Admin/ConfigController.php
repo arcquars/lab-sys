@@ -11,13 +11,15 @@ class ConfigController extends Controller
     public function index(Request $request)
     {
         $metodo = Setting::get('metodo_analisis', '1');
-        return view('admin.config.home', compact('metodo'));
+        $receiptPrint = Setting::get('receipt_print', '0');
+        return view('admin.config.home', compact('metodo', 'receiptPrint'));
     }
 
     public function save(Request $request)
     {
         // Guardamos el valor usando el método set definido anteriormente
         Setting::set('metodo_analisis', $request->input('metodo'));
+        Setting::set('receipt_print', $request->input('receipt_print'));
 
         return back()->with('success', 'Configuración actualizada correctamente');
     }

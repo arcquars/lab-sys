@@ -100,6 +100,7 @@ Route::post('/analisis/aSearchPaciente', 'AnalisisController@ajaxSearchPaciente'
 Route::post('/analisis/aChangePaciente', 'AnalisisController@ajaxChangePaciente')->name('analisis.paciente.achangepaciente');
 Route::post('/analisis/aSearchDoctor', 'AnalisisController@ajaxSearchDoctor')->name('analisis.doctor.asearchdoctor');
 Route::post('/analisis/a-search-envia', 'AnalisisController@ajaxSearchEnvia')->name('analisis.doctor.envia');
+Route::get('analisis/{id}/recibo', 'AnalisisController@descargarRecibo')->name('analisis.recibo');
 
 Route::post('/analisis/grafic-report', 'AnalisisController@ajaxGraficReport')->name('analisis.aGraficReport');
 

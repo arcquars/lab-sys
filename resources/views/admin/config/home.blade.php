@@ -12,33 +12,63 @@
         <div class="card-body">
             <form action="{{ route('admin.config.save') }}" method="POST">
                 @csrf
-                <div class="form-group">
-                    <label for="formGroupExampleInput">Método</label>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input 
-                                class="form-check-input" 
-                                type="radio" 
-                                name="metodo" 
-                                id="m-free" 
-                                value="1"
-                                @if(strcmp($metodo, "1") == 0) checked @endif
-                            >
-                            <label class="form-check-label" for="m-free" >Libre</label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="formGroupExampleInput">Método</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="metodo" 
+                                    id="m-free" 
+                                    value="1"
+                                    @if(strcmp($metodo, "1") == 0) checked @endif
+                                >
+                                <label class="form-check-label" for="m-free" >Libre</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="metodo" 
+                                    id="m-select" 
+                                    value="2"
+                                    @if(strcmp($metodo, "1") != 0) checked @endif
+                                >
+                                <label class="form-check-label" for="m-select">Selección</label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input 
-                                class="form-check-input" 
-                                type="radio" 
-                                name="metodo" 
-                                id="m-select" 
-                                value="2"
-                                @if(strcmp($metodo, "1") != 0) checked @endif
-                            >
-                            <label class="form-check-label" for="m-select">Selección</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="formGroupExampleInput">Imprimir Recibo</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="receipt_print" 
+                                    id="rp-si" 
+                                    value="1"
+                                    @if(strcmp($receiptPrint, "1") == 0) checked @endif
+                                >
+                                <label class="form-check-label" for="rp-si" >SI</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="receipt_print" 
+                                    id="rp-no" 
+                                    value="0"
+                                    @if(strcmp($receiptPrint, "1") != 0) checked @endif
+                                >
+                                <label class="form-check-label" for="rp-no">NO</label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                
                 <div>
                     <button type="submit" class="btn btn-primary btn-sm">Grabar</button>
                 </div>
