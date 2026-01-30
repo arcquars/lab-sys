@@ -9,7 +9,7 @@
         @else
         margin-top: 2.5cm;
         @endif
-        margin-bottom: 1.5cm;
+        margin-bottom: 1.8cm;
         margin-left: 1cm;
         margin-right: 1cm;
         /*margin: 0cm 0cm;*/

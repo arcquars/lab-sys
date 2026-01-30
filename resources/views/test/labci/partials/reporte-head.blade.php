@@ -4,7 +4,7 @@
         <tbody>
             <tr>
                 <td style="width: 35%; vertical-align: middle;">
-                    <img src="{{public_path('img/labci/labci-all.jpeg')}}" width="170">
+                    <img src="{{public_path('img/labci/labci-new-logo.png')}}" width="170">
                 </td>
                 <td style="width: 65%; vertical-align: middle; text-align: center;">
                     <h3 style="color: #0b6d9a; font-size: 16px;">INFORME RESULTADO DE LABORATORIO</h3> 

@@ -10,7 +10,7 @@
         @page {
             @if(isset($watermark))
                 background: url("{{ $watermark['path'] }}") no-repeat center;
-                background-image-resize: 6; /* 6 mantiene el tamaño original y centra */
+                background-image-resize: 1;
                 background-image-opacity: {{ $watermark['alpha'] }};
             @endif
         }
@@ -103,7 +103,7 @@ $index = 0;
                     @endif
                 </tr>
             @endif
-            <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: #E8EFFD;">
+            <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: #E8EFFD; opacity: 0.4;">
                 <td colspan="3" style="font-size: 13px; text-align: center;">
                     <h5 style="color: #00436b;">{{$key}}</h5>
                 </td>

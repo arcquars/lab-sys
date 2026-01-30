@@ -67,12 +67,6 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
             @endforeach
         </table>
         @endif
-
-
-
-
-
-
     @else
         @if (strcmp($analisis->doctorasig->signing, '') == 0)
             <br>

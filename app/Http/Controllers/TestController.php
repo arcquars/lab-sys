@@ -99,7 +99,6 @@ class TestController extends Controller
         $watermark = [
             'path'   => public_path(env('PDF_WATERMARCK')),
             'alpha'  => env('PDF_WATERMARCK_ALFA', 0.1),
-            'size'   => [env('PDF_WATERMARCK_WIDTH', 100), env('PDF_WATERMARCK_HEIGHT', 100)]
         ];
 
         $pdf = PDF::loadView($view, compact(
