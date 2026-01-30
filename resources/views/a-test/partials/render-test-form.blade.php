@@ -36,13 +36,17 @@
 {{--        <div id="validationTestGroup" class="invalid-feedback">--}}
 {{--        </div>--}}
     </div>
-    <div class="col-md-4 disabled">
+    <div class="col-md-4">
         <input type="hidden" name="type" value="{{$analysisTest->type}}">
-        <fieldset disabled>
+        <fieldset>
             <div class="from-group">
                 <label for="mtesttype">Tipo</label>
-                <select id="mtesttype" class="form-control form-control-sm"
-                        aria-describedby="validationTestType">
+                <select 
+                    id="mtesttype" 
+                    class="form-control form-control-sm"
+                    aria-describedby="validationTestType"
+                    onchange="reloadType(this, '{{ $analysisTest->id }}');"
+                >
                     <option value="">Seleccione ...</option>
                     @foreach($aTestTypes as $type)
                         <option value="{{$type}}" @if(strcmp($type, $analysisTest->type) == 0) selected @endif>{{$type}}</option>

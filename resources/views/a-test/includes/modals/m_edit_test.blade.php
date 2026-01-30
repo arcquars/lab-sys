@@ -59,5 +59,19 @@ function updateTest(form){
         }
     });
 }
+
+function reloadType(select, analisysTestId){
+    const type = $(select).val();
+    $("#mEditTest input[name='type']").val(type);
+    // alert("ddd:: " + analisysTestId + " | type: " + type);
+    $.ajax({
+        url: "{{ route('analysis-test.render-test-type') }}",
+        data: {'a_test_id': analisysTestId, 'test_type': type},
+        success: function (data) {
+            $("#mEditTest .modal-content .modal-body .dTestType").empty().append(data);
+            // alert(data);
+        }
+    });
+}
     </script>
 @endpush

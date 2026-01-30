@@ -53,12 +53,13 @@ if(!isset($sin)){
             <div style="">
                 <p style="font-size: 10px; margin: 4px; color: #f78604;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
                 <div style="height: 2px;"></div>
-                <p style="font-size: 9px; font-weight: 900;">Realiza control de calidad externo con: INLASA y </p>
+                <p style="font-size: 9px; font-weight: 900;">Realiza control de calidad externo con: INLASA y CENETROP.</p>
+                <p style="font-size: 9px; font-weight: 900;">Habilitado por Servicio Departamental de Salud</p>
+                <p style="font-size: 9px; font-weight: 900;">SEDES - R. ADM-424</p>
             </div>
         </td>
     </tr>
 </table>
-{{--<h3 class="h4-cito-1" style='text-align: center;'>INFORME PRUEBA</h3>--}}
 @include('test.labci.partials.reporte-client', compact('analisis', 'pathQr'))
 <div style="height: 10px;"></div>
 @php
@@ -103,7 +104,7 @@ $index = 0;
                 </tr>
             @endif
             <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: #E8EFFD;">
-                <td colspan="3" style="font-size: 13px">
+                <td colspan="3" style="font-size: 13px; text-align: center;">
                     <h5 style="color: #00436b;">{{$key}}</h5>
                 </td>
             </tr>
@@ -143,7 +144,20 @@ $index = 0;
 
 @include('test.labci.partials.reporte-footer', compact('analisis', 'sin'))
 @if($analisis->imprimir_firma && isset($pathQr))
-    <img src="{{ public_path($pathQr) }}" width="80">
+    <br />
+    <table style="width: 100%">
+        <tbody>
+            <tr>
+                <td style="width: 80%">
+                    <p style="font-size: 10px;">Liberado y disponible desde: {{ $analisis->fecha_cierre }}</p>
+                    <p style="font-size: 10px;">Los resultados deben ser consultados con su médico para un mejor diagnostico.</p>
+                </td>
+                <td style="width: 20%; text-align: right;">
+                    <img src="{{ public_path($pathQr) }}" width="80" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
 @endif
 </body>
 </html>

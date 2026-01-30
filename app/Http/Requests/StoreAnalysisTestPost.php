@@ -28,7 +28,7 @@ class StoreAnalysisTestPost extends FormRequest
             'name' => 'required',
             'price' => 'required|numeric|min:0|max:1000',
             'group' => 'required',
-            'type' => 'required',
+            // 'type' => 'required',
             'metodo' => 'nullable'
         ];
 

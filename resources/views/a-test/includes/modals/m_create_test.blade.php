@@ -46,9 +46,8 @@
                             <label for="mtesttype">Tipo</label>
                             <select name="type" id="mtesttype" class="form-control form-control-sm"
                                     onchange="loadTestType(this);" aria-describedby="validationTestType">
-                                <option value="">Seleccione ...</option>
                                 @foreach($rangeTypeList as $rangeType)
-                                <option value="{{$rangeType}}">{{$rangeType}}</option>
+                                <option value="{{$rangeType}}" @if(strcmp($rangeType, "Linea de texto") == 0) selected @endif >{{$rangeType}}</option>
                                 @endforeach
                             </select>
                             <div id="validationTestType" class="invalid-feedback">
@@ -131,9 +130,13 @@ function saveTest(form){
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             for (const [key, value] of Object.entries(XMLHttpRequest.responseJSON.errors)) {
-                // console.log(`${key}: ${value}`);
+                console.log(`${key}: ${value}`);
                 let inputName = "#mtest" + key.replaceAll(".", "_");
                 console.log("PDM:: ids: " + inputName);
+                $(inputName).addClass('is-invalid');
+                $(inputName).next().empty().append(value);
+
+                inputName = "#mgroup" + key.replaceAll(".", "_");
                 $(inputName).addClass('is-invalid');
                 $(inputName).next().empty().append(value);
             }

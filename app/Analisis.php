@@ -70,7 +70,8 @@ class Analisis extends Model
     ];
 
     protected $casts = [
-        'fecha'  => 'date:Y-m-d'
+        'fecha'  => 'date:Y-m-d',
+        'fecha_cierre' => 'datetime:Y-m-d H:m',
     ];
 
     public function person(){

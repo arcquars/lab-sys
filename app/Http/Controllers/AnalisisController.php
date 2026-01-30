@@ -863,6 +863,11 @@ class AnalisisController extends Controller
         $ifirma = $request->post('imprimir_firma');
         $analisis = Analisis::find($analisisId);
         $analisis->imprimir_firma = $ifirma;
+        if($ifirma){
+            $analisis->fecha_cierre = Carbon::now();
+        } else {
+            $analisis->fecha_cierre = null;
+        }
         $analisis->update();
 
         return response()->json(['success' => '1']);

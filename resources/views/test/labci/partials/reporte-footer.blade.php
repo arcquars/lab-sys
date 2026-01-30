@@ -92,7 +92,19 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
 </div>
 @endif
 <htmlpagefooter name="page-footer">
-    <div style="width: 100%; text-align: center; border-top: 1px solid #0b6d9a; padding-top: 5px;">
-        <p style="font-size: 10px; color: #0b6d9a;">Página {PAGENO} de {nbpg}</p>
+    <div style="width: 100%; text-align: center; border-top: 2px solid #0b6d9a;">
+        <table style="width: 100%; margin: 0; padding: 0;">
+            <tbody>
+                <tr>
+                    <td style="width: 75%">
+                        <p style="font-size: 10px; margin: 0; padding: 0;">Av. Oquendo #270 entre Bolivar y Sucre acera oeste.</p>
+                    </td>
+                    <td style="width: 25%; text-align: right;">
+                        <p style="font-size: 10px; margin: 0; padding: 0;">72218337 - 4507861</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 10px; color: #0b6d9a; margin: 0; padding: 0;">Página {PAGENO} de {nbpg}</p>
     </div>
 </htmlpagefooter>
