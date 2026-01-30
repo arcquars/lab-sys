@@ -32,7 +32,13 @@ return [
             'BI' => 'sansitaSwashed/SansitaSwashed-SemiBold.ttf' // optional: bold-italic font
             //'useOTL' => 0xFF,    // required for complicated langs like Persian, Arabic and Chinese
             //'useKashida' => 75,  // required for complicated langs like Persian, Arabic and Chinese
-        ]
+        ],
+        'Aptos' => [
+            'R'  => 'Aptos/Aptos-Regular.ttf',    // Regular
+            'B'  => 'Aptos/Aptos-Bold.ttf',       // Bold
+            'I'  => 'Aptos/Aptos-Italic.ttf',     // Italic
+            'BI' => 'Aptos/Aptos-BoldItalic.ttf' // Bold Italic
+        ],
         // ...add as many as you want.
     ]
 ];

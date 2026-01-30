@@ -48,8 +48,8 @@ if(!isset($sin)){
 </style>
 <table style="width: 100%;">
     <tr>
-        <td style="width: 57%;"></td>
-        <td style="width: 43%;">
+        <td style="width: 60%;"></td>
+        <td style="width: 40%; border: 1px solid #00436b; margin: 2px;">
             <div style="">
                 <p style="font-size: 10px; margin: 4px; color: #f78604;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
                 <div style="height: 2px;"></div>

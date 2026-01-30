@@ -293,5 +293,6 @@ return [
         'Espectrofotometría',
         'Quimioluminiscencia',
         'Fluorometría',
-    ]
+    ],
+    'report_pdf_font' => env('REPORT_PDF_FONT', 'Arial')
 ];

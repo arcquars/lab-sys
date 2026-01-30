@@ -16,7 +16,8 @@
     }
 
     body {
-        font-family: 'Times New Roman', 'Sansita Swashed', sans-serif;
+        /* font-family: 'Times New Roman', 'Sansita Swashed', sans-serif; */
+        font-family: '{{ config("clinica.report_pdf_font") }}', sans-serif;
     }
 
     .labci-table{
@@ -43,6 +44,7 @@
     }
 
     .labci-h3 {
+        font-family: '{{ config("clinica.report_pdf_font") }}';
         font-size: 18px;
         margin: 4px 0;
         color: #00436b;
