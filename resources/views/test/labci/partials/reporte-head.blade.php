@@ -7,7 +7,9 @@
                     <img src="{{public_path('img/labci/labci-new-logo-azul-oscuro.png')}}" width="170">
                 </td>
                 <td style="width: 65%; vertical-align: middle; text-align: right;">
+                    @if($analisis->imprimir_firma && isset($pathQr))
                     <img src="{{ public_path($pathQr) }}" width="70" />
+                    @endif
                 </td>
             </tr>
         </tbody>
