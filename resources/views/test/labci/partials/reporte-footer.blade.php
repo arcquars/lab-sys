@@ -1,4 +1,4 @@
-<h5 style="color: #00436b; font-size: 15px;">VALIDADO POR:</h5>
+<h5 style="color: #1e3a8a; font-size: 15px;">VALIDADO POR:</h5>
 <?php
 /** @var \App\Analisis $analisis */
 /** @var  $chunkSupervisores */
@@ -86,19 +86,25 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
 </div>
 @endif
 <htmlpagefooter name="page-footer">
-    <div style="width: 100%; text-align: center; border-top: 2px solid #0b6d9a;">
+    <div style="width: 100%; text-align: center; border-top: 2px solid #1e3a8a;">
         <table style="width: 100%; margin: 0; padding: 0;">
             <tbody>
                 <tr>
-                    <td style="width: 75%">
-                        <p style="font-size: 10px; margin: 0; padding: 0;">Av. Oquendo #270 entre Bolivar y Sucre acera oeste.</p>
+                    <td style="width: 40%">
+                        <p style="font-size: 10px; margin: 0; padding: 0;">
+                            <img width="12" src="{{public_path('img/marcador-de-mapa.png')}}" alt="" style="display: inline">
+                            Av. Oquendo #270 entre Bolivar y Sucre acera oeste.
+                        </p>
                     </td>
-                    <td style="width: 25%; text-align: right;">
-                        <p style="font-size: 10px; margin: 0; padding: 0;">72218337 - 4507861</p>
+                    <td style="text-align: center; width: 25%;">
+                        <p style="font-size: 10px; margin: 0; padding: 0;">laboratoriolabci@gmail.com</p>
+                    </td>
+                    <td style="width: 35%; text-align: right;">
+                        <p style="font-size: 10px; margin: 0; padding: 0;">72218337 - 4507861 - 68597800</p>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <p style="font-size: 10px; color: #0b6d9a; margin: 0; padding: 0;">Página {PAGENO} de {nbpg}</p>
+        <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding: 0;">Página {PAGENO} de {nbpg}</p>
     </div>
 </htmlpagefooter>

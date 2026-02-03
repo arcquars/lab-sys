@@ -2,16 +2,16 @@
 <table class="labci-table-4">
     <tbody>
         <tr>
-            <td>
+            <td style="width: 20%;">
                 <p class="labci-table-p-b"><b>NOMBRE PACIENTE:</b></p>
             </td>
-            <td>
+            <td style="width: 30%;">
                 <p class="labci-table-p">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</p>
             </td>
-            <td>
+            <td style="width: 20%;">
                 <p class="labci-table-p-b"><b>COD LAB:</b></p>
             </td>
-            <td>
+            <td style="width: 30%;">
                 <p class="labci-table-p">{{$analisis->codigo}}</p>
             </td>
         </tr>

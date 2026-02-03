@@ -1,13 +1,13 @@
 <htmlpageheader name="page-header">
     @if(!$sin)
-    <table class="table-head" style="border: solid 1px #00436b">
+    <table class="table-head" style="border: solid 1px #1e3a8a">
         <tbody>
             <tr>
                 <td style="width: 35%; vertical-align: middle;">
-                    <img src="{{public_path('img/labci/labci-new-logo.png')}}" width="170">
+                    <img src="{{public_path('img/labci/labci-new-logo-azul-oscuro.png')}}" width="170">
                 </td>
-                <td style="width: 65%; vertical-align: middle; text-align: center;">
-                    <h3 style="color: #0b6d9a; font-size: 16px;">INFORME RESULTADO DE LABORATORIO</h3> 
+                <td style="width: 65%; vertical-align: middle; text-align: right;">
+                    <img src="{{ public_path($pathQr) }}" width="70" />
                 </td>
             </tr>
         </tbody>

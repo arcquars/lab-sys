@@ -30,13 +30,16 @@
     }
 
     .labci-table-p {
-        font-size: 12px;
+        font-size: 10px;
         margin-top: 0;
-        margin-bottom: 2px;
+        /* margin-bottom: 2px; */
+        padding: 0;
     }
 
     .labci-table-p-b{
-        font-size: 10px;
+        font-size: 9px;
+        padding: 0;
+        color: #172554;
     }
 
     .labci-table-p > span{
@@ -45,9 +48,9 @@
 
     .labci-h3 {
         font-family: '{{ config("clinica.report_pdf_font") }}';
-        font-size: 18px;
+        font-size: 16px;
         margin: 4px 0;
-        color: #00436b;
+        color: #1e3a8a;
     }
 
     .table-head {
@@ -58,7 +61,8 @@
         width: 100%;
     }
 
-    .labci-table-4 tbody tr td{
-        width: 25%;
+     .labci-table-4 tbody tr td{
+        margin: 0;
+        padding: 0;
     }
 </style>
