@@ -27,7 +27,8 @@ function openModalAnalysisTestGroupDelete(aTestGroupId){
         url: "{{ route('analisis-test.render-test-group-form-delete') }}",
         data: {'a_test_group_id': aTestGroupId},
         success: function (data) {
-            let msg = "El grupo <b class='text-primary'>" + data.testGroup.name + "</b> no se puede eliminar por que tinen pruebas o es el Padre de otros grupos. El grupo tiene que estar vacio. ";
+            console.log("Respuesta:: ", data);
+            let msg = "El grupo <b class='text-primary'>" + data.testGroup.name + "</b> no se puede eliminar por que tiene pruebas o es el Padre de otros grupos. El grupo tiene que estar vacio. ";
             $("#mDeleteTestGroup .modal-content .modal-footer button[type='submit']").attr('disabled', true);
             $("#mDeleteTestGroup .modal-content .modal-footer button[type='submit']").addClass('disabled');
             if(data.valid){

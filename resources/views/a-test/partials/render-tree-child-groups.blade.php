@@ -5,7 +5,7 @@
             <h2 class="mb-0">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ $child->id }}" aria-expanded="true" aria-controls="collapse{{ $child->id }}">
                     @for($i=0; $i<$level; $i++)
-                        -
+                        &nbsp;&nbsp;<b>-</b>&nbsp;
                     @endfor
                         {{ $child->name }}
                         <button class="btn btn-link text-danger p-1 float-right " onclick="openModalAnalysisTestGroupDelete({{$child->id}});"><i class="fas fa-trash-alt"></i></button>
@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-
     @if(count($child->children))
         @include('a-test.partials.render-tree-child-groups',['level' => $level + 1, 'childs' => $child->children, 'group_id' => (isset($group_id))? $group_id: null])
     @endif
