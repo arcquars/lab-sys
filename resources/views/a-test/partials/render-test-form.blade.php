@@ -23,12 +23,12 @@
                 <option value="{{$metodo}}" @if(isset($analysisTest->metodo) && strcmp($analysisTest->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
             @endforeach --}}
 
-            <option value="">-- Seleccionar Método --</option>
+            <option value="">-- Seleccionar Método.. --</option>
             @foreach($methods as $method)
                 {{-- Guardamos el nombre tal como definiste en tu migración (varchar) --}}
                 <option 
                     value="{{ $method->name }}"
-                    @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo->name) == 0 ) selected @endif
+                    @if(isset($analysisTest->metodo) && strcmp($analysisTest->metodo, $method->name) == 0 ) selected @endif
                 >
                     {{ $method->name }}
                 </option>
