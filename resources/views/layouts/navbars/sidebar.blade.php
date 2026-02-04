@@ -31,6 +31,12 @@ Tip 2: you can also add an image using data-image tag
                                 <p>Gestionar Usuarios</p>
                             </a>
                         </li>
+                        <li class="nav-item @if($activePage == 'admin_methods') active @endif">
+                            <a class="nav-link" href="{{route('methods.index')}}">
+                                <i class="fas fa-cog"></i>
+                                <p>Metodos</p>
+                            </a>
+                        </li>
                         <li class="nav-item @if($activePage == 'admin_config') active @endif">
                             <a class="nav-link" href="{{route('admin.config.home')}}">
                                 <i class="fas fa-cog"></i>

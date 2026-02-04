@@ -1,6 +1,11 @@
 @extends('layouts.dash', ['activePage' => 'atest_index', 'navName' => 'Analisis', 'activeButton' => ''])
 
 @section('content')
+    <style>
+    .searchResalt{
+        background-color: aqua;
+    }        
+    </style>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
@@ -12,6 +17,15 @@
         <div class="card-body ">
             <button type="button" class="btn btn-secondary btn-sm" onclick="openModalCreateGroupTest();"><i class="fas fa-vials"></i> Crear grupo</button>
             <button type="button" class="btn btn-secondary btn-sm" onclick="openModalCreateTest();"><i class="fas fa-vial"></i> Crear Prueba</button>
+            <div class="form-group">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-search"></i></div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Buscar ..." onchange="searchAtest(this);">
+                </div>
+
+            </div>
             <hr>
             <div id="list_group" class="row">
             </div>
@@ -122,6 +136,73 @@
 
         function removeRangeIntermediary(link) {
             $(link).parents().eq(3).remove();
+        }
+
+        function searchAtest(input){
+            const strSearch = $(input).val().toLowerCase().trim();
+            const strLength = strSearch.length;
+            let collapseIds = [];
+            const testCards = $("#accordionTestGroup .card");
+            $("#accordionTestGroup").find(".searchResalt").removeClass("searchResalt");
+            if(strLength > 2){
+                $.each(testCards, function(){
+                    let testNames = $(this).find('.collapse .card-body p');
+                    $.each(testNames, function(){
+                        let testName = $(this).text().toLowerCase().trim();
+                        let contains = testName.includes(strSearch);
+                        if(contains){
+                            collapseIds.push($(this).parent().parent().attr('id'));
+                            $(this).addClass('searchResalt');
+                        }
+                    });
+                });
+                const idsUnicos = [...new Set(collapseIds)];
+                console.log(idsUnicos);
+                // Cerrar todos los collapse
+                $.each(testCards, function(){
+                    let collapses = $(this).find('.collapse');
+                    $.each(collapses, function(){
+                        $(this).removeClass('show');
+                    });
+                });
+                // Mostrar solo grupos que se encontraron test
+                $.each(testCards, function(){
+                    let hidden = true;
+                    const collapseTemp = $(this).find('.collapse');
+                    $(collapseTemp).parent().show();
+                    $.each(idsUnicos, function(index, idColl){ // Usamos el parámetro idColl en lugar de 'this'
+                        // Ahora idColl es un string primitivo y el === funcionará
+                        if($(collapseTemp).attr('id') === idColl){
+                            console.log("ccccc:: ", idColl);
+                            hidden = false;
+                        }    
+                    });
+                    if(hidden){
+                        $(collapseTemp).parent().hide();
+                    }
+                    
+                });
+                // Mostrar collapse
+                $.each(idsUnicos, function(i, id) {
+                    // Seleccionamos directamente el ID y le ponemos la clase
+                    if(id) { 
+                        $('#' + id).addClass('show'); 
+                    }
+                });
+                
+            } else {
+                console.log("mostrar TODO....");
+                $.each(testCards, function(){
+                    let collapses = $(this).find('.collapse');
+                    $.each(collapses, function(){
+                        $(this).removeClass('show');
+                    });
+                });
+                $.each(testCards, function(){
+                    const collapseTemp = $(this).find('.collapse');
+                    $(collapseTemp).parent().show();
+                });
+            }
         }
     </script>
 @endpush

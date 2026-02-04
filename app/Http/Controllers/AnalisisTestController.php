@@ -38,7 +38,8 @@ class AnalisisTestController extends Controller
     public function index(Request $request)
     {
         $rangeTypeList = AnalysisTest::ANALYSIS_TEST_TYPES;
-        return view('a-test.home', compact('rangeTypeList'));
+        $methods = \App\Method::where('active', true)->orderBy('name', 'asc')->get();
+        return view('a-test.home', compact('rangeTypeList', 'methods'));
     }
 
     /**
@@ -615,10 +616,11 @@ class AnalisisTestController extends Controller
 
 //            $groups = AnalysisTestGroup::where('deleted', 0)->pluck('name', 'id');
             $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->with('children')->orderBy('name')->get();
-
+            $methods = \App\Method::where('active', true)->orderBy('name', 'asc')->get();
+                
             $aTestTypes = AnalysisTest::ANALYSIS_TEST_TYPES;
             return view('a-test.partials.render-test-form',
-                compact('analysisTest', 'groups', 'aTestTypes', 'analysisTestGroup'))
+                compact('analysisTest', 'groups', 'aTestTypes', 'analysisTestGroup', 'methods'))
                 ->render();
         }
     }

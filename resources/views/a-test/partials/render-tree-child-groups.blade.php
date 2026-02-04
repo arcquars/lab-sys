@@ -1,4 +1,3 @@
-<div class="accordion accordion-tree" id="accordionTestGroup">
 @foreach($childs as $child)
     <div class="card">
         <div class="card-header" id="heading{{ $child->id }}">
@@ -29,4 +28,3 @@
         @include('a-test.partials.render-tree-child-groups',['level' => $level + 1, 'childs' => $child->children, 'group_id' => (isset($group_id))? $group_id: null])
     @endif
 @endforeach
-</div>

@@ -29,9 +29,20 @@
                         <div class="col-md-4 form-group">
                             <label for="f_metodo">Metodo</label>
                             <select name="metodo" id="f_metodo" class="form-control form-control-sm">
-                                <option value="">Seleccione ...</option>
+                                {{-- <option value="">Seleccione ...</option>
                                 @foreach(config('clinica.metodos') as $metodo)
                                     <option value="{{$metodo}}" @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
+                                @endforeach --}}
+
+                                <option value="">-- Seleccionar Método --</option>
+                                @foreach($methods as $method)
+                                    {{-- Guardamos el nombre tal como definiste en tu migración (varchar) --}}
+                                    <option 
+                                        value="{{ $method->name }}"
+                                        @if(isset($testResult->metodo) && strcmp($testResult->metodo, $metodo->name) == 0 ) selected @endif
+                                    >
+                                        {{ $method->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

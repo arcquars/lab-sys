@@ -283,4 +283,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     Route::get('config', 'Admin\ConfigController@index')->name('admin.config.home');
     Route::post('config', 'Admin\ConfigController@save')->name('admin.config.save');
+
+    Route::resource('methods', 'Admin\MethodController');
 });
