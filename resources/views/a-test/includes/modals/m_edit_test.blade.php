@@ -52,7 +52,12 @@ function updateTest(form){
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             for (const [key, value] of Object.entries(XMLHttpRequest.responseJSON.errors)) {
                 let inputName = "#mtest" + key.replaceAll(".", "_");
-                console.log("PDM:: ids: " + inputName);
+                console.log("PDM1:: ids: " + inputName);
+                $(inputName).addClass('is-invalid');
+                $(inputName).next().empty().append(value);
+
+                inputName = "#mgroup" + key.replaceAll(".", "_");
+                console.log("PDM2:: ids: " + inputName);
                 $(inputName).addClass('is-invalid');
                 $(inputName).next().empty().append(value);
             }
