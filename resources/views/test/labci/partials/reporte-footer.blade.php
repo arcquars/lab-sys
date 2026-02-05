@@ -90,16 +90,16 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
         <table style="width: 100%; margin: 0; padding: 0;">
             <tbody>
                 <tr>
-                    <td style="width: 40%">
+                    <td style="width: 45%">
                         <p style="font-size: 10px; margin: 0; padding: 0;">
-                            <img width="12" src="{{public_path('img/marcador-de-mapa.png')}}" alt="" style="display: inline">
-                            Av. Oquendo #270 entre Bolivar y Sucre acera oeste.
+                            <img width="11" src="{{public_path('img/marcador-de-mapa.png')}}" alt="" style="display: inline">
+                            Av. Oquendo #270 entre Bolivar y Sucre acera oeste - Cochabamba.
                         </p>
                     </td>
-                    <td style="text-align: center; width: 25%;">
+                    <td style="text-align: center; width: 30%;">
                         <p style="font-size: 10px; margin: 0; padding: 0;">laboratoriolabci@gmail.com</p>
                     </td>
-                    <td style="width: 35%; text-align: right;">
+                    <td style="width: 25%; text-align: right;">
                         <p style="font-size: 10px; margin: 0; padding: 0;">72218337 - 4507861 - 68597800</p>
                     </td>
                 </tr>

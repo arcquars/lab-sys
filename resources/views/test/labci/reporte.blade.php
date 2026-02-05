@@ -143,7 +143,7 @@ $index = 0;
                     <p style="font-size: 10px;">Los resultados deben ser consultados con su médico para un mejor diagnostico.</p>
                 </td>
                 <td style="width: 40%; border: 1px solid #1e3a8a;">
-                    <p style="font-size: 10px; margin: 4px; color: #f78604;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
+                    <p style="font-size: 10px; margin: 4px; color: #000;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
                     <div style="height: 2px;"></div>
                     <p style="font-size: 9px; font-weight: 900;">Realiza control de calidad externo con: INLASA y CENETROP.</p>
                     <p style="font-size: 9px; font-weight: 900;">Habilitado por Servicio Departamental de Salud SEDES - R. ADM-424</p>
