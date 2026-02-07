@@ -35,6 +35,10 @@ function openModalAnalysisTest(aTestId){
 }
 
 function updateTest(form){
+    const $formS = $(form);
+
+    // 2. Quitamos la clase 'is-invalid' de todos los inputs/selects
+    $formS.find(".is-invalid").removeClass("is-invalid");
     $.ajax({
         url: "{{ route('analysis-test.update.test') }}",
         type: 'POST',
@@ -52,9 +56,13 @@ function updateTest(form){
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             for (const [key, value] of Object.entries(XMLHttpRequest.responseJSON.errors)) {
                 let inputName = "#mtest" + key.replaceAll(".", "_");
+                let inputNameClass = ".mtest" + key.replaceAll(".", "_");
                 console.log("PDM1:: ids: " + inputName);
                 $(inputName).addClass('is-invalid');
                 $(inputName).next().empty().append(value);
+                $(inputNameClass).addClass('is-invalid');
+                $(inputNameClass).next().empty().append(value);
+
 
                 inputName = "#mgroup" + key.replaceAll(".", "_");
                 console.log("PDM2:: ids: " + inputName);

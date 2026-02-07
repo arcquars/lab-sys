@@ -2,13 +2,13 @@
 <div class="row">
     <div class="col-md-10 form-group">
         <label for="mtestname">Nombre</label>
-        <input type="text" id="mtestname" name="name" class="form-control form-control-sm" value="{{$analysisTest->name}}" aria-describedby="validationTestName">
+        <input type="text" id="mtestname" name="name" class="form-control form-control-sm mtestname" value="{{$analysisTest->name}}" aria-describedby="validationTestName">
         <div id="validationTestName" class="invalid-feedback">
         </div>
     </div>
     <div class="col-md-2 form-group">
         <label for="mtestname">Precio</label>
-        <input type="number" id="mtestprice" name="price" class="form-control form-control-sm"
+        <input type="number" id="mtestprice" name="price" class="form-control form-control-sm mtestprice"
                aria-describedby="validationTestPrice" value="{{$analysisTest->price}}">
         <div id="validationTestPrice" class="invalid-feedback">
         </div>
@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-md-4 form-group">
         <label for="f_metodo_e">Metodo</label>
-        <select name="metodo" id="f_metodo_e" class="form-control form-control-sm">
+        <select name="metodo" id="f_metodo_e" class="form-control form-control-sm mtestmetodo">
             {{-- <option value="">Seleccione ...</option>
             @foreach(config('clinica.metodos') as $metodo)
                 <option value="{{$metodo}}" @if(isset($analysisTest->metodo) && strcmp($analysisTest->metodo, $metodo) == 0 ) selected @endif>{{$metodo}}</option>
@@ -54,7 +54,7 @@
                 <label for="mtesttype">Tipo</label>
                 <select 
                     id="mtesttype" 
-                    class="form-control form-control-sm"
+                    class="form-control form-control-sm mtesttype"
                     aria-describedby="validationTestType"
                     onchange="reloadType(this, '{{ $analysisTest->id }}');"
                 >

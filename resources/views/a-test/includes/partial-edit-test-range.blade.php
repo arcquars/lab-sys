@@ -13,7 +13,7 @@
     <div class="col-md-6 form-group">
         <label for="mtestrange.measure">Unidad</label>
         <input type="text" id="mtestrange_measure" name="range[measure]" class="form-control form-control-sm"
-               value="{{$analysisTestRange->measure}}" aria-describedby="validationMeasure">
+               value="{{$analysisTestRange->measure?? ''}}" aria-describedby="validationMeasure">
         <div id="validationMeasure" class="invalid-feedback">
         </div>
     </div>
@@ -27,6 +27,7 @@
 {{--    </div>--}}
 </div>
 <div id="rangeListOptions">
+    @if(isset($analysisTestRange->analysisTestRangeOptions))
     @foreach($analysisTestRange->analysisTestRangeOptions as $analysisTestRangeOption)
         @php
         $tempId = rand(1, 500)
@@ -100,4 +101,5 @@
         </div>
     </div>
     @endforeach
+    @endif
 </div>
