@@ -17,6 +17,8 @@ return [
 
     'name_large' => env('APP_NAME_LARGE', 'Laravel'),
 
+    'theme_color' => env('DASHBOARD_THEME_COLOR', 'black'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
