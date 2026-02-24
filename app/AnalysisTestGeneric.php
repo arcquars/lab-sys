@@ -41,7 +41,18 @@ class AnalysisTestGeneric extends TestInputAbstract
 //                dd($analysisTestGenericOption->bookmark);
                 $html .= "<span class='text-danger'>*</span>&nbsp;";
             }
-            $html .= $analysisTestGenericOption->gender;
+            //$html .= $analysisTestGenericOption->gender;
+            switch($analysisTestGenericOption->gender){
+                    case "hombre y mujer":
+                        $html .= "Masculino y Femenino";
+                        break;
+                    case "hombre":
+                        $html .= "Masculino";
+                        break;
+                    default:
+                        $html .= "Femenino";
+                        break;
+                }
             if(isset($analysisTestGenericOption->age_initial) && isset($analysisTestGenericOption->age_end)){
                 $html .= " <small>(".$analysisTestGenericOption->age_initial . " - " . $analysisTestGenericOption->age_end . " años)</small> ";
             }

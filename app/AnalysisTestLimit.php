@@ -45,7 +45,18 @@ class AnalysisTestLimit extends TestInputAbstract
                 $bookmarkI = "<span class='text-danger'>*</span>&nbsp;";
             }
 
-            $html .= $bookmarkI.$analysisTestLimitOption->gender;
+            // $html .= $bookmarkI.$analysisTestLimitOption->gender;
+            switch($bookmarkI.$analysisTestLimitOption->gender){
+                case "hombre y mujer":
+                    $html .= "Masculino y Femenino";
+                    break;
+                case "hombre":
+                    $html .= "Masculino";
+                    break;
+                default:
+                    $html .= "Femenino";
+                    break;
+            }
             if(isset($analysisTestLimitOption->age_initial) && isset($analysisTestLimitOption->age_end)){
                 $html .= " <small>(".$analysisTestLimitOption->age_initial . " - " . $analysisTestLimitOption->age_end . " años)</small> ";
             }

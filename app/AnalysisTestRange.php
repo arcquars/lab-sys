@@ -40,7 +40,18 @@ class AnalysisTestRange extends TestInputAbstract
         $html = "";
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {
-            $html .= $analysisTestRangeOption->gender;
+            switch($analysisTestRangeOption->gender){
+                case "hombre y mujer":
+                    $html = "Masculino y Femenino";
+                    break;
+                case "hombre":
+                    $html = "Masculino";
+                    break;
+                default:
+                    $html = "Femenino";
+                    break;
+            }
+            
             if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
                 $html .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
             }
@@ -62,19 +73,14 @@ class AnalysisTestRange extends TestInputAbstract
 
         $isOption = false;
         $resultHtml = true;
-        Log::info('pdm 0::: ');
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {
             $resultHtml = true;
             if(strcmp("hombre y mujer", $analysisTestRangeOption->gender) == 0){
-                Log::info('pdm 1::: ' . $resultNumeric);
                 if(isset($analysisTestRangeOption->age_initial) && isset($analysisTestRangeOption->age_end)){
-                    Log::info('pdm 5.1 entro al rango de edad::: ' . $clientAge . " || " . $resultNumeric . " || " . $analysisTestRangeOption->initial . " || " . $analysisTestRangeOption->end);
                     if($clientAge >= $analysisTestRangeOption->age_initial && $clientAge <= $analysisTestRangeOption->age_end){
-                        Log::info('pdm 5.2 entro al rango de edad::: ' . $clientAge . " || " . $resultNumeric . " || " . $analysisTestRangeOption->initial . " || " . $analysisTestRangeOption->end);
                         if($resultNumeric >= $analysisTestRangeOption->initial &&
                             $resultNumeric <= $analysisTestRangeOption->end){
-                            Log::info('pdm 5.2.1 entro al rango de edad::: ' . $resultNumeric);
                             $resultHtml = false;
                         }
                         $isOption = true;

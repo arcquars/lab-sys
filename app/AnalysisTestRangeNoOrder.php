@@ -39,7 +39,18 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         if(isset($this->analysisTestRangeOptions)){
             foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
             {
-                $html .= $analysisTestRangeOption->gender;
+                // $html .= $analysisTestRangeOption->gender;
+                switch($analysisTestRangeOption->gender){
+                    case "hombre y mujer":
+                        $html = "Masculino y Femenino";
+                        break;
+                    case "hombre":
+                        $html = "Masculino";
+                        break;
+                    default:
+                        $html = "Femenino";
+                        break;
+                }
                 if(isset($analysisTestRangeOption->age_initial) && $analysisTestRangeOption->age_end){
                     $html .= " (".$analysisTestRangeOption->age_initial . " - " . $analysisTestRangeOption->age_end . " años) ";
                 }
