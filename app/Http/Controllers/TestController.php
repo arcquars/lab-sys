@@ -38,6 +38,9 @@ class TestController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'adjunto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120', // max:5120 significa 5MB en Kilobytes
+        ]);
         $testResultValues = $request->input('testResultValue');
         $testMetodos =$request->input('metodos');
         $analisisId = $request->input('analisis_id');

@@ -100,6 +100,7 @@
                             <label class="custom-file-label" for="inputAdjunto" data-browse="Buscar">Seleccionar archivo...</label>
                         </div>
                     </div>
+                    <div id="file-error-msg" class="text-danger small" style="display:none;"></div>
                 </div>
 
                 <div class="row">
@@ -120,30 +121,42 @@
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            // Lógica para actualizar el nombre del archivo en el input de Bootstrap 4
-            // Escucha el evento 'change' en cualquier input de tipo archivo con la clase .custom-file-input
             $(document).on('change', '.custom-file-input', function() {
-                // Obtiene el nombre del archivo seleccionado (e.target.files[0].name)
-                // Si no hay archivo (se canceló la selección), vuelve al texto original
+                var file = this.files[0];
                 var fileName = $(this).val().split('\\').pop();
-                if (fileName == "") {
-                    fileName = "Seleccionar archivo...";
-                }
+                var errorDiv = $('#file-error-msg');
                 
-                // Busca el label hermano inmediato y actualiza su contenido HTML
-                $(this).next('.custom-file-label').addClass("selected").html(fileName);
-            });
+                errorDiv.hide().text("");
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                if (fileName === "") {
+                    $(this).next('.custom-file-label').html("Seleccionar archivo...");
+                    return;
                 }
+
+                if (file) {
+                    // Validación de tamaño: 5MB = 5 * 1024 * 1024 bytes
+                    var maxSize = 5 * 1024 * 1024;
+                    if (file.size > maxSize) {
+                        errorDiv.text("El archivo es demasiado grande. El máximo permitido es 5MB.").show();
+                        $(this).val(""); // Limpiar el input
+                        $(this).next('.custom-file-label').html("Seleccionar archivo...");
+                        return;
+                    }
+
+                    // Validación de tipo de archivo (solo imagen)
+                    if (!file.type.match('image.*')) {
+                        errorDiv.text("Por favor, seleccione únicamente archivos de imagen.").show();
+                        $(this).val(""); 
+                        $(this).next('.custom-file-label').html("Seleccionar archivo...");
+                        return;
+                    }
+                }
+
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
             });
         });
 
         function confirmDeleteAdjunto(analysisId) {
-            // Usamos un modal o confirmación nativa ya que no se permiten alerts en este entorno
-            // pero para propósitos de la app usamos la confirmación estándar de JS.
             if(confirm('¿Está seguro de que desea eliminar permanentemente la imagen adjunta actual? Esta acción no se puede deshacer.')) {
                 
                 $.ajax({
@@ -152,12 +165,8 @@
                     data: {
                         id: analysisId
                     },
-                    beforeSend: function() {
-                        // Opcional: mostrar un cargando en el botón
-                    },
                     success: function(response) {
                         if (response.success) {
-                            // Efecto visual para remover el contenedor
                             $('#divAdjuntoActual').slideUp('slow', function() {
                                 $(this).remove();
                             });
