@@ -53,6 +53,23 @@
                 </div>
             </div>
 
+            @if($analisis->adjunto)
+                <div class="form-group mt-4">
+                    <label>Archivo Adjunto / Imagen de Referencia</label>
+                    <div class="border p-3 text-center bg-light rounded">
+                        <a href="{{ asset('uploads/test/' . $analisis->adjunto) }}" target="_blank">
+                            <img src="{{ asset('uploads/test/' . $analisis->adjunto) }}" 
+                                 class="img-fluid rounded shadow-sm border" 
+                                 style="max-height: 250px;" 
+                                 alt="Adjunto de Análisis">
+                        </a>
+                        <p class="mt-2 text-muted">
+                            <small><i class="fas fa-search-plus"></i> Haga clic en la imagen para abrirla en tamaño completo.</small>
+                        </p>
+                    </div>
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">
                     @can('manage-users-dr')

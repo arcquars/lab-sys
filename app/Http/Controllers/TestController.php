@@ -59,6 +59,28 @@ class TestController extends Controller
         $observaciones = $request->input('observaciones', null);
         $analisis = Analisis::find($analisisId);
         $analisis->observaciones = $observaciones;
+
+        if ($request->hasFile('adjunto')) {
+            $file = $request->file('adjunto');
+
+            // 1. Validar el archivo (Opcional pero recomendado)
+            // $request->validate(['adjunto' => 'image|mimes:jpeg,png,jpg,gif,pdf|max:2048']);
+
+            // 2. Generar un nombre único para el archivo
+            $fileName = 'test_' . $analisisId . '_' . time() . '.' . $file->getClientOriginalExtension();
+
+            // 3. Definir la ruta de destino (public/uploads/test/)
+            $destinationPath = public_path('uploads/test/');
+
+            // 4. Mover el archivo al servidor
+            $file->move($destinationPath, $fileName);
+
+            // 5. Guardar la referencia en el modelo Analisis
+            // Nota: Asegúrate de que la columna 'adjunto' exista en tu tabla 'analisis'
+            $analisis->adjunto = $fileName;
+        }
+
+
         $analisis->save();
         return redirect('/test/view/'.$request->input('analisis_id'));
     }
@@ -112,5 +134,21 @@ class TestController extends Controller
 
         $fileNombre = $analisis->person->nombres . '-'. $analisis->person->apellidos . '-' . $analisis->codigo . '-' . date('ymd').'.pdf';
         return $pdf->stream($fileNombre);
+    }
+
+    public function deleteAdjunto(Request $request) {
+        $analisis = Analisis::find($request->id);
+        if($analisis && $analisis->adjunto) {
+            // Borrar archivo físico
+            $path = public_path('uploads/test/' . $analisis->adjunto);
+            if(file_exists($path)) { @unlink($path); }
+
+            // Limpiar campo en BD
+            $analisis->adjunto = null;
+            $analisis->save();
+
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'No se encontró el archivo.']);
     }
 }

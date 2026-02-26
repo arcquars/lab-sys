@@ -1,4 +1,4 @@
-@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Biopsia', 'navName' => 'Biopsia', 'activeButton' => 'analisisActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'TEST', 'navName' => 'Test', 'activeButton' => 'analisisActiveButton'])
 
 @section('content')
     <nav aria-label="breadcrumb">
@@ -66,17 +66,51 @@
                     <label for="a-observaciones">Observaciones</label>
                     <textarea name="observaciones" id="a-observaciones" rows="3" class="form-control">{{$analysis->observaciones}}</textarea>
                 </div>
+
+                {{-- SECCIÓN DE IMAGEN ADJUNTA EXISTENTE --}}
+                @if($analysis->adjunto)
+                    <div id="divAdjuntoActual" class="form-group border p-3 mb-4 bg-light rounded shadow-sm">
+                        <label class="d-block font-weight-bold text-primary"><i class="fas fa-image"></i> Imagen Adjunta Actual:</label>
+                        <div class="text-center position-relative">
+                            <a href="{{ asset('uploads/test/' . $analysis->adjunto) }}" target="_blank">
+                                <img src="{{ asset('uploads/test/' . $analysis->adjunto) }}" 
+                                     class="img-thumbnail" 
+                                     style="max-height: 250px; background-color: #fff;" 
+                                     alt="Vista previa adjunto">
+                            </a>
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmDeleteAdjunto({{ $analysis->id }})">
+                                    <i class="far fa-trash-alt"></i> Eliminar esta imagen de forma definitiva
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                {{-- SECCIÓN PARA SUBIR NUEVO ARCHIVO --}}
+                <div class="form-group mt-4">
+                    <label class="font-weight-bold">Adjuntar Nueva Imagen / Documento</label>
+                    <p class="small text-muted">Si ya existe una imagen, seleccionar una nueva reemplazará a la anterior al hacer clic en "Grabar".</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="addon-upload">Subir</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="adjunto" class="custom-file-input" id="inputAdjunto" aria-describedby="addon-upload" accept="image/*,application/pdf">
+                            <label class="custom-file-label" for="inputAdjunto" data-browse="Buscar">Seleccionar archivo...</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url()->previous() }}" class="btn btn-dark float-left">Atras</a>
                         <div class="float-right">
-{{--                            @can('manage-users')--}}
-{{--                                <input type="submit" name="grabar-imprimir" class="btn btn-success" value="Grabar/Imprimir" onclick="this.form.target='_blank';return true;">--}}
-{{--                            @endcan--}}
                             <input type="submit" name="grabar" class="btn btn-lab-pdm-primary" value="Grabar">
                         </div>
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
@@ -86,7 +120,57 @@
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            // Lógica para actualizar el nombre del archivo en el input de Bootstrap 4
+            // Escucha el evento 'change' en cualquier input de tipo archivo con la clase .custom-file-input
+            $(document).on('change', '.custom-file-input', function() {
+                // Obtiene el nombre del archivo seleccionado (e.target.files[0].name)
+                // Si no hay archivo (se canceló la selección), vuelve al texto original
+                var fileName = $(this).val().split('\\').pop();
+                if (fileName == "") {
+                    fileName = "Seleccionar archivo...";
+                }
+                
+                // Busca el label hermano inmediato y actualiza su contenido HTML
+                $(this).next('.custom-file-label').addClass("selected").html(fileName);
+            });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         });
 
+        function confirmDeleteAdjunto(analysisId) {
+            // Usamos un modal o confirmación nativa ya que no se permiten alerts en este entorno
+            // pero para propósitos de la app usamos la confirmación estándar de JS.
+            if(confirm('¿Está seguro de que desea eliminar permanentemente la imagen adjunta actual? Esta acción no se puede deshacer.')) {
+                
+                $.ajax({
+                    url: "{{ url('/test/delete-adjunto') }}",
+                    type: 'POST',
+                    data: {
+                        id: analysisId
+                    },
+                    beforeSend: function() {
+                        // Opcional: mostrar un cargando en el botón
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Efecto visual para remover el contenedor
+                            $('#divAdjuntoActual').slideUp('slow', function() {
+                                $(this).remove();
+                            });
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error(xhr.responseText);
+                        alert('Ocurrió un error al intentar eliminar el archivo.');
+                    }
+                });
+            }
+        }
     </script>
 @endpush

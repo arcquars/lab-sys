@@ -46,6 +46,18 @@ if(!isset($sin)){
         border-bottom: 1px solid #000;
     }
 
+    .adjunto-container {
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .adjunto-img {
+        max-width: 95%;
+        max-height: 350px;
+        border: 1px solid #A1A2A3;
+        padding: 5px;
+    }
 </style>
 
 <h3 style="color: #1e3a8a; font-size: 18px; text-align: center;">INFORME RESULTADO DE LABORATORIO</h3> 
@@ -131,6 +143,13 @@ $index = 0;
     </div>
 @endif
 <br>
+
+@if($analisis->adjunto)
+    <div class="adjunto-container">
+        <p style="font-size: 14px; color: #1e3a8a;">IMAGEN ADJUNTA / REFERENCIA:</p>
+        <img src="{{ public_path('uploads/test/' . $analisis->adjunto) }}" class="adjunto-img">
+    </div>
+@endif
 
 @include('test.labci.partials.reporte-footer', compact('analisis', 'sin'))
 @if($analisis->imprimir_firma && isset($pathQr))

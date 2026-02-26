@@ -34,6 +34,7 @@ class Analisis extends Model
         'precio',
         'acuenta',
         'observaciones',
+        'adjunto',
         'procedencia',
         'person_id',
         'pago_efectuado',

@@ -269,7 +269,7 @@ Route::get('/test/crear/{analysisId}', 'TestController@create')->name('test.crea
 Route::post('/test/save', 'TestController@store')->name('test.save');
 Route::get('/test/view/{analisisId}', 'TestController@viewResultado')->name('test.viewResultado');
 Route::get('/test/reporte/{analisisId}/{sin?}', 'TestController@reporte')->name('test.reporte');
-
+Route::post('/test/delete-adjunto', 'TestController@deleteAdjunto')->name('test.delete.adjunto');
 // SIAT
 Route::get('/siat/invoicing/{analysisId}', 'SiatController@invoicing')->name('siat.invoicing');
 Route::post('/siat/invoicing/a-send-invoice', 'SiatController@ajaxSendInvoide')->name('siat.a_send_invoice');

@@ -19,10 +19,14 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dt class="col-md-3">Procedencia:</dt>
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
     <dt class="col-md-3">Edad:</dt>
-    @if($analisis->person->year_now > 0)
-    <dd class="col-md-3">{{$analisis->person->year_now}} años</dd>
+    @if($analisis->edad)
+        <dd class="col-md-3">{{$analisis->edad}} años</dd>
     @else
-        <dd class="col-md-3">{{$analisis->person->month_now}} meses</dd>
+        @if($analisis->person->year_now > 0)
+            <dd class="col-md-3">{{$analisis->person->year_now}} años</dd>
+        @else
+            <dd class="col-md-3">{{$analisis->person->month_now}} meses</dd>
+        @endif
     @endif
 </dl>
 <dl class="row row-citologia">
