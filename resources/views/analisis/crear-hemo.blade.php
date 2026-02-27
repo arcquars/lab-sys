@@ -65,7 +65,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="doctor">Doctor que envia</label>
                             <input type="text" name="doctor"
@@ -80,6 +80,18 @@
                         </div>
                     </div>
                     <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="region">Region de analisis / Muestra</label>
+                                <input type="text" name="region"
+                                       class="form-control @error('region') is-invalid @enderror"
+                                       onkeyup="uppercaseInput(this);"
+                                       value="{{@old('region')}}">
+                                @error('region')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    <div class="col-md-2">
                         <label for="telefono_referencia">Telefono Referencia</label>
                         <input type="text" name="telefono_referencia" class="form-control @error('telefono_referencia') is-invalid @enderror"
                                onfocus="hideSuggesstionBox();"

@@ -64,6 +64,11 @@ if(!isset($sin)){
 
 @include('test.labci.partials.reporte-client', compact('analisis', 'pathQr'))
 <div style="height: 10px;"></div>
+@if($analisis->region && strcmp($analisis->region, "--") != 0)
+<div>
+    <h3 class="labci-h3">MUESTRA: {{ $analisis->region }}</h3>
+</div>
+@endif
 @php
 $index = 0;
 @endphp
