@@ -2,7 +2,7 @@
 use App\Helpers\ClinicaHelper;
 ?>
 {{-- Componente para renderizar el árbol de forma recursiva --}}
-@foreach($items as $item)
+@foreach($items as $i => $item)
     @php
         // Obtenemos resultados directos de este grupo
         $testResults = ClinicaHelper::getTestByGroupResultsSorted($analisisId, $item['id']);
@@ -15,6 +15,15 @@ use App\Helpers\ClinicaHelper;
 
     {{-- 1. Si el grupo tiene resultados directos, mostramos su encabezado y sus pruebas --}}
     @if($hasDirectResults)
+        @if(!isset($item['parent_id']))
+        <tr style="background-color: rgba(232, 239, 253, 0.5);">
+            <td colspan="3" style="text-align: center; padding: 4px 8px;">
+                <p style="font-size: 12px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                    <b>{{ mb_strtoupper($item['name']) }}</b>
+                </p>    
+            </td>
+        </tr>
+        @else
         <tr style="background-color: rgba(232, 239, 253, 0.5);">
             <td colspan="3" style="text-align: left; padding: 4px 8px;">
                 <p style="font-size: 11px; color: #1e3a8a; margin: 0; padding-top: 5px;">
@@ -22,9 +31,22 @@ use App\Helpers\ClinicaHelper;
                 </p>
             </td>
         </tr>
+        @endif
         
         {{-- Incluimos los resultados de este nivel --}}
         @include('test.partials.tree-node-results', ['testResults' => $testResults])
+
+    @else
+        @if($i == 0)
+        <tr style="background-color: rgba(232, 239, 253, 0.5);">
+            <td colspan="3" style="text-align: center; padding: 4px 8px;">
+                <p style="font-size: 12px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                    <b>{{ mb_strtoupper($item['name']) }}</b>
+                </p>
+            </td>
+        </tr>
+        @endif
+        
     @endif
 
     {{-- 2. Llamada RECURSIVA: Si tiene hijos, procesamos el siguiente nivel --}}
