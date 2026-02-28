@@ -107,22 +107,12 @@ $index = 0;
     </tr>
     </thead>
     <tbody>
-        @foreach ($treeGroups as $item)
-        <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: rgba(232, 239, 253, 0.4);">
-            <td colspan="3" style="text-align: center;">
-                <h5 style="font-size: 12px; color: #1e3a8a; padding-top: 8px;">{{$item['name']}}</h5>
-            </td>
-        </tr>
-
-        @include(
-        'test.partials.tree-node-results', 
-        ['testResults' => ClinicaHelper::getTestByGroupResultsSorted($analisis->id, $item['id'])]
-        )
+        {{-- Iniciamos la recursión con el array de grupos raíz --}}
+        @include('test.partials.tree-node', [
+            'items' => $treeGroups, 
+            'analisisId' => $analisis->id
+        ])
         
-        @include('test.partials.tree-node', ['analisisId' => $analisis->id, 'items' => $item['hijos']])
-
-        
-        @endforeach
     </tbody>
 </table>
 

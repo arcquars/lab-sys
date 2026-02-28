@@ -130,7 +130,9 @@ class AnalisisController extends Controller
                 $aTests = $request->input('aTests', []);
                 $aGroups = $request->input('aGroup', []);
                 $subGroups = AnalysisTestGroup::whereIn('parent_id', $aGroups)->where('deleted', 0)->pluck('id')->toArray();
-                $aGroups = array_merge($aGroups, $subGroups);
+                $subSubGroups = AnalysisTestGroup::whereIn('parent_id', $subGroups)->where('deleted', 0)->pluck('id')->toArray();
+                $subSubSubGroups = AnalysisTestGroup::whereIn('parent_id', $subSubGroups)->where('deleted', 0)->pluck('id')->toArray();
+                $aGroups = array_merge($aGroups, $subGroups, $subSubGroups, $subSubSubGroups);
 
 
                 foreach ($aGroups as $key => $aGroup){

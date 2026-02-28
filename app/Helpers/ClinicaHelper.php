@@ -4,6 +4,7 @@ namespace App\Helpers;
 use App\AnalysisTestGroup;
 use App\AnalysisTestResult;
 use App\Doctor;
+use Illuminate\Support\Facades\Log;
 
 class ClinicaHelper {
 
@@ -57,10 +58,28 @@ class ClinicaHelper {
             ->whereIn('id', $groupsIds)
             ->where('deleted', 0)
             ->get()->toArray();
+
+        $parentArray = [];
+        foreach($groups as $g){
+            $parentArray[] = $g['parent_id'];
+        }
+        $groupsP =  AnalysisTestGroup::select('id', 'parent_id', 'name')
+            ->whereIn('id', $parentArray)
+            ->where('deleted', 0)
+            ->get()->toArray();
+
+        $allGroups = collect($groups)
+            ->merge($groupsP)
+            ->unique('id')
+            ->values()
+            ->toArray();
+
+
         $idsBuscados = [0]; 
         $arbolFinal = [];
-        ClinicaHelper::obtenerRamasRecursivas($idsBuscados, $arbolFinal, $groups);
+        ClinicaHelper::obtenerRamasRecursivas($idsBuscados, $arbolFinal, $allGroups);
 
+        // dd($arbolFinal);
         return $arbolFinal;
         
     }
@@ -69,7 +88,6 @@ class ClinicaHelper {
         foreach ($datosBase as $item) {
             // Verificamos si el padre del item actual está en la lista de IDs buscados
             if (in_array($item['parent_id'], $ids)) {
-                
                 // Estructura del nodo actual
                 $nodo = $item;
                 $nodo['hijos'] = []; // Inicializamos el contenedor de hijos
