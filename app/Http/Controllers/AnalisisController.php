@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analisis;
 use App\AnalisisSupervisor;
 use App\AnalysisTest;
+use App\AnalysisTestGroup;
 use App\AnalysisTestResult;
 use App\Bethesda;
 use App\Biopsia;
@@ -128,8 +129,11 @@ class AnalisisController extends Controller
             if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
                 $aTests = $request->input('aTests', []);
                 $aGroups = $request->input('aGroup', []);
+                $subGroups = AnalysisTestGroup::whereIn('parent_id', $aGroups)->where('deleted', 0)->pluck('id')->toArray();
+                $aGroups = array_merge($aGroups, $subGroups);
 
-                foreach ($aGroups as $aGroup){
+
+                foreach ($aGroups as $key => $aGroup){
                     $atests = AnalysisTest::where('a_test_group_id', $aGroup)->where('deleted', 0)->get();
                     foreach ($atests as $aTest) {
                         $aTestResult = new AnalysisTestResult();

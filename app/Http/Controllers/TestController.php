@@ -45,18 +45,22 @@ class TestController extends Controller
         $testMetodos =$request->input('metodos');
         $analisisId = $request->input('analisis_id');
         foreach ($testResultValues as $id => $value){
+            $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
             if(isset($value)){
-                $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
                 $analysisTestResult->result = $value;
-                $analysisTestResult->save();
+            } else {
+                $analysisTestResult->result = null;
             }
+            $analysisTestResult->save();
         }
         foreach ($testMetodos as $id => $value){
+            $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
             if(isset($value) && !empty($value)){
-                $analysisTestResult = AnalysisTestResult::where('a_test_id', $id)->where('analysis_id', $analisisId)->first();
                 $analysisTestResult->metodo = $value;
-                $analysisTestResult->save();
+            } else {
+                $analysisTestResult->metodo = null;
             }
+            $analysisTestResult->save();
         }
 
         $observaciones = $request->input('observaciones', null);
@@ -107,6 +111,8 @@ class TestController extends Controller
 
         $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
+        $treeGroups = ClinicaHelper::getTestGroupParentResults($analisisId);
+
         $reportEnterprice = env('REPORT_ENTERPRICE', 'DEFAULT');
         $view = "";
         switch($reportEnterprice){
@@ -127,7 +133,7 @@ class TestController extends Controller
         ];
 
         $pdf = PDF::loadView($view, compact(
-            'analisis', 'pathQr', 'orderGroupTest', 'sin', 'watermark'));
+            'analisis', 'pathQr', 'orderGroupTest', 'sin', 'watermark', 'treeGroups'));
             
         $pdf->showWatermarkImage = true;
 

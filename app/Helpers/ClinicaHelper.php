@@ -44,6 +44,46 @@ class ClinicaHelper {
         return $orderGroupTest;
     }
 
+    public static function getTestGroupParentResults($analysisId){
+        $testResults = AnalysisTestResult::where('analysis_id', $analysisId)->get();
+        $groupsIds = [];
+        foreach ($testResults as $testResult){
+            if (!in_array($testResult->aTest->a_test_group_id, $groupsIds)) {
+                $groupsIds[] = $testResult->aTest->a_test_group_id;
+            }
+        }
+
+        $groups =  AnalysisTestGroup::select('id', 'parent_id', 'name')
+            ->whereIn('id', $groupsIds)
+            ->where('deleted', 0)
+            ->get()->toArray();
+        $idsBuscados = [0]; 
+        $arbolFinal = [];
+        ClinicaHelper::obtenerRamasRecursivas($idsBuscados, $arbolFinal, $groups);
+
+        return $arbolFinal;
+        
+    }
+
+    public static function obtenerRamasRecursivas(array $ids, array &$resultado, $datosBase) {
+        foreach ($datosBase as $item) {
+            // Verificamos si el padre del item actual está en la lista de IDs buscados
+            if (in_array($item['parent_id'], $ids)) {
+                
+                // Estructura del nodo actual
+                $nodo = $item;
+                $nodo['hijos'] = []; // Inicializamos el contenedor de hijos
+                
+                // Llamada recursiva: buscamos los hijos del ID actual
+                // El primer parámetro ahora es el ID del nodo que acabamos de encontrar
+                ClinicaHelper::obtenerRamasRecursivas([$item['id']], $nodo['hijos'], $datosBase);
+                
+                // Agregamos el nodo procesado al arreglo de resultados
+                $resultado[] = $nodo;
+            }
+        }
+    }
+
     public static function getTestGroupResultsSorted($analysisId, $order="asc"){
         $testResults = AnalysisTestResult::where('analysis_id', $analysisId)->get();
         $groupsIds = [];
@@ -92,6 +132,26 @@ class ClinicaHelper {
 //        }
 
         return $orderGroupTest;
+    }
+
+    public static function getTestByGroupResultsSorted($analysisId, $groupId, $order="asc"){
+        $testResults = AnalysisTestResult::where('analysis_id', $analysisId)
+            ->whereNotNull('result')
+            ->whereHas('aTest', function($query) use ($groupId) {
+                $query->where('a_test_group_id', $groupId);
+            })
+            ->with('aTest')
+            ->get();
+        // Determinamos el método de ordenamiento según el parámetro $order
+        if (strtolower($order) === 'desc') {
+            return $testResults->sortByDesc(function($item) {
+                return $item->aTest->name;
+            });
+        }
+
+        return $testResults->sortBy(function($item) {
+            return $item->aTest->name;
+        });
     }
 }
 

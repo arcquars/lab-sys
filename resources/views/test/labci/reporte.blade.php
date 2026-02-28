@@ -19,6 +19,7 @@
 <body>
     
 <?php
+use App\Helpers\ClinicaHelper;
 if(!isset($sin)){
     $sin = null;
 }
@@ -27,23 +28,40 @@ if(!isset($sin)){
 @include('test.labci.partials.reporte-head')
 
 <style>
-
-    .text-danger{
+    .text-danger {
         color: red;
     }
 
     .analysisTestTable {
+        width: 100%;
         border-collapse: collapse;
-        display: inline-table;
-    }
-    .analysisTestTable tbody tr, .analysisTestTable tbody td{
-        border-bottom: 1px solid #A1A2A3;
+        margin-top: 10px;
     }
 
-    .analysisTestTable thead tr th{
+    /* Padding aplicado a las cabeceras */
+    .analysisTestTable thead tr th {
         font-size: 13px;
         color: #172554;
         border-bottom: 1px solid #000;
+        padding: 4px 2px; /* Padding vertical y horizontal */
+        text-align: center;
+    }
+
+    /* Padding aplicado a las celdas de datos para separar las filas */
+    .analysisTestTable tbody td {
+        border-bottom: 1px solid #A1A2A3;
+        padding-top: 4px;    /* Espacio superior */
+        padding-bottom: 4px; /* Espacio inferior */
+        padding-left: 2px;
+        padding-right: 2px;
+        vertical-align: middle;
+    }
+
+    /* Estilo para las filas de encabezado de grupo */
+    .group-header-row td {
+        background-color: #E8EFFD;
+        padding: 5px !important;
+        text-align: center;
     }
 
     .adjunto-container {
@@ -58,6 +76,13 @@ if(!isset($sin)){
         border: 1px solid #A1A2A3;
         padding: 5px;
     }
+
+    .labci-h5-group {
+        font-size: 12px; 
+        color: #1e3a8a; 
+        margin: 0;
+        padding: 4px 0;
+    }
 </style>
 
 <h3 style="color: #1e3a8a; font-size: 18px; text-align: center;">INFORME RESULTADO DE LABORATORIO</h3> 
@@ -66,13 +91,13 @@ if(!isset($sin)){
 <div style="height: 10px;"></div>
 @if($analisis->region && strcmp($analisis->region, "--") != 0)
 <div>
-    <h3 class="labci-h3">MUESTRA: {{ $analisis->region }}</h3>
+    <h3 class="labci-h4">MUESTRA: {{ $analisis->region }}</h3>
 </div>
 @endif
 @php
 $index = 0;
 @endphp
-<!-- <br> -->
+
 <table style="width: 99.99%" class="analysisTestTable">
     <thead>
     <tr>
@@ -82,63 +107,26 @@ $index = 0;
     </tr>
     </thead>
     <tbody>
-    @foreach($orderGroupTest as $key => $testResults)
-        @php
-            $show = false;
-            foreach($testResults as $testResult){
-                if(isset($testResult['testResult']->result)){
-                    $show = true;
-                    $index++;
-                    break;
-                }
-            }
-        @endphp
-        @if($show)
-{{--            @if($index >= 34 && $index <= 35)--}}
-            @if($sin)
-                <tr style="border: none">
-                    @if($index >= 34 && $index <= 35)
-                        <td colspan="3" style="height: 70px">
-                        </td>
-                    @endif
-                </tr>
-            @else
-                <tr style="border: none">
-                    @if($index >= 34 && $index <= 35)
-                        <td colspan="3" style="height: 15px">
-                        </td>
-                    @endif
-                </tr>
-            @endif
-            <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: #E8EFFD; opacity: 0.4;">
-                <td colspan="3" style="font-size: 13px; text-align: center;">
-                    <h5 style="color: #1e3a8a;">{{$key}}</h5>
-                </td>
-            </tr>
-            @foreach($testResults as $testResult)
-                @if(isset($testResult['testResult']->result))
-                    @php $index++; @endphp
-                    <tr>
-                        <td style="width: 33.33%; font-size: 12px;"><b>{{ $testResult['testResult']->aTest->name }}</b></td>
-                        <td style=" width: 33.33%; font-size: 12px; text-align: center;">{!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlResult($testResult['testResult']->id, $testResult['testResult']->result) : "xxx" !!}</td>
-                        <td style=" width: 33.33%; font-size: 10px; text-align: center;">
-                            {!! $testResult['testResult']->aTest->analysisTestType? $testResult['testResult']->aTest->analysisTestType->getHtmlDescriptionResult($testResult['testResult']->id) : "yyy" !!}
-                            
-                        </td>
-                    </tr>
-                    @if(isset($testResult['testResult']->metodo))
-                    <tr>
-                        <td colspan="3" style="padding-left: 10px;">
-                                <p style="font-size: 9px;"><b>METODO:</b> {{$testResult['testResult']->metodo}}</p>
-                        </td>
-                    </tr>
-                    @endif
-                @endif
-            @endforeach
-        @endif
-    @endforeach
+        @foreach ($treeGroups as $item)
+        <tr style="border: none; padding-bottom: 2px; padding-top: 2px; background-color: rgba(232, 239, 253, 0.4);">
+            <td colspan="3" style="text-align: center;">
+                <h5 style="font-size: 12px; color: #1e3a8a; padding-top: 8px;">{{$item['name']}}</h5>
+            </td>
+        </tr>
+
+        @include(
+        'test.partials.tree-node-results', 
+        ['testResults' => ClinicaHelper::getTestByGroupResultsSorted($analisis->id, $item['id'])]
+        )
+        
+        @include('test.partials.tree-node', ['analisisId' => $analisis->id, 'items' => $item['hijos']])
+
+        
+        @endforeach
     </tbody>
 </table>
+
+<!-- <br> -->
 @if($analisis->observaciones)
     <div style="page-break-inside: avoid;">
         <dl>

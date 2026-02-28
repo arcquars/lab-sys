@@ -53,6 +53,13 @@
         color: #1e3a8a;
     }
 
+    .labci-h4 {
+        font-family: '{{ config("clinica.report_pdf_font") }}';
+        font-size: 12px;
+        margin: 4px 0;
+        color: #1e3a8a;
+    }
+
     .table-head {
         width: 100%;
     }
