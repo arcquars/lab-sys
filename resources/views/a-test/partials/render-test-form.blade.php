@@ -1,6 +1,6 @@
 <input type="hidden" name="id" value="{{$analysisTest->id}}">
 <div class="row">
-    <div class="col-md-10 form-group">
+    <div class="col-md-8 form-group">
         <label for="mtestname">Nombre</label>
         <input type="text" id="mtestname" name="name" class="form-control form-control-sm mtestname" value="{{$analysisTest->name}}" aria-describedby="validationTestName">
         <div id="validationTestName" class="invalid-feedback">
@@ -11,6 +11,13 @@
         <input type="number" id="mtestprice" name="price" class="form-control form-control-sm mtestprice"
                aria-describedby="validationTestPrice" value="{{$analysisTest->price}}">
         <div id="validationTestPrice" class="invalid-feedback">
+        </div>
+    </div>
+    <div class="col-md-2 form-group">
+        <label for="mtestname">Orden</label>
+        <input type="number" id="mtestsorted" name="sorted" class="form-control form-control-sm mtestsorted"
+               aria-describedby="validationTestSorted" value="{{$analysisTest->sorted}}">
+        <div id="validationTestSorted" class="invalid-feedback">
         </div>
     </div>
 </div>

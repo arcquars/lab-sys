@@ -34,6 +34,6 @@ class AnalysisTestGroup extends Model
     public function analysisTests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\AnalysisTest', 'a_test_group_id', 'id')
-            ->where('deleted', false)->orderBy('sorted', 'asc')->orderBy('name', 'asc');
+            ->where('deleted', false)->orderBy('sorted', 'desc')->orderBy('name', 'asc');
     }
 }

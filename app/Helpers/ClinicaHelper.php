@@ -152,7 +152,7 @@ class ClinicaHelper {
         return $orderGroupTest;
     }
 
-    public static function getTestByGroupResultsSorted($analysisId, $groupId, $order="asc"){
+    public static function getTestByGroupResultsSorted($analysisId, $groupId, $order="desc"){
         $testResults = AnalysisTestResult::where('analysis_id', $analysisId)
             ->whereNotNull('result')
             ->whereHas('aTest', function($query) use ($groupId) {
@@ -163,12 +163,12 @@ class ClinicaHelper {
         // Determinamos el método de ordenamiento según el parámetro $order
         if (strtolower($order) === 'desc') {
             return $testResults->sortByDesc(function($item) {
-                return $item->aTest->name;
+                return $item->aTest->sorted;
             });
         }
 
         return $testResults->sortBy(function($item) {
-            return $item->aTest->name;
+            return $item->aTest->sorted;
         });
     }
 }

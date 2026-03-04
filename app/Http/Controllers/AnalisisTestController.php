@@ -196,6 +196,7 @@ class AnalisisTestController extends Controller
         $analysisTest->a_test_group_id = $request->input('group');
         $analysisTest->type = $request->input('type');
         $analysisTest->metodo = $request->input('metodo');
+        $analysisTest->sorted = $request->input('sorted');
         $analysisTest->user_id = Auth::user()->id;
         $analysisTest->save();
         if(strcmp($typeOld, $analysisTest->type) != 0){

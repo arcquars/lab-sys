@@ -27,6 +27,7 @@ class StoreAnalysisTestPost extends FormRequest
         $rules = [
             'name' => 'required',
             'price' => 'required|numeric|min:0|max:1000',
+            'sorted' => 'required|integer|between:-100,250',
             'group' => 'required',
             'type' => 'required',
             'metodo' => 'nullable'
