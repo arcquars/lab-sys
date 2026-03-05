@@ -28,6 +28,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/jdtpaginate.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/clinica.css') }}" rel="stylesheet" />
+    @include('layouts.style-lab')
 </head>
 <body>
     <div id="app" data-color="{{ config('app.theme_color') }}">
