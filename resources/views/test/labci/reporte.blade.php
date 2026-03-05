@@ -34,7 +34,9 @@ if(!isset($sin)){
 
     .analysisTestTable {
         width: 100%;
-        border-collapse: collapse;
+        /* border-collapse: collapse; */
+        border-collapse: separate;
+        border-spacing: 0;
         margin-top: 10px;
     }
 
@@ -108,6 +110,7 @@ $index = 0;
     </thead>
     <tbody>
         {{-- Iniciamos la recursión con el array de grupos raíz --}}
+        
         @include('test.partials.tree-node', [
             'items' => $treeGroups, 
             'analisisId' => $analisis->id
