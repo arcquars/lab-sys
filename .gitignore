@@ -31,3 +31,4 @@ rest-test/*
 /.env.local
 /.env.testing
 /.env.example
+.htaccess
