@@ -93,7 +93,7 @@ if(!isset($sin)){
 <div style="height: 10px;"></div>
 @if($analisis->region && strcmp($analisis->region, "--") != 0)
 <div>
-    <h3 class="labci-h4">MUESTRA: {{ $analisis->region }}</h3>
+    <h3 class="labci-h4-back">MUESTRA: {{ $analisis->region }}</h3>
 </div>
 @endif
 @php
