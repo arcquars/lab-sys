@@ -6,13 +6,13 @@
                 <p class="labci-table-p-b"><b>NOMBRE PACIENTE:</b></p>
             </td>
             <td style="width: 30%;">
-                <p class="labci-table-p">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}</p>
+                <p class="labci-table-p">{{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.' '.$analisis->person->nombres}}</p>
             </td>
             <td style="width: 20%;">
                 <p class="labci-table-p-b"><b>COD LAB:</b></p>
             </td>
             <td style="width: 30%;">
-                <p class="labci-table-p">{{$analisis->codigo}}</p>
+                <p class="labci-table-p">{{$analisis->codigo}} @if($showCodeIntPdf && !empty($analisis->internal_code)) - {{ $analisis->internal_code }} @endif</p>
             </td>
         </tr>
         <tr>
@@ -65,13 +65,35 @@
                 
             </td>
             <td>
-                <p class="labci-table-p">{{$analisis->person->year_now}}</p>
+                <p class="labci-table-p">
+                    @if($analisis->edad)
+                        {{$analisis->edad}} años
+                    @else
+                        @if($analisis->person->year_now > 0)
+                            {{$analisis->person->year_now}} años
+                        @else
+                            {{$analisis->person->month_now}} meses
+                        @endif
+                    @endif
+                </p>
             </td>
             <td>
                 <p class="labci-table-p-b"><b>SOLICITANTE:</b></p>
             </td>
             <td>
                 <p class="labci-table-p">{{$analisis->doctor}}</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                <p class="labci-table-p-b"><b>INSTITUCIÓN:</b></p>
+            </td>
+            <td>
+                <p class="labci-table-p">{{$analisis->institucion->nombre}}</p>
             </td>
         </tr>
     </tbody>

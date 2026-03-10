@@ -12,7 +12,8 @@ class ConfigController extends Controller
     {
         $metodo = Setting::get('metodo_analisis', '1');
         $receiptPrint = Setting::get('receipt_print', '0');
-        return view('admin.config.home', compact('metodo', 'receiptPrint'));
+        $showCodeIntPdf = Setting::get('code_internal_print', '0');
+        return view('admin.config.home', compact('metodo', 'receiptPrint', 'showCodeIntPdf'));
     }
 
     public function save(Request $request)
@@ -20,6 +21,7 @@ class ConfigController extends Controller
         // Guardamos el valor usando el método set definido anteriormente
         Setting::set('metodo_analisis', $request->input('metodo'));
         Setting::set('receipt_print', $request->input('receipt_print'));
+        Setting::set('code_internal_print', $request->input('code_internal_print'));
 
         return back()->with('success', 'Configuración actualizada correctamente');
     }

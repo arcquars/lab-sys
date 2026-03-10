@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Str;
+
 class AnalysisTestLineText extends TestInputAbstract
 {
     protected $table = 'a_test_line_texts';
@@ -24,7 +26,9 @@ class AnalysisTestLineText extends TestInputAbstract
         if(isset($aTestResult) && isset($aTestResult->result)){
             $value = $aTestResult->result;
         }
-        return "<input type='text' name='testResultValue[".$this->a_test_id."]' value='". $value ."' class='form-control'>";
+        return "<input type='text'" 
+            . " title='Inicie con 2 asterizcos para que el texto sea de color AZUL y 3 asterizcos para que el texto sea de color ROJO. Ej: **Resultado normal' "
+            . " name='testResultValue[".$this->a_test_id."]' value='". $value ."' class='form-control'>";
     }
 
     public function getHtmlDescription(): string
@@ -36,7 +40,14 @@ class AnalysisTestLineText extends TestInputAbstract
     public function getHtmlResult($aTestResultId, $result): string
     {
         if($result != null){
-            return $result;
+            if (Str::startsWith($result, "***")) {
+                return "<p style='color: red;'>" . str_replace('*', '', $result) . "</p>";
+            } else if (Str::startsWith($result, "**")) {
+                return "<p style='color: blue;'>" . str_replace('*', '', $result) . "</p>";
+            } else {
+                return $result;
+            }
+            
         }
         return '--';
     }

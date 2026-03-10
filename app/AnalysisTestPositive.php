@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class AnalysisTestPositive extends TestInputAbstract
 {
@@ -25,14 +26,15 @@ class AnalysisTestPositive extends TestInputAbstract
         if(isset($aTestResult) && isset($aTestResult->result)){
             $value = $aTestResult->result;
         }
+        Log::info("eee:: " . json_encode($value));
         $input = '<div class="form-check form-check-inline">';
         $input .= '<input class="form-check-input" type="radio" name="testResultValue['.$this->a_test_id.']" id="inlineRadio'.$this->a_test_id.'1" value="POSITIVO" ';
-        $input .= ((strcmp($value, 'POSITIVO') == 0)? 'selected' : '').'>';
+        $input .= ((strcmp($value, 'POSITIVO') == 0)? 'checked' : '').' >';
         $input .= '<label class="form-check-label" for="inlineRadio'.$this->a_test_id.'1">POSITIVO</label>';
         $input .= '</div>';
         $input .= '<div class="form-check form-check-inline">';
         $input .= '<input class="form-check-input" type="radio" name="testResultValue['.$this->a_test_id.']" id="inlineRadio'.$this->a_test_id.'2" value="NEGATIVO"';
-        $input .= ((strcmp($value, 'POSITIVO') != 0)? 'selected' : '').'>';
+        $input .= ((strcmp($value, 'POSITIVO') != 0)? 'checked' : '').'>';
         $input .= '<label class="form-check-label" for="inlineRadio'.$this->a_test_id.'2">NEGATIVO</label>';
         $input .= '</div>';
         return $input;

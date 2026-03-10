@@ -113,6 +113,8 @@ class TestController extends Controller
 
         $treeGroups = ClinicaHelper::getTestGroupParentResults($analisisId);
 
+        $showCodeIntPdf = Setting::get('code_internal_print', '0');
+
         $reportEnterprice = strtolower(env('REPORT_ENTERPRICE', 'DEFAULT'));
         $view = "test.reporte";
         if(!empty($reportEnterprice)){
@@ -124,8 +126,17 @@ class TestController extends Controller
             'alpha'  => env('PDF_WATERMARCK_ALFA', 0.1),
         ];
 
-        $pdf = PDF::loadView($view, compact(
-            'analisis', 'pathQr', 'orderGroupTest', 'sin', 'watermark', 'treeGroups', 'reportEnterprice'));
+        $pdf = PDF::loadView(
+            $view, 
+            compact(
+            'analisis', 
+            'pathQr', 
+            'orderGroupTest', 
+            'sin', 
+            'watermark', 
+            'treeGroups', 
+            'reportEnterprice',
+            'showCodeIntPdf'));
             
         $pdf->showWatermarkImage = true;
 

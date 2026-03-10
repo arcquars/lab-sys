@@ -67,6 +67,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <label>Mostrar código interno en pdf</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="code_internal_print" 
+                                    id="cip-si" 
+                                    value="1"
+                                    @if(strcmp($showCodeIntPdf, "1") == 0) checked @endif
+                                >
+                                <label class="form-check-label" for="cip-si" >SI</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="code_internal_print" 
+                                    id="cip-no" 
+                                    value="0"
+                                    @if(strcmp($showCodeIntPdf, "1") != 0) checked @endif
+                                >
+                                <label class="form-check-label" for="cip-no">NO</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div>

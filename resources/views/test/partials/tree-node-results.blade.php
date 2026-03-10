@@ -4,7 +4,11 @@
             <td style="width: 35%; font-size: 12px; padding: 6px 5px;">
                 <b>{{ $testResult->aTest->name }}</b>
             </td>
-            <td style="width: 25%; font-size: 12px; text-align: center; padding: 6px 5px;">
+            <td style="width: 25%; font-size: 12px; 
+                @if(!$testResult->aTest->analysisTestType instanceof App\AnalysisTestText) text-align: center; @endif
+                padding: 6px 5px;
+                ">
+                
                 {!! $testResult->aTest->analysisTestType ? $testResult->aTest->analysisTestType->getHtmlResult($testResult->id, $testResult->result) : "---" !!}
             </td>
             <td style="width: 40%; font-size: 10px; text-align: left; padding: 6px 5px; color: #444;">

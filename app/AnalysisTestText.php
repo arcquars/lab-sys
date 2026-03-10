@@ -36,8 +36,9 @@ class AnalysisTestText extends TestInputAbstract
 
     public function getHtmlResult($aTestResultId, $result): string
     {
+        //dd("<div style='width: 100%; text-justify: inter-word; text-align: justify; background-color: red;'><p style='text-align: justify;' >" . nl2br(e($result)) . "</p></div>");
         if($result != null){
-            return nl2br(e($result));
+            return "<div style='width: 100%; text-justify: inter-word; text-align: justify;'><p style='text-align: justify;' >" . nl2br(e($result)) . "</p></div>";
         }
         return '--';
     }
