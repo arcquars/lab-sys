@@ -97,7 +97,7 @@ class AnalisisController extends Controller
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
         $analisis->internal_code = $request->get('internal_code', null);
-        $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
+        // $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
             $analisis->supervisar = 1;

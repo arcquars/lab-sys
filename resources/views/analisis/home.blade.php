@@ -537,15 +537,8 @@
                     {name: 'supervisar', visible: false, searchable: false},
                     {name: 'imprimir_firma_supervisor', visible: false, searchable: false},
                 ],
-                // aoColumnDefs: [
-                //     {
-                //         "targets": [10],
-                //         "visible": false,
-                //         "searchable": false
-                //     }
-                // ],
                 "pagingType": "full_numbers",
-                "order": [[ 5, "desc" ]],
+                "order": [[ 5, "desc" ], [1, "desc"]],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
