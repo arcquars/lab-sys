@@ -16,11 +16,11 @@
     </div>
 </div>
 </form>
-<div class="row">
+{{-- <div class="row">
     <div class="col-md-12">
         <div id="chart_div"></div>
     </div>
-</div>
+</div> --}}
 <hr>
 <div class="row">
     <div class="col-md-12">
@@ -74,7 +74,7 @@
                 data: $(form).serialize(),
                 success: function (data) {
                     console.log(JSON.stringify(data));
-                    google.charts.setOnLoadCallback(drawChart(data.analisisTipo));
+                    // google.charts.setOnLoadCallback(drawChart(data.analisisTipo));
                     google.charts.setOnLoadCallback(drawChartDoctores(data.analisisDoctores));
                     google.charts.setOnLoadCallback(drawChartCreadores(data.analisisCreadores));
                     // google.charts.setOnLoadCallback(drawBarWorkings(data.usuarioWorks));
