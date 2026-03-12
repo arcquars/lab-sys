@@ -44,6 +44,7 @@
                                 <input type="number" name="edad"
                                        class="form-control @error('edad') is-invalid @enderror"
                                        onkeyup="uppercaseInput(this);"
+                                       step="0.01"
                                        value="{{old('edad', $analisis->edad)}}">
                                 @error('edad')
                                 <div class="text-danger">{{ $message }}</div>

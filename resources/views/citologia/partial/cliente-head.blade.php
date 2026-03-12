@@ -20,7 +20,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
     <dt class="col-md-3">Edad:</dt>
     @if($analisis->edad)
-        <dd class="col-md-3">{{$analisis->edad}} años</dd>
+        <dd class="col-md-3">{{$analisis->label_edad}}</dd>
     @else
         @if($analisis->person->year_now > 0)
             <dd class="col-md-3">{{$analisis->person->year_now}} años</dd>

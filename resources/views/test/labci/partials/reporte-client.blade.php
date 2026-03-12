@@ -67,7 +67,7 @@
             <td>
                 <p class="labci-table-p">
                     @if($analisis->edad)
-                        {{$analisis->edad}} años
+                        {{$analisis->label_edad}} 
                     @else
                         @if($analisis->person->year_now > 0)
                             {{$analisis->person->year_now}} años

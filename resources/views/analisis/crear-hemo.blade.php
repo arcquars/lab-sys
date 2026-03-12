@@ -65,16 +65,17 @@
                 <div class="row">
                     <div class="col-md-1">
                         <div class="form-group">
-                            <label for="edad">Edad</label>
+                            <label for="edad">Edad (años)</label>
                             <input type="number" name="edad"
                                    class="form-control @error('edad') is-invalid @enderror"
+                                   step="0.01"
                                    value="{{old('edad')? old('edad') : $edad}}">
                             @error('edad')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="doctor">Doctor que envia</label>
                             <input type="text" name="doctor"
@@ -109,7 +110,7 @@
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-3 form-group">
+                    <div class="col-md-2 form-group">
                         <label for="fecha">Fecha de Ingreso</label>
                         <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
                                value="{{old('fecha', date('Y-m-d'))}}"

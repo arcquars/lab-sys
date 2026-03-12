@@ -112,6 +112,14 @@ class Analisis extends Model
         return $this->person->getAgeByDate($this->fecha);
     }
 
+    public function getLabelEdadAttribute()
+    {
+        if($this->edad < 1){
+            return ceil($this->edad*12) . " meses";
+        }
+        return intval($this->edad) . " años";
+    }
+
 //    public function isConvenio(){
 //        $convenios = explode(',', Config::get('clinica.convenios_id'));
 //
