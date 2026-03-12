@@ -29,13 +29,17 @@
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="mtestrange_option_{{$tempId}}_age_initial">Edad inicial</label>
-            <input type="number" id="mtestrange_option_{{$tempId}}_age_initial" name="range[option][{{$tempId}}][age_initial]" class="form-control form-control-sm" aria-describedby="validationAgeInitial{{$tempId}}">
+            <input type="number" id="mtestrange_option_{{$tempId}}_age_initial"
+                step="0.01"
+                name="range[option][{{$tempId}}][age_initial]" class="form-control form-control-sm" aria-describedby="validationAgeInitial{{$tempId}}">
             <div id="validationAgeInitial{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
         <div class="col-md-3 form-group">
             <label for="mtestrange_option_{{$tempId}}_age_end">Edad Final</label>
-            <input type="number" id="mtestrange_option_{{$tempId}}_age_end" name="range[option][{{$tempId}}][age_end]" class="form-control form-control-sm" aria-describedby="validationAgeEnd{{$tempId}}">
+            <input type="number" id="mtestrange_option_{{$tempId}}_age_end" 
+                step="0.01"
+                name="range[option][{{$tempId}}][age_end]" class="form-control form-control-sm" aria-describedby="validationAgeEnd{{$tempId}}">
             <div id="validationAgeEnd{{$tempId}}" class="invalid-feedback">
             </div>
         </div>
