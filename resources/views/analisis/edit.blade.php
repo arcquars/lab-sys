@@ -33,14 +33,22 @@
             @can('manage-admin')
             <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#mcambiarpaciente">Cambiar paciente</button>
             @endcan
-            <form action="{{ route('analisis.update',$analisis->id) }}" method="POST">
+            <form id="formAnalisis" action="{{ route('analisis.update',$analisis->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="edad">Edad cliente</label>
+                                <label for="edad">
+                                    Edad (años)
+                                    <span class="edadinfo-popover text-info p-2" 
+                                        title="Convertir a meses"
+                                        style="cursor: help" onclick="openMonthModal();"
+                                    >
+                                        <i class="fas fa-info-circle"></i>
+                                    </span>
+                                </label>
                                 <input type="number" name="edad"
                                        class="form-control @error('edad') is-invalid @enderror"
                                        onkeyup="uppercaseInput(this);"
@@ -242,6 +250,45 @@
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id="setMonthModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Transformacion Meses:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="mx-2 p-0"  style="list-style: none; font-size: 12px;">
+                            <li><a href="#" onclick="setMonth('0.08');" >0.08: 1 mes</a></li>
+                            <li><a href="#" onclick="setMonth('0.16');" >0.16: 2 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.25');" >0.25: 3 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.33');" >0.33: 4 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.41');" >0.41: 5 meses</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="mx-2 p-0"  style="list-style: none; font-size: 12px;;">
+                            <li><a href="#" onclick="setMonth('0.50');" >0.50: 6 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.58');" >0.58: 7 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.67');" >0.67: 8 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.75');" >0.75: 9 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.83');" >0.83: 10 meses</a></li>
+                            <li><a href="#" onclick="setMonth('0.91');" >0.91: 11 meses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -311,6 +358,15 @@
                 }
             }
 
+        }
+
+        function openMonthModal(){
+            $('#setMonthModal').modal('show');
+        }
+        
+        function setMonth(month){
+            $("#formAnalisis input[name='edad']").val(month);
+            $('#setMonthModal').modal('hide');
         }
     </script>
 @endpush
