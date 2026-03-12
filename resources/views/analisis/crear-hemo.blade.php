@@ -55,7 +55,6 @@
                     </ul>
                 </div>
             @endif
-            ccccc
             <form method="post" action="/analisis" id="formAnalisis">
                 {{ csrf_field() }}
                 <input type="hidden" name="person_id" value="{{$persona->id}}">

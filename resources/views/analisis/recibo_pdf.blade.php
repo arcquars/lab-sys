@@ -5,7 +5,12 @@
     <style>
         body { font-family: sans-serif; }
         .header { text-align: center; margin-bottom: 10px; }
-        .table-detail { width: 100%; border-collapse: collapse; }
+        .table-detail { 
+            width: 100%; 
+            /* border-collapse: collapse;  */
+            border-collapse: separate;
+            border-spacing: 0;
+        }
         .table-detail th, .table-detail td { border-bottom: 1px solid #ddd; padding: 8px; text-align: left; }
         .total { font-weight: bold; font-size: 12px; text-align: right; margin: 2px 0; }
         .datos-analisis {
@@ -13,7 +18,12 @@
             font-size: 12px;
         }
 
-        .table-pacient { width: 100%; border-collapse: collapse; }
+        .table-pacient { 
+            width: 100%; 
+            /* border-collapse: collapse;  */
+            border-collapse: separate;
+            border-spacing: 0;
+        }
         .table-pacient tbody tr td{
             width: 50%;
         }
