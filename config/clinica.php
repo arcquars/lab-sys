@@ -63,7 +63,7 @@ return [
         'LEPTOTRIX VAG.',
         'OTROS',
     ],
-    'convenios_id' => '10,13,23',
+    'convenios_id' => '',
 //    'convenios_id' => '10'
     'meses' => [
         'enero',

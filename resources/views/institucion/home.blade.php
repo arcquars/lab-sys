@@ -62,14 +62,14 @@
                                 <input type="text" name="telefono" class="form-control">
                                 <div class="fcp_error_telefono" style="display: none;"></div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="custom-control custom-checkbox">
                                     <input class="form-check-input" type="checkbox" value="1" id="is_convenio" name="is_convenio">
                                     <label class="form-check-label" for="is_convenio">
                                         Convenio
                                     </label>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
