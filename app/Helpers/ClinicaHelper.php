@@ -15,7 +15,14 @@ class ClinicaHelper {
     }
 
     public static function getTestGroupResults($analysisId){
-        $testResults = AnalysisTestResult::where('analysis_id', $analysisId)->get();
+        // $testResults = AnalysisTestResult::where('analysis_id', $analysisId)->get();
+        $testResults = AnalysisTestResult::query()
+            ->select('a_test_results.*') // Evita colisión de IDs
+            ->join('a_tests', 'a_test_results.a_test_id', '=', 'a_tests.id')
+            ->where('a_test_results.analysis_id', $analysisId)
+            ->orderBy('a_tests.sorted', 'asc')
+            ->orderBy('a_tests.name', 'asc')
+            ->get();
         $groupsIds = [];
         foreach ($testResults as $testResult){
             if (!in_array($testResult->aTest->a_test_group_id, $groupsIds)) {
@@ -152,7 +159,7 @@ class ClinicaHelper {
         return $orderGroupTest;
     }
 
-    public static function getTestByGroupResultsSorted($analysisId, $groupId, $order="desc"){
+    public static function getTestByGroupResultsSorted($analysisId, $groupId, $order="asc"){
         $testResults = AnalysisTestResult::where('analysis_id', $analysisId)
             ->whereNotNull('result')
             ->whereHas('aTest', function($query) use ($groupId) {

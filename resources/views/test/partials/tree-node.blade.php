@@ -37,7 +37,7 @@ use App\Helpers\ClinicaHelper;
         @include('test.partials.tree-node-results', ['testResults' => $testResults])
 
     @else
-        @if($i == 0)
+        @if($i == 0 && $hasHijos)
         <tr style="background-color: rgba(232, 239, 253, 0.5);">
             <td colspan="3" style="text-align: center; padding: 4px 8px;">
                 <p style="font-size: 12px; color: #1e3a8a; margin: 0; padding-top: 5px;">
