@@ -100,12 +100,12 @@ if(!isset($sin)){
 $index = 0;
 @endphp
 
-<table style="width: 99.99%" class="analysisTestTable">
+<table class="analysisTestTable">
     <thead>
     <tr>
-        <th>ANÁLISIS</th>
-        <th>RESULTADOS</th>
-        <th>REFERENCIA</th>
+        <th style="width: 40%">ANÁLISIS</th>
+        <th style="width: 35%">RESULTADOS</th>
+        <th style="width: 25%;">REFERENCIA</th>
     </tr>
     </thead>
     <tbody>
