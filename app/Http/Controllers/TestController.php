@@ -105,7 +105,9 @@ class TestController extends Controller
         $d->setStorPath(public_path()."/generateqr/");
         $pathQr = $d->getBarcodePNGPath(route('analisis.open.esultado.simple.pdf', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
 
-        ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        if(Auth::user()){
+            ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
+        }
 
         $analisis = Analisis::find($analisisId);
 
