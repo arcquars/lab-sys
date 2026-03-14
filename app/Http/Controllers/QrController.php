@@ -107,7 +107,6 @@ class QrController
                 return 'Analisis no terminado';
             default:
                 return $this->reporteBiopsia($id);
-                break;
         }
 
     }
@@ -222,25 +221,8 @@ class QrController
     }
 
     function reporteTest($analisisId) {
-        $d = new DNS2D();
-        $d->setStorPath(public_path()."/generateqr/");
-        $pathQr = $d->getBarcodePNGPath(route('analisis.reporte.pdf.public', ['analisisId' => base64_encode($analisisId)]), "QRCODE");
-
-//        dd(public_path($pathQr));
-
-        $analisis = Analisis::find($analisisId);
-
-        $orderGroupTest = ClinicaHelper::getTestGroupResults($analisisId);
-
-        $pdf = PDF::loadView('test.reporte', compact(
-            'analisis', 'pathQr', 'orderGroupTest'));
-
-        $stylesheet = asset('css/reporte-pdf.css'); // external css
-        $pdf->mpdf->SetWatermarkImage(public_path('img/test-lab.png'));
-        $pdf->mpdf->showWatermarkImage = true;
-        $pdf->mpdf->WriteHTML($stylesheet,1);
-        $fileNombre = $analisis->codigo.date('ymd').'.pdf';
-        return $pdf->stream($fileNombre);
+        $testController = app(\App\Http\Controllers\TestController::class);
+        return $testController->reporte($analisisId);
     }
 
     function reporteInmu($analisisId) {
