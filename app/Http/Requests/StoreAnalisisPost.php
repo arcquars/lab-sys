@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Analisis;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Config;
 
@@ -40,7 +41,14 @@ class StoreAnalisisPost extends FormRequest
             'doctor' => 'required|min:5|max:200',
             'procedencia' => 'required',
             'tipo_analisis' => 'required',
-            'fecha' => 'required',
+            'fecha' => [
+                'required',
+                'date',
+                // Mínimo 45 días antes de hoy
+                'after_or_equal:' . Carbon::now()->subDays(45)->format('Y-m-d'),
+                // Máximo 5 días después de hoy
+                'before_or_equal:' . Carbon::now()->addDays(5)->format('Y-m-d'),
+            ],
             'doctor_asignado' => 'required',
             'telefono_referencia' => 'nullable|numeric',
             'region' => 'nullable|max:200',
@@ -56,7 +64,14 @@ class StoreAnalisisPost extends FormRequest
                     'procedencia' => 'required',
                     'tipo_analisis' => 'required',
                     'doctor_asignado' => 'required',
-                    'fecha' => 'required',
+                    'fecha' => [
+                        'required',
+                        'date',
+                        // Mínimo 45 días antes de hoy
+                        'after_or_equal:' . Carbon::now()->subDays(45)->format('Y-m-d'),
+                        // Máximo 5 días después de hoy
+                        'before_or_equal:' . Carbon::now()->addDays(5)->format('Y-m-d'),
+                    ],
                     'region' => 'required|max:200',
                     'precio' => 'required|numeric|min:1',
                     'acuenta' => 'lt:precio|nullable',

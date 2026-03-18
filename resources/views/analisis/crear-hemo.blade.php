@@ -122,8 +122,6 @@
                         <input type="date" name="fecha" class="form-control @error('fecha') is-invalid @enderror"
                                value="{{old('fecha', date('Y-m-d'))}}"
                                onfocus="hideSuggesstionBox();"
-                               min="{{date('Y-m-d', strtotime("-10 days"))}}"
-                               max="{{date('Y-m-d', strtotime("5 days"))}}"
                         >
                         {{--                                       value="2019-12-30">--}}
                         @error('fecha')
