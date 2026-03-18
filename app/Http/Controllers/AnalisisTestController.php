@@ -74,6 +74,7 @@ class AnalisisTestController extends Controller
                     $analysisTestRangeOption = new AnalysisTestRangeOption();
                     $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
                     $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                    $analysisTestRangeOption->subtitle = $value['subtitle']? $value['subtitle'] : null;
                     $analysisTestRangeOption->age_initial = $value['age_initial'];
                     $analysisTestRangeOption->age_end = $value['age_end'];
                     $analysisTestRangeOption->gender = $value['gender'];
@@ -217,6 +218,7 @@ class AnalisisTestController extends Controller
                         $analysisTestRangeOption = new AnalysisTestRangeOption();
                         $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
                         $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                        $analysisTestRangeOption->subtitle = $value['subtitle'];
                         $analysisTestRangeOption->age_initial = $value['age_initial'];
                         $analysisTestRangeOption->age_end = $value['age_end'];
                         $analysisTestRangeOption->gender = $value['gender'];
@@ -350,6 +352,7 @@ class AnalisisTestController extends Controller
                             $analysisTestRangeOption = AnalysisTestRangeOption::find($value['id']);
                             $analysisTestRangeOption->initial = $value['initial']? $value['initial'] : '';
                             $analysisTestRangeOption->end = $value['end']? $value['end'] : '';
+                            $analysisTestRangeOption->subtitle = $value['subtitle']? $value['subtitle'] : null;
                             $analysisTestRangeOption->age_initial = $value['age_initial'];
                             $analysisTestRangeOption->age_end = $value['age_end'];
                             $analysisTestRangeOption->gender = $value['gender'];

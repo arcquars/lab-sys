@@ -26,6 +26,12 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+        <label for="mtestrange_option_{{$tempId}}_subtitle">Texto</label>
+        <input type="text" id="mtestrange_option_{{$tempId}}_subtitle"
+            name="range[option][{{$tempId}}][subtitle]" class="form-control form-control-sm" aria-describedby="validationSubtitle{{$tempId}}">
+        <div id="validationSubtitle{{$tempId}}" class="invalid-feedback"></div>
+    </div>
     <div class="row">
         <div class="col-md-3 form-group">
             <label for="mtestrange_option_{{$tempId}}_age_initial">Edad inicial</label>

@@ -1058,7 +1058,7 @@ class AnalisisController extends Controller
             $edad = Carbon::parse($persona->f_nacimiento)->age;
         }
         $procedencias = Institucion::all();
-        $doctores = Doctor::all();
+        $doctores = Doctor::where('deleted', false)->get();
         $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
         $tipoAnalisis = Config::get('clinica.tipo_analisis');
         $convenio = null;

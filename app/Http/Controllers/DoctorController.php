@@ -99,7 +99,9 @@ class DoctorController extends Controller
      */
     public function getDatatablesDoctor()
     {
-        return Laratables::recordsOf(Doctor::class);
+        return Laratables::recordsOf(Doctor::class, function($query){
+            return $query->where('deleted', false);
+        });
     }
 
     public function ajaxGetDoctor(Request $request){

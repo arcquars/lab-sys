@@ -57,7 +57,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
 </dl>
 <dl class="row row-citologia">
     <dt class="col-md-3">Doctor asígnado:</dt>
-    <dd class="col-md-3">{{$analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos}}</dd>
+    <dd class="col-md-3">{{($analisis->doctorasig)? $analisis->doctorasig->nombres.' '.$analisis->doctorasig->apellidos : 'Sin asignar'}}</dd>
     <dt class="col-md-3">Código interno:</dt>
     <dd class="col-md-3">{{$analisis->internal_code}}</dd>
 </dl>

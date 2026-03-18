@@ -121,7 +121,7 @@ class AnalysisTestLimit extends TestInputAbstract
 
         foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
         {
-            $html .= "Hasta " . $analysisTestLimitOption->to . " " . $this->measure ."<br>";
+            $html .= "Hasta (<) " . $analysisTestLimitOption->to . " " . $this->measure ."<br>";
         }
         return $html;
     }

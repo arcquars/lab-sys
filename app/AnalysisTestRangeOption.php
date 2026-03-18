@@ -11,6 +11,7 @@ class AnalysisTestRangeOption extends Model
     protected $fillable = [
         'initial',
         'end',
+        'subtitle',
         'age_initial',
         'age_end',
         'gender',
