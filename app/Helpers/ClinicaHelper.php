@@ -69,18 +69,31 @@ class ClinicaHelper {
         $parentArray = [];
         foreach($groups as $g){
             $parentArray[] = $g['parent_id'];
+            $parentArray[] = $g['id'];
         }
+
+        $groupsNivel2 =  AnalysisTestGroup::select('id', 'parent_id', 'name')
+            ->whereIn('id', $parentArray)
+            ->where('deleted', 0)
+            ->get()->toArray();
+
+        foreach($groupsNivel2 as $gNi){
+            $parentArray[] = $gNi['parent_id'];
+            $parentArray[] = $gNi['id'];
+        }
+        $parentArray = array_unique($parentArray);
+        
         $groupsP =  AnalysisTestGroup::select('id', 'parent_id', 'name')
             ->whereIn('id', $parentArray)
             ->where('deleted', 0)
             ->get()->toArray();
 
+        
         $allGroups = collect($groups)
             ->merge($groupsP)
             ->unique('id')
             ->values()
             ->toArray();
-
 
         $idsBuscados = [0]; 
         $arbolFinal = [];
@@ -92,9 +105,12 @@ class ClinicaHelper {
     }
 
     public static function obtenerRamasRecursivas(array $ids, array &$resultado, $datosBase) {
+        Log::info("eeee 1: ");
         foreach ($datosBase as $item) {
+            Log::info("eeee 2: ". json_encode($item));
             // Verificamos si el padre del item actual está en la lista de IDs buscados
             if (in_array($item['parent_id'], $ids)) {
+                Log::info("eeee 3: Entro al IF");
                 // Estructura del nodo actual
                 $nodo = $item;
                 $nodo['hijos'] = []; // Inicializamos el contenedor de hijos
