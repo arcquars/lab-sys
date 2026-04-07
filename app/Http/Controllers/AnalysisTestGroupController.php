@@ -147,6 +147,23 @@ class AnalysisTestGroupController extends Controller
         }
     }
 
+    public function renderTreeGroupsSelectV2(Request $request){
+        if($request->ajax()){
+            $aTestGroupStringIds = $request->get('analisisTestGroupIds', []);
+            $aTestStringIds = $request->get('analisisTestIds', []);
+
+            $aTestGroupIds = array_map(function($element) {
+                return (int) $element;
+            }, $aTestGroupStringIds);
+            $aTestIds = array_map(function($element) {
+                return (int) $element;
+            }, $aTestStringIds);
+
+            $groups = AnalysisTestGroup::whereNull('parent_id')->where('deleted', 0)->orderBy('name')->get();
+            return view('a-test.partials.render-tree-groups-selected-v2', compact('groups', 'aTestGroupIds', 'aTestIds'))->render();
+        }
+    }
+    
     public function renderListGroupsTestSelect(Request $request){
         if($request->ajax()){
             $aTestIds = $request->get('aTestIds', []);

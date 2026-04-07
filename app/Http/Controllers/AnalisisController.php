@@ -1071,6 +1071,33 @@ class AnalisisController extends Controller
             'convenio'));
     }
 
+    public function crearAnalisisHemoForPersonaV2($personId){
+        $persona = Person::find($personId);
+        $edad = '';
+        if(isset($persona->f_nacimiento)){
+            $edad = Carbon::parse($persona->f_nacimiento)->age;
+        }
+        $procedencias = Institucion::all();
+        $doctores = Doctor::where('deleted', false)->get();
+        $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $convenio = null;
+
+        $createAnalisisUi = Setting::get('create_analisis_ui', 'Clasico');
+        $view = "analisis.crear-hemo";
+        if(strcmp($createAnalisisUi, "Avanzado") == 0){
+            $view = 'analisis.crear-hemo-v2';
+        }
+
+        return view($view, compact(
+            'procedencias',
+            'doctores',
+            'edad', 'tipoPagoAcuenta',
+            'tipoAnalisis',
+            'persona',
+            'convenio'));
+    }
+
     public function ajaxSearchEnvia(Request $request){
         $search = $request->get('keyword');
         $anaDoctores = Analisis::where('doctor', 'like', '%'.$search.'%')->orderby('doctor')->distinct()->limit(20)->get('doctor');

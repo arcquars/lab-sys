@@ -68,7 +68,8 @@ Route::get('/get-extra-data-datatables-attributes-data', 'ClientController@getEx
 
 Route::resource('analisis', 'AnalisisController');
 Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnalisisForPersona')->name('analisis.crearanalisis');
-Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersona')->name('analisis.crear.analisis.hemo');
+// Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersona')->name('analisis.crear.analisis.hemo');
+Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersonaV2')->name('analisis.crear.analisis.hemo');
 Route::get('/analisis/lista_impresiones/{analisisId}', 'AnalisisController@listaImpresion')->name('analisis.lista.impresion');
 Route::get('/analisis/lista_ediciones/{analisisId}', 'AnalisisController@listaEdicion')->name('analisis.lista.edicion');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
@@ -261,6 +262,7 @@ Route::get('/analysis-test-group/render-form-group', 'AnalysisTestGroupControlle
 Route::get('/analysis-test-group/render-list-groups', 'AnalysisTestGroupController@renderListGroups')->name('analysis-test-group.render.list');
 Route::get('/analysis-test-group/render-tree-groups', 'AnalysisTestGroupController@renderTreeGroups')->name('analysis-test-group.render.tree');
 Route::get('/analysis-test-group/render-tree-groups-select', 'AnalysisTestGroupController@renderTreeGroupsSelect')->name('analysis-test-group.render.tree.selected');
+Route::get('/analysis-test-group/render-tree-groups-select-v2', 'AnalysisTestGroupController@renderTreeGroupsSelectV2')->name('analysis-test-group.render.tree.selected.v2');
 Route::get('/analysis-test-group/render-list-groups-select', 'AnalysisTestGroupController@renderListGroupsTestSelect')->name('analysis-test-group.render.list.selected');
 Route::post('/analysis-test-group/update-group', 'AnalysisTestGroupController@update')->name('analysis-test-group.update_group');
 Route::resource('/analysis-test-group', 'AnalysisTestGroupController');

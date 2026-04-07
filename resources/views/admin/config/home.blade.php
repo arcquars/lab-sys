@@ -94,6 +94,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <label>Interface Crear Analisis</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="create_analisis_ui" 
+                                    id="cau-si" 
+                                    value="Clasico"
+                                    @if(strcmp($createAnalisisUi, "Clasico") == 0) checked @endif
+                                >
+                                <label class="form-check-label" for="cau-si" >Clasico</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="create_analisis_ui" 
+                                    id="cau-no" 
+                                    value="Avanzado"
+                                    @if(strcmp($createAnalisisUi, "Avanzado") == 0) checked @endif
+                                >
+                                <label class="form-check-label" for="cau-no">Avanzado</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div>
