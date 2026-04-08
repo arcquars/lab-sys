@@ -1,4 +1,4 @@
-<h5 style="color: #1e3a8a; font-size: 15px;">VALIDADO POR:</h5>
+<h5 style="color: #1e3a8a; font-size: 15px; margin: 0 5px;">VALIDADO POR:</h5>
 <?php
 /** @var \App\Analisis $analisis */
 /** @var  $chunkSupervisores */
@@ -78,7 +78,7 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
             <p style="margin: 1px; font-size: 8px">{{$analisis->doctorasig->matricula}}</p>
         @else
             @if ($analisis->imprimir_firma)
-                <img width="180" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
+                <img width="130" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
 
                 <p style="margin: 0; font-size: 11px; font-weight: 700;">{{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}}</p>
             @endif

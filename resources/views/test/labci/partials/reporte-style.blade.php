@@ -49,21 +49,21 @@
     .labci-h3 {
         font-family: '{{ config("clinica.report_pdf_font") }}';
         font-size: 16px;
-        margin: 4px 0;
+        margin: 2px 0;
         color: #1e3a8a;
     }
 
     .labci-h4 {
         font-family: '{{ config("clinica.report_pdf_font") }}';
         font-size: 12px;
-        margin: 4px 0;
+        margin: 2px 0;
         color: #1e3a8a;
     }
 
     .labci-h4-back {
         font-family: '{{ config("clinica.report_pdf_font") }}';
         font-size: 12px;
-        margin: 4px 0;
+        margin: 2px 0;
         color: #000;
     }
 

@@ -18,7 +18,7 @@ use App\Helpers\ClinicaHelper;
         @if(!isset($item['parent_id']))
         <tr style="background-color: rgba(232, 239, 253, 0.5);">
             <td colspan="3" style="text-align: center; padding: 4px 8px;">
-                <p style="font-size: 12px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding-top: 5px;">
                     <b>{{ mb_strtoupper($item['name']) }}</b>
                 </p>    
             </td>
@@ -26,7 +26,7 @@ use App\Helpers\ClinicaHelper;
         @else
         <tr style="background-color: rgba(232, 239, 253, 0.5);">
             <td colspan="3" style="text-align: left; padding: 4px 10px;">
-                <p style="font-size: 11px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                <p style="font-size: 9px; color: #1e3a8a; margin: 0; padding-top: 5px;">
                     <b>&nbsp; {{ mb_strtoupper($item['name']) }}</b>
                 </p>
             </td>
@@ -41,7 +41,7 @@ use App\Helpers\ClinicaHelper;
             @if(!isset($item['parent_id']))
             <tr style="background-color: rgba(232, 239, 253, 0.5);">
                 <td colspan="3" style="text-align: center; padding: 4px 8px;">
-                    <p style="font-size: 12px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                    <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding-top: 5px;">
                         <b>{{ mb_strtoupper($item['name']) }}</b>
                     </p>
                 </td>
@@ -49,7 +49,7 @@ use App\Helpers\ClinicaHelper;
             @else
             <tr style="background-color: rgba(232, 239, 253, 0.5);">
                 <td colspan="3" style="text-align: left; padding: 4px 8px;">
-                <p style="font-size: 11px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                <p style="font-size: 9px; color: #1e3a8a; margin: 0; padding-top: 5px;">
                         <b>{{ mb_strtoupper($item['name']) }}</b>
                     </p>
                 </td>

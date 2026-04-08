@@ -42,7 +42,7 @@ if(!isset($sin)){
 
     /* Padding aplicado a las cabeceras */
     .analysisTestTable thead tr th {
-        font-size: 13px;
+        font-size: 11px;
         color: #172554;
         border-bottom: 1px solid #000;
         padding: 4px 2px; /* Padding vertical y horizontal */
@@ -87,10 +87,9 @@ if(!isset($sin)){
     }
 </style>
 
-<h3 style="color: #1e3a8a; font-size: 18px; text-align: center;">INFORME RESULTADO DE LABORATORIO</h3> 
+<h3 style="color: #1e3a8a; font-size: 18px; text-align: center; margin-bottom: 2px; margin-top: 4px;;">INFORME RESULTADO DE LABORATORIO</h3> 
 
 @include('test.labci.partials.reporte-client', compact('analisis', 'pathQr'))
-<div style="height: 10px;"></div>
 @if($analisis->region && strcmp($analisis->region, "--") != 0)
 <div>
     <h3 class="labci-h4-back">MUESTRA: {{ $analisis->region }}</h3>
@@ -147,7 +146,7 @@ $index = 0;
                     <p style="font-size: 10px;">Liberado y disponible desde: {{ $analisis->fecha_cierre }}</p>
                     <p style="font-size: 10px;">Los resultados deben ser consultados con su médico para un mejor diagnostico.</p>
                 </td>
-                <td style="width: 40%; border: 1px solid #1e3a8a;">
+                <td style="width: 40%;">
                     <p style="font-size: 10px; margin: 4px; color: #000;"><b>LABORATORIO CLINICO Y DE INVESTIGACIÒN LABCI S.R.L</b></p>
                     <div style="height: 2px;"></div>
                     <p style="font-size: 9px; font-weight: 900;">Realiza control de calidad externo con: INLASA y CENETROP.</p>
