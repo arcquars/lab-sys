@@ -1,6 +1,6 @@
 <?php
 return [
-    'nombre' => 'LABORATORIO DE ANALISIS CLINICO PDM',
+    'nombre' => env('APP_NAME', 'Laravel'),
     'procedencia' => [
         'ADRIATICA',
         'AIQUILE',
