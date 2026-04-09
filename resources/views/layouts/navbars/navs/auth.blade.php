@@ -15,7 +15,21 @@
                 </li>
             </ul>
             <ul class="navbar-nav d-flex align-items-center">
-                <li class="nav-item">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="https://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="no-icon">{{auth()->user()->name}}</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item disabled" href="#">Roles: {{ auth()->user()->roles->implode('name', ', ') }}</a>
+                        <a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil de usuario</a>
+                        {{-- <a class="dropdown-item" href="#">Something</a>
+                        <a class="dropdown-item" href="#">Something else here</a> --}}
+                        {{-- <div class="divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a> --}}
+                    </div>
+                </li>
+
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link disabled">
                     <span class="no-icon">
                         @php
@@ -28,7 +42,7 @@
                         {{auth()->user()->name}} <span style="font-size: .75rem">({{strtoupper(substr($rolesStr, 0, -2))}})</span>
                     </span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <span class="no-icon">Cerrar sesión</span>

@@ -288,3 +288,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
     Route::resource('methods', 'Admin\MethodController');
 });
+// Perfil del usuario en sesión
+Route::get('/profile/edit', 'ProfileController@edit')->name('profile.edit')->middleware('auth');
+Route::put('/profile/update', 'ProfileController@update')->name('profile.update')->middleware('auth');
