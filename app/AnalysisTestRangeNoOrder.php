@@ -212,13 +212,14 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         if($analysisTestRangeOption->initial_value){
             $html .= $analysisTestRangeOption->initial_text . ": " . $analysisTestRangeOption->initial_value . " " .$this->measure ."<br>";
         }
-        if($analysisTestRangeOption->end_value){
-            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value . " " .$this->measure ."<br>";
-        }
         foreach ($analysisTestRangeOption->analysisTestRangeOptionsIntermediates as $analysisTestRangeOptionsIntermediate){
             $html .= $analysisTestRangeOptionsIntermediate->range_name . ": " .
                 $analysisTestRangeOptionsIntermediate->initial_range . " - " . $analysisTestRangeOptionsIntermediate->end_range . " " .
                 $this->measure . "<br>";
+        }
+
+        if($analysisTestRangeOption->end_value){
+            $html .= $analysisTestRangeOption->end_text . ": " . $analysisTestRangeOption->end_value . " " .$this->measure ."<br>";
         }
         return $html;
     }
