@@ -74,5 +74,14 @@
             <i class="fas fa-file-invoice-dollar"></i>
         </a>
         @endif
+
+        @can('manage-admin')
+            @if(!$imprimir_firma)
+            <a href="#" onclick="openModalDeleteAnalisis({{$id}}); return false;" class="dropdown-item text-danger" title="Crear/Ver Factura">
+                <i class="fas fa-trash"></i>
+                Eliminar análisis
+            </a>
+            @endif
+        @endcan
     </div>
 </div>

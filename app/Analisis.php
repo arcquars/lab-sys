@@ -100,6 +100,10 @@ class Analisis extends Model
         return $this->hasOne('App\Doctor', 'id', 'doctor_supervisor');
     }
 
+    public function logs(){
+        return $this->hasMany(AnalisisLog::class);
+    }
+
     public function getSupervisores(){
         return AnalisisSupervisor::where('analisis_id', $this->id)->get();
     }

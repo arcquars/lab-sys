@@ -618,7 +618,9 @@ class AnalisisController extends Controller
 
     public function ajaxGetAnalisisById(Request $request){
         $analisisId = $request->get('analisis_id');
-        return response()->json(['success' => true, 'analisis' => Analisis::find($analisisId), 'bandera' => 1]);
+        $analisis = Analisis::find($analisisId);
+        $paciente = $analisis->person->fullname;
+        return response()->json(['success' => true, 'analisis' => $analisis, 'paciente' => $paciente, 'bandera' => 1]);
     }
 
     public function ajaxInterconsultaValidarFirmas(Request $request){
@@ -727,6 +729,22 @@ class AnalisisController extends Controller
             return response()->json(['success' => '0']);
         }
         return response()->json(['success' => '0']);
+    }
+
+    public function ajaxDeleteAnalisis(Request $request){
+        $validated = $request->validate([
+            'analisis_id' => 'required'
+        ]);
+
+        $analisis = Analisis::find($request->post('analisis_id'));
+
+        try {
+            AnalysisTestResult::where('analysis_id', $analisis->id)->delete();
+            $analisis->delete();
+            return response()->json(['success' => '1']);
+        } catch (\Exception $e){
+            return response()->json(['success' => '0', 'message' => $e->getMessage()]);
+        }
     }
 
     public function ajaxEnviarSmsPaciente(Request $request){

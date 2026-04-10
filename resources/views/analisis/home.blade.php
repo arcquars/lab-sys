@@ -467,6 +467,7 @@
     </div>
 @endsection
 
+@include('analisis.includes.modals.m_delete_analisis')
 
 @push('js')
     <script>

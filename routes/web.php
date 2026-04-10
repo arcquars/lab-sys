@@ -90,6 +90,7 @@ Route::post('/analisis/agetanalisispaciente', 'AnalisisController@ajaxGetAnalisi
 Route::post('/analisis/realizarpago', 'AnalisisController@ajaxRealizarPago')->name('analisis.aSavePago');
 Route::post('/analisis/registrar-fecha-entrega', 'AnalisisController@ajaxRegistrarFechaEntrega')->name('analisis.aSaveFechaEntrega');
 Route::post('/analisis/registrar-fecha-cierre', 'AnalisisController@ajaxRegistrarFechaCierre')->name('analisis.aSaveFechaCierre');
+Route::post('/analisis/a-delete', 'AnalisisController@ajaxDeleteAnalisis')->name('analisis.aDeleteAnalisis');
 Route::post('/analisis/enviar-sms-paciente', 'AnalisisController@ajaxEnviarSmsPaciente')->name('analisis.asend.sms.paciente');
 Route::post('/analisis/enviar-wapp-paciente', 'AnalisisController@ajaxEnviarWappPaciente')->name('analisis.asend.wapp.paciente');
 Route::post('/analisis/obtener-precio', 'AnalisisController@ajaxGetPrecio')->name('analisis.aGetPrecioByAnalisis');
