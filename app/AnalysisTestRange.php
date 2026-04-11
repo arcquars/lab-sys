@@ -69,7 +69,8 @@ class AnalysisTestRange extends TestInputAbstract
         $clientGender = $aTestResult->analysis->person->sexo;
         $resultNumeric = doubleval($result);
 
-        $clientAge = $aTestResult->analysis->person->year_now;
+        //$clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         $isOption = false;
         $resultHtml = true;
@@ -145,7 +146,8 @@ class AnalysisTestRange extends TestInputAbstract
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         $resultNumeric = doubleval($aTestResult->result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption)
         {

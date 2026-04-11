@@ -41,7 +41,7 @@ class InvitadoController extends Controller
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellido = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
 
-        $fecha_ini = date('Y-m-d', strtotime('-30 days'));
+        $fecha_ini = date('Y-m-d', strtotime('-90 days'));
         $fecha_fin = date('Y-m-d');
         $userId = auth()->id();
 

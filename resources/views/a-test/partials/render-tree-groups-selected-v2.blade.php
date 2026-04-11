@@ -24,6 +24,39 @@
     --lab-shadow-md:  0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.05);
 }
 
+/* ------------ Personalizar scroll -----------*/
+#labTabsWrap {
+    max-height: 120px;
+    overflow-y: auto;
+    scrollbar-width: thin;                        /* Firefox */
+    scrollbar-color: #6c757d transparent;         /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+#labTabsWrap::-webkit-scrollbar {
+    width: 6px;
+}
+
+#labTabsWrap::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#labTabsWrap::-webkit-scrollbar-thumb {
+    background-color: #6c757d;
+    border-radius: 10px;
+}
+
+/* Indicador de sombra inferior cuando hay más contenido */
+#labTabsWrap {
+    background:
+        linear-gradient(white 40%, transparent),
+        linear-gradient(transparent, white 70%) bottom,
+        radial-gradient(at top, rgba(0,0,0,.25), transparent 80%),
+        radial-gradient(at bottom, rgba(0,0,0,.25), transparent 80%) bottom;
+    background-repeat: no-repeat;
+    background-size: 100% 40px, 100% 40px, 100% 12px, 100% 12px;
+    background-attachment: local, local, scroll, scroll;
+}
 /* ---------- Buscador principal ---------- */
 .lab-search-wrap {
     position: relative;
@@ -441,7 +474,7 @@ mark.lab-hl {
 {{-- =====================================================================
      TABS POR CATEGORÍA (cada grupo raíz es una pestaña)
      ===================================================================== --}}
-<div class="lab-tabs-wrap" id="labTabsWrap">
+<div class="lab-tabs-wrap overflow-auto" id="labTabsWrap">
     <button type="button" class="lab-tab-btn active" data-target="all">
         <span class="lab-tab-icon">🔬</span> Todos
         <span class="lab-tab-count" id="labCountAll">

@@ -75,7 +75,8 @@ class AnalysisTestLimit extends TestInputAbstract
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         $resultNumeric = doubleval($result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
         {
@@ -117,7 +118,8 @@ class AnalysisTestLimit extends TestInputAbstract
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         $resultNumeric = doubleval($aTestResult->result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestLimitOptions as $analysisTestLimitOption)
         {

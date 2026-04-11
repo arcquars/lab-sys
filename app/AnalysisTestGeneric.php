@@ -69,7 +69,8 @@ class AnalysisTestGeneric extends TestInputAbstract
 
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
         {
@@ -116,7 +117,8 @@ class AnalysisTestGeneric extends TestInputAbstract
         $aTestResult = AnalysisTestResult::find($aTestResultId);
         $resultNumeric = doubleval($aTestResult->result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestGenericOptions as $analysisTestGenericOption)
         {

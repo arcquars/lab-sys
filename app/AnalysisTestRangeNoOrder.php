@@ -97,7 +97,8 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         $isOption = false;
         $resultNumeric = doubleval($result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
             $resultHtml = true;
@@ -197,7 +198,8 @@ class AnalysisTestRangeNoOrder extends TestInputAbstract
         $resultHtml = '';
         $resultNumeric = doubleval($aTestResult->result);
         $clientGender = $aTestResult->analysis->person->sexo;
-        $clientAge = $aTestResult->analysis->person->year_now;
+        // $clientAge = $aTestResult->analysis->person->year_now;
+        $clientAge = $aTestResult->analysis->edad;
 
         foreach ($this->analysisTestRangeOptions as $analysisTestRangeOption){
             $resultHtml .= $this->searchMarkRangeOptionResult($analysisTestRangeOption, $resultNumeric);
