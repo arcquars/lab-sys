@@ -26,7 +26,7 @@ use App\Helpers\ClinicaHelper;
             @if(isset($item['subtitle']) && strcmp($item['subtitle'], '') !== 0)
             <tr>
                 <td colspan="3" style="text-align: left; padding: 4px 8px;">
-                    <p style="font-size: 10px; color: #000; margin: 0; padding: 5px;">
+                    <p style="font-size: 10px; color: #a6a6a6; margin: 0; padding: 5px;">
                         <b>{{ mb_strtoupper($item['subtitle']) }}</b>
                     </p>    
                 </td>
@@ -40,6 +40,15 @@ use App\Helpers\ClinicaHelper;
                 </p>
             </td>
         </tr>
+        @if(isset($item['subtitle']) && strcmp($item['subtitle'], '') !== 0)
+            <tr>
+                <td colspan="3" style="text-align: left; padding: 4px 8px;">
+                    <p style="font-size: 10px; color: #a6a6a6; margin: 0; padding: 5px;">
+                        <b>{{ mb_strtoupper($item['subtitle']) }}</b>
+                    </p>    
+                </td>
+            </tr>
+            @endif
         @endif
         
         {{-- Incluimos los resultados de este nivel --}}
@@ -48,21 +57,39 @@ use App\Helpers\ClinicaHelper;
     @else
         @if($i == 0 && $hasHijos)
             @if(!isset($item['parent_id']))
-            <tr style="background-color: rgba(232, 239, 253, 0.5);">
-                <td colspan="3" style="text-align: center; padding: 4px 8px;">
-                    <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding-top: 5px;">
-                        <b>{{ mb_strtoupper($item['name']) }}</b>
-                    </p>
-                </td>
-            </tr>
+                <tr style="background-color: rgba(232, 239, 253, 0.5);">
+                    <td colspan="3" style="text-align: center; padding: 4px 8px;">
+                        <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                            <b>{{ mb_strtoupper($item['name']) }}</b>
+                        </p>
+                    </td>
+                </tr>
+                @if(isset($item['subtitle']) && strcmp($item['subtitle'], '') !== 0)
+                <tr>
+                    <td colspan="3" style="text-align: left; padding: 4px 8px;">
+                        <p style="font-size: 10px; color: #a6a6a6; margin: 0; padding: 5px;">
+                            <b>{{ mb_strtoupper($item['subtitle']) }}</b>
+                        </p>    
+                    </td>
+                </tr>
+                @endif
             @else
-            <tr style="background-color: rgba(232, 239, 253, 0.5);">
-                <td colspan="3" style="text-align: left; padding: 4px 8px;">
-                <p style="font-size: 9px; color: #1e3a8a; margin: 0; padding-top: 5px;">
-                        <b>{{ mb_strtoupper($item['name']) }}</b>
-                    </p>
-                </td>
-            </tr>
+                <tr style="background-color: rgba(232, 239, 253, 0.5);">
+                    <td colspan="3" style="text-align: left; padding: 4px 8px;">
+                    <p style="font-size: 9px; color: #1e3a8a; margin: 0; padding-top: 5px;">
+                            <b>{{ mb_strtoupper($item['name']) }}</b>
+                        </p>
+                    </td>
+                </tr>
+                @if(isset($item['subtitle']) && strcmp($item['subtitle'], '') !== 0)
+                <tr>
+                    <td colspan="3" style="text-align: left; padding: 4px 8px;">
+                        <p style="font-size: 10px; color: #a6a6a6; margin: 0; padding: 5px;">
+                            <b>{{ mb_strtoupper($item['subtitle']) }}</b>
+                        </p>    
+                    </td>
+                </tr>
+                @endif
             @endif
         @endif
         
