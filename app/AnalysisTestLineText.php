@@ -26,9 +26,25 @@ class AnalysisTestLineText extends TestInputAbstract
         if(isset($aTestResult) && isset($aTestResult->result)){
             $value = $aTestResult->result;
         }
-        return "<input type='text'" 
-            . " title='Inicie con 2 asterizcos para que el texto sea de color AZUL y 3 asterizcos para que el texto sea de color ROJO. Ej: **Resultado normal' "
-            . " name='testResultValue[".$this->a_test_id."]' value='". $value ."' class='form-control'>";
+        // return "<input type='text'" 
+        //     . " title='Inicie con 2 asterizcos para que el texto sea de color AZUL y 3 asterizcos para que el texto sea de color ROJO. Ej: **Resultado normal' "
+        //     . " name='testResultValue[".$this->a_test_id."]' value='". $value ."' class='form-control'>";
+        return "<div class='input-group mb-2'>
+                    <div class='input-group-prepend'>
+                    <div class='input-group-text'>
+                        <a href='#' 
+                            data-toggle='tooltip' data-placement='top' 
+                            title='Inicie con 2 asterizcos para que el texto sea de color AZUL y 3 asterizcos para que el texto sea de color ROJO. Ej: **Resultado normal' style='text-decoration: none; color: #6b7280; font-size: 14px;'
+                        >
+                        &#9432;
+                        </a>
+                    </div>
+                    </div>
+                    <input type='text' class='form-control' 
+                        name='testResultValue[".$this->a_test_id."]' value='". $value ."'
+                    >
+                </div>
+            ";
     }
 
     public function getHtmlDescription(): string

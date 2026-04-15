@@ -121,6 +121,7 @@
     <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
             $(document).on('change', '.custom-file-input', function() {
                 var file = this.files[0];
                 var fileName = $(this).val().split('\\').pop();

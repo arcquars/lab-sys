@@ -61,7 +61,7 @@ class ClinicaHelper {
             }
         }
 
-        $groups =  AnalysisTestGroup::select('id', 'parent_id', 'name')
+        $groups =  AnalysisTestGroup::select('id', 'parent_id', 'name', 'subtitle')
             ->whereIn('id', $groupsIds)
             ->where('deleted', 0)
             ->get()->toArray();
@@ -83,7 +83,7 @@ class ClinicaHelper {
         }
         $parentArray = array_unique($parentArray);
         
-        $groupsP =  AnalysisTestGroup::select('id', 'parent_id', 'name')
+        $groupsP =  AnalysisTestGroup::select('id', 'parent_id', 'name', 'subtitle')
             ->whereIn('id', $parentArray)
             ->where('deleted', 0)
             ->get()->toArray();
@@ -105,7 +105,6 @@ class ClinicaHelper {
     }
 
     public static function obtenerRamasRecursivas(array $ids, array &$resultado, $datosBase) {
-        Log::info("eeee 1: ");
         foreach ($datosBase as $item) {
             Log::info("eeee 2: ". json_encode($item));
             // Verificamos si el padre del item actual está en la lista de IDs buscados

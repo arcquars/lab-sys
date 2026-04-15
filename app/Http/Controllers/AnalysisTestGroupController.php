@@ -43,12 +43,14 @@ class AnalysisTestGroupController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'nullable|numeric|min:10|max:25000'
+            'price' => 'nullable|numeric|min:10|max:25000',
+            'subtitle' => 'nullable|max:255',
         ]);
         $parent = $request->post('group', null);
         $analisisTestGroup = new AnalysisTestGroup();
         $analisisTestGroup->name = $request->post('name');
         $analisisTestGroup->price = $request->post('price');
+        $analisisTestGroup->subtitle = $request->post('subtitle');
         $analisisTestGroup->parent_id = $parent;
         $analisisTestGroup->user_id = Auth::user()->id;
         $analisisTestGroup->save();
@@ -96,6 +98,7 @@ class AnalysisTestGroupController extends Controller
         $analisisTestGroup->parent_id = $request->post('group', null);
         $analisisTestGroup->name = $request->post('name');
         $analisisTestGroup->price = $request->post('price');
+        $analisisTestGroup->subtitle = $request->post('subtitle');
         $analisisTestGroup->save();
 
         return response()->json(['success'=>true, 'message' => "Se edito el grupo correctamente..."]);

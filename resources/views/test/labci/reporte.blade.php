@@ -123,7 +123,7 @@ $index = 0;
     <div style="page-break-inside: avoid;">
         <dl>
             <dt style="font-size: 14px; color: #1e3a8a;"><b>OBS:</b></dt>
-            <dd style="font-size: 12px;">{{$analisis->observaciones}}</dd>
+            <dd style="font-size: 10px; text-align: justify; text-justify: inter-word;">{{$analisis->observaciones}}</dd>
         </dl>
     </div>
 @endif
