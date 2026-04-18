@@ -118,7 +118,7 @@ $index = 0;
         
     </tbody>
 </table>
-ccccc
+
 <!-- <br> -->
 @if($analisis->observaciones)
     <div style="page-break-inside: avoid;">
