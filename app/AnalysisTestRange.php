@@ -121,7 +121,7 @@ class AnalysisTestRange extends TestInputAbstract
             }
         }
 
-        $resultEnd = $resultHtml? "<span class='text-danger'>".$result."</span>" : $result;
+        $resultEnd = $resultHtml? "<span style='color: #1414b8'>".$result."</span>" : $result;
         return $resultEnd . "<p style='font-size: 10px; color: #000;'>".$analysisTestRangeOption->subtitle."</p>";
     }
 
