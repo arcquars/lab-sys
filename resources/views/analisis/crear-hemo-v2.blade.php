@@ -998,22 +998,51 @@
             const aTestId = $(input).val();
             if ($(input).is(':checked')) {
                 var aTestSelect = $('.js-data-atest-ajax');
+
                 $.ajax({
                     type: "POST",
                     url: '{{ url('/analisis-test/a-search-set-id') }}/' + aTestId
                 }).then(function (data) {
-                    var length = 0;
-                    aTestSelect.select2('data').forEach(function (item) {
-                        if (item.id == data.id) length++;
-                    });
-                    if (!length) {
-                        var option = new Option(data.text, data.id, true, true);
-                        aTestSelect.append(option).trigger('change');
-                        aTestSelect.trigger({ type: 'select2:select', params: { data: aTestSelect.select2('data') } });
+
+                    // Verificar si select2 está inicializado antes de usarlo
+                    var isSelect2Ready = (typeof aTestSelect.data('select2') !== 'undefined');
+
+                    if (isSelect2Ready) {
+                        // select2 listo: verificar duplicados antes de agregar
+                        var length = 0;
+                        aTestSelect.select2('data').forEach(function (item) {
+                            if (item.id == data.id) length++;
+                        });
+                        if (!length) {
+                            var option = new Option(data.text, data.id, true, true);
+                            aTestSelect.append(option).trigger('change');
+                            aTestSelect.trigger({
+                                type: 'select2:select',
+                                params: { data: aTestSelect.select2('data') }
+                            });
+                        }
+                    } else {
+                        // select2 no está listo aún (árbol cargando) — agregar opción directamente
+                        // El carrito se actualiza igual vía updateTotalPriceTest()
+                        var alreadyExists = aTestSelect.find("option[value='" + data.id + "']").length > 0;
+                        if (!alreadyExists) {
+                            var option = new Option(data.text, data.id, true, true);
+                            aTestSelect.append(option);
+                        }
                     }
+
                     updateTotalPriceTest();
                 });
             } else {
+                var aTestSelect = $('.js-data-atest-ajax');
+                var isSelect2Ready = (typeof aTestSelect.data('select2') !== 'undefined');
+
+                if (isSelect2Ready) {
+                    // Deseleccionar en select2 si está inicializado
+                    aTestSelect.find("option[value='" + $(input).val() + "']").remove();
+                    aTestSelect.trigger('change');
+                }
+
                 updateTotalPriceTest();
             }
         }
