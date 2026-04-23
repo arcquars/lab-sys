@@ -14,9 +14,15 @@ class ConfigController extends Controller
         $receiptPrint = Setting::get('receipt_print', '0');
         $showCodeIntPdf = Setting::get('code_internal_print', '0');
         $createAnalisisUi = Setting::get('create_analisis_ui', 'Clasico');
+        $colorOutRange = Setting::get('color_out_range', '#dc3545');
         return view(
             'admin.config.home', 
-            compact('metodo', 'receiptPrint', 'showCodeIntPdf', 'createAnalisisUi')
+            compact(
+                'metodo', 
+                'receiptPrint', 
+                'showCodeIntPdf', 'createAnalisisUi',
+                'colorOutRange'
+            )
         );
     }
 
@@ -27,6 +33,7 @@ class ConfigController extends Controller
         Setting::set('receipt_print', $request->input('receipt_print'));
         Setting::set('code_internal_print', $request->input('code_internal_print'));
         Setting::set('create_analisis_ui', $request->input('create_analisis_ui'));
+        Setting::set('color_out_range', $request->has('color_out_range')? $request->input('color_out_range') : '#dc3545');
 
         return back()->with('success', 'Configuración actualizada correctamente');
     }

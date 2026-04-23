@@ -108,7 +108,8 @@ class AnalysisTestGeneric extends TestInputAbstract
             }
 
         }
-        return $resultHtml? "<span class='text-danger'>".$result."</span>" : $result;
+        $colorOutRange = Setting::get('color_out_range', '#dc3545');
+        return $resultHtml? "<span style='color: ".$colorOutRange."'>".$result."</span>" : $result;
     }
 
     public function getHtmlDescriptionResult($aTestResultId): string

@@ -121,6 +121,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <label>Color fuera de rango</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="color_out_range" 
+                                    id="cor_r" 
+                                    value="#dc3545"
+                                    @if(strcmp($colorOutRange, "#dc3545") == 0) checked @endif
+                                >
+                                <label class="form-check-label" style="color: #dc3545" for="cor_r" >Rojo</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input 
+                                    class="form-check-input" 
+                                    type="radio" 
+                                    name="color_out_range" 
+                                    id="cor_a" 
+                                    value="#1414b8"
+                                    @if(strcmp($colorOutRange, "#1414b8") == 0) checked @endif
+                                >
+                                <label class="form-check-label" style="color: #1414b8" for="cor_a">Azul</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div>

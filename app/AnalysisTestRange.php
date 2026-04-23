@@ -121,7 +121,8 @@ class AnalysisTestRange extends TestInputAbstract
             }
         }
 
-        $resultEnd = $resultHtml? "<span style='color: #1414b8'>".$result."</span>" : $result;
+        $colorOutRange = Setting::get('color_out_range', '#dc3545');
+        $resultEnd = $resultHtml? "<span style='color: ".$colorOutRange."'>".$result."</span>" : $result;
         return $resultEnd . "<p style='font-size: 10px; color: #000;'>".$analysisTestRangeOption->subtitle."</p>";
     }
 
