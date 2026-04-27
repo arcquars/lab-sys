@@ -49,8 +49,8 @@ class LoginController extends Controller
         }
         $this->guard()->logout();
         $request->session()->invalidate();
-        if($urlExternal)
-            return redirect()->away('https://laboratorio-cdcc.online/');
+        // if($urlExternal)
+        //     return redirect()->away('https://laboratorio-cdcc.online/');
 
         return $this->loggedOut($request) ?: redirect('/login');
     }
