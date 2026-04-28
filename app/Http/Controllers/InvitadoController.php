@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Analisis;
 use App\InvitadoAnalisis;
+use App\User;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,9 +42,15 @@ class InvitadoController extends Controller
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellido = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
 
-        $fecha_ini = date('Y-m-d', strtotime('-90 days'));
-        $fecha_fin = date('Y-m-d');
+        $fecha_ini_obj = now()->subDays(90)->startOfDay();
         $userId = auth()->id();
+        $user = auth()->user();
+        // Controlar para solo mostrar los analisis con fecha despues de la fecha de creacion del usuario invitado.
+        if($user->created_at->gte($fecha_ini_obj)){
+            $fecha_ini_obj = $user->created_at;
+        }
+        $fecha_ini = $fecha_ini_obj->format('Y-m-d');
+        $fecha_fin = date('Y-m-d');
 
         return Laratables::recordsOf(InvitadoAnalisis::class, function($query) use ($fecha_ini, $fecha_fin, $userId, $searchNombres, $searchApellido){
             return $query->where('invitados_analisis.user_id', $userId)

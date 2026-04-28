@@ -23,7 +23,7 @@ class User extends Authenticatable
     /**
      * Los atributos que deben ser tratados como fechas para Carbon.
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at'];
 
     /**
      * The attributes that should be hidden for arrays.
