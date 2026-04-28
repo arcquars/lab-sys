@@ -28,7 +28,8 @@ class InvitadoAdminController extends Controller
      */
     public function index()
     {
-        $procedencias = Institucion::where('is_convenio', '=', 1)->get();
+        // $procedencias = Institucion::where('is_convenio', '=', 1)->get();
+        $procedencias = Institucion::all();
 
         $rol = Role::where('name', Role::INVITADO)->first();
         $users = User::join('role_user', 'users.id', '=', 'role_user.user_id')
