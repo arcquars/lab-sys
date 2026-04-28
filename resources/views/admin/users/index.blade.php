@@ -56,8 +56,10 @@
             </div>
         </div>
     </div>
+@endsection
 
-    <!-- Modal de Activación/Desactivación -->
+@section('pageModals')
+<!-- Modal de Activación/Desactivación -->
     <div class="modal fade" id="activeModal" tabindex="-1" aria-labelledby="activeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form onsubmit="sendActivoDes(this); return false;">
