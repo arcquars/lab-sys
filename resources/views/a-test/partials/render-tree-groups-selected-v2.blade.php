@@ -478,7 +478,7 @@ mark.lab-hl {
     <button type="button" class="lab-tab-btn active" data-target="all">
         <span class="lab-tab-icon">🔬</span> Todos
         <span class="lab-tab-count" id="labCountAll">
-            {{ $groups->sum(fn($g) => $g->analysisTests->count()) }}
+            {{ $groups->sum(function($g) { return $g->analysisTests->count(); }) }}
         </span>
     </button>
     @foreach($groups as $group)
