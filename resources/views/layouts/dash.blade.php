@@ -158,7 +158,6 @@
                 // toastr.success('Generando recibo de análisis...');
                 
             @endif
-
         });
 
         function uppercaseInput(input){
@@ -208,6 +207,6 @@
 
         }
     </script>
-
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     </body>
 </html>

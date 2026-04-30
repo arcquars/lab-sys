@@ -631,164 +631,159 @@
 
                 {{-- Fila 1: Edad / Doctor / Región / Teléfono / Fecha --}}
                 <div class="row">
-                    <div class="col-6 col-md-1">
-                        <div class="form-group">
-                            <label for="edad">Edad <small>(años)</small>
-                                <span class="edadinfo-popover text-info p-1"
-                                      title="Convertir a meses"
-                                      style="cursor:help"
-                                      onclick="openMonthModal();">
-                                    <i class="fas fa-info-circle"></i>
-                                </span>
-                            </label>
-                            <input type="number" name="edad"
-                                   class="form-control @error('edad') is-invalid @enderror"
-                                   step="0.01"
-                                   value="{{old('edad') ? old('edad') : $edad}}">
-                            @error('edad')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-6 col-lg-2">
+                        <label for="edad">Edad
+                            <span class="edadinfo-popover text-info p-1"
+                                    title="Convertir a meses"
+                                    style="cursor:help"
+                                    onclick="openMonthModal();">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
+                        </label>
+                        <input type="number" name="edad"
+                                class="form-control @error('edad') is-invalid @enderror"
+                                step="0.01"
+                                value="{{old('edad') ? old('edad') : $edad}}">
+                        @error('edad')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-12 col-md-4">
-                        <div class="form-group">
-                            <label>Doctor que envia</label>
-                            <input type="text" name="doctor"
-                                   id="search-envia" autocomplete="off"
-                                   class="form-control @error('doctor') is-invalid @enderror"
-                                   onkeyup="uppercaseInput(this);"
-                                   value="{{old('doctor')}}">
-                            <div id="suggesstion-box"></div>
-                            @error('doctor')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-12 col-md-5">
+                        <label for="search-envia" >Doctor que envia</label>
+                        <input type="text" name="doctor"
+                                id="search-envia" autocomplete="off"
+                                class="form-control @error('doctor') is-invalid @enderror"
+                                onkeyup="uppercaseInput(this);"
+                                value="{{old('doctor')}}">
+                        <div id="suggesstion-box"></div>
+                        @error('doctor')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Region de analisis / Muestra</label>
-                            <input type="text" name="region"
-                                   class="form-control @error('region') is-invalid @enderror"
-                                   onkeyup="uppercaseInput(this);"
-                                   value="{{@old('region')}}">
-                            @error('region')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-12 col-md-5">
+                        <label>R. análisis / Muestra</label>
+                        <input type="text" name="region"
+                                class="form-control @error('region') is-invalid @enderror"
+                                onkeyup="uppercaseInput(this);"
+                                value="{{@old('region')}}">
+                        @error('region')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-6 col-md-2">
-                        <div class="form-group">
-                            <label>Telefono Referencia</label>
-                            <input type="text" name="telefono_referencia"
-                                   class="form-control @error('telefono_referencia') is-invalid @enderror"
-                                   onfocus="hideSuggesstionBox();"
-                                   value="{{old('telefono_referencia')}}">
-                            @error('telefono_referencia')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 col-lg-6">
+                        <label>Procedencia</label>
+                        <select id="s_procedencia" name="procedencia"
+                                onchange="fntBanca(this);"
+                                class="form-control @error('procedencia') is-invalid @enderror">
+                            @if(old('procedencia'))
+                                @foreach($procedencias as $procedencia)
+                                    <option value="{{$procedencia->id}}"
+                                        @if(old('procedencia') == $procedencia->id) selected @endif>
+                                        {{$procedencia->nombre}}
+                                    </option>
+                                @endforeach
+                            @else
+                                @foreach($procedencias as $procedencia)
+                                    <option value="{{$procedencia->id}}">{{$procedencia->nombre}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        @error('procedencia')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-6 col-md-2">
-                        <div class="form-group">
-                            <label>Fecha de Ingreso</label>
-                            <input type="date" name="fecha"
-                                   class="form-control @error('fecha') is-invalid @enderror"
-                                   value="{{old('fecha', date('Y-m-d'))}}"
-                                   onfocus="hideSuggesstionBox();">
-                            @error('fecha')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-6 col-lg-6">
+                        <label>Asignar Doctor</label>
+                        <select name="doctor_asignado"
+                                class="form-control @error('fecha_entrega') is-invalid @enderror">
+                            <option value="">Elija un doctor</option>
+                            @if(old('doctor_asignado'))
+                                @foreach($doctores as $doctor)
+                                    <option value="{{$doctor->id}}"
+                                        @if(old('doctor_asignado') == $doctor->id) selected @endif>
+                                        {{$doctor->nombres}} {{$doctor->apellidos}}
+                                    </option>
+                                @endforeach
+                            @else
+                                @foreach($doctores as $doctor)
+                                    <option value="{{$doctor->id}}"
+                                        @if($doctor->id == 5) selected @endif>
+                                        {{$doctor->nombres}} {{$doctor->apellidos}}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
                 </div>
 
                 {{-- Fila 2: Label datos facturación --}}
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-12 col-md-6"></div>
                     <div class="col-12 col-md-6">
                         <h6 class="facturacion-label">Datos Para Facturacion</h6>
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- Fila 3: Procedencia / Doctor / Razón Social / NIT --}}
                 <div class="row">
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Procedencia</label>
-                            <select id="s_procedencia" name="procedencia"
-                                    onchange="fntBanca(this);"
-                                    class="form-control @error('procedencia') is-invalid @enderror">
-                                @if(old('procedencia'))
-                                    @foreach($procedencias as $procedencia)
-                                        <option value="{{$procedencia->id}}"
-                                            @if(old('procedencia') == $procedencia->id) selected @endif>
-                                            {{$procedencia->nombre}}
-                                        </option>
-                                    @endforeach
-                                @else
-                                    @foreach($procedencias as $procedencia)
-                                        <option value="{{$procedencia->id}}">{{$procedencia->nombre}}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            @error('procedencia')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                    <div class="col-12 col-md-3 form-group">
+                        <label>Tel. Referencia</label>
+                        <input type="text" name="telefono_referencia"
+                                class="form-control @error('telefono_referencia') is-invalid @enderror"
+                                onfocus="hideSuggesstionBox();"
+                                value="{{old('telefono_referencia')}}">
+                        @error('telefono_referencia')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-12 col-md-3">
-                        <div class="form-group">
-                            <label>Asignar Doctor</label>
-                            <select name="doctor_asignado"
-                                    class="form-control @error('fecha_entrega') is-invalid @enderror">
-                                <option value="">Elija un doctor</option>
-                                @if(old('doctor_asignado'))
-                                    @foreach($doctores as $doctor)
-                                        <option value="{{$doctor->id}}"
-                                            @if(old('doctor_asignado') == $doctor->id) selected @endif>
-                                            {{$doctor->nombres}} {{$doctor->apellidos}}
-                                        </option>
-                                    @endforeach
-                                @else
-                                    @foreach($doctores as $doctor)
-                                        <option value="{{$doctor->id}}"
-                                            @if($doctor->id == 5) selected @endif>
-                                            {{$doctor->nombres}} {{$doctor->apellidos}}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
+                    <div class="col-12 col-md-3 form-group">
+                        <label>Fecha de Ingreso</label>
+                        <input type="date" name="fecha"
+                                class="form-control @error('fecha') is-invalid @enderror"
+                                value="{{old('fecha', date('Y-m-d'))}}"
+                                onfocus="hideSuggesstionBox();">
+                        @error('fecha')
+                        <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-12 col-md-3" style="background-color: #E8F1FF; border-radius: 6px;">
-                        <div class="form-group">
-                            <label>Razon Social</label>
-                            <input type="text" name="razon_social"
-                                   class="form-control @error('razon_social') is-invalid @enderror"
-                                   value="{{@old('razon_social')}}">
-                            @error('razon_social')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                    <div class="col-12 col-md-6" style="background-color: #E8F1FF; border-radius: 6px;">
+                        <h6 class="facturacion-label">Datos Para Facturacion</h6>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Razon Social</label>
+                                    <input type="text" name="razon_social"
+                                        class="form-control @error('razon_social') is-invalid @enderror"
+                                        value="{{@old('razon_social')}}">
+                                    @error('razon_social')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>NIT</label>
+                                    <input type="text" name="nit"
+                                        class="form-control @error('nit') is-invalid @enderror"
+                                        value="{{@old('nit')}}">
+                                    @error('nit')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
-                    <div class="col-12 col-md-3" style="background-color: #E8F1FF; border-radius: 6px;">
-                        <div class="form-group">
-                            <label>NIT</label>
-                            <input type="text" name="nit"
-                                   class="form-control @error('nit') is-invalid @enderror"
-                                   value="{{@old('nit')}}">
-                            @error('nit')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+                    
                 </div>
 
                 {{-- Fila 4: Código interno / Precio / Acuenta / Tipo pago --}}
                 <div class="row">
                     <div class="col-6 col-md-2">
                         <div class="form-group">
-                            <label>Código interno</label>
+                            <label>Cód. interno</label>
                             <input class="form-control @error('internal_code') is-invalid @enderror"
                                    value="{{@old('internal_code')}}" name="internal_code">
                             @error('internal_code')
@@ -807,7 +802,7 @@
                     </div>
                     <div class="col-6 col-md-2">
                         <div class="form-group">
-                            <label>Acuenta</label>
+                            <label>A cuenta</label>
                             <input type="number" name="acuenta"
                                    class="form-control @error('acuenta') is-invalid @enderror"
                                    value="{{@old('acuenta')}}"
