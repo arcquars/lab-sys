@@ -16,6 +16,9 @@
                 </div>
                 <div class="col-md-6 text-right">
 {{--                    <a href="#" class="btn btn-primary" onclick="openModelPerson();">Registrar Cliente</a>--}}
+                    <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();">
+                        <i class="far fa-plus-square"></i> Crear paciente
+                    </a>
                 </div>
             </div>
         </div>
@@ -43,10 +46,7 @@
                     <div class="form-group">
                         <label for="apellido_ma">.</label>
                         <div>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPerson();">
-                                <i class="far fa-plus-square"></i> Crear paciente
-                            </a>
-                            <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);">
+                            <a href="#" class="btn btn-block btn-lab-pdm-primary btn-sm" onclick="clearSearch(this);">
                                 <i class="fas fa-eraser"></i> Limpiar buscador
                             </a>
                         </div>
