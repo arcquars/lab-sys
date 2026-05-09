@@ -42,7 +42,7 @@
                 <p class="labci-table-p-b"><b>FECHA DE IMPRESIÒN:</b></p>
             </td>
             <td>
-                <p class="labci-table-p">{{ \Carbon\Carbon::now()->format('d-m-Y, H:i:s') }}</p>
+                <p class="labci-table-p">{{ \Carbon\Carbon::now()->format('Y-m-d, H:i:s') }}</p>
             </td>
         </tr>
         <tr>

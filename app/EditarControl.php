@@ -11,6 +11,7 @@ class EditarControl extends Model
     protected $fillable = [
         'user_id',
         'analisis_id',
+        'change_log',
         'created_at'
     ];
 
@@ -18,8 +19,8 @@ class EditarControl extends Model
         return $this->hasOne('App\User', 'id', 'user_id');
     }
 
-    public static function grabarEditar($userId, $analisisId){
-        EditarControl::create(['user_id' => $userId, 'analisis_id' => $analisisId]);
+    public static function grabarEditar($userId, $analisisId, $change = null){
+        EditarControl::create(['user_id' => $userId, 'analisis_id' => $analisisId, 'change_log' => $change]);
         return true;
     }
 }

@@ -354,6 +354,34 @@ class ClientController extends Controller
         return response()->json(['success'=>true]);
     }
 
+    public function ajaxDeletePerson(Request $request)
+    {
+        $personId = $request->post('person_id');
+        try {
+            // destroy() devuelve el número de filas eliminadas (entero)
+            $deleted = Person::destroy($personId);
+            if ($deleted > 0) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Registro eliminado correctamente.'
+                ]);
+            }
+            // Si llegó aquí, el ID no existía
+            return response()->json([
+                'success' => false,
+                'message' => 'No se encontró el registro o ya fue eliminado.'
+            ], 404);
+
+        } catch (\Exception $e) {
+            // Captura errores técnicos (ej. el registro está siendo usado en otra tabla)
+            return response()->json([
+                'success' => false,
+                'message' => 'No se puede eliminar la persona porque tiene registros asociados.',
+                'error' => $e->getMessage() // Opcional: solo para depuración
+            ], 500);
+        }
+    }
+
     public function deleteDuplicados()
     {
         return view('clients.duplicados');

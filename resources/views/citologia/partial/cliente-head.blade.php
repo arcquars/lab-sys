@@ -93,14 +93,16 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
                 @if($analisis->hasHistory())
                     <a href="{{url('analisis/listByPerson/'.$analisis->person->id)}}" class="btn btn-link text-success" style="font-size: 12px"><b>Tiene estudios anteriores</b></a>
                 @endif
-                    <div class="form-check" style="display: inline;">
-                        <label class="form-check-label">
-                            <input name="escamosas" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma) checked @endif onchange="setImprimirFirma(this, '{{$analisis->id}}');">
-                            <span class="form-check-sign form-check-sign-black" ></span>
-                            Imprimir Firma del doctor
-                        </label>
-                    </div>
-            @endcan
+        @endcan
+        @can('manage-users-dr1')
+        <div class="form-check" style="display: inline;">
+            <label class="form-check-label">
+                <input name="escamosas" class="form-check-input" type="checkbox" value="1" @if($analisis->imprimir_firma) checked @endif onchange="setImprimirFirma(this, '{{$analisis->id}}');">
+                <span class="form-check-sign form-check-sign-black" ></span>
+                Imprimir Firma del doctor
+            </label>
+        </div>
+        @endcan
 {{--            @can('manage-users-dr2', $analisis)--}}
 {{--                <button class="btn btn-link text-danger" style="font-size: 12px" onclick="openModalFirmaSupervisores({{$analisis->id}});">--}}
 {{--                    <b>Firmas Interconsultados</b>--}}

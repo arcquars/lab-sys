@@ -97,6 +97,7 @@ class AnalisisController extends Controller
         $analisis->telefono_referencia = $request->get('telefono_referencia');
         $analisis->precio = $request->get('precio');
         $analisis->internal_code = $request->get('internal_code', null);
+        
         // $analisis->codigo = $this->generarCodigo($analisis->tipo_analisis);
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
         if($doctorAsig->supervisado){
@@ -126,6 +127,7 @@ class AnalisisController extends Controller
         $analisis->user_id = auth()->id();
 
         if($analisis->save()) {
+            EditarControl::grabarEditar(Auth::user()->id, $analisis->id);
             if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
                 $aTests = $request->input('aTests', []);
                 $aGroups = $request->input('aGroup', []);
@@ -366,7 +368,11 @@ class AnalisisController extends Controller
 
     public function listByPerson($personId){
         $person = Person::find($personId);
-        return view('analisis.listByPerson', compact('person'));
+        if(!$person){
+            abort(404);     
+        }
+        $total = Analisis::where('person_id', $personId)->count();
+        return view('analisis.listByPerson', compact('person', 'total'));
     }
 
     public function analisisExtendido($analisisId){

@@ -6,6 +6,7 @@ use App\Analisis;
 use App\AnalysisTest;
 use App\AnalysisTestGroup;
 use App\AnalysisTestResult;
+use App\EditarControl;
 use App\Helpers\ClinicaHelper;
 use App\ImpresionControl;
 use App\Liquido;
@@ -62,6 +63,8 @@ class TestController extends Controller
             }
             $analysisTestResult->save();
         }
+        $analysisTestResults = AnalysisTestResult::where('analysis_id', $analisisId)->select('id', 'a_test_id', 'result', 'metodo', 'test_text')->get();
+        EditarControl::grabarEditar(Auth::user()->id, $request->post('analisis_id'), json_encode($analysisTestResults));
 
         $observaciones = $request->input('observaciones', null);
         $analisis = Analisis::find($analisisId);

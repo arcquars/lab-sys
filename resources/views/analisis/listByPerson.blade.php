@@ -11,6 +11,15 @@
     </nav>
     <div class="card">
         <div class="card-header">
+            <button 
+                class="btn btn-sm btn-danger 
+                    @if ($total > 0) disabled @endif
+                "
+                title="@if ($total > 0) No se puede eliminar un paciente con análisis asociados @endif "
+                onclick="openModalDeletePerson({{ $person->id }})"
+            >
+                Eliminar Paciente
+            </button>
         </div>
         <div class="card-body">
             <table id="tAnalisis" class="table table-bordered">
@@ -32,6 +41,8 @@
     @include('analisis.includes.modals.m_fecha_entrega_analisis')
     @include('analisis.includes.modals.m_cerrar_analisis')
     @include('analisis.includes.modals.m_enviar_whatsapp')
+    @include('analisis.includes.modals.m_delete_analisis')
+    @include('clients.includes.modals.m_delete_person')
 @endsection
 
 @push('js')
