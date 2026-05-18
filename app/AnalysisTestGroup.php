@@ -15,12 +15,15 @@ class AnalysisTestGroup extends Model
         'sorted',
         'deleted',
         'parent_id',
+        'sortable',
         'user_id'
         ];
 
     public function children()
     {
-        return $this->hasMany(AnalysisTestGroup::class, 'parent_id')->with('parent')->where('deleted', '=', 0);
+        return $this->hasMany(AnalysisTestGroup::class, 'parent_id')
+            ->with('parent')->where('deleted', '=', 0)
+            ->orderBy('sortable', 'desc');
     }
 
     public function parent()

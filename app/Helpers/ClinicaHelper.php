@@ -64,6 +64,7 @@ class ClinicaHelper {
         $groups =  AnalysisTestGroup::select('id', 'parent_id', 'name', 'subtitle')
             ->whereIn('id', $groupsIds)
             ->where('deleted', 0)
+            ->orderBy('sortable', 'desc')->orderBy('name')
             ->get()->toArray();
 
         $parentArray = [];
@@ -132,7 +133,7 @@ class ClinicaHelper {
                 $groupsIds[] = $testResult->aTest->a_test_group_id;
             }
         }
-        $groups = AnalysisTestGroup::whereIn('id', $groupsIds)->orderBy('sortable', 'desc')->orderBy('name')->get();
+        $groups = AnalysisTestGroup::whereIn('id', $groupsIds)->orderBy('sortable', 'desc')->orderBy('name', 'desc')->get();
 
         $orderGroupTest = [];
         foreach ($groups as $group){
