@@ -98,6 +98,7 @@ class AnalysisTestGroupController extends Controller
         $analisisTestGroup->parent_id = $request->post('group', null);
         $analisisTestGroup->name = $request->post('name');
         $analisisTestGroup->price = $request->post('price');
+        $analisisTestGroup->sortable = $request->post('sortable');
         $analisisTestGroup->subtitle = $request->post('subtitle');
         $analisisTestGroup->save();
 
