@@ -10,7 +10,7 @@
 </div>
 <input type="hidden" value="0" name="range[bookmark]">
 <div id="genericListOptions">
-    @if($analysisTestGeneric->analysisTestGenericOptions)
+    @if(is_object($analysisTestGeneric) && $analysisTestGeneric->analysisTestGenericOptions)
     @foreach($analysisTestGeneric->analysisTestGenericOptions as $analysisTestGenericOption)
         @php
             $tempId = rand(1, 500)
