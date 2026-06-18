@@ -1,7 +1,9 @@
 @php
 /** @var [] $tipoPagoAcuenta */
+$isEdit = isset($analisis) && $analisis;
+$selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acuenta : null);
 @endphp
-@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
+@extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => $isEdit ? 'Editar Analisis' : 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -467,7 +469,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('home')}}">Inicio</a></li>
             <li class="breadcrumb-item"><a href="{{route('analisis.index')}}">Analisis</a></li>
-            <li class="breadcrumb-item">Crear Analisis</li>
+            <li class="breadcrumb-item">{{ $isEdit ? 'Editar Análisis' : 'Crear Análisis' }}</li>
         </ol>
     </nav>
 
@@ -478,7 +480,7 @@
                 <div class="col-md-4 col-6">
                     <dl class="mb-0">
                         <dt>Nombres y Apellidos:</dt>
-                        <dd>{{ $persona->full_name }}</dd>
+                        <dd>{{ $persona->fullname }}</dd>
                     </dl>
                 </div>
                 <div class="col-md-4 col-6">
@@ -521,8 +523,8 @@
                         @foreach($tipoPagoAcuenta as $i => $tipo_pago)
                         @php
                             $activeCss = '';
-                            if(old('tipo_pago_acuenta')){
-                                if(strcmp(old('tipo_pago_acuenta'), $tipo_pago) == 0) $activeCss = 'active';
+                            if($selectedTipoPago){
+                                if(strcmp($selectedTipoPago, $tipo_pago) == 0) $activeCss = 'active';
                             } else {
                                 if($i == 0) $activeCss = 'active';
                             }
@@ -553,7 +555,7 @@
                         </span>
                     </div>
                     <button type="button" id="labCartSaveBtn" onclick="$('#formAnalisis').submit();">
-                        <i class="fas fa-save"></i> Guardar Análisis
+                        <i class="fas fa-save"></i> {{ $isEdit ? 'Actualizar Análisis' : 'Guardar Análisis' }}
                     </button>
                     <button type="button" id="labCartClearBtn" onclick="labCartClearAll();">
                         <i class="fas fa-trash-alt"></i> Limpiar todo
@@ -596,7 +598,7 @@
                         </div>
                         <button type="button" class="mobile-cart-save-btn" id="mobileCartSaveBtn"
                                 onclick="$('#formAnalisis').submit();" disabled>
-                            <i class="fas fa-save"></i> Guardar Análisis
+                            <i class="fas fa-save"></i> {{ $isEdit ? 'Actualizar Análisis' : 'Guardar Análisis' }}
                         </button>
                         <button type="button" class="mobile-cart-clear-btn"
                                 onclick="labCartClearAll();">
@@ -621,9 +623,12 @@
                  FORMULARIO
                  padding-right: 330px solo en desktop (se cancela en móvil vía CSS)
                  ===================================================== --}}
-            <form method="post" action="/analisis" id="formAnalisis" style="padding-right: 320px;">
+            <form method="post" action="{{ $isEdit ? route('analisis.update', $analisis->id) : '/analisis' }}" id="formAnalisis" style="padding-right: 320px;">
                 <span id="msgPriceTotal" style="display:none;"></span>
                 {{ csrf_field() }}
+                @if($isEdit)
+                    @method('PUT')
+                @endif
                 <input type="hidden" name="person_id"    value="{{$persona->id}}">
                 <input type="hidden" name="tipo_analisis" value="{{\App\Analisis::PRUEBA}}">
                 <input type="hidden" name="codigo"       value="--">
@@ -643,7 +648,7 @@
                         <input type="number" name="edad"
                                 class="form-control @error('edad') is-invalid @enderror"
                                 step="0.01"
-                                value="{{old('edad') ? old('edad') : $edad}}">
+                                value="{{old('edad', $isEdit ? $analisis->edad : $edad)}}">
                         @error('edad')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -654,7 +659,7 @@
                                 id="search-envia" autocomplete="off"
                                 class="form-control @error('doctor') is-invalid @enderror"
                                 onkeyup="uppercaseInput(this);"
-                                value="{{old('doctor')}}">
+                                value="{{old('doctor', $isEdit ? $analisis->doctor : '')}}">
                         <div id="suggesstion-box"></div>
                         @error('doctor')
                         <div class="text-danger">{{ $message }}</div>
@@ -665,7 +670,7 @@
                         <input type="text" name="region"
                                 class="form-control @error('region') is-invalid @enderror"
                                 onkeyup="uppercaseInput(this);"
-                                value="{{@old('region')}}">
+                                value="{{old('region', $isEdit ? $analisis->region : '')}}">
                         @error('region')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -674,21 +679,16 @@
                 <div class="row">
                     <div class="col-6 col-lg-6">
                         <label>Procedencia</label>
+                        @php $selectedProcedencia = old('procedencia', $isEdit ? $analisis->procedencia : null); @endphp
                         <select id="s_procedencia" name="procedencia"
                                 onchange="fntBanca(this);"
                                 class="form-control @error('procedencia') is-invalid @enderror">
-                            @if(old('procedencia'))
-                                @foreach($procedencias as $procedencia)
-                                    <option value="{{$procedencia->id}}"
-                                        @if(old('procedencia') == $procedencia->id) selected @endif>
-                                        {{$procedencia->nombre}}
-                                    </option>
-                                @endforeach
-                            @else
-                                @foreach($procedencias as $procedencia)
-                                    <option value="{{$procedencia->id}}">{{$procedencia->nombre}}</option>
-                                @endforeach
-                            @endif
+                            @foreach($procedencias as $procedencia)
+                                <option value="{{$procedencia->id}}"
+                                    @if($selectedProcedencia == $procedencia->id) selected @endif>
+                                    {{$procedencia->nombre}}
+                                </option>
+                            @endforeach
                         </select>
                         @error('procedencia')
                         <div class="text-danger">{{ $message }}</div>
@@ -696,24 +696,20 @@
                     </div>
                     <div class="col-6 col-lg-6">
                         <label>Asignar Doctor</label>
+                        @php $selectedDoctorAsignado = old('doctor_asignado', $isEdit ? $analisis->doctor_asignado : null); @endphp
                         <select name="doctor_asignado"
                                 class="form-control @error('fecha_entrega') is-invalid @enderror">
                             <option value="">Elija un doctor</option>
-                            @if(old('doctor_asignado'))
-                                @foreach($doctores as $doctor)
-                                    <option value="{{$doctor->id}}"
-                                        @if(old('doctor_asignado') == $doctor->id) selected @endif>
-                                        {{$doctor->nombres}} {{$doctor->apellidos}}
-                                    </option>
-                                @endforeach
-                            @else
-                                @foreach($doctores as $doctor)
-                                    <option value="{{$doctor->id}}"
-                                        @if($doctor->id == 5) selected @endif>
-                                        {{$doctor->nombres}} {{$doctor->apellidos}}
-                                    </option>
-                                @endforeach
-                            @endif
+                            @foreach($doctores as $doctor)
+                                <option value="{{$doctor->id}}"
+                                    @if($selectedDoctorAsignado)
+                                        @if($selectedDoctorAsignado == $doctor->id) selected @endif
+                                    @elseif($doctor->id == 5)
+                                        selected
+                                    @endif>
+                                    {{$doctor->nombres}} {{$doctor->apellidos}}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -733,16 +729,22 @@
                         <input type="text" name="telefono_referencia"
                                 class="form-control @error('telefono_referencia') is-invalid @enderror"
                                 onfocus="hideSuggesstionBox();"
-                                value="{{old('telefono_referencia')}}">
+                                value="{{old('telefono_referencia', $isEdit ? $analisis->telefono_referencia : '')}}">
                         @error('telefono_referencia')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12 col-md-3 form-group">
                         <label>Fecha de Ingreso</label>
+                        @php
+                            $fechaDefault = date('Y-m-d');
+                            if($isEdit && $analisis->fecha){
+                                $fechaDefault = $analisis->fecha->format('Y-m-d');
+                            }
+                        @endphp
                         <input type="date" name="fecha"
                                 class="form-control @error('fecha') is-invalid @enderror"
-                                value="{{old('fecha', date('Y-m-d'))}}"
+                                value="{{old('fecha', $fechaDefault)}}"
                                 onfocus="hideSuggesstionBox();">
                         @error('fecha')
                         <div class="text-danger">{{ $message }}</div>
@@ -756,7 +758,7 @@
                                     <label>Razon Social</label>
                                     <input type="text" name="razon_social"
                                         class="form-control @error('razon_social') is-invalid @enderror"
-                                        value="{{@old('razon_social')}}">
+                                        value="{{old('razon_social', $isEdit ? $analisis->razon_social : '')}}">
                                     @error('razon_social')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -767,7 +769,7 @@
                                     <label>NIT</label>
                                     <input type="text" name="nit"
                                         class="form-control @error('nit') is-invalid @enderror"
-                                        value="{{@old('nit')}}">
+                                        value="{{old('nit', $isEdit ? $analisis->nit : '')}}">
                                     @error('nit')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -785,7 +787,7 @@
                         <div class="form-group">
                             <label>Cód. interno</label>
                             <input class="form-control @error('internal_code') is-invalid @enderror"
-                                   value="{{@old('internal_code')}}" name="internal_code">
+                                   value="{{old('internal_code', $isEdit ? $analisis->internal_code : '')}}" name="internal_code">
                             @error('internal_code')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -793,10 +795,10 @@
                     </div>
                     <div class="col-6 col-md-2">
                         <div class="form-group">
-                            <input type="hidden" name="precio" value="{{@old('precio')}}">
+                            <input type="hidden" name="precio" value="{{old('precio', $isEdit ? $analisis->precio : '')}}">
                             <label>Precio</label>
                             <div class="form-control @error('precio') is-invalid @enderror text-right bg-light">
-                                {{@old('precio')}}
+                                {{old('precio', $isEdit ? $analisis->precio : '')}}
                             </div>
                         </div>
                     </div>
@@ -805,7 +807,7 @@
                             <label>A cuenta</label>
                             <input type="number" name="acuenta"
                                    class="form-control @error('acuenta') is-invalid @enderror"
-                                   value="{{@old('acuenta')}}"
+                                   value="{{old('acuenta', $isEdit ? $analisis->acuenta : '')}}"
                                    min="0" max="10000">
                             @error('acuenta')
                             <div class="text-danger">{{ $message }}</div>
@@ -822,8 +824,8 @@
                                            onchange="changeTipoPago(this);"
                                            id="tipo_pago_acuenta_{{$i}}"
                                            value="{{$tipo_pago}}"
-                                           @if(old('tipo_pago_acuenta') && strcmp(old('tipo_pago_acuenta'), $tipo_pago) == 0) checked
-                                           @elseif(!old('tipo_pago_acuenta') && $i==0) checked @endif>
+                                           @if($selectedTipoPago && strcmp($selectedTipoPago, $tipo_pago) == 0) checked
+                                           @elseif(!$selectedTipoPago && $i==0) checked @endif>
                                     <label class="form-check-label"
                                            style="padding-left: 2px !important;"
                                            for="tipo_pago_acuenta_{{$i}}">{{$tipo_pago}}</label>
@@ -833,20 +835,20 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
 
-                            <div class="row acuenta-tarjeta @if(!old('tipo_pago_acuenta')) fade @elseif(old('tipo_pago_acuenta') && strcmp(old('tipo_pago_acuenta'), 'EFECTIVO') == 0) fade @endif">
+                            <div class="row acuenta-tarjeta @if(!$selectedTipoPago) fade @elseif(strcmp($selectedTipoPago, 'EFECTIVO') == 0) fade @endif">
                                 <div class="col-12 col-md-6">
                                     <label>Numero de cuenta</label>
                                     <input type="text" name="acuenta_numero_tarjeta"
                                            id="acuenta_numero_tarjeta"
                                            class="form-control @error('acuenta_numero_tarjeta') is-invalid @enderror"
-                                           value="{{@old('acuenta_numero_tarjeta')}}">
+                                           value="{{old('acuenta_numero_tarjeta', $isEdit ? $analisis->acuenta_numero_tarjeta : '')}}">
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label>Banco</label>
                                     <input type="text" name="acuenta_banco"
                                            id="acuenta_banco"
                                            class="form-control @error('acuenta_banco') is-invalid @enderror"
-                                           value="{{@old('acuenta_banco')}}">
+                                           value="{{old('acuenta_banco', $isEdit ? $analisis->acuenta_banco : '')}}">
                                 </div>
                             </div>
                         </div>
@@ -862,7 +864,7 @@
                 <div id="list_group"></div>
 
                 <a href="{{ url()->previous() }}" class="btn btn-secondary">Atras</a>
-                <button type="submit" id="btnSubmit" class="btn btn-primary d-none">Crear</button>
+                <button type="submit" id="btnSubmit" class="btn btn-primary d-none">{{ $isEdit ? 'Actualizar' : 'Crear' }}</button>
             </form>
         </div>
     </div>
@@ -962,12 +964,12 @@
                 url: "{{ route('analysis-test-group.render.tree.selected.v2') }}",
                 data: {
                     'analisisTestGroupIds': {!! json_encode(old('aGroup', [])) !!},
-                    'analisisTestIds': {!! json_encode(old('aTests', [])) !!}
+                    'analisisTestIds': {!! json_encode(old('aTests', $isEdit ? $selectedATests : [])) !!}
                 },
                 success: function (data) {
                     $("#list_group").empty().append(data);
                     loadSelect2Atest();
-                    reloadaTest({!! json_encode(old('aTests', [])) !!});
+                    reloadaTest({!! json_encode(old('aTests', $isEdit ? $selectedATests : [])) !!});
                     updateTotalPriceTest();
                     setTimeout(function () {
                         if (typeof labCartRefresh === "function") labCartRefresh();

@@ -72,6 +72,7 @@ Route::get('/analisis/crear_analisis/{personId}', 'AnalisisController@crearAnali
 // Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersona')->name('analisis.crear.analisis.hemo');
 Route::get('/analisis/crear_analisis_hemo/{personId}', 'AnalisisController@crearAnalisisHemoForPersonaV2')->name('analisis.crear.analisis.hemo');
 Route::get('/analisis/lista_impresiones/{analisisId}', 'AnalisisController@listaImpresion')->name('analisis.lista.impresion');
+Route::get('/analisis/editar_analisis_hemo/{analisisId}', 'AnalisisController@editarAnalisisHemoForPersonaV2')->name('analisis.editar.analisis.hemo');
 Route::get('/analisis/lista_ediciones/{analisisId}', 'AnalisisController@listaEdicion')->name('analisis.lista.edicion');
 Route::get('/analisis/listByPerson/{personId}', 'AnalisisController@listByPerson')->name('analisis.listByPerson');
 Route::get('/analisis/analisisextendido/{analisisId}', 'AnalisisController@crearTipoAnalisis')->name('analisis.analisisextendido');

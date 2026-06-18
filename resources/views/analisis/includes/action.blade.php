@@ -77,7 +77,10 @@
 
         @can('manage-admin')
             @if(!$imprimir_firma)
-            <a href="#" onclick="openModalDeleteAnalisis({{$id}}); return false;" class="dropdown-item text-danger" title="Crear/Ver Factura">
+            <a href="{{ route('analisis.editar.analisis.hemo', $id) }}" class="dropdown-item" title="Editar análisis">
+                <i class="far fa-edit"></i> Editar
+            </a>
+            <a href="#" onclick="openModalDeleteAnalisis({{$id}}); return false;" class="dropdown-item text-danger" title="Eliminar Análisis">
                 <i class="fas fa-trash"></i>
                 Eliminar análisis
             </a>

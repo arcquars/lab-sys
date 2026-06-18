@@ -189,8 +189,16 @@ class AnalisisController extends Controller
      */
     public function edit($id)
     {
-        $procedencias = Institucion::all();
         $analisis = Analisis::find($id);
+
+        // Los analisis de tipo "PRUEBA" (laboratorio) se crean y editan con el
+        // formulario tipo carrito (v2), ya que es el unico que sabe manejar el
+        // arbol de analisis/grupos seleccionados (aTests/aGroup).
+        if($analisis && strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
+            return $this->editarAnalisisHemoForPersonaV2($id);
+        }
+
+        $procedencias = Institucion::all();
         $doctores = Doctor::all();
         $convenio = Convenio::where('analisis_id', $id)->first();
         return view('analisis.edit',compact('analisis', 'procedencias', 'doctores', 'convenio'));
@@ -231,11 +239,23 @@ class AnalisisController extends Controller
         $analisis->fill($request->all());
 
         $doctorAsig = Doctor::find($analisis->doctor_asignado);
-        if($doctorAsig->supervisado){
+        if($doctorAsig && $doctorAsig->supervisado){
             $analisis->supervisar = true;
         }
 
         if($analisis->update()){
+            EditarControl::grabarEditar(Auth::user()->id, $analisis->id);
+
+            // Si el formulario es el tipo carrito (v2), siempre envia el campo
+            // oculto "tipo_analisis"; el formulario clasico no lo incluye. Lo
+            // usamos como señal (en vez de la presencia de "aTests"/"aGroup",
+            // que desaparece del request si el usuario desmarca todos los
+            // checkboxes) para sincronizar los analisis seleccionados sin
+            // perder los resultados ya registrados en los que se mantienen.
+            if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0 &&
+                $request->filled('tipo_analisis')){
+                $this->sincronizarATestsAnalisis($analisis, $request);
+            }
             $convenios = explode(',', Config::get('clinica.convenios_id'));
             if(count($convenios) == 0){
                 $convenios = array([Config::get('clinica.convenios_id')]);
@@ -267,9 +287,66 @@ class AnalisisController extends Controller
                     $convenio->save();
                 }
             }
+
+            $request->session()->flash('success', '¡Análisis actualizado correctamente!');
         }
         return redirect()->action(
             'AnalisisController@index');
+    }
+
+    /**
+     * Sincroniza los analisis (a_test_results) seleccionados en el formulario tipo
+     * carrito (aTests[] / aGroup[]) con los que ya existen para el analisis dado.
+     * A diferencia de un reemplazo total, conserva los resultados/metodo ya
+     * registrados en los analisis que permanecen seleccionados, solo elimina los
+     * que fueron deseleccionados y agrega los nuevos.
+     *
+     * @param Analisis $analisis
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    private function sincronizarATestsAnalisis(Analisis $analisis, Request $request){
+        $aTests = $request->input('aTests', []);
+        $aGroups = $request->input('aGroup', []);
+
+        $subGroups = AnalysisTestGroup::whereIn('parent_id', $aGroups)->where('deleted', 0)->pluck('id')->toArray();
+        $subSubGroups = AnalysisTestGroup::whereIn('parent_id', $subGroups)->where('deleted', 0)->pluck('id')->toArray();
+        $subSubSubGroups = AnalysisTestGroup::whereIn('parent_id', $subSubGroups)->where('deleted', 0)->pluck('id')->toArray();
+        $aGroups = array_merge($aGroups, $subGroups, $subSubGroups, $subSubSubGroups);
+
+        $nuevosATestIds = [];
+        foreach ($aGroups as $aGroup){
+            $idsGrupo = AnalysisTest::where('a_test_group_id', $aGroup)->where('deleted', 0)->pluck('id')->toArray();
+            $nuevosATestIds = array_merge($nuevosATestIds, $idsGrupo);
+        }
+        $nuevosATestIds = array_merge($nuevosATestIds, $aTests);
+        $nuevosATestIds = array_unique(array_map('intval', $nuevosATestIds));
+
+        $idsActuales = AnalysisTestResult::where('analysis_id', $analisis->id)
+            ->pluck('a_test_id')
+            ->map(function($id){ return (int) $id; })
+            ->toArray();
+
+        // Quitar los que ya no estan seleccionados.
+        $idsAEliminar = array_diff($idsActuales, $nuevosATestIds);
+        if(count($idsAEliminar)){
+            AnalysisTestResult::where('analysis_id', $analisis->id)
+                ->whereIn('a_test_id', $idsAEliminar)
+                ->delete();
+        }
+
+        // Agregar los nuevos sin tocar los que ya existian (conserva resultado/metodo).
+        $idsAAgregar = array_diff($nuevosATestIds, $idsActuales);
+        foreach ($idsAAgregar as $aTestId){
+            $atestSelect = AnalysisTest::find($aTestId);
+            if($atestSelect){
+                $aTestResult = new AnalysisTestResult();
+                $aTestResult->analysis_id = $analisis->id;
+                $aTestResult->a_test_id = $aTestId;
+                $aTestResult->metodo = $atestSelect->metodo ?? null;
+                $aTestResult->save();
+            }
+        }
     }
 
     /**
@@ -1122,6 +1199,52 @@ class AnalisisController extends Controller
             'convenio'));
     }
 
+    /**
+     * Formulario para editar un analisis de tipo "PRUEBA" (laboratorio) ya
+     * existente, reutilizando la misma vista "carrito" (v2) usada para
+     * crear el analisis vía crearAnalisisHemoForPersonaV2().
+     *
+     * @param  integer $analisisId
+     * @return \Illuminate\Http\Response
+     */
+    public function editarAnalisisHemoForPersonaV2($analisisId){
+        $analisis = Analisis::find($analisisId);
+
+        if(!$analisis){
+            abort(404);
+        }
+
+        // Esta vista solo sabe manejar analisis de tipo "PRUEBA" (con arbol de
+        // analisis/grupos). Para cualquier otro tipo, usamos el formulario clasico.
+        if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) != 0){
+            return redirect()->route('analisis.edit', $analisis->id);
+        }
+
+        $persona = $analisis->person;
+        $procedencias = Institucion::all();
+        $doctores = Doctor::where('deleted', false)->get();
+        $tipoPagoAcuenta = Analisis::TIPO_PAGO_ACUENTA;
+        $tipoAnalisis = Config::get('clinica.tipo_analisis');
+        $convenio = Convenio::where('analisis_id', $analisis->id)->first();
+
+        // Analisis (a_tests) ya asignados a este analisis, para pre-seleccionarlos
+        // en el arbol y mantener intactos los resultados ya registrados.
+        $selectedATests = AnalysisTestResult::where('analysis_id', $analisis->id)
+            ->pluck('a_test_id')
+            ->map(function($aTestId){ return (int) $aTestId; })
+            ->toArray();
+
+        return view('analisis.crear-hemo-v2', compact(
+            'procedencias',
+            'doctores',
+            'tipoPagoAcuenta',
+            'tipoAnalisis',
+            'persona',
+            'convenio',
+            'analisis',
+            'selectedATests'));
+    }
+
     public function ajaxSearchEnvia(Request $request){
         $search = $request->get('keyword');
         $anaDoctores = Analisis::where('doctor', 'like', '%'.$search.'%')->orderby('doctor')->distinct()->limit(20)->get('doctor');
@@ -1149,4 +1272,6 @@ class AnalisisController extends Controller
         // 5. Descargamos el archivo
         return $pdf->download('recibo-analisis-' . $analisis->codigo . '.pdf');
     }
+
+
 }
