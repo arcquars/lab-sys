@@ -48,8 +48,8 @@
             <hr>
             <div class="form-group">
                 <label for="">Observaciones</label>
-                <div class="form-control">
-                    {{$analisis->observaciones}}
+                <div class="border rounded p-1 ">
+                    {!! $analisis->observaciones !!}
                 </div>
             </div>
 

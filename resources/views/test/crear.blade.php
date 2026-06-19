@@ -155,6 +155,18 @@
 
                 $(this).next('.custom-file-label').addClass("selected").html(fileName);
             });
+
+            tinymce.init({
+                selector: '#a-observaciones',
+                plugins: "lists autoresize",
+                toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify fontselect fontsizeselect | bullist numlist outdent indent | link image',
+                menubar: false,
+                language: 'es',
+                browser_spellcheck: true,
+                content_style: "body { font-size: 10px; }",
+                fontsize_formats: "8px 10px 12px 14px 18px 24px 36px"
+                @cannot('manage-users-all') readonly : 1 @endcannot
+            });
         });
 
         function confirmDeleteAdjunto(analysisId) {
