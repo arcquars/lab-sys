@@ -38,6 +38,15 @@ Route::get('/analisis/open_resultado_pdf/{analisisId}', 'QrController@openResult
 Route::get('/analisis/open_recepcion_pdf/{analisisId}', 'QrController@openRecepcionPdf')->name('analisis.open.erecepcion.pdf');
 Route::get('/analisis/resultado/{analisisId}', 'QrController@openResultadoPdf')->name('analisis.open.esultado.simple.pdf');
 
+// Cotización de análisis: vista pública, no requiere sesión iniciada.
+Route::prefix('cotizacion')->name('cotizacion.')->group(function () {
+    Route::get('/', 'CotizacionController@index')->name('index');
+    Route::post('/pdf', 'CotizacionController@pdf')->name('pdf')->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+    Route::get('/pdf', function () {
+        return redirect('/cotizacion'); 
+    });
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -3,8 +3,8 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('light-bootstrap/img/apple-icon.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('light-bootstrap/img/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/hemolab/apple-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('img/hemolab/favicon.ico') }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -41,7 +41,8 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-8 pt-1">
                 <a class="text-muted" href="#">
-                    <img width="500" src="https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1.png" class="custom-logo" alt="Centro de Diagnostico Citopatologico Cochabamba" srcset="https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1.png 1024w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-300x53.png 300w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-768x136.png 768w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-600x106.png 600w" sizes="(max-width: 1024px) 100vw, 1024px">
+                    {{-- <img width="500" src="https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1.png" class="custom-logo" alt="Centro de Diagnostico Citopatologico Cochabamba" srcset="https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1.png 1024w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-300x53.png 300w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-768x136.png 768w, https://laboratorio-cdcc.online/wp-content/uploads/2022/08/logoPATO1-600x106.png 600w" sizes="(max-width: 1024px) 100vw, 1024px"> --}}
+                    <img src="{{ asset('images/hemo-todo.png') }}" class="custom-logo" width="250">
                 </a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
