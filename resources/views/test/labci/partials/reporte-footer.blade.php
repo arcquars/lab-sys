@@ -81,6 +81,7 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
                 <img width="130" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
 
                 <p style="margin: 0; font-size: 11px; font-weight: 700;">{{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}}</p>
+                <p style="margin: 0; font-size: 11px; font-weight: 700;">{{$analisis->doctorasig->matricula}}</p>
             @endif
         @endif
     @endif
