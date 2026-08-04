@@ -118,10 +118,36 @@ class Analisis extends Model
 
     public function getLabelEdadAttribute()
     {
-        if($this->edad < 1){
-            return ceil($this->edad*12) . " meses";
+        if (empty($this->edad) || $this->edad <= 0) {
+            return "0 meses";
         }
-        return intval($this->edad) . " años";
+
+        $anios = intval($this->edad);
+        // Redondeamos los meses para evitar decimales por imprecisiones flotantes
+        $meses = (int) round(($this->edad - $anios) * 12);
+
+        // Si los meses redondeados suman 12, se incrementa un año
+        if ($meses == 12) {
+            $anios += 1;
+            $meses = 0;
+        }
+
+        // Caso 1: Menor a 1 año (Solo muestra meses)
+        if ($anios == 0) {
+            return $meses . ' ' . ($meses == 1 ? 'mes' : 'meses');
+        }
+
+        $labelAnios = $anios . ' ' . ($anios == 1 ? 'año' : 'años');
+
+        // Caso 2: Años exactos sin meses sobrantes
+        if ($meses == 0) {
+            return $labelAnios;
+        }
+
+        // Caso 3: Años y meses (ej: 1.67 -> "1 año y 8 meses")
+        $labelMeses = $meses . ' ' . ($meses == 1 ? 'mes' : 'meses');
+
+        return "{$labelAnios} y {$labelMeses}";
     }
 
 //    public function isConvenio(){
