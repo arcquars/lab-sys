@@ -18,6 +18,7 @@
         "milon/barcode": "^6.0",
         "niklasravnsborg/laravel-pdf": "^4.1",
         "octopush/sms-api": "^2.0",
+        "spatie/laravel-honeypot": "^2.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

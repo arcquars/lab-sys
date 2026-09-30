@@ -29,7 +29,9 @@
 				"bradlc.vscode-tailwindcss",
 				"humao.rest-client",
 				"onecentlin.laravel-blade",
-				"laravel.vscode-laravel"
+				"laravel.vscode-laravel",
+				"mhutchie.git-graph",
+				"sst-dev.opencode"
 			]
 		}
 	},
