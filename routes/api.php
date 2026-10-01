@@ -21,6 +21,7 @@ Route::post('/auth/login', 'Api\AuthController@login');
 Route::middleware('auth:api')->group(function () {
     Route::post('/auth/logout', 'Api\AuthController@logout');
     Route::get('user', 'Api\UserController@getUser');
+    Route::post('/pre-orders', 'PreOrderController@store')->name('pre-orders.store');
 });
 
 // Comentario: Esta es la ruta que está causando el problema.

@@ -294,5 +294,17 @@ return [
         'Quimioluminiscencia',
         'Fluorometría',
     ],
-    'report_pdf_font' => env('REPORT_PDF_FONT', 'Arial')
+    'report_pdf_font' => env('REPORT_PDF_FONT', 'Arial'),
+
+    'pre_order_states' => [
+        'nuevo'     => 'Nuevo',
+        'rechasado' => 'Rechasado',
+        'creado'    => 'Creado',
+    ],
+
+    'pre_order_state_transitions' => [
+        'nuevo'     => ['rechasado', 'creado'],
+        'rechasado' => ['nuevo'],
+        'creado'    => [],
+    ],
 ];
