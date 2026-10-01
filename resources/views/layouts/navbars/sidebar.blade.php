@@ -210,6 +210,12 @@ Tip 2: you can also add an image using data-image tag
                         <p>Movimientos caja</p>
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'preorders') active @endif">
+                    <a class="nav-link" href="{{route('preorder.home')}}">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Pre-órdenes</p>
+                    </a>
+                </li>
             @endcan
 {{--            @cannot('is-invitado')--}}
 {{--            <li class="nav-item @if($activePage == 'texto_predefinido') active @endif">--}}

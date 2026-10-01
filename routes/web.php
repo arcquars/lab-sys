@@ -200,6 +200,12 @@ Route::post('/institucion/ajaxCrearInstitucion','InstitucionController@ajaxCreat
 Route::post('/institucion/ajaxgetinstitucion','InstitucionController@ajaxGetInstitucion')->name('institucion.getInstitucion');
 Route::post('/institucion/ajax-delete/{id}','InstitucionController@ajaxDestroy')->name('institucion.a-destroy');
 
+Route::get('/preorder/index', 'PreOrderController@index')->name('preorder.home');
+Route::get('/preorder/datatable', 'PreOrderController@getDatatablesData')->name('preorder.datatablesPreOrderData');
+Route::post('/preorder/ajaxCreate', 'PreOrderController@ajaxCreateOrUpdatePreOrder')->name('preorder.createPreOrder');
+Route::post('/preorder/ajaxGet', 'PreOrderController@ajaxGetPreOrder')->name('preorder.getPreOrder');
+Route::post('/preorder/ajaxDelete/{id}', 'PreOrderController@ajaxDestroy')->name('preorder.a-destroy');
+
 Route::get('/doctores/index', 'DoctorController@index')->name('doctores.home');
 Route::post('/doctores/ajaxcreatedoctor','DoctorController@ajaxCreateDoctor')->name('doctores.createDoctor');
 Route::get('/doctores/datatables-doctores', 'DoctorController@getDatatablesDoctor')->name('doctor.datatables_doctores');

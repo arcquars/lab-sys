@@ -40,6 +40,45 @@ class PreOrder extends Model
         return $this->hasMany(OrderStateLog::class, 'pre_order_id');
     }
 
+    /**
+     * Pinta la columna "action" en la DataTable server-side (Laratables).
+     * Llama al partial preorder/includes/action con el id de la fila.
+     */
+    public static function laratablesCustomAction($preorder)
+    {
+        return view('preorder.includes.action')->with(['id' => $preorder->id])->render();
+    }
+
+    /**
+     * Pinta la columna "state" como badge Bootstrap 4 coloreado.
+     * Colors: nuevo=warning, creado=success, rechasado=danger.
+     *
+     * NOTA: Laratables excluye columnas custom del SELECT SQL (los datos no
+     * llegan hidratados al servidor). laratablesAdditionalColumns() los
+     * vuelve a incluir en el SELECT específicamente para que CustomState
+     * pueda acceder a $preorder->state.
+     */
+    public static function laratablesCustomState($preorder)
+    {
+        $colors = [
+            self::STATE_NUEVO     => 'warning',
+            self::STATE_CREADO    => 'success',
+            self::STATE_RECHASADO => 'danger',
+        ];
+        $color = $colors[$preorder->state] ?? 'secondary';
+        return '<span class="badge badge-' . $color . '">' . $preorder->state . '</span>';
+    }
+
+    /**
+     * Declara columnas adicionales al SELECT del query de Laratables.
+     * Necesario para state (col custom) porque isCustomColumn() excluye
+     * columnas custom del SELECT automático.
+     */
+    public static function laratablesAdditionalColumns()
+    {
+        return ['state'];
+    }
+
     public function canTransitionTo($newState)
     {
         return in_array($newState, $this->getAllowedTransitions(), true);
