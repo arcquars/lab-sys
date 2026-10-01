@@ -49,10 +49,12 @@ class PreOrder extends Model
     public static function laratablesCustomAction($preorder)
     {
         return view('preorder.includes.action')->with([
-            'id'                => $preorder->id,
-            'state'             => $preorder->state,
-            'patient_ci'        => $preorder->patient_ci,
-            'patient_full_name' => $preorder->patient_full_name,
+            'id'                 => $preorder->id,
+            'state'              => $preorder->state,
+            'patient_ci'         => $preorder->patient_ci,
+            'patient_full_name'  => $preorder->patient_full_name,
+            'patient_birth_date' => $preorder->patient_birth_date,
+            'patient_gender'     => $preorder->patient_gender,
         ])->render();
     }
 
@@ -77,13 +79,33 @@ class PreOrder extends Model
     }
 
     /**
+     * Traduce el genero almacenado (F/M/O) a texto legible para la tabla.
+     */
+    public static function laratablesCustomPatientGender($preorder)
+    {
+        $map = ['F' => 'FEMENINO', 'M' => 'MASCULINO', 'O' => 'OTRO'];
+        return $map[$preorder->patient_gender] ?? '--';
+    }
+
+    /**
+     * Renderiza is_stat como badge: rojo para URGENTE, plomo para NORMAL.
+     */
+    public static function laratablesCustomIsStat($preorder)
+    {
+        if ($preorder->is_stat) {
+            return '<span class="badge badge-danger">URGENTE</span>';
+        }
+        return '<span class="badge badge-secondary">NORMAL</span>';
+    }
+
+    /**
      * Declara columnas adicionales al SELECT del query de Laratables.
-     * Necesario para state (col custom) porque isCustomColumn() excluye
-     * columnas custom del SELECT automático.
+     * Necesario para columnas custom (state, patient_gender, is_stat) porque
+     * isCustomColumn() las excluye del SELECT automatico.
      */
     public static function laratablesAdditionalColumns()
     {
-        return ['state'];
+        return ['state', 'patient_gender', 'is_stat'];
     }
 
     public function canTransitionTo($newState)

@@ -22,11 +22,11 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>Orden</th>
-                    <th>Sucursal</th>
                     <th>Paciente</th>
+                    <th>Fecha de nacimiento</th>
                     <th>CI</th>
                     <th>Género</th>
-                    <th>STAT</th>
+                    <th>PRIORIDAD URGENTE</th>
                     <th>Estado</th>
                     <th>Creado</th>
                     <th>Acción</th>
@@ -246,8 +246,8 @@
                 ajax: "{{ route('preorder.datatablesPreOrderData') }}",
                 columns: [
                     {name: 'order_number'},
-                    {name: 'branch_id'},
                     {name: 'patient_full_name'},
+                    {name: 'patient_birth_date', orderable: false, searchable: false},
                     {name: 'patient_ci'},
                     {name: 'patient_gender'},
                     {name: 'is_stat'},
@@ -287,7 +287,9 @@
                 openBuscarPacientePreOrder(
                     $(this).attr('data-id'),
                     $(this).attr('data-ci'),
-                    $(this).attr('data-name')
+                    $(this).attr('data-name'),
+                    $(this).attr('data-birth'),
+                    $(this).attr('data-gender')
                 );
             });
 
@@ -499,11 +501,13 @@
 
         // ---- Crear Análisis desde Pre-orden (buscar/crear paciente) ----
 
-        function openBuscarPacientePreOrder(preorderId, ci, fullName) {
+        function openBuscarPacientePreOrder(preorderId, ci, fullName, birth, gender) {
             var $modal = $('#mBuscarPacientePreOrder');
             $modal.find("input[name='preorder_id']").val(preorderId);
             $modal.data('ci', ci);
             $modal.data('fullName', fullName);
+            $modal.data('birth', birth);
+            $modal.data('gender', gender);
             $('#bpp_loading').show();
             $('#bpp_results').hide();
             $('#bpp_empty').hide();
@@ -556,6 +560,8 @@
             var $modal = $('#mBuscarPacientePreOrder');
             var ci = $modal.data('ci');
             var fullName = $modal.data('fullName');
+            var birth = $modal.data('birth');
+            var gender = $modal.data('gender');
             $modal.modal('hide');
 
             clearErrorMsgPerson();
@@ -563,6 +569,14 @@
             $("#fcrearpersona").find("input[name='id']").val('');
             $("#fcrearpersona").find("input[name='ci']").val(ci);
             $("#fcrearpersona").find("input[name='nombres']").val(fullName ? fullName.toUpperCase() : '');
+            $("#fcrearpersona").find("input[name='f_nacimiento']").val(birth || '');
+            // F/M mapean al radio "mujer"/"hombre". O o vacio queda sin marcar
+            // para que el usuario lo elija manualmente.
+            var radioVal = null;
+            if (gender === 'F') radioVal = 'mujer';
+            else if (gender === 'M') radioVal = 'hombre';
+            $("#fcrearpersona").find("input[name='sexo'][value='" + radioVal + "']").prop('checked', true);
+
             $('#mperson_title').empty().text('Crear Persona');
             $('#mpersona').modal('show');
         }
