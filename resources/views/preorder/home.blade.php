@@ -10,8 +10,11 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-12 text-right"><a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPreOrder();">Registrar
-                        Pre-orden</a></div>
+                {{-- <div class="col-md-12 text-right">
+                    <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openModelPreOrder();">Registrar
+                        Pre-orden
+                    </a>
+                </div> --}}
             </div>
         </div>
         <div class="card-body">
