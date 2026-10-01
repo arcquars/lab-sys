@@ -11,24 +11,24 @@ Sistema de laboratorio de patología clinica. Procesa analisis clinicos (citolog
 
 ## Comandos — SIEMPRE dentro del contenedor Docker
 
-El contenedor se llama `php74` y monta `/var/www/html`.
+El entorno ya corre dentro del contenedor `php74` (monta `/var/www/html`); ejecutar los comandos directamente, SIN prefijo `docker exec`.
 
 ```bash
 # Artisan
-docker exec -it php74 php artisan <comando>
+php artisan <comando>
 
 # Composer
-docker exec -it php74 composer <comando>
+composer <comando>
 
 # Pruebas (PHPUnit 8)
-docker exec -it php74 ./vendor/bin/phpunit
-docker exec -it php74 ./vendor/bin/phpunit --filter=NombreTest   # una sola prueba
-docker exec -it php74 ./vendor/bin/phpunit tests/Unit            # solo unitarias
-docker exec -it php74 ./vendor/bin/phpunit tests/Feature         # solo feature
+./vendor/bin/phpunit
+./vendor/bin/phpunit --filter=NombreTest   # una sola prueba
+./vendor/bin/phpunit tests/Unit            # solo unitarias
+./vendor/bin/phpunit tests/Feature         # solo feature
 
 # Frontend (SCSS/JS via laravel-mix 4)
-docker exec -it php74 npm run dev     # desarrollo
-docker exec -it php74 npm run prod    # produccion
+npm run dev     # desarrollo
+npm run prod    # produccion
 ```
 
 **NOTA sobre route:cache:** Actualmente hay closures en `routes/web.php` (lineas 14, 19, 45) que impiden `php artisan route:cache`. Si se necesita cache de rutas, migrar esas rutas a controladores.

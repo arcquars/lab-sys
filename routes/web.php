@@ -205,6 +205,7 @@ Route::get('/preorder/datatable', 'PreOrderController@getDatatablesData')->name(
 Route::post('/preorder/ajaxCreate', 'PreOrderController@ajaxCreateOrUpdatePreOrder')->name('preorder.createPreOrder');
 Route::post('/preorder/ajaxGet', 'PreOrderController@ajaxGetPreOrder')->name('preorder.getPreOrder');
 Route::post('/preorder/ajaxDelete/{id}', 'PreOrderController@ajaxDestroy')->name('preorder.a-destroy');
+Route::post('/preorder/ajaxSearchPerson', 'PreOrderController@ajaxSearchPerson')->name('preorder.searchPerson');
 
 Route::get('/doctores/index', 'DoctorController@index')->name('doctores.home');
 Route::post('/doctores/ajaxcreatedoctor','DoctorController@ajaxCreateDoctor')->name('doctores.createDoctor');

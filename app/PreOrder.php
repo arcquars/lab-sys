@@ -42,11 +42,18 @@ class PreOrder extends Model
 
     /**
      * Pinta la columna "action" en la DataTable server-side (Laratables).
-     * Llama al partial preorder/includes/action con el id de la fila.
+     * Llama al partial preorder/includes/action con los datos de la fila.
+     * state/patient_ci/patient_full_name alimentan el botón "Crear análisis"
+     * (visible solo cuando state = nuevo).
      */
     public static function laratablesCustomAction($preorder)
     {
-        return view('preorder.includes.action')->with(['id' => $preorder->id])->render();
+        return view('preorder.includes.action')->with([
+            'id'                => $preorder->id,
+            'state'             => $preorder->state,
+            'patient_ci'        => $preorder->patient_ci,
+            'patient_full_name' => $preorder->patient_full_name,
+        ])->render();
     }
 
     /**

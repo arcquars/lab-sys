@@ -32,7 +32,7 @@ class PreOrderTest extends TestCase
 
     protected $user;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

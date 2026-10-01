@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePreOrderRequest;
+use App\Person;
 use App\PreOrder;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
@@ -133,6 +134,43 @@ class PreOrderController extends Controller
                 'tests' => $preorder->tests_snapshot,
             ],
         ]);
+    }
+
+    /**
+     * POST /preorder/ajaxSearchPerson
+     * Busca pacientes para el flujo "Crear análisis" desde una pre-orden.
+     * Coincidencia: ci exacto OR cada palabra suelta del nombre completo
+     * con LIKE sobre nombres, apellidos y apellido_materno.
+     */
+    public function ajaxSearchPerson(Request $request)
+    {
+        $ci      = trim((string) $request->post('ci', ''));
+        $nombres = trim((string) $request->post('nombres', ''));
+
+        $words = preg_split('/\s+/', $nombres, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+
+        if ($ci === '' && count($words) === 0) {
+            return response()->json(['success' => true, 'persons' => []]);
+        }
+
+        $persons = Person::query()
+            ->where(function ($q) use ($ci, $words) {
+                if ($ci !== '') {
+                    $q->where('ci', $ci);
+                }
+                foreach ($words as $word) {
+                    $like = '%' . $word . '%';
+                    $q->orWhere(function ($q2) use ($like) {
+                        $q2->where('nombres', 'like', $like)
+                           ->orWhere('apellidos', 'like', $like)
+                           ->orWhere('apellido_materno', 'like', $like);
+                    });
+                }
+            })
+            ->limit(10)
+            ->get();
+
+        return response()->json(['success' => true, 'persons' => $persons]);
     }
 
     /**

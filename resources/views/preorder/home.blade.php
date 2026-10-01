@@ -184,6 +184,55 @@
         </form>
     </div>
 </div>
+
+<!-- Modal Crear Análisis desde Pre-orden: buscar paciente -->
+<div id="mBuscarPacientePreOrder" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title ">Crear Análisis - Buscar Paciente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="preorder_id" value="">
+                <div id="bpp_loading">
+                    <p class="text-muted">Buscando pacientes...</p>
+                </div>
+                <div id="bpp_results" style="display: none;">
+                    <table id="tableResultPreOrder" class="table table-bordered table-sm">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>CI</th>
+                            <th>Nombres</th>
+                            <th>Ape. Paterno</th>
+                            <th>Ape. Materno</th>
+                            <th>Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div id="bpp_empty" style="display: none;">
+                    <p class="text-muted">No se encontraron pacientes que coincidan con la búsqueda.</p>
+                    <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openCrearPacientePreOrder(); return false;">
+                        <i class="far fa-plus-square"></i> Registrar nuevo paciente
+                    </a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-lab-pdm-primary btn-sm" onclick="openCrearPacientePreOrder(); return false;">
+                    <i class="far fa-plus-square"></i> Registrar nuevo paciente
+                </a>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal registro persona (reutilizado de clients) -->
+@include('clients.includes.mpersona', ['preOrderMode' => true])
 @endsection
 
 @push('js')
@@ -227,6 +276,19 @@
                         "previous": "Anterior"
                     }
                 },
+            });
+
+
+            // Delegado: DataTables redibuja las filas al paginar/buscar, por eso el
+            // click del botón "Crear Análisis" se escucha desde la tabla.
+            // Se usa attr() en vez de data() para no perder ceros a la izquierda del CI.
+            $('#datatable-preorders').on('click', '.btn-crear-analisis-preorder', function (event) {
+                event.preventDefault();
+                openBuscarPacientePreOrder(
+                    $(this).attr('data-id'),
+                    $(this).attr('data-ci'),
+                    $(this).attr('data-name')
+                );
             });
 
 
@@ -285,6 +347,45 @@
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         printErrorMsg($("#fcreatepreorder"), JSON.parse(XMLHttpRequest.responseText));
+                    }
+                });
+            });
+
+            // Crear paciente (form reutilizado de clients) y redirigir a crear_analisis_hemo
+            // con el id de la pre-orden como parametro preOrden.
+            $("#fcrearpersona").submit(function (event) {
+                event.preventDefault();
+                clearErrorMsgPerson();
+                var _token = $(this).find("input[name='_token']").val();
+                var ci = $(this).find("input[name='ci']").val();
+                var nombres = $(this).find("input[name='nombres']").val();
+                var apellidos = $(this).find("input[name='apellidos']").val();
+                var apellido_materno = $(this).find("input[name='apellido_materno']").val();
+                var f_nacimiento = $(this).find("input[name='f_nacimiento']").val();
+                var sexo = $(this).find("input[name='sexo']:checked").val();
+                var preorderId = $('#mBuscarPacientePreOrder').find("input[name='preorder_id']").val();
+
+                $.ajax({
+                    url: "{{ route('client.createPerson') }}",
+                    type: 'POST',
+                    data: {
+                        _token: _token,
+                        ci: ci,
+                        nombres: nombres,
+                        apellidos: apellidos,
+                        apellido_materno: apellido_materno,
+                        f_nacimiento: f_nacimiento,
+                        sexo: sexo
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.url + '?preOrden=' + preorderId;
+                        } else {
+                            alert(data.errors);
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        printErrorMsgPerson(JSON.parse(XMLHttpRequest.responseText));
                     }
                 });
             });
@@ -394,6 +495,97 @@
                 }
                 byName.addClass('is-invalid');
             });
+        }
+
+        // ---- Crear Análisis desde Pre-orden (buscar/crear paciente) ----
+
+        function openBuscarPacientePreOrder(preorderId, ci, fullName) {
+            var $modal = $('#mBuscarPacientePreOrder');
+            $modal.find("input[name='preorder_id']").val(preorderId);
+            $modal.data('ci', ci);
+            $modal.data('fullName', fullName);
+            $('#bpp_loading').show();
+            $('#bpp_results').hide();
+            $('#bpp_empty').hide();
+            $modal.modal('show');
+
+            $.ajax({
+                url: "{{ route('preorder.searchPerson') }}",
+                type: 'POST',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    ci: ci,
+                    nombres: fullName
+                },
+                success: function (data) {
+                    $('#bpp_loading').hide();
+                    if (data.success && data.persons.length > 0) {
+                        renderPersonsPreOrder(data.persons);
+                        $('#bpp_results').show();
+                    } else {
+                        $('#bpp_empty').show();
+                    }
+                },
+                error: function () {
+                    $('#bpp_loading').hide();
+                    $('#bpp_empty').show();
+                }
+            });
+        }
+
+        function renderPersonsPreOrder(persons) {
+            var preorderId = $('#mBuscarPacientePreOrder').find("input[name='preorder_id']").val();
+            var html = "";
+            $.each(persons, function (index, person) {
+                html += "<tr>";
+                html += "<td>" + (person.ci ? person.ci : '--') + "</td>";
+                html += "<td>" + person.nombres + "</td>";
+                html += "<td>" + person.apellidos + "</td>";
+                html += "<td>" + (person.apellido_materno ? person.apellido_materno : '') + "</td>";
+                html += "<td>";
+                html += "<a href='{{ url('/analisis/crear_analisis_hemo') }}/" + person.id + "?preOrden=" + preorderId + "' class='btn btn-lab-pdm-primary btn-sm' title='Crear Análisis'>";
+                html += "<i class='fas fa-notes-medical'></i> Seleccionar";
+                html += "</a>";
+                html += "</td>";
+                html += "</tr>";
+            });
+            $('#tableResultPreOrder tbody').empty().append(html);
+        }
+
+        function openCrearPacientePreOrder() {
+            var $modal = $('#mBuscarPacientePreOrder');
+            var ci = $modal.data('ci');
+            var fullName = $modal.data('fullName');
+            $modal.modal('hide');
+
+            clearErrorMsgPerson();
+            $("#fcrearpersona")[0].reset();
+            $("#fcrearpersona").find("input[name='id']").val('');
+            $("#fcrearpersona").find("input[name='ci']").val(ci);
+            $("#fcrearpersona").find("input[name='nombres']").val(fullName ? fullName.toUpperCase() : '');
+            $('#mperson_title').empty().text('Crear Persona');
+            $('#mpersona').modal('show');
+        }
+
+        // El partial #mpersona (reutilizado de clients) trae onchange="searchClient(this)"
+        // heredado; en este contexto la búsqueda la hace #mBuscarPacientePreOrder.
+        function searchClient(input) {}
+
+        function printErrorMsgPerson(msg) {
+            $.each(msg.errors, function (key, value) {
+                $("#fcrearpersona").find("[name='" + key + "']").addClass('is-invalid');
+                var msgs = "<ul class='list-unstyled'>";
+                $.each(value, function (k1, v1) {
+                    msgs += "<li><span class='text-danger'>" + v1 + "</span></li>";
+                });
+                msgs += "</ul>";
+                $('#fcrearpersona .fcp_error_' + key).empty().append(msgs).show();
+            });
+        }
+
+        function clearErrorMsgPerson() {
+            $('#fcrearpersona').find("input,select").removeClass('is-invalid');
+            $('#fcrearpersona').find("div[class^='fcp_error_']").empty().hide();
         }
     </script>
 @endpush
