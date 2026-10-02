@@ -55,6 +55,7 @@ class PreOrder extends Model
             'patient_full_name'  => $preorder->patient_full_name,
             'patient_birth_date' => $preorder->patient_birth_date,
             'patient_gender'     => $preorder->patient_gender,
+            'analisis_id'        => $preorder->analisis_id,
         ])->render();
     }
 
@@ -101,11 +102,13 @@ class PreOrder extends Model
     /**
      * Declara columnas adicionales al SELECT del query de Laratables.
      * Necesario para columnas custom (state, patient_gender, is_stat) porque
-     * isCustomColumn() las excluye del SELECT automatico.
+     * isCustomColumn() las excluye del SELECT automatico. analisis_id se
+     * añade para que laratablesCustomAction() pueda condicionar el botón
+     * "Ir al análisis" cuando la pre-orden ya tiene un analisis creado.
      */
     public static function laratablesAdditionalColumns()
     {
-        return ['state', 'patient_gender', 'is_stat'];
+        return ['state', 'patient_gender', 'is_stat', 'analisis_id'];
     }
 
     public function canTransitionTo($newState)

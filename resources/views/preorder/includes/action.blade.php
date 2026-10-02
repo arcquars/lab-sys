@@ -11,6 +11,12 @@
     <i class="fas fa-notes-medical fa-lg"></i>
 </a>
 @endif
+@if($state === \App\PreOrder::STATE_CREADO && $analisis_id)
+<a href="{{ route('test.viewResultado', $analisis_id) }}"
+   class="btn btn-link float-right" title="Ir al análisis">
+    <i class="fas fa-arrow-right fa-lg"></i>
+</a>
+@endif
 <a href="#" onclick="openDeletePreOrderAjax({{ $id }}); return false;" class="btn btn-link p-1 text-danger float-right" title="Eliminar Pre-orden">
     <i class="fas fa-trash"></i>
 </a>
