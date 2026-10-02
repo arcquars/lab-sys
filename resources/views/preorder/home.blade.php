@@ -24,6 +24,7 @@
                     <th>Orden</th>
                     <th>Paciente</th>
                     <th>Fecha de nacimiento</th>
+                    <th>Edad</th>
                     <th>CI</th>
                     <th>Género</th>
                     <th>PRIORIDAD URGENTE</th>
@@ -248,6 +249,7 @@
                     {name: 'order_number'},
                     {name: 'patient_full_name'},
                     {name: 'patient_birth_date', orderable: false, searchable: false},
+                    {name: 'patient_age',        orderable: false, searchable: false},
                     {name: 'patient_ci'},
                     {name: 'patient_gender'},
                     {name: 'is_stat'},
@@ -255,7 +257,7 @@
                     {name: 'created_at'},
                     {name: 'action', orderable: false, searchable: false}
                 ],
-                order: [[7, 'desc']],
+                order: [[8, 'desc']],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",

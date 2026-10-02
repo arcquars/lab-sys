@@ -89,6 +89,29 @@ class PreOrder extends Model
     }
 
     /**
+     * Formatea la edad del paciente. Acepta un numero (entero o decimal);
+     * si es >= 1 se muestra en anos, si es < 1 se convierte a meses.
+     * Si no hay valor o no se detecta un numero, muestra "--" o el texto crudo.
+     */
+    public static function laratablesCustomPatientAge($preorder)
+    {
+        $raw = (string) ($preorder->patient_age ?? '');
+        if (trim($raw) === '') return '--';
+
+        if (!preg_match('/-?\d+(?:\.\d+)?/', $raw, $m)) {
+            return e($raw);
+        }
+        $value = (float) $m[0];
+
+        if ($value >= 1) {
+            return ((int) round($value)) . ' años';
+        }
+        $months = (int) round($value * 12);
+        if ($months < 1) return '1 mes';
+        return $months . ' meses';
+    }
+
+    /**
      * Renderiza is_stat como badge: rojo para URGENTE, plomo para NORMAL.
      */
     public static function laratablesCustomIsStat($preorder)
@@ -108,7 +131,7 @@ class PreOrder extends Model
      */
     public static function laratablesAdditionalColumns()
     {
-        return ['state', 'patient_gender', 'is_stat', 'analisis_id'];
+        return ['state', 'patient_gender', 'is_stat', 'analisis_id', 'patient_age'];
     }
 
     public function canTransitionTo($newState)
