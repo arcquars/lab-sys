@@ -121,6 +121,7 @@ class PreOrderController extends Controller
                 'id'                  => $preorder->id,
                 'order_number'        => $preorder->order_number,
                 'branch_id'           => $preorder->branch_id,
+                'state'           => $preorder->state,
                 'is_stat'             => (bool) $preorder->is_stat,
                 'patient' => [
                     'full_name'  => $preorder->patient_full_name,

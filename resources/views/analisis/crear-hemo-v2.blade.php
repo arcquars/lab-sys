@@ -463,6 +463,42 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
         font-size: 0.82rem;
         flex-wrap: wrap;
     }
+
+    /* ================================================================
+       CART DE PRE-ORDEN — bloque inline bajo #labCart, mismo look
+       ================================================================ */
+    #labCartPreOrder .preorder-cat-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #1d4ed8;
+        padding: 6px 12px 4px;
+        border-bottom: 1px solid #dbeafe;
+        letter-spacing: .4px;
+        margin-top: 6px;
+    }
+    #labCartPreOrder .preorder-cat-empty {
+        color: #94a3b8;
+        font-size: 13px;
+        padding: 16px;
+        text-align: center;
+    }
+    /* Cart flotante debajo del carrito analitico (mismo estilo, header verde) */
+    #labCartPreOrder {
+        position: fixed;
+        top: 0; /* se sobrescribe por JS segun la altura real de #labCart */
+        right: 18px;
+        width: 300px;
+        z-index: 3000;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 32px rgba(16,185,129,.13), 0 2px 8px rgba(0,0,0,.08);
+        border: 1.5px solid #d1fae5;
+        font-family: inherit;
+    }
+    @media (max-width: 992px) {
+        #labCartPreOrder { display: none !important; }
+    }
     </style>
 
     <nav aria-label="breadcrumb">
@@ -605,6 +641,20 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                             <i class="fas fa-trash-alt"></i> Limpiar todo
                         </button>
                     </div>
+                </div>
+            </div>
+
+            {{-- =====================================================
+                 CART DE PRE-ORDEN — bloque inline bajo labCart,
+                 visible solo si la URL trae ?preOrden=
+                 ===================================================== --}}
+            <div id="labCartPreOrder" class="card mb-3" style="display:none;">
+                <div class="card-header py-2" style="background:linear-gradient(135deg,#047857 0%,#10b981 100%);color:#fff;">
+                    <i class="fas fa-clipboard-list"></i>
+                    <strong>Pruebas de la Pre-orden #<span id="bpp_preorder_id"></span></strong>
+                </div>
+                <div class="card-body" id="labCartPreOrderItems">
+                    {{-- renderizado por JS a partir de tests_snapshot, agrupado por categoria --}}
                 </div>
             </div>
 
@@ -1319,6 +1369,115 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
 
         $(function () { labCartRefresh(); });
 
+    })();
+    </script>
+
+    <script>
+    /* ================================================================
+       Integracion con Pre-orden (?preOrden=ID) en crear-hemo-v2
+       - Trae el detalle de la pre-orden via AJAX.
+       - Si state != 'nuevo' no hace nada.
+       - Si state == 'nuevo': rellena doctor + region(diagnosis) y muestra
+         el cart de pruebas agrupadas por categoria.
+       - Marca preorden a 'creado' en el store del analisis (servidor).
+       ================================================================ */
+    (function () {
+        var qs = new URLSearchParams(window.location.search);
+        var preOrdenId = qs.get('preOrden');
+        // sanitizar (solo digitos)
+        if (preOrdenId) preOrdenId = String(preOrdenId).replace(/\D+/g, '');
+        if (!preOrdenId) return;
+
+        // hidden input para que AnalisisController@store reciba el param
+        $('#formAnalisis').append(
+            '<input type="hidden" name="preOrden" value="' + preOrdenId + '">'
+        );
+
+        $.ajax({
+            url: "{{ route('preorder.getPreOrder') }}",
+            type: 'POST',
+            data: { _token: "{{ csrf_token() }}", id: preOrdenId },
+            success: function (data) {
+                if (!data.success || !data.preorder) return;
+
+                // Estado distinto de nuevo => no hacer nada
+                if (data.preorder.state !== 'nuevo') return;
+
+                var p = data.preorder.patient || {};
+
+                // Doctor que envia = patient.physician
+                $('#formAnalisis input[name="doctor"]').val(p.physician || '');
+
+                // R. análisis / Muestra (visible) = patient.diagnosis.
+                // Hay dos input[name="region"]: uno hidden "--" y el visible
+                // con clase .form-control; filtramos por clase para tocar
+                // solo el visible.
+                $('#formAnalisis input[name="region"].form-control').val(p.diagnosis || '');
+
+                // Renderizar cart de pruebas agrupadas por categoria
+                renderPreOrderTests(data.preorder.tests || [], preOrdenId);
+            }
+        });
+
+        // Posicionar el cart de pre-orden debajo de #labCart. Se re-mide cada vez
+        // que labCartRefresh() actualiza el resumen (items añadidos o quitados) y
+        // tambien al redimensionar la ventana.
+        function placePreOrderCart() {
+            var $cart = $('#labCart');
+            var $pre  = $('#labCartPreOrder');
+            if (!$cart.length || !$pre.length) return;
+            var bottom = $cart.get(0).getBoundingClientRect().bottom;
+            $pre.css('top', (bottom + 12) + 'px');
+        }
+        var _origLabCartRefresh = window.labCartRefresh;
+        window.labCartRefresh = function () {
+            if (typeof _origLabCartRefresh === 'function') _origLabCartRefresh();
+            placePreOrderCart();
+        };
+        $(window).on('resize', placePreOrderCart);
+        $(function () { placePreOrderCart(); });
+
+        function renderPreOrderTests(tests, id) {
+            var $wrap = $('#labCartPreOrder');
+            $('#bpp_preorder_id').text(id);
+
+            if (!tests.length) {
+                $wrap.find('#labCartPreOrderItems').html(
+                    '<div class="preorder-cat-empty">La pre-orden no incluye pruebas.</div>'
+                );
+                $wrap.show();
+                return;
+            }
+
+            var grouped = {};
+            tests.forEach(function (t) {
+                var cat = t.category_name || 'Sin categoría';
+                var name = t.test_name || ('Análisis #' + (t.id || ''));
+                if (!grouped[cat]) grouped[cat] = [];
+                grouped[cat].push(name);
+            });
+
+            var html = '';
+            Object.keys(grouped).forEach(function (cat) {
+                html += '<div class="preorder-cat-title">' + escapeHtml(cat) + '</div>';
+                grouped[cat].forEach(function (name) {
+                    html += '<div class="lab-cart-item">' +
+                                '<div class="lab-cart-item-info">' +
+                                    '<div class="lab-cart-item-name" title="' + escapeHtml(name) + '">' + escapeHtml(name) + '</div>' +
+                                    '<div class="lab-cart-item-group">de la pre-orden</div>' +
+                                '</div>' +
+                            '</div>';
+                });
+            });
+            $wrap.find('#labCartPreOrderItems').html(html);
+            $wrap.show();
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, function (c) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+            });
+        }
     })();
     </script>
 @endpush

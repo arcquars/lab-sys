@@ -158,6 +158,23 @@ class AnalisisController extends Controller
                 }
             }
 
+            // Si la vista vino desde una pre-orden (?preOrden=), marcarla como creada
+            // y guardar el analisis_id resultante para trazabilidad.
+            // Se hace dentro del save() y se ignora silenciosamente si el state ya no es
+            // "nuevo" (p. ej. creada por otro submit simultaneo o rechazada por admin).
+            if ($request->filled('preOrden')) {
+                try {
+                    $preorder = \App\PreOrder::find($request->input('preOrden'));
+                    if ($preorder) {
+                        $preorder->analisis_id = $analisis->id;
+                        $preorder->save();
+                        $preorder->changeState(\App\PreOrder::STATE_CREADO, auth()->id());
+                    }
+                } catch (\DomainException $e) {
+                    // transición inválida: no bloquear la creación del analisis.
+                }
+            }
+
             $request->session()->flash('status', '¡Análisis creado correctamente!');
             // Guardamos el ID en una variable de sesión flash llamada 'print_receipt'
             if(Setting::get('receipt_print', '0')){
