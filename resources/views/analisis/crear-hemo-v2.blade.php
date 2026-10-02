@@ -1414,6 +1414,8 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                 // solo el visible.
                 $('#formAnalisis input[name="region"].form-control').val(p.diagnosis || '');
 
+                // data.preorder.patient.age
+                $('#formAnalisis input[name="edad"].form-control').val(p.age || '');
                 // Renderizar cart de pruebas agrupadas por categoria
                 renderPreOrderTests(data.preorder.tests || [], preOrdenId);
             }

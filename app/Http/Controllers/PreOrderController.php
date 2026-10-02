@@ -115,6 +115,15 @@ class PreOrderController extends Controller
             return response()->json(['success' => false, 'errors' => 'Pre-orden no encontrada.'], 422);
         }
 
+        $age = "";
+        if(is_numeric($preorder->patient_age)){
+            if($preorder->patient_age < 1){
+                $age = round($preorder->patient_age, 2);
+            } else {
+                $age = $preorder->patient_age;
+            }
+
+        }
         return response()->json([
             'success'  => true,
             'preorder' => [
@@ -125,7 +134,7 @@ class PreOrderController extends Controller
                 'is_stat'             => (bool) $preorder->is_stat,
                 'patient' => [
                     'full_name'  => $preorder->patient_full_name,
-                    'age'        => $preorder->patient_age,
+                    'age'        => $age,
                     'gender'     => $preorder->patient_gender,
                     'ci'         => $preorder->patient_ci,
                     'birth_date' => optional($preorder->patient_birth_date)->format('Y-m-d'),
