@@ -3,6 +3,7 @@ use App\Helpers\ClinicaHelper;
 /** @var \App\Analisis $analisis */
 /** @var \App\Doctor $doctoresTitulares */
 $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asignado);
+$preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
 ?>
 <dl class="row row-citologia">
     <dt class="col-md-3">Paciente:</dt>
@@ -126,6 +127,14 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
                         Subtítulo
                     </label>
                 </div>
+            @endif
+            @if($preorden)
+            <button type="button"
+                    class="btn btn-outline-info"
+                    data-toggle="modal"
+                    data-target="#mPreordenInfo">
+                <i class="fas fa-clipboard-list"></i> Info de Pre-orden #{{ $preorden->id }}
+            </button>
             @endif
     </div>
 </div>
@@ -461,6 +470,74 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
         </div>
     </div>
 </div>
+
+<!-- Modal: Detalle de la Pre-orden -->
+@if($preorden)
+<div id="mPreordenInfo" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Pre-orden #{{ $preorden->id }}
+                    <small class="text-muted">({{ $preorden->order_number }})</small>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-md-3">Sucursal:</dt>
+                    <dd class="col-md-3">{{ $preorden->branch_id ?: '--' }}</dd>
+                    <dt class="col-md-3">Estado:</dt>
+                    <dd class="col-md-3">{{ $preorden->state }}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3">Paciente:</dt>
+                    <dd class="col-md-3">{{ $preorden->patient_full_name }}</dd>
+                    <dt class="col-md-3">CI:</dt>
+                    <dd class="col-md-3">{{ $preorden->patient_ci }}</dd>
+                </dl>
+                <dl class="row">
+                    <dt class="col-md-3">Médico:</dt>
+                    <dd class="col-md-3">{{ $preorden->patient_physician ?: '--' }}</dd>
+                    <dt class="col-md-3">Diagnostico:</dt>
+                    <dd class="col-md-3">{{ $preorden->patient_diagnosis ?: '--' }}</dd>
+                </dl>
+                <hr>
+                @php
+                    $tests = $preorden->tests_snapshot ?: [];
+                    $grouped = [];
+                    foreach ($tests as $t) {
+                        $cat = !empty($t['category_name'])
+                            ? $t['category_name']
+                            : 'Sin categoría';
+                        $name = !empty($t['test_name'])
+                            ? $t['test_name']
+                            : 'Análisis #' . ($t['id'] ?? '');
+                        $grouped[$cat][] = $name;
+                    }
+                @endphp
+                @if(empty($grouped))
+                    <p class="text-muted">La pre-orden no incluye pruebas.</p>
+                @else
+                    @foreach($grouped as $cat => $items)
+                        <h6 class="text-primary">{{ $cat }}</h6>
+                        <ul class="mb-3 pl-3">
+                            @foreach($items as $name)
+                                <li>{{ $name }}</li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 
 @include('analisis.includes.modals.m_firmas_interconsultados')
 
