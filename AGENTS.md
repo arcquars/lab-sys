@@ -88,9 +88,23 @@ Los analisis de cliente generan codigo automatico en formato `[tipo] prueba [n]`
 
 ## Skills disponibles
 
-- `.claude/skills/` — 7 archivos: database, docker, frontend, jquery, laravel, php, bootstrap
-- `.agent/skills/` — 2 archivos: php7.4-compatibility, laravel6-conventions
-- `skills/` — 7 archivos: database-inspection, dependency-guard, implementation-planning, jquery-ajax, legacy-analysis, legacy-guardian, php-coding-standards
+Ubicacion unica: `.claude/skills/<nombre>/SKILL.md` (formato con frontmatter `name` + `description`).
+Claude Code y OpenCode leen esta misma carpeta, asi que sirve para ambos.
+
+- `php` — compatibilidad PHP 7.4
+- `laravel` — convenciones Laravel 6.x y paquetes
+- `database` — migraciones y consultas
+- `docker` — como ejecutar comandos dentro del contenedor
+- `frontend` — vistas Blade y assets
+- `jquery` — JS y AJAX
+- `bootstrap` — Bootstrap 4
+
+Para agregar una skill: crear `.claude/skills/<nombre>/SKILL.md` con `name` (igual al nombre de la carpeta, minusculas y guiones) y una `description` que diga cuando usarla.
+
+## Configuracion de agentes
+
+- `AGENTS.md` (este archivo) es la fuente unica de instrucciones. OpenCode lo lee directamente.
+- `CLAUDE.md` solo contiene `@AGENTS.md`, que lo importa para Claude Code. No duplicar contenido ahi.
 
 ## Datos de desarrollo (solo LOCAL)
 

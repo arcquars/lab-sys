@@ -33,6 +33,5 @@ rest-test/*
 /.env.example
 .htaccess
 docs/*
-.claude/
-.agent/
-skills
+.claude/*
+!.claude/skills/
