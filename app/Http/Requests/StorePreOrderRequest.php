@@ -29,6 +29,9 @@ class StorePreOrderRequest extends FormRequest
             'tests.*.id'                 => 'required|string|max:40',
             'tests.*.test_name'          => 'required|string|max:200',
             'tests.*.category_name'      => 'required|string|max:120',
+
+            'custom_tests'               => 'nullable|array',
+            'custom_tests.*'             => 'required|string',
         ];
     }
 

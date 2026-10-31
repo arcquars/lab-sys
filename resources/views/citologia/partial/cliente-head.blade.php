@@ -517,8 +517,9 @@ $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
                             : 'Análisis #' . ($t['id'] ?? '');
                         $grouped[$cat][] = $name;
                     }
+                    $customTests = $preorden->customTests;
                 @endphp
-                @if(empty($grouped))
+                @if(empty($grouped) && $customTests->isEmpty())
                     <p class="text-muted">La pre-orden no incluye pruebas.</p>
                 @else
                     @foreach($grouped as $cat => $items)
@@ -529,6 +530,14 @@ $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
                             @endforeach
                         </ul>
                     @endforeach
+                    @if($customTests->isNotEmpty())
+                        <h6 class="text-primary">Pruebas personalizadas</h6>
+                        <ul class="mb-3 pl-3">
+                            @foreach($customTests as $ct)
+                                <li>{{ $ct->description }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
                 @endif
             </div>
             <div class="modal-footer">

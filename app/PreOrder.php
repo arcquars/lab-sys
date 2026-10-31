@@ -40,6 +40,11 @@ class PreOrder extends Model
         return $this->hasMany(OrderStateLog::class, 'pre_order_id');
     }
 
+    public function customTests()
+    {
+        return $this->hasMany(PreOrderCustomTest::class, 'pre_order_id');
+    }
+
     /**
      * Pinta la columna "action" en la DataTable server-side (Laratables).
      * Llama al partial preorder/includes/action con los datos de la fila.

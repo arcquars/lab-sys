@@ -1417,7 +1417,7 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                 // data.preorder.patient.age
                 $('#formAnalisis input[name="edad"].form-control').val(p.age || '');
                 // Renderizar cart de pruebas agrupadas por categoria
-                renderPreOrderTests(data.preorder.tests || [], preOrdenId);
+                renderPreOrderTests(data.preorder.tests || [], preOrdenId, data.preorder.custom_tests || []);
             }
         });
 
@@ -1439,11 +1439,12 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
         $(window).on('resize', placePreOrderCart);
         $(function () { placePreOrderCart(); });
 
-        function renderPreOrderTests(tests, id) {
+        function renderPreOrderTests(tests, id, customTests) {
             var $wrap = $('#labCartPreOrder');
             $('#bpp_preorder_id').text(id);
+            customTests = customTests || [];
 
-            if (!tests.length) {
+            if (!tests.length && !customTests.length) {
                 $wrap.find('#labCartPreOrderItems').html(
                     '<div class="preorder-cat-empty">La pre-orden no incluye pruebas.</div>'
                 );
@@ -1471,6 +1472,17 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                             '</div>';
                 });
             });
+            if (customTests.length) {
+                html += '<div class="preorder-cat-title">Pruebas personalizadas</div>';
+                customTests.forEach(function (name) {
+                    html += '<div class="lab-cart-item">' +
+                                '<div class="lab-cart-item-info">' +
+                                    '<div class="lab-cart-item-name" title="' + escapeHtml(name) + '">' + escapeHtml(name) + '</div>' +
+                                    '<div class="lab-cart-item-group">de la pre-orden</div>' +
+                                '</div>' +
+                            '</div>';
+                });
+            }
             $wrap.find('#labCartPreOrderItems').html(html);
             $wrap.show();
         }

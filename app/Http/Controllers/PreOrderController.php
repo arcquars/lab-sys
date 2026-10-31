@@ -142,6 +142,7 @@ class PreOrderController extends Controller
                     'physician'  => $preorder->patient_physician,
                 ],
                 'tests' => $preorder->tests_snapshot,
+                'custom_tests' => $preorder->customTests->pluck('description'),
             ],
         ]);
     }
@@ -232,6 +233,10 @@ class PreOrderController extends Controller
                 'state'               => PreOrder::STATE_NUEVO,
                 'created_by'          => $userId,
             ]);
+
+            foreach ($data['custom_tests'] ?? [] as $description) {
+                $preOrder->customTests()->create(['description' => $description]);
+            }
 
             $preOrder->statesLog()->create([
                 'previous_state' => null,
