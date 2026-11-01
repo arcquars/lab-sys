@@ -108,6 +108,6 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
                 </tr>
             </tbody>
         </table>
-        <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding: 0;">Página {PAGENO} de {nbpg}</p>
+        {{-- <p style="font-size: 10px; color: #1e3a8a; margin: 0; padding: 0;">Página {PAGENO} de {nbpg}</p> --}}
     </div>
 </htmlpagefooter>
