@@ -13,7 +13,7 @@
 
 ## 3. Verificación manual end-to-end (Asignada a: usuario — Claude no verifica en navegador)
 
-- [ ] 3.1 Abrir el listado de análisis (`analisis.home`), escribir en la caja de búsqueda global el nombre o apellido de un paciente con análisis registrados, y confirmar que aparecen resultados.
-- [ ] 3.2 Confirmar que las búsquedas por columna ("Cliente" / "Ap") siguen funcionando igual que antes, de forma independiente de la búsqueda global.
-- [ ] 3.3 Si el usuario que prueba tiene rol médico, confirmar que la búsqueda global no muestra análisis de otros doctores fuera de su alcance.
-- [ ] 3.4 Confirmar que buscar el código interno exacto de un análisis lo encuentra, y que buscar solo una parte de ese código interno no lo encuentra (salvo coincidencia por los otros campos).
+- [x] 3.1 Abrir el listado de análisis (`analisis.home`), escribir en la caja de búsqueda global el nombre o apellido de un paciente con análisis registrados, y confirmar que aparecen resultados.
+- [x] 3.2 Confirmar que las búsquedas por columna ("Cliente" / "Ap") siguen funcionando igual que antes, de forma independiente de la búsqueda global.
+- [x] 3.3 Si el usuario que prueba tiene rol médico, confirmar que la búsqueda global no muestra análisis de otros doctores fuera de su alcance.
+- [x] 3.4 Confirmar que buscar el código interno exacto de un análisis lo encuentra, y que buscar solo una parte de ese código interno no lo encuentra (salvo coincidencia por los otros campos).
