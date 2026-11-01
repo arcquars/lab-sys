@@ -489,12 +489,24 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
         top: 0; /* se sobrescribe por JS segun la altura real de #labCart */
         right: 18px;
         width: 300px;
+        max-height: calc(100vh - 100px); /* tope base, se ajusta por JS segun top real */
         z-index: 3000;
         background: #fff;
         border-radius: 14px;
         box-shadow: 0 8px 32px rgba(16,185,129,.13), 0 2px 8px rgba(0,0,0,.08);
         border: 1.5px solid #d1fae5;
         font-family: inherit;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    #labCartPreOrder > .card-header {
+        flex-shrink: 0;
+    }
+    #labCartPreOrderItems {
+        overflow-y: auto;
+        flex: 1;
+        min-height: 0;
     }
     @media (max-width: 992px) {
         #labCartPreOrder { display: none !important; }
@@ -1428,8 +1440,9 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
             var $cart = $('#labCart');
             var $pre  = $('#labCartPreOrder');
             if (!$cart.length || !$pre.length) return;
-            var bottom = $cart.get(0).getBoundingClientRect().bottom;
-            $pre.css('top', (bottom + 12) + 'px');
+            var top = $cart.get(0).getBoundingClientRect().bottom + 12;
+            $pre.css('top', top + 'px');
+            $pre.css('max-height', Math.max(window.innerHeight - top - 20, 80) + 'px');
         }
         var _origLabCartRefresh = window.labCartRefresh;
         window.labCartRefresh = function () {
