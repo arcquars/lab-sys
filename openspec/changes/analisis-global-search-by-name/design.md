@@ -23,6 +23,9 @@ Alternativa considerada: replicar el patrón de `getDatatablesTecnico` (`...->wh
 **Aplicar el mismo cambio a ambas ramas del método.**
 Decisión del usuario (confirmada en conversación): ambas ramas comparten el mismo patrón duplicado: aplicar la corrección solo a una dejaría inconsistente el comportamiento según si el usuario tiene o no un doctor vinculado.
 
+**`internal_code` se compara con `=` (igualdad exacta), no con `LIKE '%...%'`.**
+Decisión explícita del usuario: a diferencia de `codigo`/`nombres`/`apellidos`, el texto de búsqueda global debe coincidir exactamente con `internal_code` para incluir ese análisis. Se agrega como una rama más del mismo grupo OR (`->orWhere('internal_code', '=', $searchG)`), sin afectar su contención dentro del `where(function(){...})` existente (sigue ANDado con el scoping de seguridad por doctor).
+
 ## Risks / Trade-offs
 
 - [Riesgo] Si `$searchG` está vacío, `LIKE '%%'` matchea todo — el grupo OR se vuelve un no-op (siempre verdadero), igual que el comportamiento actual de `codigo LIKE '%%'`. No hay cambio de comportamiento en el caso sin búsqueda.

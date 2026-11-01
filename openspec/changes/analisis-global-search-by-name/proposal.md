@@ -4,7 +4,8 @@ En el listado de análisis (`AnalisisController@getDatatablesData`, usado por `r
 
 ## What Changes
 
-- En `getDatatablesData`, la condición actual `->where('codigo', 'like', '%'.$searchG.'%')` se reemplaza por un grupo `(codigo LIKE %searchG% OR nombres LIKE %searchG% OR apellidos LIKE %searchG%)`, manteniendo el resto de filtros (scoping por doctor, `supervisar`, búsquedas por columna de `nombres`/`apellidos`) como condiciones AND separadas, sin alterarlas.
+- En `getDatatablesData`, la condición actual `->where('codigo', 'like', '%'.$searchG.'%')` se reemplaza por un grupo `(codigo LIKE %searchG% OR internal_code = searchG OR nombres LIKE %searchG% OR apellidos LIKE %searchG%)`, manteniendo el resto de filtros (scoping por doctor, `supervisar`, búsquedas por columna de `nombres`/`apellidos`) como condiciones AND separadas, sin alterarlas.
+- `internal_code` se compara con igualdad exacta (`=`), no con `LIKE`, a diferencia de `codigo`/`nombres`/`apellidos`.
 - Se aplica el mismo cambio a las dos ramas del método (`if($user->person)` y el `else`), que hoy tienen el mismo patrón duplicado.
 - Corrección de diseño respecto al precedente existente en `getDatatablesTecnico` (mismo archivo, líneas 945-962): ese método usa `->orWhere('codigo', ...)` encadenado al nivel superior, lo cual rompe el AND con los filtros anteriores (bug de precedencia ya existente, fuera de alcance de este change). En este change el nuevo OR se escribe agrupado (`->where(function(){...})`) para que no se repita ese problema — esto es crítico en la rama con persona vinculada, que tiene un filtro de seguridad (doctor solo ve sus propios análisis o los que supervisa) que no debe poder saltarse por una coincidencia de texto en la búsqueda global.
 

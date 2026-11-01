@@ -415,7 +415,7 @@ class AnalisisController extends Controller
         $searchNombres = isset($columns[2]['search']['value'])? $columns[2]['search']['value'] : '';
         $searchApellidos = isset($columns[3]['search']['value'])? $columns[3]['search']['value'] : '';
         $searchDoctorId = isset($columns[8]['search']['value'])? $columns[8]['search']['value'] : '';
-        $interconsultados = isset($columns[19]['search']['value'])? $columns[19]['search']['value'] : '';
+        $interconsultados = isset($columns[20]['search']['value'])? $columns[20]['search']['value'] : '';
 
 //        auth()->id()
         $user = User::find(auth()->id());
@@ -429,16 +429,32 @@ class AnalisisController extends Controller
 //                            ->orWhere('doctor_supervisor', '=', $user->person);
                             ->orWhereRaw('id in (select analisis.id from a_supervisores where a_supervisores.analisis_id=analisis.id and a_supervisores.doctor_id=' . $user->person . ')');
                     })
-                    ->where('codigo', 'like', '%'.$searchG.'%')
+                    ->where(function ($query) use ($searchG){
+                        $query->where('codigo', 'like', '%'.$searchG.'%')
+                            ->orWhere('internal_code', '=', $searchG)
+                            ->orWhereHas('person', function($q) use ($searchG){
+                                $q->where('nombres', 'like', '%'.$searchG.'%')
+                                    ->orWhere('apellidos', 'like', '%'.$searchG.'%');
+                            });
+                    })
                     ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
-                {
-                    $q->where('nombres', 'like', '%'.$searchNombres.'%')
-                        ->where('apellidos', 'like', '%'.$searchApellidos.'%');
-                });
+                    {
+                        $q->where('nombres', 'like', '%'.$searchNombres.'%')
+                            ->where('apellidos', 'like', '%'.$searchApellidos.'%');
+                    });
             });
         } else {
             $results = Laratables::recordsOf(Analisis::class, function($query) use ($searchNombres, $searchApellidos, $searchDoctorId, $searchG){
-                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')->where('codigo', 'like', '%'.$searchG.'%')->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
+                return $query->where('doctor_asignado', 'like', '%'.$searchDoctorId.'%')
+                    ->where(function ($query) use ($searchG){
+                        $query->where('codigo', 'like', '%'.$searchG.'%')
+                            ->orWhere('internal_code', '=', $searchG)
+                            ->orWhereHas('person', function($q) use ($searchG){
+                                $q->where('nombres', 'like', '%'.$searchG.'%')
+                                    ->orWhere('apellidos', 'like', '%'.$searchG.'%');
+                            });
+                    })
+                    ->whereHas('person', function($q) use ($searchNombres, $searchApellidos)
                 {
                     $q->where('nombres', 'like', '%'.$searchNombres.'%')
                         ->where('apellidos', 'like', '%'.$searchApellidos.'%');

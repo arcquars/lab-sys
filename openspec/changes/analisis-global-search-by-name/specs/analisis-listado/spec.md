@@ -5,7 +5,7 @@ Define cómo se filtra y busca el listado de análisis (vista `analisis.home`), 
 ## ADDED Requirements
 
 ### Requirement: Búsqueda global encuentra análisis por nombre o apellido del paciente
-El sistema SHALL permitir que el texto ingresado en la caja de búsqueda global del listado de análisis encuentre resultados cuyo `codigo` de análisis, o el `nombre` o `apellido` del paciente asociado, contengan ese texto (coincidencia parcial, sin distinguir mayúsculas/minúsculas según el collation de la base de datos).
+El sistema SHALL permitir que el texto ingresado en la caja de búsqueda global del listado de análisis encuentre resultados cuyo `codigo` de análisis, o el `nombre` o `apellido` del paciente asociado, contengan ese texto (coincidencia parcial, sin distinguir mayúsculas/minúsculas según el collation de la base de datos). Adicionalmente, el sistema SHALL incluir resultados cuyo `internal_code` sea **exactamente igual** al texto buscado (coincidencia exacta, no parcial).
 
 #### Scenario: Coincidencia por nombre del paciente
 - **WHEN** un usuario escribe en la búsqueda global un texto que coincide parcialmente con el nombre de un paciente
@@ -18,6 +18,14 @@ El sistema SHALL permitir que el texto ingresado en la caja de búsqueda global 
 #### Scenario: Coincidencia por código de análisis
 - **WHEN** un usuario escribe en la búsqueda global un texto que coincide parcialmente con el `codigo` de un análisis
 - **THEN** el listado incluye ese análisis, igual que antes de este cambio
+
+#### Scenario: Coincidencia exacta por código interno
+- **WHEN** un usuario escribe en la búsqueda global un texto que coincide **exactamente** con el `internal_code` de un análisis
+- **THEN** el listado incluye ese análisis
+
+#### Scenario: Coincidencia parcial de código interno no cuenta
+- **WHEN** un usuario escribe en la búsqueda global un texto que es solo una parte (no el valor completo) del `internal_code` de un análisis, y no coincide con `codigo`, `nombre` ni `apellido`
+- **THEN** ese análisis no aparece en el listado por esa coincidencia parcial de `internal_code`
 
 #### Scenario: Sin coincidencias
 - **WHEN** el texto de la búsqueda global no coincide con ningún `codigo`, `nombre` ni `apellido`
