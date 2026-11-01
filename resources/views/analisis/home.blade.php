@@ -497,7 +497,9 @@
                 },
                 columns: [
                     {name: 'id', visible: false},
-                    {name: 'codigo'},
+                    {name: 'codigo', render: function (data, type, row) {
+                        return row[16] ? data + ' (' + row[16] + ')' : data;
+                        }},
                     {name: 'person.nombres', orderable: false},
                     {name: 'person.apellidos', orderable: false, visible: false},
                     {name: 'person.apellido_materno', orderable: false, visible: false},
@@ -506,12 +508,12 @@
                     {name: 'region', orderable: false, visible: false},
                     {name: 'doctorasig.nombres', orderable: false, "render": function ( data, type, row ) {
                         var texto = "";
-                        if(row[19]){
+                        if(row[20]){
                             texto += "<span class='text-primary'title='Análisis Interconsultado' style='cursor: help;'>"+data + '</span>';
                         } else {
                             texto += data;
                         }
-                        // if(row[20]){
+                        // if(row[21]){
                         //     texto += ' <i class="fas fa-clipboard-check text-success" style="font-size: 14px;" title="Análisis Interconsultado aprobado"></i>';
                         // }
                         return texto;
@@ -532,6 +534,7 @@
                     {name: 'precio1', orderable: false, searchable: false},
                     {name: 'action', orderable: false, searchable: false},
                     {name: 'persona_entrega', visible: false, searchable: false},
+                    {name: 'internal_code', visible: false},
                     {name: 'fecha_cierre', visible: false, searchable: false},
                     {name: 'send_sms', visible: false, searchable: false},
                     {name: 'imprimir_firma', visible: false, searchable: false},
@@ -563,7 +566,7 @@
             });
 
             @if($interconsultados)
-            table.column(19).search(
+            table.column(20).search(
                 ($('input[name="interconsultados"]').is(':checked'))? 1 : ''
             ).draw();
             @endif
@@ -589,7 +592,7 @@
             } );
 
             $('input[name="interconsultados"]').on( 'change', function () {
-                table.column(19).search(
+                table.column(20).search(
                     ($('input[name="interconsultados"]').is(':checked'))? 1 : ''
                 ).draw();
             } );
