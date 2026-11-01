@@ -945,6 +945,7 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                     <div class="row">
                         <div class="col-md-6">
                             <ul class="mx-2 p-0" style="list-style:none;font-size:12px;">
+                                <li><a href="#" onclick="setMonth('0.01');">Neonato</a></li>
                                 <li><a href="#" onclick="setMonth('0.08');">0.08: 1 mes</a></li>
                                 <li><a href="#" onclick="setMonth('0.16');">0.16: 2 meses</a></li>
                                 <li><a href="#" onclick="setMonth('0.25');">0.25: 3 meses</a></li>

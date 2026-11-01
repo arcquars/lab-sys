@@ -122,6 +122,10 @@ class Analisis extends Model
             return "0 meses";
         }
 
+        if ($this->edad < 0.08) {
+            return "neonato";
+        }
+
         $anios = intval($this->edad);
         // Redondeamos los meses para evitar decimales por imprecisiones flotantes
         $meses = (int) round(($this->edad - $anios) * 12);
