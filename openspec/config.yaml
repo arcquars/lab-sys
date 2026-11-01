@@ -1,0 +1,68 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+context: |
+  Hemolab: sistema de laboratorio de patologia clinica (citologias, biopsias,
+  inmunohistoquimica, biologia molecular, asthianas, liquidos).
+
+  Tech stack: PHP 7.4, Laravel 6.x, Bootstrap 4, jQuery (sin SPA, sin API REST real).
+  Vistas Blade, AJAX ($.post) para la mayoria del CRUD.
+
+  Restricciones de version CRITICAS:
+  - PHP 7.4: NO usar match, enum, readonly, union types `|`, named arguments,
+    attributes, constructor promotion. Flechas cortas fn() y ??= si estan permitidos.
+  - Laravel 6.x: NO usar Route::controller() ni features de Laravel 8+. Usar
+    Resource Controllers, FormRequest, Policies, Gates.
+  - Bootstrap 4: NO usar clases de Bootstrap 5.
+  - jQuery en frontend; vue esta en package.json como devDependency pero NO se usa.
+
+  Modelos en app/ (NO app/Models/, estilo Laravel 6): Person (pacientes), User
+  (roles: admin, secretaria, tecnico, medico, invitado/addmore), Analisis,
+  Doctor (firmantes), Contrato (instituciones/facturacion), Gasto,
+  Marcador/Marker/MarcadorBiologia, AnalysisTest* (~20 plantillas de pruebas).
+
+  Configuracion clave: config/clinica.php (catalogos del negocio: procedencias,
+  tipos de analisis, clasificaciones Bethesda, marcadores, contadores),
+  config/pdf.php (mPDF, tamaño Letter), config/excel.php, config/honeypot.php.
+
+  Paquetes clave: niklasravnsborg/laravel-pdf (mpdf), maatwebsite/excel
+  (usar FromQuery, NO FromCollection para datasets grandes; exports en
+  app/Exports/), yajra/laravel-datatables-oracle (server-side AJAX,
+  metodo getDatatablesData por entidad), milon/barcode, spatie/laravel-honeypot.
+
+  Migraciones: esquema maduro (~100 migraciones). Siempre crear migraciones
+  nuevas, nunca editar las viejas. Tablas principales: analisis, persons,
+  usuarios, analyses_bassador_groups, analysis_test_*, biopsias, histoquimicas,
+  bethesda, liquidos, biomediamolecular, marcadores.
+
+  Base de datos: SOLO LECTURA para el agente — nunca migrar ni escribir en la
+  BD, solo consultas SELECT.
+
+  Comandos siempre dentro del contenedor Docker php74 (sin prefijo docker exec):
+  php artisan, composer, ./vendor/bin/phpunit, npm run dev / npm run prod.
+
+  Skills del proyecto en .claude/skills/<nombre>/SKILL.md: php, laravel,
+  database, docker, frontend, jquery, bootstrap.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+rules:
+  proposal:
+    - Respetar las restricciones de PHP 7.4 y Laravel 6.x al describir cambios
+    - Indicar si el cambio requiere migraciones nuevas (nunca editar migraciones viejas)
+  tasks:
+    - Incluir un paso de verificacion con ./vendor/bin/phpunit cuando aplique
+    - Recordar que los comandos se ejecutan dentro del contenedor Docker php74
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+operations:
+  apply:
+    guidance:
+      - No escribir ni migrar la base de datos; solo consultas SELECT
+      - Verificar compatibilidad con PHP 7.4 / Laravel 6.x antes de aplicar codigo
+  archive:
+    guidance:
+      - Confirmar que las pruebas relevantes (phpunit) se corrieron antes de archivar

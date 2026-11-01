@@ -35,3 +35,12 @@ rest-test/*
 docs/*
 .claude/*
 !.claude/skills/
+
+# Archivos que estaban trackeados por error (credenciales, logs, basura)
+datos-importantes.md
+error_log.txt
+yarn-back.lock
+/public/pp.php
+/public/0.js
+/public/4445645656.png
+/index.html  
