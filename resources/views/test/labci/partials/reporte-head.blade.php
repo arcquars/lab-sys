@@ -6,12 +6,12 @@
                 <td style="width: 22%; vertical-align: middle;">
                     <img src="{{public_path('img/labci/labci-new-logo-azul-oscuro.png')}}" width="170">
                 </td>
-                <td style="width: 56%; vertical-align: top; text-align: center;">
-                    <p style="font-size: 15px; text-align: center; font-weight: 900; margin: 5px; color: #172554;">
-                        LABORATORIO CLINICO Y DE INVESTIGACIÓN LABCI S.R.L
-                    </p>
-                    <p style="font-size: 10px; margin-top: 10px; padding-top: 10px;"> 
-                        Hematología, Coagulación, Química sanguínea, Serología, Inmunología, Endocrinólogia, Toxicología , Uroanalisis, Parasitología, Microbiología, Biología Molecular.
+                <td style="width: 56%; vertical-align: top; vertical-align: middle; text-align: center;">
+                    <h4 style="text-align: center; color: #172554; font-size: 16px;">
+                        LABORATORIO CLÍNICO Y DE INVESTIGACIÓN LABCI S.R.L
+                    </h4>
+                    <p style="font-size: 8px; color: #172554; text-transform: uppercase;"> 
+                        Hematología - Coagulación -Química sanguínea - Serología - Inmunología - Endocrinólogia - Toxicología - Uroanalisis - Parasitología - Microbiología - Biología Molecular
                     </p>
                 </td>
                 <td style="width: 22%; vertical-align: middle; text-align: right;">
