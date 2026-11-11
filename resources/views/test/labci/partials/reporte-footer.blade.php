@@ -78,8 +78,17 @@ $chunkSupervisores = $analisis->getSupervisoresVerificado()->chunk(3);
             <p style="margin: 1px; font-size: 8px">{{$analisis->doctorasig->matricula}}</p>
         @else
             @if ($analisis->imprimir_firma)
-                <img width="130" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
-
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 60%; text-align: right;">
+                            <img width="130" src="{{public_path('uploads/signings/'.$analisis->doctorasig->signing)}}" alt="">
+                        </td>
+                        <td>
+                            <img width="45" src="{{public_path('img/labci/sello-labci.png')}}" alt="">
+                        </td>
+                    </tr>
+                </table>
+                
                 <p style="margin: 0; font-size: 11px; font-weight: 700;">{{$analisis->doctorasig->nombres}} {{$analisis->doctorasig->apellidos}}</p>
                 <p style="margin: 0; font-size: 11px; font-weight: 700;">{{$analisis->doctorasig->matricula}}</p>
             @endif
