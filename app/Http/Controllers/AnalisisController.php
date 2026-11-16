@@ -19,6 +19,7 @@ use App\Http\Requests\StoreAnalisisPost;
 use App\Http\Requests\StoreResultadosPost;
 use App\Http\Requests\UpdateAnalisisPost;
 use App\ImpresionControl;
+use App\IndustrialExhibition;
 use App\Institucion;
 use App\Liquido;
 use App\Person;
@@ -30,6 +31,7 @@ use App\User;
 use Freshbitsweb\Laratables\Laratables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Milon\Barcode\DNS2D;
@@ -87,7 +89,8 @@ class AnalisisController extends Controller
     {
         $analisis = new Analisis();
         $analisis->person_id = $request->get('person_id');
-        $analisis->edad = ($request->get('edad'))? $request->get('edad') : 0;
+        $analisis->is_industrial = $request->industrialSelected();
+        $analisis->edad = $analisis->is_industrial ? 0 : ($request->get('edad') ?: 0);
         $analisis->doctor = $request->get('doctor');
         $analisis->fecha = $request->get('fecha');
         $analisis->doctor_asignado = $request->get('doctor_asignado');
@@ -126,7 +129,13 @@ class AnalisisController extends Controller
         $analisis->observaciones = $request->get('observaciones');
         $analisis->user_id = auth()->id();
 
-        if($analisis->save()) {
+        DB::transaction(function () use ($analisis, $request) {
+            if (!$analisis->save()) {
+                throw new \RuntimeException('No se pudo guardar el análisis.');
+            }
+            if ($analisis->is_industrial) {
+                $this->sincronizarMuestraIndustrial($analisis, $request);
+            }
             EditarControl::grabarEditar(Auth::user()->id, $analisis->id);
             if(strcmp($analisis->tipo_analisis, Analisis::PRUEBA) == 0){
                 $aTests = $request->input('aTests', []);
@@ -144,7 +153,9 @@ class AnalisisController extends Controller
                         $aTestResult->analysis_id = $analisis->id;
                         $aTestResult->a_test_id = $aTest->id;
                         $aTestResult->metodo = $aTest->metodo?? null;
-                        $aTestResult->save();
+                        if (!$aTestResult->save()) {
+                            throw new \RuntimeException('No se pudo guardar una prueba del análisis.');
+                        }
                     }
                 }
 
@@ -154,7 +165,9 @@ class AnalisisController extends Controller
                     $aTestResult->analysis_id = $analisis->id;
                     $aTestResult->a_test_id = $aTest;
                     $aTestResult->metodo = $atestSelect->metodo?? null;
-                    $aTestResult->save();
+                    if (!$aTestResult->save()) {
+                        throw new \RuntimeException('No se pudo guardar una prueba del análisis.');
+                    }
                 }
             }
 
@@ -167,7 +180,9 @@ class AnalisisController extends Controller
                     $preorder = \App\PreOrder::find($request->input('preOrden'));
                     if ($preorder) {
                         $preorder->analisis_id = $analisis->id;
-                        $preorder->save();
+                        if (!$preorder->save()) {
+                            throw new \RuntimeException('No se pudo asociar la preorden.');
+                        }
                         $preorder->changeState(\App\PreOrder::STATE_CREADO, auth()->id());
                     }
                 } catch (\DomainException $e) {
@@ -175,16 +190,14 @@ class AnalisisController extends Controller
                 }
             }
 
-            $request->session()->flash('status', '¡Análisis creado correctamente!');
-            // Guardamos el ID en una variable de sesión flash llamada 'print_receipt'
-            if(Setting::get('receipt_print', '0')){
-                $request->session()->flash('print_receipt', $analisis->id);
-            }
-            
-            return redirect('/clients');
-        } else {
-            dd('El analisis tiene errores!!!');
+        });
+
+        $request->session()->flash('status', '¡Análisis creado correctamente!');
+        if (Setting::get('receipt_print', '0')) {
+            $request->session()->flash('print_receipt', $analisis->id);
         }
+
+        return redirect('/clients');
     }
 
     /**
@@ -230,37 +243,58 @@ class AnalisisController extends Controller
      */
     public function update(UpdateAnalisisPost $request, $id)
     {
-        $analisis = Analisis::find($id);
+        DB::transaction(function () use ($request, $id) {
+            $analisis = Analisis::lockForUpdate()->findOrFail($id);
 
-        $convenios = explode(",",config('clinica.convenios_id'));
+            $convenios = explode(",",config('clinica.convenios_id'));
 
-        $valid1 = false;
-        foreach ($convenios as $con){
-            if($con == $analisis->procedencia){
-                $valid1 = true;
+            $valid1 = false;
+            foreach ($convenios as $con){
+                if($con == $analisis->procedencia){
+                    $valid1 = true;
+                }
             }
-        }
-        $valid2 = false;
-        foreach ($convenios as $con){
-            if($con == $request->post('procedencia')){
-                $valid2 = true;
+            $valid2 = false;
+            foreach ($convenios as $con){
+                if($con == $request->post('procedencia')){
+                    $valid2 = true;
+                }
             }
-        }
-        if($valid1){
-            if(!$valid2){
-                // borrar registeo de la tabla convenios
-                Convenio::where('analisis_id', $id)->delete();
+            if($valid1){
+                if(!$valid2){
+                    // borrar registeo de la tabla convenios
+                    Convenio::where('analisis_id', $id)->delete();
+                }
             }
-        }
 
-        $analisis->fill($request->all());
+            $analisis->fill($request->except(array_merge(
+                ['is_industrial', 'edad'], IndustrialExhibition::DATA_FIELDS
+            )));
+            if ($request->exists('is_industrial')) {
+                $analisis->is_industrial = $request->industrialSelected();
+            }
+            if ($analisis->is_industrial && $analisis->tipo_analisis !== Analisis::PRUEBA) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'is_industrial' => 'Muestra industrial solo está disponible para análisis LABCI.',
+                ]);
+            }
+            if ($analisis->is_industrial) {
+                $analisis->edad = 0;
+            } elseif ($request->exists('edad')) {
+                $analisis->edad = $request->input('edad') ?: 0;
+            }
 
-        $doctorAsig = Doctor::find($analisis->doctor_asignado);
-        if($doctorAsig && $doctorAsig->supervisado){
-            $analisis->supervisar = true;
-        }
+            $doctorAsig = Doctor::find($analisis->doctor_asignado);
+            if($doctorAsig && $doctorAsig->supervisado){
+                $analisis->supervisar = true;
+            }
 
-        if($analisis->update()){
+            if (!$analisis->save()) {
+                throw new \RuntimeException('No se pudo actualizar el análisis.');
+            }
+            if ($request->exists('is_industrial')) {
+                $this->sincronizarMuestraIndustrial($analisis, $request);
+            }
             EditarControl::grabarEditar(Auth::user()->id, $analisis->id);
 
             // Si el formulario es el tipo carrito (v2), siempre envia el campo
@@ -301,14 +335,42 @@ class AnalisisController extends Controller
                     $convenio->bancaHospitalizado = $request->get('bancaHospitalizado');
 
 
-                    $convenio->save();
+                    if (!$convenio->save()) {
+                        throw new \RuntimeException('No se pudo actualizar el convenio.');
+                    }
                 }
             }
 
-            $request->session()->flash('success', '¡Análisis actualizado correctamente!');
-        }
+        });
+
+        $request->session()->flash('success', '¡Análisis actualizado correctamente!');
         return redirect()->action(
             'AnalisisController@index');
+    }
+
+    protected function sincronizarMuestraIndustrial(Analisis $analisis, Request $request)
+    {
+        if (!$analisis->is_industrial) {
+            $analisis->industrialExhibition()->delete();
+            return;
+        }
+
+        $detail = $analisis->industrialExhibition()->first() ?: new IndustrialExhibition();
+        $data = [];
+        foreach (IndustrialExhibition::DATA_FIELDS as $field) {
+            $value = $request->input($field);
+            $data[$field] = is_string($value) ? trim($value) : $value;
+            if ($data[$field] === '') {
+                $data[$field] = null;
+            }
+        }
+        $detail->fill($data);
+        if (!$detail->exists) {
+            $detail->user_id = auth()->id();
+        }
+        if (!$analisis->industrialExhibition()->save($detail)) {
+            throw new \RuntimeException('No se pudo guardar la muestra industrial.');
+        }
     }
 
     /**
@@ -361,7 +423,9 @@ class AnalisisController extends Controller
                 $aTestResult->analysis_id = $analisis->id;
                 $aTestResult->a_test_id = $aTestId;
                 $aTestResult->metodo = $atestSelect->metodo ?? null;
-                $aTestResult->save();
+                if (!$aTestResult->save()) {
+                    throw new \RuntimeException('No se pudo guardar una prueba del análisis.');
+                }
             }
         }
     }
@@ -1241,7 +1305,7 @@ class AnalisisController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function editarAnalisisHemoForPersonaV2($analisisId){
-        $analisis = Analisis::find($analisisId);
+        $analisis = Analisis::with('industrialExhibition')->find($analisisId);
 
         if(!$analisis){
             abort(404);

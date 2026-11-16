@@ -1,3 +1,6 @@
+@if($analisis->is_industrial)
+    @include('test.labci.partials.reporte-industrial-client')
+@else
 <h3 class="labci-h3">DATOS GENERALES:</h3>
 <table class="labci-table-4">
     <tbody>
@@ -98,3 +101,4 @@
         </tr>
     </tbody>
 </table>
+@endif

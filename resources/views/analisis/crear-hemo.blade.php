@@ -1,6 +1,6 @@
 @php
 /** @var [] $tipoPagoAcuenta */
-
+$isIndustrial = (bool) old('is_industrial', false);
 
 @endphp
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
@@ -20,17 +20,17 @@
             <div class="row">
                 <div class="col-md-4">
                     <dl>
-                        <dt>Nombres y Apellidos: </dt>
-                        <dd>{{ $persona->full_name }}</dd>
+                        <dt data-client-label data-clinical-label="Nombres y Apellidos:">{{ $isIndustrial ? 'Cliente:' : 'Nombres y Apellidos:' }}</dt>
+                        <dd>{{ $persona->fullname }}</dd>
                     </dl>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 @if($isIndustrial) d-none @endif" data-clinical-demographic>
                     <dl>
                         <dt>Fecha nacimiento:</dt>
                         <dd>{{($persona->f_nacimiento)? $persona->f_nacimiento : '--'}}</dd>
                     </dl>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 @if($isIndustrial) d-none @endif" data-clinical-demographic>
                     <dl>
                         <dt>Sexo:</dt>
                         <dd>{{$persona->sexo}}</dd>
@@ -62,8 +62,10 @@
                 <input type="hidden" name="codigo" value="--">
                 <input type="hidden" name="region" value="--">
 
+                @include('analisis.includes.industrial-fields')
+
                 <div class="row">
-                    <div class="col-md-1">
+                    <div class="col-md-1 @if($isIndustrial) d-none @endif" data-clinical-age>
                         <div class="form-group">
                             <label for="edad">Edad (años) 
                                 <span class="edadinfo-popover text-info p-2" 
@@ -74,9 +76,10 @@
                                 </span>
                             </label>
                             <input type="number" name="edad"
+                                   @if($isIndustrial) disabled @endif
                                    class="form-control @error('edad') is-invalid @enderror"
                                    step="0.01"
-                                   value="{{old('edad')? old('edad') : $edad}}">
+                                   value="{{old('edad', $edad)}}">
                             @error('edad')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror

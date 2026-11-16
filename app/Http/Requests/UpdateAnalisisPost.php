@@ -7,6 +7,8 @@ use App\Analisis;
 
 class UpdateAnalisisPost extends FormRequest
 {
+    use IndustrialSampleRules;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -49,6 +51,24 @@ class UpdateAnalisisPost extends FormRequest
             $rulesR['aTests'] = 'required';
         }
 
+        $analisis = $this->analisisForIndustrialValidation();
+        $industrial = $this->exists('is_industrial') ? $this->industrialSelected() : $analisis->is_industrial;
+        if ($industrial) {
+            unset($rulesR['edad']);
+        }
+
+        $rulesR = array_merge($rulesR, $this->industrialRules($analisis->tipo_analisis));
+        if ($industrial && $this->filled('tipo_analisis')) {
+            $rulesR['tipo_analisis'] = 'in:' . Analisis::PRUEBA;
+        }
+
         return $rulesR;
+    }
+
+    protected function analisisForIndustrialValidation()
+    {
+        $analisis = $this->route('analisi');
+
+        return $analisis instanceof Analisis ? $analisis : Analisis::findOrFail($analisis);
     }
 }

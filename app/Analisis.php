@@ -72,12 +72,18 @@ class Analisis extends Model
     ];
 
     protected $casts = [
+        'is_industrial' => 'boolean',
         'fecha'  => 'date:Y-m-d',
         'fecha_cierre' => 'datetime:Y-m-d H:m',
     ];
 
     public function person(){
         return $this->belongsTo('App\Person');
+    }
+
+    public function industrialExhibition()
+    {
+        return $this->hasOne(IndustrialExhibition::class, 'analisis_id');
     }
 
     public function institucion(){

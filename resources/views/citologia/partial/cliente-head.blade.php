@@ -6,7 +6,7 @@ $doctoresTitulares = ClinicaHelper::getAllDoctorTitulares($analisis->doctor_asig
 $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
 ?>
 <dl class="row row-citologia">
-    <dt class="col-md-3">Paciente:</dt>
+    <dt class="col-md-3">{{ $analisis->is_industrial ? 'Cliente:' : 'Paciente:' }}</dt>
     <dd class="col-md-3">
         {{$analisis->person->apellidos.' '.$analisis->person->apellido_materno.', '.$analisis->person->nombres}}
         @if($analisis->person->isSisNombreApellido())
@@ -19,6 +19,7 @@ $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
 <dl class="row row-citologia">
     <dt class="col-md-3">Procedencia:</dt>
     <dd class="col-md-3">{{$analisis->institucion->nombre}}</dd>
+    @if(!$analisis->is_industrial)
     <dt class="col-md-3">Edad:</dt>
     @if($analisis->edad)
         <dd class="col-md-3">{{$analisis->label_edad}}</dd>
@@ -29,10 +30,13 @@ $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
             <dd class="col-md-3">{{$analisis->person->month_now}} meses</dd>
         @endif
     @endif
+    @endif
 </dl>
 <dl class="row row-citologia">
+    @if(!$analisis->is_industrial)
     <dt class="col-md-3">Sexo:</dt>
     <dd class="col-md-3">{{(strcmp($analisis->person->sexo, 'hombre') == 0)? 'MASCULINO' : 'FEMENINO'}}</dd>
+    @endif
     <dt class="col-md-3">Código:</dt>
     <dd class="col-md-3">{{$analisis->codigo}}</dd>
 </dl>
@@ -69,6 +73,10 @@ $preorden = \App\PreOrder::where('analisis_id', $analisis->id)->first();
         <dt class="col-md-3">Preafiliación convenio:</dt>
         <dd class="col-md-3">{{$analisis->convenio->bancaPreAfiliacion}}</dd>
     </dl>
+@endif
+
+@if($analisis->is_industrial)
+    @include('analisis.includes.industrial-head')
 @endif
 
 <div class="row">

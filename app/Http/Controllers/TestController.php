@@ -31,7 +31,7 @@ class TestController extends Controller
      */
     public function create($analysisId)
     {
-        $analysis = Analisis::find($analysisId);
+        $analysis = Analisis::with('industrialExhibition')->find($analysisId);
         $metodo = Setting::get('metodo_analisis', '1');
         $orderGroupTest = ClinicaHelper::getTestGroupResults($analysisId);
 
@@ -96,7 +96,7 @@ class TestController extends Controller
     }
 
     public function viewResultado($analisisId){
-        $analisis = Analisis::find($analisisId);
+        $analisis = Analisis::with('industrialExhibition')->find($analisisId);
         $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 
         return view('test.view', compact(
@@ -112,7 +112,7 @@ class TestController extends Controller
             ImpresionControl::grabarImpresion(Auth::user()->id, $analisisId);
         }
 
-        $analisis = Analisis::find($analisisId);
+        $analisis = Analisis::with('industrialExhibition')->find($analisisId);
 
         $orderGroupTest = ClinicaHelper::getTestGroupResultsSorted($analisisId);
 

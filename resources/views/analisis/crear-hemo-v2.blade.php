@@ -2,6 +2,11 @@
 /** @var [] $tipoPagoAcuenta */
 $isEdit = isset($analisis) && $analisis;
 $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acuenta : null);
+$isIndustrial = (bool) old('is_industrial', $isEdit ? $analisis->is_industrial : false);
+$clinicalAge = $isEdit ? $analisis->edad : $edad;
+if ($isEdit && $analisis->is_industrial && $persona->f_nacimiento) {
+    $clinicalAge = \Carbon\Carbon::parse($persona->f_nacimiento)->age;
+}
 @endphp
 @extends('layouts.dash', ['activePage' => 'analisis', 'title' => 'Administrar Clientes', 'navName' => $isEdit ? 'Editar Analisis' : 'Crear Analisis', 'activeButton' => 'clientActiveButton'])
 
@@ -527,17 +532,17 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
             <div class="row patient-header-row">
                 <div class="col-md-4 col-6">
                     <dl class="mb-0">
-                        <dt>Nombres y Apellidos:</dt>
+                        <dt data-client-label data-clinical-label="Nombres y Apellidos:">{{ $isIndustrial ? 'Cliente:' : 'Nombres y Apellidos:' }}</dt>
                         <dd>{{ $persona->fullname }}</dd>
                     </dl>
                 </div>
-                <div class="col-md-4 col-6">
+                <div class="col-md-4 col-6 @if($isIndustrial) d-none @endif" data-clinical-demographic>
                     <dl class="mb-0">
                         <dt>Fecha nacimiento:</dt>
                         <dd>{{($persona->f_nacimiento) ? $persona->f_nacimiento : '--'}}</dd>
                     </dl>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-4 col-12 @if($isIndustrial) d-none @endif" data-clinical-demographic>
                     <dl class="mb-0">
                         <dt>Sexo:</dt>
                         <dd>{{$persona->sexo}}</dd>
@@ -696,9 +701,11 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                 <input type="hidden" name="codigo"       value="--">
                 <input type="hidden" name="region"       value="--">
 
+                @include('analisis.includes.industrial-fields')
+
                 {{-- Fila 1: Edad / Doctor / Región / Teléfono / Fecha --}}
                 <div class="row">
-                    <div class="col-6 col-lg-2">
+                    <div class="col-6 col-lg-2 @if($isIndustrial) d-none @endif" data-clinical-age>
                         <label for="edad">Edad
                             <span class="edadinfo-popover text-info p-1"
                                     title="Convertir a meses"
@@ -708,9 +715,10 @@ $selectedTipoPago = old('tipo_pago_acuenta', $isEdit ? $analisis->tipo_pago_acue
                             </span>
                         </label>
                         <input type="number" name="edad"
+                                @if($isIndustrial) disabled @endif
                                 class="form-control @error('edad') is-invalid @enderror"
                                 step="0.01"
-                                value="{{old('edad', $isEdit ? $analisis->edad : $edad)}}">
+                                value="{{old('edad', $clinicalAge)}}">
                         @error('edad')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror

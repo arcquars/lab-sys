@@ -9,6 +9,8 @@ use Config;
 
 class StoreAnalisisPost extends FormRequest
 {
+    use IndustrialSampleRules;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -86,6 +88,10 @@ class StoreAnalisisPost extends FormRequest
             $rulesR['aTests'] = 'required';
         }
 
-        return $rulesR;
+        if ($this->industrialSelected()) {
+            unset($rulesR['edad']);
+        }
+
+        return array_merge($rulesR, $this->industrialRules($tipoAnalisis));
     }
 }
