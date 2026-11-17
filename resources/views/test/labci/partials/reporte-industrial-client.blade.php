@@ -4,12 +4,23 @@
     if ($showCodeIntPdf && !empty($analisis->internal_code)) {
         $codigoLab .= ' - ' . $analisis->internal_code;
     }
+
     $generalRows = [
         ['CLIENTE', $analisis->person->apellidos.' '.$analisis->person->apellido_materno.' '.$analisis->person->nombres, 'COD LAB', $codigoLab],
         ['CI/PASAPORTE', $analisis->person->ci, 'FECHA DE SOLICITUD', $analisis->fecha->format('Y-m-d')],
         ['SOLICITANTE', $analisis->doctor, 'INSTITUCIÓN', $analisis->institucion->nombre],
         ['RECEPCIONADO POR', $analisis->user->name, 'FECHA DE IMPRESIÓN', \Carbon\Carbon::now()->format('Y-m-d, H:i:s')],
     ];
+    if($detail){
+        $generalRows = [
+        ['CLIENTE', $analisis->person->apellidos.' '.$analisis->person->apellido_materno.' '.$analisis->person->nombres, 'COD LAB', $codigoLab],
+        ['CI/PASAPORTE', $analisis->person->ci, 'FECHA DE SOLICITUD', $analisis->fecha->format('Y-m-d')],
+        ['SOLICITANTE', $analisis->doctor, 'FECHA DE IMPRESIÓN', \Carbon\Carbon::now()->format('Y-m-d, H:i:s')],
+        ['RECEPCIONADO POR', $analisis->user->name, '', ''],
+    ];
+    }
+
+    
     $industrialRows = [
         ['PRODUCTO', optional($detail)->product_name, 'FECHA DE ENSAYO', optional(optional($detail)->rehearsal_date)->format('Y-m-d')],
         ['NRO. DE LOTE', optional($detail)->lot_number, 'FECHA DE FABRICACIÓN', optional(optional($detail)->manufacture_date)->format('Y-m-d')],
@@ -17,7 +28,12 @@
     ];
 @endphp
 @foreach(['DATOS GENERALES' => $generalRows, 'Muestra industrial' => $industrialRows] as $title => $rows)
-    <h3 class="labci-h3">{{ $title }}:</h3>
+    @if(strcmp($title, 'Muestra industrial') != 0)
+        <h3 class="labci-h3">{{ $title }}:</h3>
+    @else
+        <p class="labci-table-p-b" style="margin: 0, 4px;"><b>{{ mb_strtoupper($title) }}</b></p>
+    @endif
+    
     <table class="labci-table-4" style="table-layout: fixed; width: 100%;">
         <tbody>
             @foreach($rows as $row)
