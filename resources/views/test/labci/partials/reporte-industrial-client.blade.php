@@ -14,9 +14,8 @@
     if($detail){
         $generalRows = [
         ['CLIENTE', $analisis->person->apellidos.' '.$analisis->person->apellido_materno.' '.$analisis->person->nombres, 'COD LAB', $codigoLab],
-        ['CI/PASAPORTE', $analisis->person->ci, 'FECHA DE SOLICITUD', $analisis->fecha->format('Y-m-d')],
-        ['SOLICITANTE', $analisis->doctor, 'FECHA DE IMPRESIÓN', \Carbon\Carbon::now()->format('Y-m-d, H:i:s')],
-        ['RECEPCIONADO POR', $analisis->user->name, '', ''],
+        ['FECHA DE SOLICITUD', $analisis->fecha->format('Y-m-d'), 'FECHA DE IMPRESIÓN', \Carbon\Carbon::now()->format('Y-m-d, H:i:s')],
+        ['SOLICITANTE', $analisis->doctor, 'RECEPCIONADO POR', $analisis->user->name],
     ];
     }
 
