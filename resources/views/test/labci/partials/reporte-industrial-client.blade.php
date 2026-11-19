@@ -22,8 +22,8 @@
     
     $industrialRows = [
         ['PRODUCTO', optional($detail)->product_name, 'FECHA DE ENSAYO', optional(optional($detail)->rehearsal_date)->format('Y-m-d')],
-        ['NRO. DE LOTE', optional($detail)->lot_number, 'FECHA DE FABRICACIÓN', optional(optional($detail)->manufacture_date)->format('Y-m-d')],
-        ['FECHA DE VENCIMIENTO', optional(optional($detail)->expiration_date)->format('Y-m-d'), null, null],
+        ['NRO. DE LOTE', optional($detail)->lot_number, 'FECHA DE FABRICACIÓN', optional(optional($detail)->manufacture_date)->format('Y-m')],
+        ['FECHA DE VENCIMIENTO', optional(optional($detail)->expiration_date)->format('Y-m'), null, null],
     ];
 @endphp
 @foreach(['DATOS GENERALES' => $generalRows, 'Muestra industrial' => $industrialRows] as $title => $rows)
