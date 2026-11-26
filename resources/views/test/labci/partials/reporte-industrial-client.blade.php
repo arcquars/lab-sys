@@ -21,8 +21,8 @@
         $generalRows = [
             ['SOLICITANTE', $analisis->doctor, 'FECHA DE SOLICITUD', $analisis->fecha->format('Y-m-d')],
             ['RECEPCIONADO POR', $analisis->user->name, 'COD LAB', $codigoLab],
-            ['FECHA DE RECEPCIÓN', optional(optional($detail)->rehearsal_date)->format('Y-m-d'), 'FECHA DE FABRICACIÓN', optional(optional($detail)->manufacture_date)->format('m/Y')],
-            ['NRO. DE LOTE', optional($detail)->lot_number, 'FECHA DE VENCIMIENTO', optional(optional($detail)->expiration_date)->format('m/Y')],
+            ['FECHA DE RECEPCIÓN', optional(optional($detail)->rehearsal_date)->format('Y-m-d'), 'FECHA DE FABRICACIÓN', optional(optional($detail)->manufacture_date)->format('m/y')],
+            ['NRO. DE LOTE', optional($detail)->lot_number, 'FECHA DE VENCIMIENTO', optional(optional($detail)->expiration_date)->format('m/y')],
         ];
     }
 
